@@ -18,8 +18,12 @@
 
 .game-dialog__title {
   margin: 0;
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gold-800);
+  border-block-end: 2px solid var(--color-wood-amber);
+  padding-block-end: var(--space-2);
 }
 
 .game-dialog__content {
@@ -32,4 +36,79 @@
   display: flex;
   justify-content: flex-end;
   gap: var(--space-3);
+}
+
+/* ── Parchment overrides for everything rendered inside a dialog ───────────
+   The game dialogs share BaseDialog (parchment surface) plus the generic
+   Button and stats-grid components; re-skin those within dialog scope so the
+   debug views keep their own styling. */
+
+/* Cream pill buttons (default / secondary / tertiary) */
+.base-dialog .button {
+  border: 2px solid var(--color-wood-dark);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--color-gold-50), var(--color-gold-200));
+  color: var(--color-gold-800);
+  font-weight: 700;
+  box-shadow: var(--shadow-confirm);
+}
+
+.base-dialog .button:hover:not(:disabled),
+.base-dialog .button:active:not(:disabled) {
+  background: linear-gradient(180deg, var(--color-gold-50), var(--color-gold-200));
+  border-color: var(--color-wood-dark);
+  color: var(--color-gold-800);
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+.base-dialog .button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Primary CTA — pink signboard button */
+.base-dialog .button--primary,
+.base-dialog .button--primary:hover:not(:disabled),
+.base-dialog .button--primary:active:not(:disabled) {
+  background: linear-gradient(180deg, var(--color-pink-500), var(--color-pink-600));
+  border-color: var(--color-pink-600);
+  color: #ffffff;
+  text-shadow: 0 1px 0 rgba(69, 26, 3, 0.25);
+}
+
+/* Destructive — red ink on red-tinted parchment */
+.base-dialog .button--danger,
+.base-dialog .button--danger:hover:not(:disabled),
+.base-dialog .button--danger:active:not(:disabled) {
+  background: var(--color-red-50);
+  border-color: var(--color-red-500);
+  color: var(--color-red-500);
+  text-shadow: none;
+}
+
+.base-dialog .button:disabled {
+  opacity: 0.55;
+}
+
+/* Stats grid — parchment entry rows */
+.base-dialog .stats-grid {
+  border: 1.5px solid var(--chrome-entry-border);
+  border-radius: var(--radius-lg);
+}
+
+.base-dialog .stat-item {
+  border-block-end: 1px solid rgba(146, 64, 14, 0.28);
+}
+
+.base-dialog .stat-item:nth-child(odd),
+.base-dialog .stat-item:nth-child(even) {
+  background-color: var(--chrome-entry-bg);
+}
+
+.base-dialog .stat-label {
+  color: var(--color-wood-dark);
+}
+
+.base-dialog .stat-value {
+  color: var(--color-wood-border);
 }

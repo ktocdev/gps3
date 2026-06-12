@@ -122,12 +122,29 @@ function getNeedColorClass(value: number): string {
   z-index: 1000;
   min-inline-size: 220px;
   max-inline-size: 280px;
-  background-color: var(--color-bg-primary);
-  border: 1px solid var(--color-border-medium);
-  border-radius: var(--radius-md);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(180deg, var(--panel-bg-top) 0%, var(--panel-bg-bot) 100%);
+  border: 3px solid var(--panel-border);
+  border-radius: var(--panel-radius);
+  box-shadow: var(--panel-shadow);
+  color: var(--color-wood-border);
   overflow: hidden;
   /* transform removed - Floating UI handles positioning */
+}
+
+/* Striped awning in the pig pink accent */
+.guinea-pig-info-menu::before {
+  content: '';
+  display: block;
+  block-size: 12px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-pink) 0 14px,
+    var(--color-gold-50) 14px 28px
+  );
+  border-block-end: 2px solid var(--panel-border);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18);
 }
 
 .guinea-pig-info-menu__header {
@@ -135,14 +152,14 @@ function getNeedColorClass(value: number): string {
   justify-content: space-between;
   align-items: center;
   padding: var(--spacing-sm) var(--spacing-md);
-  background-color: var(--color-bg-secondary);
-  border-block-end: 1px solid var(--color-border-light);
+  border-block-end: 2px solid var(--color-wood-amber);
 }
 
 .guinea-pig-info-menu__name {
+  font-family: var(--font-family-heading);
   font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-md);
-  color: var(--color-text-primary);
+  font-size: var(--font-size-xl);
+  color: var(--color-gold-800);
 }
 
 .guinea-pig-info-menu__close {
@@ -152,18 +169,21 @@ function getNeedColorClass(value: number): string {
   inline-size: 24px;
   block-size: 24px;
   padding: 0;
-  border: none;
-  background: transparent;
-  color: var(--color-text-muted);
-  font-size: var(--font-size-lg);
+  border: 2px solid var(--color-wood-dark);
+  background: linear-gradient(180deg, var(--color-gold-50) 0%, var(--color-gold-200) 100%);
+  color: var(--color-gold-800);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
   cursor: pointer;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-confirm);
   transition: all var(--transition-fast);
 }
 
 .guinea-pig-info-menu__close:hover {
-  background-color: var(--color-bg-tertiary);
-  color: var(--color-text-primary);
+  filter: brightness(1.06);
+  transform: translateY(-1px);
 }
 
 .guinea-pig-info-menu__needs {
@@ -184,19 +204,23 @@ function getNeedColorClass(value: number): string {
 
 .guinea-pig-info-menu__need-label {
   font-size: var(--font-size-xs);
-  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gold-800);
 }
 
 .guinea-pig-info-menu__need-bar {
   block-size: 8px;
-  background-color: var(--color-bg-tertiary);
-  border-radius: var(--radius-sm);
+  background: linear-gradient(180deg, var(--color-wood-shadow), var(--color-wood-dark));
+  border: 1.5px solid var(--color-wood-border);
+  border-radius: var(--radius-full);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
   overflow: hidden;
 }
 
 .guinea-pig-info-menu__need-fill {
   block-size: 100%;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
   transition: width var(--transition-normal);
 }
 
@@ -219,7 +243,8 @@ function getNeedColorClass(value: number): string {
 .guinea-pig-info-menu__need-value {
   font-size: var(--font-size-xs);
   font-family: var(--font-family-mono);
-  color: var(--color-text-muted);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-wood-dark);
   text-align: end;
 }
 
@@ -227,27 +252,30 @@ function getNeedColorClass(value: number): string {
   display: flex;
   gap: var(--spacing-sm);
   padding: var(--spacing-sm) var(--spacing-md);
-  border-block-start: 1px solid var(--color-border-light);
+  border-block-start: 1px solid rgba(146, 64, 14, 0.28);
 }
 
 .guinea-pig-info-menu__action {
   flex: 1;
   padding: var(--spacing-sm) var(--spacing-md);
-  border: none;
-  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-wood-dark);
+  border-radius: var(--radius-lg);
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
+  font-weight: 700;
   cursor: pointer;
+  box-shadow: var(--shadow-confirm);
   transition: all var(--transition-fast);
 }
 
 .guinea-pig-info-menu__action--primary {
-  background-color: var(--color-primary);
-  color: white;
+  background: linear-gradient(180deg, var(--color-pink-500), var(--color-pink-600));
+  border-color: var(--color-pink-600);
+  color: #ffffff;
+  text-shadow: 0 1px 0 rgba(69, 26, 3, 0.25);
 }
 
 .guinea-pig-info-menu__action--primary:hover {
-  background-color: var(--color-primary-dark);
+  filter: brightness(1.06);
 }
 
 .guinea-pig-info-menu__action--primary:active {
@@ -255,12 +283,12 @@ function getNeedColorClass(value: number): string {
 }
 
 .guinea-pig-info-menu__action--secondary {
-  background-color: var(--color-warning);
-  color: var(--color-neutral-900);
+  background: linear-gradient(180deg, var(--color-gold-50), var(--color-gold-200));
+  color: var(--color-gold-800);
 }
 
 .guinea-pig-info-menu__action--secondary:hover {
-  background-color: var(--color-warning-dark, #e6a200);
+  filter: brightness(1.05);
 }
 
 .guinea-pig-info-menu__action--secondary:active {
@@ -283,6 +311,6 @@ function getNeedColorClass(value: number): string {
 
 .guinea-pig-info-menu__control-hint {
   font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
+  color: var(--color-wood-dark);
 }
 </style>

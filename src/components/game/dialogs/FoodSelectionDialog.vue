@@ -165,14 +165,15 @@ function confirmFeed() {
 
 .food-selection-dialog__header {
   padding: var(--space-6);
-  border-block-end: 1px solid var(--color-border);
+  border-block-end: 2px solid var(--color-wood-amber);
 }
 
 .food-selection-dialog__title {
   margin: 0;
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gold-800);
 }
 
 .food-selection-dialog__subtitle {
@@ -180,7 +181,7 @@ function confirmFeed() {
   margin-block-end: 0;
   margin-inline: 0;
   font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
+  color: var(--color-wood-dark);
 }
 
 .food-selection-dialog__content {
@@ -198,25 +199,27 @@ function confirmFeed() {
 
 .food-category-btn {
   padding: var(--space-2) var(--space-4);
-  background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  background: linear-gradient(180deg, var(--color-gold-50), var(--color-gold-200));
+  border: 2px solid var(--color-wood-dark);
+  border-radius: var(--radius-lg);
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-secondary);
+  font-weight: 700;
+  color: var(--color-gold-800);
   cursor: pointer;
+  box-shadow: var(--shadow-confirm);
   transition: all var(--transition-fast);
 }
 
 .food-category-btn:hover {
-  background-color: var(--color-bg-tertiary);
-  border-color: var(--color-primary);
+  filter: brightness(1.05);
+  transform: translateY(-1px);
 }
 
 .food-category-btn--active {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
-  color: var(--color-bg-primary);
+  background: linear-gradient(180deg, var(--color-pink-500), var(--color-pink-600));
+  border-color: var(--color-pink-600);
+  color: #ffffff;
+  text-shadow: 0 1px 0 rgba(69, 26, 3, 0.25);
 }
 
 .food-items {
@@ -230,16 +233,16 @@ function confirmFeed() {
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-3);
-  background-color: var(--color-bg-secondary);
-  border: 2px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  background-color: var(--chrome-entry-bg);
+  border: 1.5px solid var(--chrome-entry-border);
+  border-radius: 8px;
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .food-item:hover {
-  border-color: var(--color-primary);
-  background-color: var(--color-bg-tertiary);
+  border-color: var(--color-wood-dark);
+  filter: brightness(1.03);
 }
 
 .food-item--disabled {
@@ -248,17 +251,17 @@ function confirmFeed() {
 }
 
 .food-item--disabled:hover {
-  border-color: var(--color-border);
-  background-color: var(--color-bg-secondary);
+  border-color: var(--chrome-entry-border);
+  filter: none;
 }
 
 .food-item--selected {
-  border-color: var(--color-primary);
-  background-color: var(--color-primary-bg);
+  border: 2px solid var(--color-pink-500);
+  background-color: var(--color-pink-50);
 }
 
 .food-item--selected:hover {
-  border-color: var(--color-primary-hover);
+  border-color: var(--color-pink-600);
 }
 
 .food-item__emoji {
@@ -273,8 +276,8 @@ function confirmFeed() {
 
 .food-item__name {
   font-size: var(--font-size-base);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-wood-border);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -282,7 +285,7 @@ function confirmFeed() {
 
 .food-item__quantity {
   font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
+  color: var(--color-wood-dark);
   margin-block-start: var(--space-1);
 }
 
@@ -290,7 +293,8 @@ function confirmFeed() {
   grid-column: 1 / -1;
   text-align: center;
   padding: var(--space-8) var(--space-4);
-  color: var(--color-text-muted);
+  color: var(--color-wood-shadow);
+  font-style: italic;
 }
 
 .food-items__empty p {
@@ -305,7 +309,7 @@ function confirmFeed() {
 
 .food-selection-dialog__footer {
   padding: var(--space-4) var(--space-6);
-  border-block-start: 1px solid var(--color-border);
+  border-block-start: 1px solid rgba(146, 64, 14, 0.28);
   display: flex;
   justify-content: flex-end;
   gap: var(--space-3);

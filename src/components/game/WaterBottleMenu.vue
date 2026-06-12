@@ -88,12 +88,29 @@ function getLevelColorClass(level: number): string {
   z-index: 1000;
   min-inline-size: 200px;
   max-inline-size: 260px;
-  background-color: var(--color-bg-primary);
-  border: 1px solid var(--color-border-medium);
-  border-radius: var(--radius-md);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(180deg, var(--panel-bg-top) 0%, var(--panel-bg-bot) 100%);
+  border: 3px solid var(--panel-border);
+  border-radius: var(--panel-radius);
+  box-shadow: var(--panel-shadow);
+  color: var(--color-wood-border);
   overflow: hidden;
   /* transform removed - Floating UI handles positioning */
+}
+
+/* Striped awning in the water accent */
+.water-bottle-menu::before {
+  content: '';
+  display: block;
+  block-size: 12px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-item-water) 0 14px,
+    var(--color-gold-50) 14px 28px
+  );
+  border-block-end: 2px solid var(--panel-border);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18);
 }
 
 .water-bottle-menu__header {
@@ -101,14 +118,14 @@ function getLevelColorClass(level: number): string {
   justify-content: space-between;
   align-items: center;
   padding: var(--spacing-sm) var(--spacing-md);
-  background-color: var(--color-bg-secondary);
-  border-block-end: 1px solid var(--color-border-light);
+  border-block-end: 2px solid var(--color-wood-amber);
 }
 
 .water-bottle-menu__title {
+  font-family: var(--font-family-heading);
   font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-md);
-  color: var(--color-text-primary);
+  font-size: var(--font-size-lg);
+  color: var(--color-gold-800);
 }
 
 .water-bottle-menu__close {
@@ -118,18 +135,21 @@ function getLevelColorClass(level: number): string {
   inline-size: 24px;
   block-size: 24px;
   padding: 0;
-  border: none;
-  background: transparent;
-  color: var(--color-text-muted);
-  font-size: var(--font-size-lg);
+  border: 2px solid var(--color-wood-dark);
+  background: linear-gradient(180deg, var(--color-gold-50) 0%, var(--color-gold-200) 100%);
+  color: var(--color-gold-800);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
   cursor: pointer;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-confirm);
   transition: all var(--transition-fast);
 }
 
 .water-bottle-menu__close:hover {
-  background-color: var(--color-bg-tertiary);
-  color: var(--color-text-primary);
+  filter: brightness(1.06);
+  transform: translateY(-1px);
 }
 
 .water-bottle-menu__content {
@@ -145,19 +165,23 @@ function getLevelColorClass(level: number): string {
 
 .water-bottle-menu__level-label {
   font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-wood-dark);
 }
 
 .water-bottle-menu__level-bar {
   block-size: 12px;
-  background-color: var(--color-bg-tertiary);
-  border-radius: var(--radius-sm);
+  background: linear-gradient(180deg, var(--color-wood-shadow), var(--color-wood-dark));
+  border: 1.5px solid var(--color-wood-border);
+  border-radius: var(--radius-full);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
   overflow: hidden;
 }
 
 .water-bottle-menu__level-fill {
   block-size: 100%;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
   transition: width var(--transition-normal);
 }
 
@@ -176,9 +200,9 @@ function getLevelColorClass(level: number): string {
 .water-bottle-menu__level-value {
   font-size: var(--font-size-sm);
   font-family: var(--font-family-mono);
-  color: var(--color-text-primary);
+  color: var(--color-wood-border);
   text-align: end;
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-bold);
 }
 
 .water-bottle-menu__actions {
@@ -186,7 +210,7 @@ function getLevelColorClass(level: number): string {
   flex-direction: column;
   gap: var(--spacing-xs);
   padding: var(--spacing-sm);
-  border-block-start: 1px solid var(--color-border-light);
+  border-block-start: 1px solid rgba(146, 64, 14, 0.28);
 }
 
 .water-bottle-menu__action {
@@ -195,21 +219,24 @@ function getLevelColorClass(level: number): string {
   justify-content: center;
   gap: var(--spacing-xs);
   padding: var(--spacing-sm) var(--spacing-md);
-  border: none;
-  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-wood-dark);
+  border-radius: var(--radius-lg);
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
+  font-weight: 700;
   cursor: pointer;
+  box-shadow: var(--shadow-confirm);
   transition: all var(--transition-fast);
 }
 
 .water-bottle-menu__action--primary {
-  background-color: var(--color-info);
-  color: white;
+  background: linear-gradient(180deg, var(--color-pink-500), var(--color-pink-600));
+  border-color: var(--color-pink-600);
+  color: #ffffff;
+  text-shadow: 0 1px 0 rgba(69, 26, 3, 0.25);
 }
 
 .water-bottle-menu__action--primary:hover:not(:disabled) {
-  background-color: var(--color-info-hover);
+  filter: brightness(1.06);
 }
 
 .water-bottle-menu__action--primary:active:not(:disabled) {
@@ -222,11 +249,12 @@ function getLevelColorClass(level: number): string {
 }
 
 .water-bottle-menu__action--remove {
-  background-color: var(--color-accent-blue-100);
-  color: var(--color-accent-blue-700);
+  background: linear-gradient(180deg, var(--color-gold-50), var(--color-gold-200));
+  color: var(--color-gold-800);
 }
 
 .water-bottle-menu__action--remove:hover {
-  background-color: var(--color-accent-blue-200);
+  filter: brightness(1.05);
+  transform: translateY(-1px);
 }
 </style>

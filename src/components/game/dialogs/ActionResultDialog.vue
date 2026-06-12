@@ -71,9 +71,12 @@ defineEmits<{
 
 .action-result-dialog__title {
   margin: 0;
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gold-800);
+  border-block-end: 2px solid var(--color-wood-amber);
+  padding-block-end: var(--space-2);
 }
 
 .action-result-dialog__stats {
@@ -83,7 +86,7 @@ defineEmits<{
 .action-result-dialog__message {
   margin: 0;
   font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
+  color: var(--color-wood-dark);
 }
 
 .action-result-dialog__footer {

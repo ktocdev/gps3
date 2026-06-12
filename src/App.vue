@@ -14,9 +14,24 @@ import { useGuineaPigStore } from './stores/guineaPigStore'
 import { useGameController } from './stores/gameController'
 import { usePetStoreManager } from './stores/petStoreManager'
 import { usePlayerProgression } from './stores/playerProgression'
+import { useThemeStore } from './stores/themeStore'
 import PauseOverlay from './components/game/dialogs/PauseOverlay.vue'
 
 const gameController = useGameController()
+
+// Sync the game chrome theme (e.g. low-stim) to <html data-chrome-theme>
+const themeStore = useThemeStore()
+watch(
+  () => themeStore.chromeTheme,
+  (theme) => {
+    if (theme === 'default') {
+      delete document.documentElement.dataset.chromeTheme
+    } else {
+      document.documentElement.dataset.chromeTheme = theme
+    }
+  },
+  { immediate: true }
+)
 const showPauseOverlay = ref(false)
 const pauseReason = ref<'manual' | 'visibility' | 'orientation' | 'navigation'>('manual')
 

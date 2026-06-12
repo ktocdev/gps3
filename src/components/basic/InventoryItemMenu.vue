@@ -75,12 +75,29 @@ watch(
   /* Floating UI handles position: absolute and top/left */
   z-index: 1000;
   min-inline-size: 200px;
-  background-color: var(--color-bg-primary);
-  border: 1px solid var(--color-border-medium);
-  border-radius: var(--radius-md);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(180deg, var(--panel-bg-top) 0%, var(--panel-bg-bot) 100%);
+  border: 3px solid var(--panel-border);
+  border-radius: var(--panel-radius);
+  box-shadow: var(--panel-shadow);
+  color: var(--color-wood-border);
   overflow: hidden;
   /* transform removed - Floating UI handles positioning */
+}
+
+/* Striped awning */
+.inventory-item-menu::before {
+  content: '';
+  display: block;
+  block-size: 12px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-gold) 0 14px,
+    var(--color-gold-50) 14px 28px
+  );
+  border-block-end: 2px solid var(--panel-border);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18);
 }
 
 .inventory-item-menu__header {
@@ -88,14 +105,14 @@ watch(
   justify-content: space-between;
   align-items: center;
   padding: var(--spacing-sm) var(--spacing-md);
-  background-color: var(--color-bg-secondary);
-  border-block-end: 1px solid var(--color-border-light);
+  border-block-end: 2px solid var(--color-wood-amber);
 }
 
 .inventory-item-menu__title {
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-primary);
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
+  color: var(--color-gold-800);
 }
 
 .inventory-item-menu__close {
@@ -105,23 +122,27 @@ watch(
   inline-size: 24px;
   block-size: 24px;
   padding: 0;
-  border: none;
-  background: transparent;
-  color: var(--color-text-muted);
-  font-size: var(--font-size-lg);
+  border: 2px solid var(--color-wood-dark);
+  background: linear-gradient(180deg, var(--color-gold-50) 0%, var(--color-gold-200) 100%);
+  color: var(--color-gold-800);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
   cursor: pointer;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-confirm);
   transition: all var(--transition-fast);
 }
 
 .inventory-item-menu__close:hover {
-  background-color: var(--color-bg-tertiary);
-  color: var(--color-text-primary);
+  filter: brightness(1.06);
+  transform: translateY(-1px);
 }
 
 .inventory-item-menu__items {
   display: flex;
   flex-direction: column;
+  gap: var(--spacing-xs);
   padding: var(--spacing-xs);
 }
 
@@ -130,16 +151,20 @@ watch(
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-sm) var(--spacing-md);
-  border: none;
-  background: transparent;
+  border: 1.5px solid var(--chrome-entry-border);
+  background-color: var(--chrome-entry-bg);
+  color: var(--color-wood-border);
+  font-family: inherit;
   text-align: start;
   cursor: pointer;
-  border-radius: var(--radius-sm);
+  border-radius: 8px;
   transition: all var(--transition-fast);
 }
 
 .inventory-item-menu__item:hover {
-  background-color: var(--color-primary-light);
+  border-color: var(--color-wood-dark);
+  filter: brightness(1.03);
+  transform: translateY(-1px);
 }
 
 .inventory-item-menu__emoji {
@@ -149,19 +174,21 @@ watch(
 .inventory-item-menu__name {
   flex: 1;
   font-size: var(--font-size-sm);
-  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-wood-border);
 }
 
 .inventory-item-menu__quantity {
   font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
-  font-weight: var(--font-weight-medium);
+  color: var(--color-wood-dark);
+  font-weight: var(--font-weight-bold);
 }
 
 .inventory-item-menu__empty {
   padding: var(--spacing-md);
   text-align: center;
-  color: var(--color-text-muted);
+  color: var(--color-wood-shadow);
+  font-style: italic;
   font-size: var(--font-size-sm);
 }
 </style>

@@ -60,8 +60,55 @@
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.6), 0 8px 10px -6px rgb(0 0 0 / 0.6);
 }
 
-/* Game chrome theme: low-stimulation mode (Phase 4 — token block filled
-   when the chrome consumes semantic tokens exclusively) */
+/* Game chrome theme: low-stimulation mode.
+   The chrome consumes wood/parchment/game-color/shadow/transition tokens
+   exclusively, so softening those here re-themes every chrome component
+   with zero component changes. The 3D scene and need colors (data-vis
+   identity) are intentionally untouched. */
 [data-chrome-theme="low-stim"] {
-  /* placeholder */
+  /* Softened, desaturated wood */
+  --color-wood-amber: #b08968;
+  --color-wood-light: #ad8a64;
+  --color-wood-mid: #a07e5f;
+  --color-wood-dark: #8a6d52;
+  --color-wood-shadow: #74604b;
+  --color-wood-border: #4f4337;
+
+  /* Calmer parchment */
+  --panel-bg-top: #fdf9f0;
+  --panel-bg-bot: #f6eedd;
+  --panel-border: #8a6d52;
+
+  /* Muted game accent colors */
+  --color-pink: #d48aa8;
+  --color-pink-deep: #c2789a;
+  --color-orange: #cf8f63;
+  --color-gold-deep: #cba36f;
+  --color-gold: #d9b380;
+  --color-lime: #a3bf8a;
+  --color-ivy: #9eb47a;
+  --color-green: #6f9678;
+  --color-sky: #8fb6c4;
+  --color-cyan: #93c2cc;
+  --color-violet: #b3a6d4;
+  --color-violet-mid: #a695c9;
+  --color-violet-deep: #9683bd;
+
+  /* Gentler depth */
+  --panel-shadow:
+    0 8px 14px -6px rgba(69, 26, 3, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  --shadow-pill: 0 3px 5px -2px rgba(69, 26, 3, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  --shadow-pill-active: 0 4px 7px -2px rgba(69, 26, 3, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  --shadow-cta: 0 4px 8px -3px rgba(0, 0, 0, 0.15);
+  --shadow-cta-header: 0 3px 6px -2px rgba(0, 0, 0, 0.18);
+  --shadow-amber-pill: 0 3px 5px -2px rgba(120, 53, 15, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  --shadow-confirm: 0 3px 5px -2px rgba(0, 0, 0, 0.15);
+  --shadow-frame: 0 5px 9px -4px rgba(69, 26, 3, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  --shadow-frame-hover: 0 7px 12px -4px rgba(69, 26, 3, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+
+  /* Slower, calmer motion */
+  --transition-fast: 300ms ease-in-out;
+  --transition-normal: 450ms ease-in-out;
+  --transition-slow: 600ms ease-in-out;
 }

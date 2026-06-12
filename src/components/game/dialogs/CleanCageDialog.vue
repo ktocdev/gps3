@@ -171,7 +171,7 @@ function handleConfirm() {
 
 .bedding-selection__label {
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-wood-dark);
 }
 </style>

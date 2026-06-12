@@ -41,6 +41,9 @@ const positionStyle = computed(() => ({
 <style>
 /* 3D Chat Bubble - positioned absolutely within canvas wrapper */
 .chat-bubble-3d {
+  /* Parchment fill used by the bubble body and the inner tail triangle */
+  --bubble-fill: var(--panel-bg-bot);
+
   position: absolute;
   transform: translate(-50%, -100%);
   z-index: 100;
@@ -49,16 +52,21 @@ const positionStyle = computed(() => ({
   padding-block: var(--spacing-2xs);
   padding-inline: var(--spacing-xs);
 
-  background-color: var(--color-surface-elevated);
-  border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-md);
+  background: linear-gradient(180deg, var(--panel-bg-top) 0%, var(--bubble-fill) 100%);
+  border: 3px solid var(--panel-border);
+  border-radius: 12px;
+  color: var(--color-wood-border);
 
-  box-shadow: var(--shadow-md);
+  box-shadow:
+    0 6px 10px -2px rgba(69, 26, 3, 0.4),
+    0 2px 4px -1px rgba(69, 26, 3, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(146, 64, 14, 0.2);
 
   animation: chat-bubble-3d-enter 0.2s ease-out;
 }
 
-/* Tail/pointer pointing down toward guinea pig */
+/* Tail/pointer pointing down toward guinea pig — wood-border outline */
 .chat-bubble-3d::after {
   content: '';
   position: absolute;
@@ -68,8 +76,23 @@ const positionStyle = computed(() => ({
 
   inline-size: 0;
   block-size: 0;
-  border-inline: 6px solid transparent;
-  border-block-start: 6px solid var(--color-surface-elevated);
+  border-inline: 9px solid transparent;
+  border-block-start: 10px solid var(--panel-border);
+}
+
+/* Tail fill — parchment cream, sits inside the outline */
+.chat-bubble-3d::before {
+  content: '';
+  position: absolute;
+  inset-block-start: calc(100% - 2px);
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+
+  inline-size: 0;
+  block-size: 0;
+  border-inline: 7px solid transparent;
+  border-block-start: 8px solid var(--bubble-fill);
 }
 
 @keyframes chat-bubble-3d-enter {
@@ -97,75 +120,42 @@ const positionStyle = computed(() => ({
 }
 
 .chat-bubble-3d__text {
+  font-family: var(--font-family-heading);
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-neutral-800);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.2px;
+  color: var(--color-wood-border);
 }
 
-/* Variant colors - Neutral */
-.chat-bubble-3d--neutral {
-  background-color: var(--color-neutral-100);
-  border-color: var(--color-neutral-300);
-}
-
-.chat-bubble-3d--neutral::after {
-  border-block-start-color: var(--color-neutral-100);
-}
-
+/* Variant colors - Neutral (plain parchment) */
 .chat-bubble-3d--neutral .chat-bubble-3d__text {
-  color: var(--color-neutral-800);
+  color: var(--color-wood-border);
 }
 
-/* Variant colors - Positive */
-.chat-bubble-3d--positive {
-  background-color: var(--color-success-surface);
-  border-color: var(--color-success-border);
-}
-
-.chat-bubble-3d--positive::after {
-  border-block-start-color: var(--color-success-surface);
-}
-
+/* Variant colors - Positive (parchment, green ink) */
 .chat-bubble-3d--positive .chat-bubble-3d__text {
   color: var(--color-accent-green-800);
 }
 
-/* Variant colors - Negative */
+/* Variant colors - Negative (red-tinted parchment) */
 .chat-bubble-3d--negative {
-  background-color: var(--color-danger-surface);
-  border-color: var(--color-danger-border);
-}
-
-.chat-bubble-3d--negative::after {
-  border-block-start-color: var(--color-danger-surface);
+  --bubble-fill: var(--color-danger);
+  background: var(--color-danger);
 }
 
 .chat-bubble-3d--negative .chat-bubble-3d__text {
   color: var(--color-error-800);
 }
 
-/* Variant colors - Warning */
-.chat-bubble-3d--warning {
-  background-color: var(--color-warning-surface);
-  border-color: var(--color-warning-border);
-}
-
-.chat-bubble-3d--warning::after {
-  border-block-start-color: var(--color-warning-surface);
-}
-
+/* Variant colors - Warning (parchment, amber ink) */
 .chat-bubble-3d--warning .chat-bubble-3d__text {
-  color: var(--color-warning-800);
+  color: var(--color-gold-700);
 }
 
-/* Variant colors - Critical */
+/* Variant colors - Critical (deeper red-tinted parchment) */
 .chat-bubble-3d--critical {
-  background-color: var(--color-critical-surface);
-  border-color: var(--color-critical-border);
-}
-
-.chat-bubble-3d--critical::after {
-  border-block-start-color: var(--color-critical-surface);
+  --bubble-fill: var(--color-critical);
+  background: var(--color-critical);
 }
 
 .chat-bubble-3d--critical .chat-bubble-3d__text {

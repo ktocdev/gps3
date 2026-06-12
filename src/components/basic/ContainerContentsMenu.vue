@@ -216,12 +216,29 @@ function getFreshnessClass(value: number): string {
   z-index: 1000;
   min-inline-size: 220px;
   max-inline-size: 280px;
-  background-color: var(--color-bg-primary);
-  border: 1px solid var(--color-border-medium);
-  border-radius: var(--radius-md);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(180deg, var(--panel-bg-top) 0%, var(--panel-bg-bot) 100%);
+  border: 3px solid var(--panel-border);
+  border-radius: var(--panel-radius);
+  box-shadow: var(--panel-shadow);
+  color: var(--color-wood-border);
   overflow: hidden;
   /* transform removed - Floating UI handles positioning */
+}
+
+/* Striped awning in the food-container amber accent */
+.container-contents-menu::before {
+  content: '';
+  display: block;
+  block-size: 12px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-item-food-container) 0 14px,
+    var(--color-gold-50) 14px 28px
+  );
+  border-block-end: 2px solid var(--panel-border);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18);
 }
 
 .container-contents-menu__header {
@@ -229,14 +246,14 @@ function getFreshnessClass(value: number): string {
   justify-content: space-between;
   align-items: center;
   padding: var(--spacing-sm) var(--spacing-md);
-  background-color: var(--color-bg-secondary);
-  border-block-end: 1px solid var(--color-border-light);
+  border-block-end: 2px solid var(--color-wood-amber);
 }
 
 .container-contents-menu__title {
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-primary);
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
+  color: var(--color-gold-800);
 }
 
 .container-contents-menu__close {
@@ -246,18 +263,21 @@ function getFreshnessClass(value: number): string {
   inline-size: 24px;
   block-size: 24px;
   padding: 0;
-  border: none;
-  background: transparent;
-  color: var(--color-text-muted);
-  font-size: var(--font-size-lg);
+  border: 2px solid var(--color-wood-dark);
+  background: linear-gradient(180deg, var(--color-gold-50) 0%, var(--color-gold-200) 100%);
+  color: var(--color-gold-800);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
   cursor: pointer;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-confirm);
   transition: all var(--transition-fast);
 }
 
 .container-contents-menu__close:hover {
-  background-color: var(--color-bg-tertiary);
-  color: var(--color-text-primary);
+  filter: brightness(1.06);
+  transform: translateY(-1px);
 }
 
 .container-contents-menu__metadata {
@@ -265,14 +285,13 @@ function getFreshnessClass(value: number): string {
   justify-content: space-between;
   align-items: center;
   padding: var(--spacing-xs) var(--spacing-md);
-  background-color: var(--color-bg-secondary);
-  border-block-end: 1px solid var(--color-border-light);
+  border-block-end: 1.5px dashed rgba(146, 64, 14, 0.4);
   font-size: var(--font-size-xs);
 }
 
 .container-contents-menu__count {
-  color: var(--color-text-muted);
-  font-weight: var(--font-weight-medium);
+  color: var(--color-wood-dark);
+  font-weight: var(--font-weight-semibold);
 }
 
 .container-contents-menu__freshness {
@@ -305,8 +324,10 @@ function getFreshnessClass(value: number): string {
   align-items: center;
   gap: var(--spacing-xs);
   padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--radius-sm);
-  background-color: var(--color-bg-secondary);
+  border-radius: 8px;
+  background-color: var(--chrome-entry-bg);
+  border: 1.5px solid var(--chrome-entry-border);
+  border-inline-start: 4px solid var(--color-wood-dark);
   margin-block-end: var(--spacing-xs);
 }
 
@@ -322,7 +343,8 @@ function getFreshnessClass(value: number): string {
 .container-contents-menu__item-name {
   flex: 1;
   font-size: var(--font-size-xs);
-  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-wood-border);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -341,10 +363,12 @@ function getFreshnessClass(value: number): string {
   inline-size: 20px;
   block-size: 20px;
   padding: 0;
-  border: none;
-  background-color: var(--color-bg-tertiary);
-  color: var(--color-text-muted);
+  border: 1.5px solid var(--color-wood-dark);
+  background: linear-gradient(180deg, var(--color-gold-50) 0%, var(--color-gold-200) 100%);
+  color: var(--color-gold-800);
   font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
   cursor: pointer;
   border-radius: var(--radius-sm);
   transition: all var(--transition-fast);
@@ -352,13 +376,15 @@ function getFreshnessClass(value: number): string {
 }
 
 .container-contents-menu__remove-btn:hover {
-  background-color: var(--color-error-light);
-  color: var(--color-error);
+  background: var(--color-red-50);
+  border-color: var(--color-red-500);
+  color: var(--color-red-500);
 }
 
 .container-contents-menu__remove-btn--stale {
-  background-color: var(--color-error-light);
-  color: var(--color-error);
+  background: var(--color-red-50);
+  border-color: var(--color-red-500);
+  color: var(--color-red-500);
 }
 
 /* Hay rack info */
@@ -375,14 +401,16 @@ function getFreshnessClass(value: number): string {
 
 .container-contents-menu__hay-text {
   font-size: var(--font-size-sm);
-  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-wood-border);
 }
 
 /* Empty state */
 .container-contents-menu__empty {
   padding: var(--spacing-md);
   text-align: center;
-  color: var(--color-text-muted);
+  color: var(--color-wood-shadow);
+  font-style: italic;
   font-size: var(--font-size-sm);
 }
 
@@ -392,7 +420,7 @@ function getFreshnessClass(value: number): string {
   flex-direction: column;
   gap: var(--spacing-xs);
   padding: var(--spacing-sm);
-  border-block-start: 1px solid var(--color-border-light);
+  border-block-start: 1px solid rgba(146, 64, 14, 0.28);
 }
 
 .container-contents-menu__action {
@@ -401,49 +429,55 @@ function getFreshnessClass(value: number): string {
   justify-content: center;
   gap: var(--spacing-xs);
   padding: var(--spacing-sm) var(--spacing-md);
-  border: none;
-  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-wood-dark);
+  border-radius: var(--radius-lg);
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
+  font-weight: 700;
   cursor: pointer;
+  box-shadow: var(--shadow-confirm);
   transition: all var(--transition-fast);
 }
 
 .container-contents-menu__action--fill {
-  background-color: var(--color-accent-green-100);
-  color: var(--color-accent-green-700);
+  background: linear-gradient(180deg, var(--color-pink-500), var(--color-pink-600));
+  border-color: var(--color-pink-600);
+  color: #ffffff;
+  text-shadow: 0 1px 0 rgba(69, 26, 3, 0.25);
 }
 
 .container-contents-menu__action--fill:hover {
-  background-color: var(--color-accent-green-200);
+  filter: brightness(1.06);
+  transform: translateY(-1px);
 }
 
 .container-contents-menu__action--clear {
-  background-color: var(--color-bg-tertiary);
-  color: var(--color-text-primary);
+  background: linear-gradient(180deg, var(--color-gold-50), var(--color-gold-200));
+  color: var(--color-gold-800);
 }
 
 .container-contents-menu__action--clear:hover {
-  background-color: var(--color-bg-secondary);
-  color: var(--color-text-primary);
+  filter: brightness(1.05);
+  transform: translateY(-1px);
 }
 
 .container-contents-menu__action--warning {
-  background-color: var(--color-error-light);
-  color: var(--color-error);
+  background: var(--color-red-50);
+  border-color: var(--color-red-500);
+  color: var(--color-red-500);
 }
 
 .container-contents-menu__action--warning:hover {
-  background-color: var(--color-error);
-  color: white;
+  background: var(--color-red-100);
+  filter: none;
 }
 
 .container-contents-menu__action--remove {
-  background-color: var(--color-accent-blue-100);
-  color: var(--color-accent-blue-700);
+  background: linear-gradient(180deg, var(--color-gold-50), var(--color-gold-200));
+  color: var(--color-gold-800);
 }
 
 .container-contents-menu__action--remove:hover {
-  background-color: var(--color-accent-blue-200);
+  filter: brightness(1.05);
+  transform: translateY(-1px);
 }
 </style>

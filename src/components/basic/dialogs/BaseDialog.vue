@@ -149,19 +149,20 @@ onUnmounted(() => {
 
 /* Native backdrop (::backdrop pseudo-element) */
 .base-dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(69, 26, 3, 0.5);
   animation: fadeIn var(--transition-fast);
 }
 
-/* Dialog content wrapper */
+/* Dialog content wrapper — parchment notice-board */
 .base-dialog__content {
-  background-color: var(--color-bg-primary);
-  border: 1px solid var(--color-border-light);
-  border-start-start-radius: var(--radius-lg);
-  border-start-end-radius: var(--radius-lg);
-  border-end-start-radius: var(--radius-lg);
-  border-end-end-radius: var(--radius-lg);
-  box-shadow: var(--shadow-xl);
+  background: linear-gradient(180deg, var(--panel-bg-top) 0%, var(--panel-bg-bot) 100%);
+  border: 4px solid var(--panel-border);
+  border-start-start-radius: var(--panel-radius);
+  border-start-end-radius: var(--panel-radius);
+  border-end-start-radius: var(--panel-radius);
+  border-end-end-radius: var(--panel-radius);
+  box-shadow: var(--panel-shadow);
+  color: var(--color-wood-border);
   overflow-y: auto;
   max-block-size: calc(100vh - var(--space-8));
   animation: slideUp var(--transition-normal);

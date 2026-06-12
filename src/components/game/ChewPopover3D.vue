@@ -145,11 +145,28 @@ const lastUsedText = computed(() => {
   z-index: 1000;
   min-inline-size: 220px;
   max-inline-size: 280px;
-  background-color: var(--color-bg-primary);
-  border: 1px solid var(--color-border-medium);
-  border-radius: var(--radius-md);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(180deg, var(--panel-bg-top) 0%, var(--panel-bg-bot) 100%);
+  border: 3px solid var(--panel-border);
+  border-radius: var(--panel-radius);
+  box-shadow: var(--panel-shadow);
+  color: var(--color-wood-border);
   overflow: hidden;
+}
+
+/* Striped awning in the chew accent */
+.chew-popover::before {
+  content: '';
+  display: block;
+  block-size: 12px;
+  background: repeating-linear-gradient(
+    90deg,
+    #fb923c 0 14px,
+    var(--color-gold-50) 14px 28px
+  );
+  border-block-end: 2px solid var(--panel-border);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18);
 }
 
 .chew-popover__header {
@@ -157,8 +174,7 @@ const lastUsedText = computed(() => {
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-3);
-  background-color: var(--color-bg-secondary);
-  border-block-end: 1px solid var(--color-border-light);
+  border-block-end: 2px solid var(--color-wood-amber);
 }
 
 .chew-popover__icon {
@@ -167,9 +183,10 @@ const lastUsedText = computed(() => {
 
 .chew-popover__title {
   flex: 1;
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-primary);
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
+  color: var(--color-gold-800);
 }
 
 .chew-popover__close {
@@ -179,24 +196,27 @@ const lastUsedText = computed(() => {
   inline-size: 24px;
   block-size: 24px;
   padding: 0;
-  border: none;
-  background: transparent;
-  color: var(--color-text-muted);
-  font-size: var(--font-size-lg);
+  border: 2px solid var(--color-wood-dark);
+  background: linear-gradient(180deg, var(--color-gold-50) 0%, var(--color-gold-200) 100%);
+  color: var(--color-gold-800);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
   cursor: pointer;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-confirm);
   transition: all var(--transition-fast);
 }
 
 .chew-popover__close:hover {
-  background-color: var(--color-bg-tertiary);
-  color: var(--color-text-primary);
+  filter: brightness(1.06);
+  transform: translateY(-1px);
 }
 
 /* Durability Section */
 .chew-popover__durability {
   padding: var(--space-3);
-  border-block-end: 1px solid var(--color-border-light);
+  border-block-end: 1px solid rgba(146, 64, 14, 0.28);
 }
 
 .chew-popover__durability-label {
@@ -205,7 +225,8 @@ const lastUsedText = computed(() => {
   align-items: center;
   margin-block-end: var(--space-2);
   font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
+  color: var(--color-wood-dark);
+  font-weight: var(--font-weight-semibold);
 }
 
 .chew-popover__durability-status {
@@ -230,8 +251,10 @@ const lastUsedText = computed(() => {
 
 .chew-popover__bar-container {
   block-size: 8px;
-  background-color: var(--color-bg-tertiary);
+  background: linear-gradient(180deg, var(--color-wood-shadow), var(--color-wood-dark));
+  border: 1.5px solid var(--color-wood-border);
   border-radius: var(--radius-full);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
   overflow: hidden;
   margin-block-end: var(--space-1);
 }
@@ -239,6 +262,7 @@ const lastUsedText = computed(() => {
 .chew-popover__bar {
   block-size: 100%;
   border-radius: var(--radius-full);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
   transition: width var(--transition-normal);
 }
 
@@ -260,8 +284,8 @@ const lastUsedText = computed(() => {
 
 .chew-popover__durability-value {
   font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-wood-border);
   text-align: end;
 }
 
@@ -280,21 +304,24 @@ const lastUsedText = computed(() => {
 }
 
 .chew-popover__metadata-label {
-  color: var(--color-text-muted);
+  color: var(--color-wood-dark);
 }
 
 .chew-popover__metadata-value {
-  color: var(--color-text-primary);
-  font-weight: var(--font-weight-medium);
+  color: var(--color-wood-border);
+  font-weight: var(--font-weight-bold);
 }
 
 /* Warning */
 .chew-popover__warning {
+  margin: var(--space-2) var(--space-3);
   padding: var(--space-2) var(--space-3);
-  background-color: var(--color-error-bg);
-  color: var(--color-error);
+  background-color: var(--color-red-50);
+  border: 1.5px solid var(--color-red-500);
+  border-radius: var(--radius-lg);
+  color: var(--color-red-500);
   font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-bold);
   text-align: center;
 }
 
@@ -304,7 +331,7 @@ const lastUsedText = computed(() => {
   flex-direction: column;
   gap: var(--space-2);
   padding: var(--space-3);
-  border-block-start: 1px solid var(--color-border-light);
+  border-block-start: 1px solid rgba(146, 64, 14, 0.28);
 }
 
 .chew-popover__action {
@@ -313,20 +340,22 @@ const lastUsedText = computed(() => {
   justify-content: center;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-3);
-  border: none;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-lg);
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
+  font-weight: 700;
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .chew-popover__action--discard {
-  background-color: var(--color-error);
-  color: white;
+  background-color: var(--color-red-50);
+  border: 2px solid var(--color-red-500);
+  color: var(--color-red-500);
+  box-shadow: var(--shadow-confirm);
 }
 
 .chew-popover__action--discard:hover {
-  background-color: var(--color-error-dark);
+  background-color: var(--color-red-100);
+  transform: translateY(-1px);
 }
 </style>

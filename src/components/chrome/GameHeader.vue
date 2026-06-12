@@ -26,6 +26,14 @@
         <button
           class="game-header__help"
           type="button"
+          :aria-pressed="themeStore.chromeTheme === 'low-stim'"
+          aria-label="Toggle low-stimulation mode"
+          :title="themeStore.chromeTheme === 'low-stim' ? 'Low-stimulation mode on' : 'Low-stimulation mode off'"
+          @click="toggleLowStim"
+        >🌿</button>
+        <button
+          class="game-header__help"
+          type="button"
           aria-label="Open help"
           title="Help"
           @click="showHelp = !showHelp"
@@ -55,11 +63,17 @@ import HelpDialog from '../game/dialogs/HelpDialog.vue'
 import { useGameController } from '../../stores/gameController'
 import { usePetStoreManager } from '../../stores/petStoreManager'
 import { usePlayerProgression } from '../../stores/playerProgression'
+import { useThemeStore } from '../../stores/themeStore'
 
 const route = useRoute()
 const gameController = useGameController()
 const petStoreManager = usePetStoreManager()
 const playerProgression = usePlayerProgression()
+const themeStore = useThemeStore()
+
+function toggleLowStim() {
+  themeStore.setChromeTheme(themeStore.chromeTheme === 'low-stim' ? 'default' : 'low-stim')
+}
 
 const tabs = [
   { path: '/', label: 'Live Mode' },

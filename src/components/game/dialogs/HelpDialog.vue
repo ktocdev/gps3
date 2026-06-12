@@ -84,14 +84,15 @@ defineEmits<{
 
 .help-dialog__header {
   padding: var(--space-4) var(--space-5);
-  border-block-end: 1px solid var(--color-border-light);
+  border-block-end: 2px solid var(--color-wood-amber);
 }
 
 .help-dialog__title {
   margin: 0;
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gold-800);
 }
 
 .help-dialog__content {
@@ -110,9 +111,10 @@ defineEmits<{
 
 .help-dialog__section-title {
   margin: 0 0 var(--space-2) 0;
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gold-800);
 }
 
 .help-dialog__shortcuts {
@@ -126,12 +128,12 @@ defineEmits<{
   align-items: center;
   gap: var(--space-2);
   font-size: var(--font-size-sm);
-  color: var(--color-text-primary);
+  color: var(--color-wood-border);
 }
 
 .help-dialog__shortcut span {
   margin-inline-start: auto;
-  color: var(--color-text-muted);
+  color: var(--color-wood-dark);
 }
 
 .help-dialog__shortcut kbd {
@@ -140,20 +142,20 @@ defineEmits<{
   justify-content: center;
   min-inline-size: 24px;
   padding: var(--space-1) var(--space-2);
-  background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-border-medium);
+  background: linear-gradient(180deg, var(--color-gold-50), var(--color-gold-200));
+  border: 1.5px solid var(--color-wood-dark);
   border-radius: var(--radius-sm);
   font-family: inherit;
   font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-primary);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gold-800);
+  box-shadow: 0 1px 2px rgba(69, 26, 3, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 .help-dialog__footer {
   display: flex;
   justify-content: center;
   padding: var(--space-4) var(--space-5);
-  border-block-start: 1px solid var(--color-border-light);
+  border-block-start: 1px solid rgba(146, 64, 14, 0.28);
 }
 </style>
