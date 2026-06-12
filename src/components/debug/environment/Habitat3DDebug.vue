@@ -61,6 +61,7 @@
       <div class="panel__content">
         <GameView
           :is-fullscreen="isFullscreen"
+          :chrome="false"
           @toggle-fullscreen="toggleFullscreen"
           @toggle-pause="handleTogglePause"
         />

@@ -1,40 +1,14 @@
 <template>
   <div class="game-view" :class="{ 'game-view--fullscreen': isFullscreen }">
+    <!-- Wood-plank top bar: activity / habitat / per-pig / inventory pills -->
+    <SimTopBar
+      v-if="chrome !== false"
+      ref="simTopBarRef"
+      @select-inventory-item="handleInventorySelect"
+      @deselect-inventory-item="handleInventoryDeselect"
+    />
+
     <div class="game-view__canvas-wrapper">
-      <!-- Activity Feed Panel (overlay with integrated tab) -->
-      <SidePanel3D
-        :is-open="showActivityFeed"
-        side="left"
-        color="yellow"
-        title="Activity Log"
-        icon="📓"
-        @toggle="toggleActivityFeed"
-      >
-        <div v-if="activityMessages.length === 0" class="activity-feed__empty">
-          💭 No activity yet...
-        </div>
-        <div v-else class="activity-feed__messages">
-          <div
-            v-for="msg in activityMessages.slice(0, 50)"
-            :key="msg.id"
-            class="activity-feed__message"
-            :class="`activity-feed__message--${msg.category}`"
-          >
-            <span class="activity-feed__emoji">{{ msg.emoji || '📝' }}</span>
-            <span class="activity-feed__text">{{ msg.message }}</span>
-            <span class="activity-feed__time">{{ formatTime(msg.timestamp) }}</span>
-          </div>
-        </div>
-      </SidePanel3D>
-
-      <!-- Inventory Panel (overlay on right side) -->
-      <Inventory3DPanel
-        :is-open="showInventory"
-        @toggle="toggleInventory"
-        @select-item="handleInventorySelect"
-        @deselect-item="handleInventoryDeselect"
-      />
-
       <!-- Interaction Instruction Overlay -->
       <InstructionOverlay
         v-if="interactionInstruction"
@@ -281,8 +255,7 @@ import HayManagementDialog from './dialogs/HayManagementDialog.vue'
 import ActionResultDialog from './dialogs/ActionResultDialog.vue'
 import HelpDialog from './dialogs/HelpDialog.vue'
 import FoodSelectionDialog from './dialogs/FoodSelectionDialog.vue'
-import Inventory3DPanel from './Inventory3DPanel.vue'
-import SidePanel3D from './SidePanel3D.vue'
+import SimTopBar from '../chrome/SimTopBar.vue'
 import FabSubnavMenu, { type FabSubnavAction } from './FabSubnavMenu.vue'
 import InstructionOverlay from './InstructionOverlay.vue'
 import { useGuineaPigStore } from '../../stores/guineaPigStore'
@@ -314,6 +287,8 @@ import * as THREE from 'three'
 // Props
 const props = defineProps<{
   isFullscreen: boolean
+  /** Render the SimTopBar chrome (false for the debug embed) */
+  chrome?: boolean
 }>()
 
 // Emits
@@ -323,17 +298,12 @@ const emit = defineEmits<{
 }>()
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
+const simTopBarRef = ref<InstanceType<typeof SimTopBar> | null>(null)
 const interactFabRef = ref<HTMLButtonElement | null>(null)
 const socialFabRef = ref<HTMLButtonElement | null>(null)
 const habitatCareFabRef = ref<HTMLButtonElement | null>(null)
 const selectedGuineaPigId = ref<string | null>(null)
 const guineaPigMenuPosition = ref({ x: 0, y: 0 })
-
-// Activity Feed panel state
-const showActivityFeed = ref(false)
-
-// Inventory panel state
-const showInventory = ref(false)
 
 // Help panel state
 const showHelp = ref(false)
@@ -472,9 +442,6 @@ const selectedGuineaPig = computed(() => {
   if (!selectedGuineaPigId.value) return null
   return guineaPigStore.activeGuineaPigs.find(gp => gp.id === selectedGuineaPigId.value)
 })
-
-// Activity Feed computed properties (reversed so newest messages appear first)
-const activityMessages = computed(() => [...loggingStore.activityMessages].reverse())
 
 // Unified 3D behavior composables registry (for autonomous behavior)
 const behaviors = new Map<string, ReturnType<typeof use3DBehavior>>()
@@ -1523,9 +1490,7 @@ function handleKeyDown(event: KeyboardEvent) {
 
   // Escape handling
   if (event.key === 'Escape') {
-    if (showInventory.value) {
-      showInventory.value = false
-    } else if (placement.isActive()) {
+    if (placement.isActive()) {
       placement.exitPlacementMode()
     } else if (containerFillMode.value) {
       exitContainerFillMode()
@@ -1628,15 +1593,6 @@ function handleHabitatCareAction(actionId: string) {
   }
 }
 
-// Side panels
-function toggleActivityFeed() {
-  showActivityFeed.value = !showActivityFeed.value
-}
-
-function toggleInventory() {
-  showInventory.value = !showInventory.value
-}
-
 function handleInventorySelect(itemId: string) {
   const supplyItem = suppliesStore.getItemById(itemId)
   if (!supplyItem) return
@@ -1708,11 +1664,6 @@ function handleCanvasMouseMove(event: MouseEvent) {
 
     hoveredGuineaPigId.value = foundGpId
   }
-}
-
-function formatTime(timestamp: number): string {
-  const date = new Date(timestamp)
-  return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })
 }
 
 // Environment setup
