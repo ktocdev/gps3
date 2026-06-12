@@ -678,6 +678,9 @@ let itemModels: Map<string, THREE.Group> | null = null
 // Physics composable
 let physics3D: ReturnType<typeof import('../../composables/3d/use3DPhysics').use3DPhysics> | null = null
 
+// Canvas layout observer
+let resizeObserver: ResizeObserver | null = null
+
 onMounted(() => {
   if (!canvasRef.value) return
 
@@ -738,6 +741,12 @@ onMounted(() => {
 
   // Add window resize listener
   window.addEventListener('resize', handleResize)
+
+  // Track layout-driven canvas size changes (header/top bar mounting,
+  // panel toggles) — window.resize alone misses these, leaving the
+  // renderer buffer and raycast picking stale.
+  resizeObserver = new ResizeObserver(() => handleResize())
+  resizeObserver.observe(canvasRef.value)
 
   // Add keyboard listener
   window.addEventListener('keydown', handleKeyDown)
@@ -804,6 +813,11 @@ onUnmounted(() => {
 
   window.removeEventListener('resize', handleResize)
   window.removeEventListener('keydown', handleKeyDown)
+
+  if (resizeObserver) {
+    resizeObserver.disconnect()
+    resizeObserver = null
+  }
 })
 
 // Animation loop

@@ -17,6 +17,7 @@ import './styles/game-fab.css'
 import './styles/game-view.css'
 import './styles/activity-feed.css'
 import './styles/debug.css'
+import './styles/chrome.css'
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)

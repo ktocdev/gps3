@@ -33,6 +33,10 @@
         <Button size="sm" title="Clear all storage and reload" @click="clearAllStorage">
           ✨ Clear Storage
         </Button>
+
+        <Button size="sm" title="Back to game" @click="router.push('/')">
+          ← Back to game
+        </Button>
       </div>
     </div>
   </header>
@@ -40,6 +44,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import Button from '../../basic/Button.vue'
 import { useGameController } from '../../../stores/gameController'
 import { usePetStoreManager } from '../../../stores/petStoreManager'
@@ -48,6 +53,7 @@ import { useGuineaPigStore } from '../../../stores/guineaPigStore'
 import { useGameTimingStore } from '../../../stores/gameTimingStore'
 import { useThemeStore } from '../../../stores/themeStore'
 
+const router = useRouter()
 const gameController = useGameController()
 const petStoreManager = usePetStoreManager()
 const habitatConditions = useHabitatConditions()

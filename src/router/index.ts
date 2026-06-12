@@ -1,26 +1,43 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import GameShellView from '../views/GameShellView.vue'
+import PlayView from '../views/PlayView.vue'
+import StoreView from '../views/StoreView.vue'
 import DebugView from '../views/DebugView.vue'
-import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
+      component: GameShellView,
+      children: [
+        {
+          path: '',
+          name: 'play',
+          component: PlayView
+        },
+        {
+          path: 'store',
+          name: 'store',
+          component: StoreView
+        }
+      ]
+    },
+    {
+      path: '/debug',
       name: 'debug',
       component: DebugView
     },
     {
       path: '/home',
-      name: 'home',
-      component: HomeView
+      redirect: '/'
     }
   ]
 })
 
 // Helper function to identify game pages that require pause management
 const isGamePage = (path: string): boolean => {
-  return path === '/' || path === '/home'
+  return path === '/'
 }
 
 // Navigation guards for automatic game pause/resume
