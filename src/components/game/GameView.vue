@@ -2,7 +2,7 @@
   <div class="game-view" :class="{ 'game-view--fullscreen': isFullscreen }">
     <!-- Wood-plank top bar: activity / habitat / per-pig / inventory pills -->
     <SimTopBar
-      v-if="chrome !== false"
+      v-if="chrome"
       ref="simTopBarRef"
       @select-inventory-item="handleInventorySelect"
       @deselect-inventory-item="handleInventoryDeselect"
@@ -201,11 +201,15 @@ import ItemPopover3D from './ItemPopover3D.vue'
 import * as THREE from 'three'
 
 // Props
-const props = defineProps<{
+// Note: absent Boolean props are cast to false by Vue, so chrome needs an
+// explicit default to render the SimTopBar when the prop is omitted.
+const props = withDefaults(defineProps<{
   isFullscreen: boolean
-  /** Render the SimTopBar chrome (false for the debug embed) */
+  /** Render the SimTopBar chrome */
   chrome?: boolean
-}>()
+}>(), {
+  chrome: true
+})
 
 // Emits
 const emit = defineEmits<{
