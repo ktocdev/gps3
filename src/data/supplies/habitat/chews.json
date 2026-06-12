@@ -1,0 +1,243 @@
+[
+  {
+    "id": "habitat_apple_wood_sticks",
+    "name": "Apple Wood Sticks",
+    "description": "Sweet flavored chew sticks (3-pack)",
+    "category": "habitat_item",
+    "subCategory": "chews",
+    "basePrice": 5.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 4,
+      "playBoost": 6,
+      "stimulationBoost": 5,
+      "dentalBenefit": 8,
+      "chewSatisfaction": 7
+    },
+    "availability": "always",
+    "emoji": "🍎",
+    "tier": "basic",
+    "tags": ["popular"]
+  },
+  {
+    "id": "habitat_willow_sticks",
+    "name": "Willow Sticks",
+    "description": "Classic willow branches (5-pack)",
+    "category": "habitat_item",
+    "subCategory": "chews",
+    "basePrice": 4.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 3,
+      "playBoost": 5,
+      "stimulationBoost": 4,
+      "dentalBenefit": 7,
+      "chewSatisfaction": 6
+    },
+    "availability": "always",
+    "emoji": "🌿",
+    "tier": "basic",
+    "tags": []
+  },
+  {
+    "id": "habitat_pear_wood_block",
+    "name": "Pear Wood Block",
+    "description": "Chunky block for aggressive chewing",
+    "category": "habitat_item",
+    "subCategory": "chews",
+    "basePrice": 7.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 6,
+      "playBoost": 8,
+      "stimulationBoost": 6,
+      "dentalBenefit": 9,
+      "chewSatisfaction": 8
+    },
+    "availability": "always",
+    "emoji": "🍐",
+    "tier": "basic",
+    "tags": []
+  },
+  {
+    "id": "habitat_hazelnut_branch",
+    "name": "Hazelnut Branch",
+    "description": "Natural branch with bark",
+    "category": "habitat_item",
+    "subCategory": "chews",
+    "basePrice": 6.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 5,
+      "playBoost": 7,
+      "stimulationBoost": 6,
+      "dentalBenefit": 8,
+      "chewSatisfaction": 7
+    },
+    "availability": "always",
+    "emoji": "🌰",
+    "tier": "basic",
+    "tags": []
+  },
+  {
+    "id": "habitat_grass_woven_ball",
+    "name": "Grass Woven Ball",
+    "description": "Edible woven ball",
+    "category": "habitat_item",
+    "subCategory": "chews",
+    "basePrice": 8.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 4,
+      "playBoost": 10,
+      "stimulationBoost": 8,
+      "dentalBenefit": 6,
+      "chewSatisfaction": 9
+    },
+    "availability": "always",
+    "emoji": "⚽",
+    "tier": "standard",
+    "tags": []
+  },
+  {
+    "id": "habitat_timothy_hay_cake",
+    "name": "Timothy Hay Cake",
+    "description": "Compressed hay circle",
+    "category": "habitat_item",
+    "subCategory": "chews",
+    "basePrice": 9.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 5,
+      "playBoost": 8,
+      "stimulationBoost": 7,
+      "dentalBenefit": 7,
+      "chewSatisfaction": 10
+    },
+    "availability": "always",
+    "emoji": "🍰",
+    "tier": "standard",
+    "tags": []
+  },
+  {
+    "id": "habitat_carrot_chew_toy",
+    "name": "Carrot Chew Toy",
+    "description": "Carrot-shaped wooden chew",
+    "category": "habitat_item",
+    "subCategory": "chews",
+    "basePrice": 7.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 5,
+      "playBoost": 9,
+      "stimulationBoost": 7,
+      "dentalBenefit": 8,
+      "chewSatisfaction": 8
+    },
+    "availability": "always",
+    "emoji": "🥕",
+    "tier": "standard",
+    "tags": ["fun"]
+  },
+  {
+    "id": "habitat_corn_husk_toy",
+    "name": "Corn Husk Toy",
+    "description": "Natural corn husk bundle",
+    "category": "habitat_item",
+    "subCategory": "chews",
+    "basePrice": 6.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 3,
+      "playBoost": 7,
+      "stimulationBoost": 8,
+      "dentalBenefit": 5,
+      "chewSatisfaction": 7
+    },
+    "availability": "seasonal",
+    "emoji": "🌽",
+    "tier": "standard",
+    "tags": []
+  },
+  {
+    "id": "habitat_chew_stick_kabob",
+    "name": "Chew Stick Kabob",
+    "description": "Variety wood sticks on metal holder",
+    "category": "habitat_item",
+    "subCategory": "chews",
+    "basePrice": 12.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 6,
+      "playBoost": 12,
+      "stimulationBoost": 10,
+      "dentalBenefit": 9,
+      "chewSatisfaction": 10
+    },
+    "availability": "always",
+    "emoji": "🍡",
+    "tier": "premium",
+    "tags": []
+  },
+  {
+    "id": "habitat_edible_hideaway",
+    "name": "Edible Hideaway",
+    "description": "Fully edible grass hut",
+    "category": "habitat_item",
+    "subCategory": "chews",
+    "basePrice": 14.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 2,
+      "playBoost": 10,
+      "stimulationBoost": 12,
+      "comfortBoost": 8,
+      "dentalBenefit": 6,
+      "chewSatisfaction": 10
+    },
+    "availability": "always",
+    "emoji": "🏠",
+    "tier": "premium",
+    "tags": []
+  },
+  {
+    "id": "habitat_lava_ledge",
+    "name": "Lava Ledge",
+    "description": "Chewable pumice stone for teeth trimming",
+    "category": "habitat_item",
+    "subCategory": "chews",
+    "basePrice": 11.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 10,
+      "playBoost": 8,
+      "stimulationBoost": 6,
+      "dentalBenefit": 10,
+      "chewSatisfaction": 7
+    },
+    "availability": "always",
+    "emoji": "🪨",
+    "tier": "premium",
+    "tags": []
+  },
+  {
+    "id": "habitat_loofah_chew",
+    "name": "Loofah Chew",
+    "description": "Natural loofah for chewing and tossing",
+    "category": "habitat_item",
+    "subCategory": "chews",
+    "basePrice": 8.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 4,
+      "playBoost": 11,
+      "stimulationBoost": 9,
+      "dentalBenefit": 6,
+      "chewSatisfaction": 8
+    },
+    "availability": "always",
+    "emoji": "🧽",
+    "tier": "premium",
+    "tags": []
+  }
+]

@@ -1,0 +1,82 @@
+/* Stats Component Styles */
+
+.stats-grid {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border-dark);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  border-block-end: 1px solid var(--color-border-light);
+}
+
+.stat-item:last-child {
+  border-block-end: none;
+}
+
+.stat-item:nth-child(odd) {
+  background-color: var(--color-bg-tertiary);
+}
+
+.stat-item:nth-child(even) {
+  background-color: var(--color-bg-secondary);
+}
+
+.stat-label {
+  font-family: 'Roboto', sans-serif;
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+.stat-value {
+  font-family: 'Roboto', sans-serif;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  text-transform: capitalize;
+}
+
+.stat-value--error {
+  color: var(--color-error);
+}
+
+.stat-value--warning {
+  color: var(--color-warning);
+}
+
+.stat-value--success {
+  color: var(--color-success);
+}
+
+.stat-value--muted {
+  color: var(--color-text-muted);
+}
+
+/* Text Color Utilities - for use outside of stat-value context */
+.text--success {
+  color: var(--color-success);
+}
+
+.text--error {
+  color: var(--color-error);
+}
+
+.text--warning {
+  color: var(--color-warning);
+}
+
+.text--info {
+  color: var(--color-info);
+}
+
+.text--muted {
+  color: var(--color-text-muted);
+}

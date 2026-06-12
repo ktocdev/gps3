@@ -1,0 +1,180 @@
+[
+  {
+    "id": "food_treat_pumpkin_spice",
+    "name": "Pumpkin Spice Treat",
+    "description": "Premium pumpkin spice flavored treat with magical glow effect",
+    "category": "food",
+    "subCategory": "treats",
+    "basePrice": 18.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 5,
+      "hungerSatisfaction": 20,
+      "playBoost": 15,
+      "stimulationBoost": 10,
+      "servingSize": "1 treat",
+      "shelfLife": "12 months",
+      "foodBallColor": "#FF8C00"
+    },
+    "visualEffect": {
+      "type": "glow",
+      "color": "#FF8C00",
+      "duration": 180
+    },
+    "badgeUnlock": {
+      "id": "badge_pumpkin_spice_fan",
+      "name": "Pumpkin Spice Fan",
+      "emoji": "🎃"
+    },
+    "availability": "seasonal",
+    "emoji": "🎃",
+    "tier": "premium",
+    "tags": ["special", "limited"]
+  },
+  {
+    "id": "food_treat_tie_dye",
+    "name": "Tie-Dye Treat",
+    "description": "Groovy rainbow treat with mesmerizing color-shifting effect",
+    "category": "food",
+    "subCategory": "treats",
+    "basePrice": 24.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 5,
+      "hungerSatisfaction": 22,
+      "stimulationBoost": 20,
+      "comfortBoost": 10,
+      "servingSize": "1 treat",
+      "shelfLife": "12 months",
+      "foodBallColor": "#E040FB"
+    },
+    "visualEffect": {
+      "type": "color_shift",
+      "color": ["#FF0000", "#FF7F00", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#9400D3"],
+      "duration": 240
+    },
+    "badgeUnlock": {
+      "id": "badge_groovy_guinea",
+      "name": "Groovy Guinea",
+      "emoji": "🌈"
+    },
+    "availability": "limited",
+    "emoji": "🌈",
+    "tier": "premium",
+    "tags": ["special", "limited"]
+  },
+  {
+    "id": "food_treat_island",
+    "name": "Island Treat",
+    "description": "Tropical paradise treat with soothing island glow",
+    "category": "food",
+    "subCategory": "treats",
+    "basePrice": 16.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 6,
+      "hungerSatisfaction": 18,
+      "comfortBoost": 15,
+      "playBoost": 10,
+      "servingSize": "1 treat",
+      "shelfLife": "12 months",
+      "foodBallColor": "#20B2AA"
+    },
+    "visualEffect": {
+      "type": "glow",
+      "color": "#20B2AA",
+      "duration": 150
+    },
+    "badgeUnlock": {
+      "id": "badge_island_vibes",
+      "name": "Island Vibes",
+      "emoji": "🌺"
+    },
+    "availability": "seasonal",
+    "emoji": "🌺",
+    "tier": "premium",
+    "tags": ["special"]
+  },
+  {
+    "id": "food_treat_dried_fruit_mix",
+    "name": "Dried Fruit Mix",
+    "description": "Affordable dried fruit treat mix with apple and banana chips",
+    "category": "food",
+    "subCategory": "treats",
+    "basePrice": 5.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 5,
+      "hungerSatisfaction": 15,
+      "servingSize": "1-2 pieces",
+      "shelfLife": "6 months",
+      "foodBallColor": "#FFC107"
+    },
+    "availability": "always",
+    "emoji": "🍇",
+    "tier": "basic",
+    "tags": ["affordable"]
+  },
+  {
+    "id": "food_treat_veggie_cookie",
+    "name": "Veggie Cookie",
+    "description": "Crunchy vegetable-based cookie treat",
+    "category": "food",
+    "subCategory": "treats",
+    "basePrice": 4.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 6,
+      "hungerSatisfaction": 12,
+      "servingSize": "1 cookie",
+      "shelfLife": "6 months",
+      "foodBallColor": "#FFD54F"
+    },
+    "availability": "always",
+    "emoji": "🍪",
+    "tier": "basic",
+    "tags": ["affordable"]
+  },
+  {
+    "id": "food_treat_hay_ball",
+    "name": "Hay Ball Treat",
+    "description": "Compressed hay ball with herbs, edible and fun",
+    "category": "food",
+    "subCategory": "treats",
+    "basePrice": 6.49,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 7,
+      "hungerSatisfaction": 18,
+      "playBoost": 8,
+      "servingSize": "1 ball",
+      "shelfLife": "12 months",
+      "foodBallColor": "#C8A030"
+    },
+    "availability": "always",
+    "emoji": "⚽",
+    "tier": "standard",
+    "tags": ["affordable", "enrichment"]
+  },
+  {
+    "id": "food_treat_timothy_sticks",
+    "name": "Timothy Sticks",
+    "description": "Crunchy timothy hay sticks, natural and healthy",
+    "category": "food",
+    "subCategory": "treats",
+    "basePrice": 7.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 6,
+      "hungerSatisfaction": 14,
+      "playBoost": 5,
+      "servingSize": "1-2 sticks",
+      "shelfLife": "12 months",
+      "foodBallColor": "#D4A843"
+    },
+    "availability": "always",
+    "emoji": "🌾",
+    "tier": "standard",
+    "tags": ["affordable"]
+  }
+]

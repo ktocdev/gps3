@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celestial Meditation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            background: radial-gradient(ellipse at bottom, #1b2947 0%, #0a1128 100%);
+            font-family: 'Georgia', serif;
+        }
+
+        .moon {
+            position: fixed;
+            top: 8%;
+            right: 12%;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #fff9e6 0%, #ffe8b3 40%, #e6d4a6 100%);
+            box-shadow: 0 0 60px rgba(255, 248, 220, 0.6), 0 0 100px rgba(255, 248, 220, 0.3);
+            z-index: 5;
+        }
+
+        .shooting-star {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+            opacity: 0;
+            z-index: 10;
+        }
+
+        .exhibit-frame {
+            position: fixed;
+            left: 35%;
+            top: 54%;
+            width: 36%;
+            height: 18%;
+            border: 8px solid rgba(139, 90, 43, 0.7);
+            box-shadow:
+                inset 0 0 30px rgba(0, 0, 0, 0.6),
+                0 0 50px rgba(255, 215, 100, 0.3),
+                0 8px 20px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg,
+                rgba(20, 10, 5, 0.4) 0%,
+                rgba(40, 25, 15, 0.3) 50%,
+                rgba(20, 10, 5, 0.4) 100%);
+            transform: perspective(800px) rotateX(2deg) rotateY(-1deg);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .exhibit-frame::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 35px;
+            background: linear-gradient(to bottom, transparent, rgba(139, 90, 43, 0.6));
+        }
+
+        .exhibit-frame::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border: 1px solid rgba(210, 180, 140, 0.3);
+            box-shadow: 0 0 15px rgba(255, 215, 100, 0.2);
+        }
+
+        .exhibit-placard {
+            position: fixed;
+            left: 36%;
+            top: 74%;
+            width: 32%;
+            background: linear-gradient(145deg, #d4c5a9 0%, #b8a888 100%);
+            padding: 12px 18px;
+            font-family: 'Courier New', monospace;
+            font-size: 10px;
+            color: #3a2a1a;
+            border: 2px solid #8b6f47;
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transform: perspective(600px) rotateX(-3deg);
+            z-index: 1;
+            pointer-events: none;
+            line-height: 1.5;
+            box-sizing: border-box;
+        }
+
+        .placard-title {
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .placard-date {
+            font-style: italic;
+            font-size: 9px;
+            opacity: 0.7;
+            margin-top: 4px;
+        }
+
+        .vhs-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 0, 0, 0.03) 2px,
+                    rgba(0, 0, 0, 0.03) 4px
+                );
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0.4;
+            animation: vhsScroll 0.3s linear infinite;
+        }
+
+        @keyframes vhsScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        .corner-bracket {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(180, 140, 80, 0.5);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .corner-bracket.top-left {
+            left: 34%;
+            top: 52%;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .corner-bracket.top-right {
+            right: 29%;
+            top: 52%;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .corner-bracket.bottom-left {
+            left: 34%;
+            top: 68%;
+            border-right: none;
+            border-top: none;
+        }
+
+        .corner-bracket.bottom-right {
+            right: 29%;
+            top: 68%;
+            border-left: none;
+            border-top: none;
+        }
+
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .tooltip {
+            position: fixed;
+            background: rgba(10, 17, 40, 0.9);
+            color: #e8f4f8;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border: 1px solid rgba(200, 220, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            max-width: 250px;
+        }
+
+        .tooltip.visible {
+            opacity: 1;
+        }
+
+        .constellation-name {
+            font-weight: bold;
+            color: #a8d8ea;
+            margin-bottom: 4px;
+        }
+
+        .constellation-description {
+            font-size: 12px;
+            color: #d4e4f0;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="moon"></div>
+    <canvas id="starfield"></canvas>
+
+    <!-- 90s Museum Exhibit Frame -->
+    <div class="exhibit-frame"></div>
+    <div class="corner-bracket top-left"></div>
+    <div class="corner-bracket top-right"></div>
+    <div class="corner-bracket bottom-left"></div>
+    <div class="corner-bracket bottom-right"></div>
+
+    <div class="exhibit-placard">
+        <div class="placard-title">Starr the Magnificent</div>
+        <div>A celestial phenomenon discovered in the digital cosmos. This rare stellar formation exhibits unprecedented query optimization capabilities and demonstrates remarkable friendship luminosity.</div>
+        <div class="placard-date">Catalogued: Database Epoch 1995.7</div>
+    </div>
+
+    <div class="vhs-grain"></div>
+
+    <div class="tooltip" id="tooltip">
+        <div class="constellation-name"></div>
+        <div class="constellation-description"></div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        const tooltip = document.getElementById('tooltip');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Constellation data with educational information
+        const constellations = [
+            {
+                name: "Starr the Magnificent",
+                description: "The legendary Query Master and Keeper of Databases. Starr blazed across the digital cosmos, wielding SQL commands like celestial lightning, transforming chaos into elegant schemas. Known for unparalleled wisdom in data architecture, algorithmic mastery, and an uncanny ability to debug the impossible. A beacon of friendship and coolness, Starr's constellation guides all who seek knowledge and companionship in the vast universe of code.",
+                stars: [
+                    // S - curved shape
+                    {x: 0.41, y: 0.60}, {x: 0.42, y: 0.60}, {x: 0.43, y: 0.60},
+                    {x: 0.40, y: 0.61}, {x: 0.40, y: 0.63},
+                    {x: 0.41, y: 0.64}, {x: 0.42, y: 0.64},
+                    {x: 0.43, y: 0.65}, {x: 0.43, y: 0.67},
+                    {x: 0.40, y: 0.68}, {x: 0.41, y: 0.68}, {x: 0.42, y: 0.68},
+                    // T
+                    {x: 0.455, y: 0.60}, {x: 0.46, y: 0.60}, {x: 0.465, y: 0.60}, {x: 0.47, y: 0.60}, {x: 0.475, y: 0.60}, {x: 0.48, y: 0.60}, {x: 0.485, y: 0.60},
+                    {x: 0.47, y: 0.61}, {x: 0.47, y: 0.62}, {x: 0.47, y: 0.63},
+                    {x: 0.47, y: 0.64}, {x: 0.47, y: 0.65}, {x: 0.47, y: 0.66},
+                    {x: 0.47, y: 0.67}, {x: 0.47, y: 0.68},
+                    // A
+                    {x: 0.52, y: 0.68}, {x: 0.523, y: 0.67}, {x: 0.526, y: 0.66},
+                    {x: 0.529, y: 0.65}, {x: 0.532, y: 0.64}, {x: 0.535, y: 0.63},
+                    {x: 0.538, y: 0.62}, {x: 0.541, y: 0.61}, {x: 0.544, y: 0.60},
+                    {x: 0.547, y: 0.61}, {x: 0.55, y: 0.62}, {x: 0.553, y: 0.63},
+                    {x: 0.556, y: 0.64}, {x: 0.559, y: 0.65}, {x: 0.562, y: 0.66},
+                    {x: 0.565, y: 0.67}, {x: 0.568, y: 0.68},
+                    {x: 0.532, y: 0.64}, {x: 0.538, y: 0.64}, {x: 0.544, y: 0.64}, {x: 0.55, y: 0.64}, {x: 0.556, y: 0.64},
+                    // R
+                    {x: 0.62, y: 0.68}, {x: 0.62, y: 0.67}, {x: 0.62, y: 0.66},
+                    {x: 0.62, y: 0.65}, {x: 0.62, y: 0.64}, {x: 0.62, y: 0.63},
+                    {x: 0.62, y: 0.62}, {x: 0.62, y: 0.61}, {x: 0.62, y: 0.60},
+                    {x: 0.63, y: 0.60}, {x: 0.64, y: 0.60},
+                    {x: 0.645, y: 0.61}, {x: 0.65, y: 0.62},
+                    {x: 0.645, y: 0.63}, {x: 0.64, y: 0.64}, {x: 0.63, y: 0.64},
+                    {x: 0.635, y: 0.65}, {x: 0.64, y: 0.66}, {x: 0.645, y: 0.67}, {x: 0.65, y: 0.68},
+                    // R
+                    {x: 0.68, y: 0.68}, {x: 0.68, y: 0.67}, {x: 0.68, y: 0.66},
+                    {x: 0.68, y: 0.65}, {x: 0.68, y: 0.64}, {x: 0.68, y: 0.63},
+                    {x: 0.68, y: 0.62}, {x: 0.68, y: 0.61}, {x: 0.68, y: 0.60},
+                    {x: 0.69, y: 0.60}, {x: 0.70, y: 0.60},
+                    {x: 0.705, y: 0.61}, {x: 0.71, y: 0.62},
+                    {x: 0.705, y: 0.63}, {x: 0.70, y: 0.64}, {x: 0.69, y: 0.64},
+                    {x: 0.695, y: 0.65}, {x: 0.70, y: 0.66}, {x: 0.705, y: 0.67}, {x: 0.71, y: 0.68}
+                ],
+                color: 'rgba(255, 215, 100, 0.5)' // Golden glow
+            },
+            {
+                name: "Felis Technologica",
+                description: "The Celestial Cat, companion to Starr. This mystical feline prowls through databases with grace and curiosity, always landing on its feet—even after a crashed query. Legend says it has nine backup servers.",
+                stars: [
+                    // Cat body outline
+                    {x: 0.12, y: 0.75}, {x: 0.13, y: 0.73}, {x: 0.15, y: 0.72},
+                    {x: 0.17, y: 0.73}, {x: 0.18, y: 0.75}, {x: 0.175, y: 0.77},
+                    {x: 0.16, y: 0.78}, {x: 0.14, y: 0.78}, {x: 0.125, y: 0.77},
+                    // Head
+                    {x: 0.115, y: 0.73}, {x: 0.11, y: 0.71}, {x: 0.12, y: 0.70},
+                    // Ears
+                    {x: 0.105, y: 0.69}, {x: 0.135, y: 0.69},
+                    // Tail
+                    {x: 0.18, y: 0.76}, {x: 0.19, y: 0.755}, {x: 0.20, y: 0.74}, {x: 0.21, y: 0.72}
+                ],
+                color: 'rgba(180, 220, 255, 0.5)' // Cool blue glow
+            },
+            {
+                name: "Ursa Major",
+                description: "The Great Bear, home to the Big Dipper. Ancient cultures saw this as a celestial guide for navigation.",
+                stars: [
+                    {x: 0.15, y: 0.25}, {x: 0.18, y: 0.23}, {x: 0.21, y: 0.22},
+                    {x: 0.24, y: 0.23}, {x: 0.25, y: 0.27}, {x: 0.22, y: 0.29}, {x: 0.19, y: 0.28}
+                ]
+            },
+            {
+                name: "Orion",
+                description: "The Hunter, one of the most recognizable constellations. Orion's Belt has guided travelers for millennia.",
+                stars: [
+                    {x: 0.5, y: 0.4}, {x: 0.52, y: 0.35}, {x: 0.48, y: 0.35},
+                    {x: 0.5, y: 0.3}, {x: 0.47, y: 0.45}, {x: 0.53, y: 0.45},
+                    {x: 0.49, y: 0.38}, {x: 0.5, y: 0.38}, {x: 0.51, y: 0.38}
+                ]
+            },
+            {
+                name: "Cassiopeia",
+                description: "The Queen, forming a distinctive 'W' shape. Visible year-round in northern skies.",
+                stars: [
+                    {x: 0.75, y: 0.2}, {x: 0.78, y: 0.18}, {x: 0.81, y: 0.2},
+                    {x: 0.84, y: 0.18}, {x: 0.87, y: 0.2}
+                ]
+            },
+            {
+                name: "Cygnus",
+                description: "The Swan, soaring across the Milky Way. Also known as the Northern Cross.",
+                stars: [
+                    {x: 0.7, y: 0.5}, {x: 0.7, y: 0.55}, {x: 0.7, y: 0.6},
+                    {x: 0.67, y: 0.55}, {x: 0.73, y: 0.55}
+                ]
+            },
+            {
+                name: "Leo",
+                description: "The Lion, a zodiacal constellation symbolizing courage and strength.",
+                stars: [
+                    {x: 0.3, y: 0.5}, {x: 0.33, y: 0.48}, {x: 0.36, y: 0.5},
+                    {x: 0.35, y: 0.54}, {x: 0.32, y: 0.55}, {x: 0.29, y: 0.53}
+                ]
+            }
+        ];
+
+        // Generate ambient stars
+        const ambientStars = [];
+        for (let i = 0; i < 1200; i++) {
+            ambientStars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 1.8,
+                opacity: Math.random() * 0.8 + 0.2,
+                twinkleSpeed: Math.random() * 0.02 + 0.005,
+                twinkleOffset: Math.random() * Math.PI * 2,
+                color: Math.random() > 0.7 ?
+                    `rgba(${200 + Math.random() * 55}, ${200 + Math.random() * 55}, 255, ` :
+                    'rgba(255, 255, 255, '
+            });
+        }
+
+        // Shooting stars
+        function createShootingStar() {
+            const shootingStar = document.createElement('div');
+            shootingStar.className = 'shooting-star';
+            const startX = Math.random() * window.innerWidth;
+            const startY = Math.random() * window.innerHeight * 0.5;
+            shootingStar.style.left = startX + 'px';
+            shootingStar.style.top = startY + 'px';
+            document.body.appendChild(shootingStar);
+
+            const angle = Math.random() * 45 + 30;
+            const distance = 200 + Math.random() * 300;
+            const duration = 1 + Math.random() * 1;
+
+            shootingStar.animate([
+                { opacity: 0, transform: 'translate(0, 0) scale(1)', filter: 'blur(0px)' },
+                { opacity: 1, transform: `translate(${distance * Math.cos(angle * Math.PI / 180)}px, ${distance * Math.sin(angle * Math.PI / 180)}px) scale(1)`, filter: 'blur(0px)', offset: 0.2 },
+                { opacity: 0, transform: `translate(${distance * 2 * Math.cos(angle * Math.PI / 180)}px, ${distance * 2 * Math.sin(angle * Math.PI / 180)}px) scale(0.5)`, filter: 'blur(2px)' }
+            ], {
+                duration: duration * 1000,
+                easing: 'ease-out'
+            }).onfinish = () => shootingStar.remove();
+        }
+
+        setInterval(() => {
+            if (Math.random() > 0.7) createShootingStar();
+        }, 3000);
+
+        // Convert constellation coordinates to canvas positions
+        const constellationStars = [];
+        constellations.forEach(constellation => {
+            const stars = constellation.stars.map(star => ({
+                x: star.x * canvas.width,
+                y: star.y * canvas.height,
+                radius: 2 + Math.random() * 1.5,
+                constellation: constellation.name,
+                description: constellation.description
+            }));
+            constellationStars.push({ ...constellation, stars });
+        });
+
+        let time = 0;
+
+        function drawStar(x, y, radius, opacity, glow = true, colorPrefix = 'rgba(255, 255, 255, ') {
+            if (glow) {
+                const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius * 4);
+                gradient.addColorStop(0, colorPrefix + opacity + ')');
+                gradient.addColorStop(0.3, `rgba(200, 220, 255, ${opacity * 0.6})`);
+                gradient.addColorStop(1, 'rgba(100, 150, 255, 0)');
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(x, y, radius * 4, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            ctx.fillStyle = colorPrefix + opacity + ')';
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function drawConstellation(constellation) {
+            const stars = constellation.stars;
+            const lineColor = constellation.color || 'rgba(150, 180, 220, 0.3)';
+
+            // Draw connecting lines (skip for Starr the Magnificent)
+            if (constellation.name !== "Starr the Magnificent") {
+                ctx.strokeStyle = lineColor;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                stars.forEach((star, i) => {
+                    if (i === 0) ctx.moveTo(star.x, star.y);
+                    else ctx.lineTo(star.x, star.y);
+                });
+                ctx.stroke();
+            }
+
+            // Draw constellation stars with special glow for Starr
+            stars.forEach(star => {
+                const starGlow = constellation.name === "Starr the Magnificent" ?
+                    star.radius * 1.5 : star.radius;
+                const colorPrefix = constellation.color ?
+                    constellation.color.replace(', 0.5)', ', ') :
+                    'rgba(255, 255, 255, ';
+                drawStar(star.x, star.y, starGlow, 0.9, true, colorPrefix);
+            });
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw ambient stars with twinkling
+            ambientStars.forEach(star => {
+                const twinkle = Math.sin(time * star.twinkleSpeed + star.twinkleOffset) * 0.3 + 0.7;
+                drawStar(star.x, star.y, star.radius, star.opacity * twinkle, star.radius > 1, star.color);
+            });
+
+            // Draw constellations
+            constellationStars.forEach(constellation => {
+                drawConstellation(constellation);
+            });
+
+            time++;
+            requestAnimationFrame(animate);
+        }
+
+        // Mouse interaction for tooltips
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            let foundConstellation = null;
+
+            for (const constellation of constellationStars) {
+                for (const star of constellation.stars) {
+                    const distance = Math.sqrt(
+                        Math.pow(mouseX - star.x, 2) + Math.pow(mouseY - star.y, 2)
+                    );
+
+                    if (distance < 20) {
+                        foundConstellation = constellation;
+                        break;
+                    }
+                }
+                if (foundConstellation) break;
+            }
+
+            if (foundConstellation) {
+                tooltip.querySelector('.constellation-name').textContent = foundConstellation.name;
+                tooltip.querySelector('.constellation-description').textContent = foundConstellation.description;
+                tooltip.style.left = e.clientX + 15 + 'px';
+                tooltip.style.top = e.clientY + 15 + 'px';
+                tooltip.classList.add('visible');
+            } else {
+                tooltip.classList.remove('visible');
+            }
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            tooltip.classList.remove('visible');
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            // Recalculate star positions
+            ambientStars.forEach(star => {
+                star.x = Math.random() * canvas.width;
+                star.y = Math.random() * canvas.height;
+            });
+
+            constellationStars.length = 0;
+            constellations.forEach(constellation => {
+                const stars = constellation.stars.map(star => ({
+                    x: star.x * canvas.width,
+                    y: star.y * canvas.height,
+                    radius: 2 + Math.random() * 1.5,
+                    constellation: constellation.name,
+                    description: constellation.description
+                }));
+                constellationStars.push({ ...constellation, stars });
+            });
+        });
+
+        animate();
+    </script>
+</body>
+</html>

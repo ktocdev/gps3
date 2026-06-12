@@ -1,0 +1,422 @@
+/* Shared Component Styles - Reusable UI Components */
+
+/* Panel Component - BEM Methodology */
+
+/* Base Panel - Mobile First */
+.panel {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-light);
+  border-start-start-radius: var(--radius-md);
+  border-start-end-radius: var(--radius-md);
+  border-end-start-radius: var(--radius-md);
+  border-end-end-radius: var(--radius-md);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.panel:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border-medium);
+}
+
+/* Panel Variants */
+
+/* Border Primary Panel - Accent with pink theme */
+.panel--border-primary {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-bg);
+}
+
+.panel--border-primary:hover {
+  border-color: var(--color-primary-hover);
+  box-shadow: 0 4px 6px -1px rgba(236, 72, 153, 0.1),
+              0 2px 4px -2px rgba(236, 72, 153, 0.1);
+}
+
+/* Border Secondary Panel - Accent with green theme */
+.panel--border-secondary {
+  border-color: var(--color-secondary);
+  background-color: var(--color-secondary-bg);
+}
+
+.panel--border-secondary:hover {
+  border-color: var(--color-secondary-hover);
+  box-shadow: 0 4px 6px -1px rgba(34, 197, 94, 0.1),
+              0 2px 4px -2px rgba(34, 197, 94, 0.1);
+}
+
+/* Muted Panel - Subtle styling for less important content */
+.panel--muted {
+  background-color: var(--color-bg-tertiary);
+  border-color: var(--color-border-light);
+  opacity: 0.9;
+}
+
+.panel--muted:hover {
+  opacity: 1;
+  border-color: var(--color-border-medium);
+}
+
+/* Accent Panel - Distinctive styling with gradient accent bar */
+.panel--accent {
+  background-color: var(--color-bg-primary);
+  border-color: var(--color-border-medium);
+  border-style: dashed;
+  position: relative;
+}
+
+.panel--accent::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: 4px;
+  block-size: 100%;
+  background: linear-gradient(
+    to bottom,
+    var(--color-primary) 0%,
+    var(--color-secondary) 100%
+  );
+}
+
+.panel--accent:hover {
+  border-color: var(--color-border-dark);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Panel Structure Elements */
+
+/* Panel Header */
+.panel__header {
+  margin-block-end: var(--space-4);
+  padding-block-end: var(--space-3);
+  border-block-end: 1px solid var(--color-border-light);
+}
+
+.panel__header h2,
+.panel__header h3,
+.panel__header h4 {
+  margin-block-end: 0;
+  color: var(--color-text-primary);
+}
+
+.panel--border-primary .panel__header h2,
+.panel--border-primary .panel__header h3 {
+  color: var(--color-primary);
+}
+
+.panel--border-secondary .panel__header h2,
+.panel--border-secondary .panel__header h3 {
+  color: var(--color-secondary);
+}
+
+/* Panel Content */
+.panel__content {
+  flex: 1;
+}
+
+.panel__content > *:last-child {
+  margin-block-end: 0;
+}
+
+/* Panel Footer - Mobile First */
+.panel__footer {
+  margin-block-start: var(--space-4);
+  padding-block-start: var(--space-3);
+  border-block-start: 1px solid var(--color-border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* Panel Sizes */
+
+/* Compact Panel */
+.panel--compact {
+  padding: var(--space-3);
+}
+
+.panel--compact .panel__header {
+  margin-block-end: var(--space-2);
+  padding-block-end: var(--space-2);
+}
+
+.panel--compact .panel__footer {
+  margin-block-start: var(--space-2);
+  padding-block-start: var(--space-2);
+}
+
+/* Bordered Panel - Always visible borders, no hover effects on border */
+.panel--bordered {
+  border: 2px solid var(--color-border-medium);
+  box-shadow: none;
+}
+
+.panel--bordered:hover {
+  border-color: var(--color-border-medium);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Large Panel */
+.panel--large {
+  padding: var(--space-6);
+}
+
+.panel--large .panel__header {
+  margin-block-end: var(--space-6);
+  padding-block-end: var(--space-4);
+}
+
+.panel--large .panel__footer {
+  margin-block-start: var(--space-6);
+  padding-block-start: var(--space-4);
+}
+
+/* Overflow Visible Panel - For panels containing tooltips or popovers */
+.panel--overflow-visible {
+  overflow: visible;
+}
+
+/* Panel States */
+
+/* Loading Panel */
+.panel--loading {
+  opacity: 0.7;
+  pointer-events: none;
+  position: relative;
+}
+
+.panel--loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(1px);
+}
+
+/* Error Panel */
+.panel--error {
+  border-color: var(--color-error);
+  background-color: var(--color-error-bg);
+}
+
+.panel--error .panel__header h2,
+.panel--error .panel__header h3 {
+  color: var(--color-error);
+}
+
+/* Success Panel */
+.panel--success {
+  border-color: var(--color-success);
+  background-color: var(--color-success-bg);
+}
+
+.panel--success .panel__header h2,
+.panel--success .panel__header h3 {
+  color: var(--color-success);
+}
+
+/* Warning Panel */
+.panel--warning {
+  border-color: var(--color-warning);
+  background-color: var(--color-warning-bg);
+}
+
+.panel--warning .panel__header h2,
+.panel--warning .panel__header h3 {
+  color: var(--color-warning-700);
+}
+
+/* Subpanel - Nested panel within a panel */
+.panel__subpanel {
+  margin-block-start: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-primary);
+}
+
+.panel__subpanel--warning {
+  border-color: var(--color-warning-600);
+  background-color: var(--color-warning-50);
+  border-inline-start-width: 4px;
+}
+
+.panel__subpanel--error {
+  border-color: var(--color-error-600);
+  background-color: var(--color-error-50);
+  border-inline-start-width: 4px;
+}
+
+.panel__subpanel--info {
+  border-color: var(--color-info-600);
+  background-color: var(--color-info-50);
+  border-inline-start-width: 4px;
+}
+
+.panel__subpanel--success {
+  border-color: var(--color-success);
+  background-color: var(--color-success-bg);
+  border-inline-start-width: 4px;
+}
+
+.panel__subpanel-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.panel__subpanel-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: var(--line-height-normal);
+}
+
+.panel__subpanel-text--warning {
+  color: var(--color-warning-700);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Enhanced styling for larger screens */
+@media (min-width: 769px) {
+  .panel {
+    padding: var(--space-6);
+    border-start-start-radius: var(--radius-lg);
+    border-start-end-radius: var(--radius-lg);
+    border-end-start-radius: var(--radius-lg);
+    border-end-end-radius: var(--radius-lg);
+  }
+
+  .panel__footer {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .panel--large {
+    padding: var(--space-8);
+  }
+
+  .panel--compact {
+    padding: var(--space-4);
+  }
+}
+
+/* Dark Mode Adjustments */
+@media (prefers-color-scheme: dark) {
+  .panel {
+    background-color: var(--color-bg-tertiary);
+  }
+
+  .panel--accent::before {
+    opacity: 0.8;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .panel {
+    border-width: 2px;
+  }
+
+  .panel--accent {
+    border-width: 2px;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    transition: none;
+  }
+
+  .panel:hover {
+    transform: none;
+  }
+}
+
+/* Panel Grid for Layout - Mobile First */
+.panel-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: 1fr;
+}
+
+.panel-grid--padded {
+  padding: var(--space-4);
+}
+
+@media (min-width: 769px) {
+  .panel-grid {
+    gap: var(--space-6);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+/* Panel Flex for Horizontal Layout - Mobile First */
+.panel-row {
+  display: flex;
+  gap: var(--space-4);
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.panel-row > .panel {
+  min-inline-size: auto;
+}
+
+@media (min-width: 769px) {
+  .panel-row {
+    gap: var(--space-6);
+    flex-direction: row;
+  }
+
+  .panel-row > .panel {
+    flex: 1;
+    min-inline-size: 280px;
+  }
+}
+
+/* Panel Grid - Responsive grid layout for panels */
+.panel-row--grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  flex-direction: unset;
+}
+
+.panel-row--grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  flex-direction: unset;
+}
+
+.panel-row--grid-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  flex-direction: unset;
+}
+
+@media (min-width: 769px) {
+  .panel-row--grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .panel-row--grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1201px) {
+  .panel-row--grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

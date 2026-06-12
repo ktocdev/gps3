@@ -1,0 +1,68 @@
+[
+  {
+    "id": "food_pellets_cheap",
+    "name": "Cheap Pellets (Bag)",
+    "description": "Basic guinea pig pellets, budget-friendly bag",
+    "category": "food",
+    "subCategory": "pellets",
+    "basePrice": 8.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 6,
+      "hungerSatisfaction": 25,
+      "servingSize": "1/8 cup daily",
+      "shelfLife": "6 months",
+      "servings": 10,
+      "foodBallColor": "#8D6E63"
+    },
+    "availability": "always",
+    "emoji": "🌰",
+    "quality": "cheap",
+    "tier": "basic",
+    "tags": ["budget"]
+  },
+  {
+    "id": "food_pellets_standard",
+    "name": "Standard Pellets (Bag)",
+    "description": "Quality timothy-based pellets with vitamin C, bag of 10 servings",
+    "category": "food",
+    "subCategory": "pellets",
+    "basePrice": 14.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 8,
+      "hungerSatisfaction": 30,
+      "servingSize": "1/8 cup daily",
+      "shelfLife": "6 months",
+      "servings": 10,
+      "foodBallColor": "#795548"
+    },
+    "availability": "always",
+    "emoji": "🌰",
+    "quality": "average",
+    "tier": "standard",
+    "tags": ["popular", "best-value"]
+  },
+  {
+    "id": "food_pellets_fortified",
+    "name": "Fortified Pellets (Bag)",
+    "description": "Premium fortified pellets with enhanced nutrition, bag of 10 servings",
+    "category": "food",
+    "subCategory": "pellets",
+    "basePrice": 22.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 10,
+      "hungerSatisfaction": 35,
+      "servingSize": "1/8 cup daily",
+      "shelfLife": "6 months",
+      "servings": 10,
+      "foodBallColor": "#5D4037"
+    },
+    "availability": "always",
+    "emoji": "✨",
+    "quality": "premium",
+    "tier": "premium",
+    "tags": []
+  }
+]

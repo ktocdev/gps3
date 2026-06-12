@@ -1,0 +1,138 @@
+[
+  {
+    "id": "food_green_leaf_lettuce",
+    "name": "Green Leaf Lettuce",
+    "description": "Fresh green leaf lettuce, crisp and nutritious",
+    "category": "food",
+    "subCategory": "greens",
+    "basePrice": 2.49,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 7,
+      "hungerSatisfaction": 15,
+      "servingSize": "1-2 leaves",
+      "shelfLife": "3-5 days",
+      "servings": 6,
+      "foodBallColor": "#81C784"
+    },
+    "availability": "always",
+    "emoji": "🥬",
+    "tags": ["fresh"]
+  },
+  {
+    "id": "food_romaine_lettuce",
+    "name": "Romaine Lettuce",
+    "description": "Crunchy romaine lettuce with high water content",
+    "category": "food",
+    "subCategory": "greens",
+    "basePrice": 2.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 8,
+      "hungerSatisfaction": 18,
+      "servingSize": "1-2 leaves",
+      "shelfLife": "5-7 days",
+      "servings": 6,
+      "foodBallColor": "#66BB6A"
+    },
+    "availability": "always",
+    "emoji": "🥬",
+    "tags": ["fresh", "popular"]
+  },
+  {
+    "id": "food_red_leaf_lettuce",
+    "name": "Red Leaf Lettuce",
+    "description": "Colorful red leaf lettuce with mild flavor",
+    "category": "food",
+    "subCategory": "greens",
+    "basePrice": 2.79,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 7,
+      "hungerSatisfaction": 15,
+      "servingSize": "1-2 leaves",
+      "shelfLife": "3-5 days",
+      "servings": 6,
+      "foodBallColor": "#8D6E63"
+    },
+    "availability": "always",
+    "emoji": "🥬",
+    "tags": ["fresh"]
+  },
+  {
+    "id": "food_spinach",
+    "name": "Spinach",
+    "description": "Nutrient-rich spinach leaves (feed in moderation)",
+    "category": "food",
+    "subCategory": "greens",
+    "basePrice": 3.49,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 9,
+      "hungerSatisfaction": 12,
+      "servingSize": "2-3 small leaves",
+      "shelfLife": "3-5 days",
+      "foodBallColor": "#388E3C"
+    },
+    "availability": "always",
+    "emoji": "🥬",
+    "tags": ["fresh"]
+  },
+  {
+    "id": "food_kale",
+    "name": "Kale",
+    "description": "Super nutritious kale (feed in moderation)",
+    "category": "food",
+    "subCategory": "greens",
+    "basePrice": 3.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 10,
+      "hungerSatisfaction": 14,
+      "servingSize": "1-2 small leaves",
+      "shelfLife": "5-7 days",
+      "foodBallColor": "#2E7D32"
+    },
+    "availability": "always",
+    "emoji": "🥬",
+    "tags": ["fresh"]
+  },
+  {
+    "id": "food_arugula",
+    "name": "Arugula",
+    "description": "Peppery arugula with bold flavor",
+    "category": "food",
+    "subCategory": "greens",
+    "basePrice": 3.49,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 8,
+      "hungerSatisfaction": 13,
+      "servingSize": "2-3 leaves",
+      "shelfLife": "3-5 days",
+      "foodBallColor": "#4CAF50"
+    },
+    "availability": "always",
+    "emoji": "🥬",
+    "tags": ["fresh"]
+  },
+  {
+    "id": "food_butter_lettuce",
+    "name": "Butter Lettuce",
+    "description": "Soft butter lettuce with sweet mild flavor",
+    "category": "food",
+    "subCategory": "greens",
+    "basePrice": 2.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 7,
+      "hungerSatisfaction": 16,
+      "servingSize": "2-3 leaves",
+      "shelfLife": "3-5 days",
+      "foodBallColor": "#A5D6A7"
+    },
+    "availability": "always",
+    "emoji": "🥬",
+    "tags": ["fresh"]
+  }
+]

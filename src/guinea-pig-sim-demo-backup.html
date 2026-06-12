@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Guinea Pig</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+            color: #aaa;
+            font-family: sans-serif;
+            user-select: none; /* Prevent text selection while dragging */
+        }
+        #info {
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            text-align: center;
+            pointer-events: none;
+            z-index: 10;
+            color: #222; /* Updated to dark text for visibility against sky */
+            font-weight: bold;
+        }
+        #loading {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            text-align: center;
+            color: white;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        #controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 20;
+        }
+        .btn {
+            padding: 12px 24px;
+            font-family: sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+        .btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        #btnEat { background-color: #4CAF50; } /* Green */
+        #btnRefill { background-color: #2196F3; } /* Blue */
+    </style>
+</head>
+<body>
+    <div id="info">Drag or < > to rotate | Scroll/Z/X for Up/Down | Arrows to pan</div>
+    <div id="loading">Loading 3D Library...</div>
+    
+    <div id="controls">
+        <button id="btnEat" class="btn">Eat Cucumbers</button>
+        <button id="btnDrink" class="btn" style="background-color: #00BCD4;">Drink Water</button> <!-- Cyan for Water -->
+        <button id="btnRefill" class="btn">Refill Bowl</button>
+    </div>
+    
+    <!-- Three.js from CDN (Corrected Version URL) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+
+    <script>
+        // Ensure the library is loaded before running the script
+        window.addEventListener('load', function() {
+            const loading = document.getElementById('loading');
+            if (typeof THREE === 'undefined') {
+                loading.innerText = "Error: Three.js could not be loaded. Please check connection.";
+                loading.style.color = "red";
+                return;
+            }
+            loading.style.display = 'none';
+            init();
+        });
+
+        function init() {
+            // 1. Scene Setup
+            const scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x87CEEB); // Light Sky Blue
+            scene.fog = new THREE.Fog(0x87CEEB, 20, 60);  // Matching fog, slightly further out
+
+            // 2. Camera
+            const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(4, 3, 8);
+            camera.lookAt(4, 0, 0); 
+
+            // 3. Renderer
+            const renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            
+            // ENABLE LOCAL CLIPPING
+            renderer.localClippingEnabled = true;
+
+            document.body.appendChild(renderer.domElement);
+
+            // 4. Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+
+            const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            dirLight.position.set(5, 10, 7);
+            dirLight.castShadow = true;
+            dirLight.shadow.mapSize.width = 1024;
+            dirLight.shadow.mapSize.height = 1024;
+            scene.add(dirLight);
+            
+            const backLight = new THREE.DirectionalLight(0xccccff, 0.4);
+            backLight.position.set(-5, 5, -5);
+            scene.add(backLight);
+
+            // Group to hold all rotating objects
+            const worldGroup = new THREE.Group();
+            scene.add(worldGroup);
+
+            // --- GLOBAL POSITIONS (Defined early for pathfinding) ---
+            const archPos = new THREE.Vector3(-5, 0, -3.5);
+            const bowlPos = new THREE.Vector3(6.5, 0, -3.0);
+            const iglooPos = new THREE.Vector3(-5, 0, 5);
+            // UPDATED: Moved Water Bottle to Opposite Back Corner (9.3, -9.3)
+            const waterBottlePos = new THREE.Vector3(9.3, 0, -9.3);
+
+            // 5. Guinea Pig Construction
+            const guineaPig = new THREE.Group();
+
+            const furColor = 0xe8cd9a; 
+            const earColor = 0x3b2918; 
+            const skinColor = 0xffdcd6; 
+            const eyeColor = 0x111111; 
+
+            const furMat = new THREE.MeshStandardMaterial({ color: furColor, roughness: 0.9, flatShading: false });
+            const earMat = new THREE.MeshStandardMaterial({ color: earColor, roughness: 0.8 });
+            const skinMat = new THREE.MeshStandardMaterial({ color: skinColor, roughness: 0.5 });
+            const eyeMat = new THREE.MeshPhysicalMaterial({ color: eyeColor, roughness: 0.0, clearcoat: 1.0, clearcoatRoughness: 0.1 });
+
+            // Body
+            const bodyGeo = new THREE.SphereGeometry(1, 32, 32);
+            bodyGeo.applyMatrix4(new THREE.Matrix4().makeScale(1.1, 1.0, 1.8)); 
+            const body = new THREE.Mesh(bodyGeo, furMat);
+            body.position.y = 1.0;
+            body.castShadow = true;
+            body.receiveShadow = true;
+            guineaPig.add(body);
+
+            // Head
+            const headGeo = new THREE.SphereGeometry(0.85, 32, 32);
+            headGeo.applyMatrix4(new THREE.Matrix4().makeScale(1, 0.95, 1.2));
+            const head = new THREE.Mesh(headGeo, furMat);
+            head.position.set(0, 1.0, 1.3);
+            head.castShadow = true;
+            guineaPig.add(head);
+
+            // Ears
+            const earGeo = new THREE.SphereGeometry(0.35, 32, 16);
+            earGeo.applyMatrix4(new THREE.Matrix4().makeScale(1, 1, 0.2));
+            const leftEar = new THREE.Mesh(earGeo, earMat);
+            leftEar.position.set(0.6, 1.5, 1.1);
+            leftEar.rotation.set(0.5, -0.5, -0.5);
+            leftEar.castShadow = true;
+            guineaPig.add(leftEar);
+            const rightEar = new THREE.Mesh(earGeo, earMat);
+            rightEar.position.set(-0.6, 1.5, 1.1);
+            rightEar.rotation.set(0.5, 0.5, 0.5);
+            rightEar.castShadow = true;
+            guineaPig.add(rightEar);
+
+            // Eyes
+            const eyeGeo = new THREE.SphereGeometry(0.12, 32, 32);
+            const leftEye = new THREE.Mesh(eyeGeo, eyeMat);
+            leftEye.position.set(0.65, 1.2, 1.7);
+            guineaPig.add(leftEye);
+            const rightEye = new THREE.Mesh(eyeGeo, eyeMat);
+            rightEye.position.set(-0.65, 1.2, 1.7);
+            guineaPig.add(rightEye);
+
+            // Nose/Snout
+            const noseGeo = new THREE.SphereGeometry(0.15, 16, 16);
+            noseGeo.applyMatrix4(new THREE.Matrix4().makeScale(1, 0.6, 0.5));
+            const nose = new THREE.Mesh(noseGeo, skinMat);
+            nose.position.set(0, 0.9, 2.35);
+            guineaPig.add(nose);
+
+            const mouthPartGeo = new THREE.SphereGeometry(0.1, 16, 16);
+            const mouthLeft = new THREE.Mesh(mouthPartGeo, furMat);
+            mouthLeft.position.set(0.1, 0.75, 2.25);
+            guineaPig.add(mouthLeft);
+            const mouthRight = new THREE.Mesh(mouthPartGeo, furMat);
+            mouthRight.position.set(-0.1, 0.75, 2.25);
+            guineaPig.add(mouthRight);
+
+            // Feet
+            const footGeo = new THREE.CapsuleGeometry(0.12, 0.3, 4, 8);
+            footGeo.applyMatrix4(new THREE.Matrix4().makeRotationX(Math.PI / 2));
+            const flFoot = new THREE.Mesh(footGeo, skinMat);
+            flFoot.position.set(0.4, 0.1, 1.5);
+            flFoot.castShadow = true;
+            guineaPig.add(flFoot);
+            const frFoot = new THREE.Mesh(footGeo, skinMat);
+            frFoot.position.set(-0.4, 0.1, 1.5);
+            frFoot.castShadow = true;
+            guineaPig.add(frFoot);
+            const blFoot = new THREE.Mesh(footGeo, skinMat);
+            blFoot.position.set(0.5, 0.1, -0.8);
+            blFoot.rotation.y = 0.5;
+            blFoot.castShadow = true;
+            guineaPig.add(blFoot);
+            const brFoot = new THREE.Mesh(footGeo, skinMat);
+            brFoot.position.set(-0.5, 0.1, -0.8);
+            brFoot.rotation.y = -0.5;
+            brFoot.castShadow = true;
+            guineaPig.add(brFoot);
+
+            guineaPig.position.set(4, 0, 0);
+            worldGroup.add(guineaPig);
+            
+            // --- VARIABLES ---
+            let targetPosition = new THREE.Vector3(4, 0, 0);
+            let pathQueue = [];
+            let isMoving = false;
+            const moveSpeed = 0.08;
+            const raycaster = new THREE.Raycaster();
+            const mouse = new THREE.Vector2();
+            let isClick = true;
+            
+            let isEatingSequence = false;
+            let isDrinkingSequence = false;
+            let cucumbers = [];
+            
+            const bubbles = []; 
+            const poops = [];
+            let distanceTraveled = 0;
+            const stepThreshold = 10.0;
+
+            const bowlRadius = 1.8;
+            const pigRadius = 0.7;
+            const avoidanceRadius = bowlRadius + pigRadius + 0.2; 
+            const iglooRadius = 4.0;
+            const iglooAvoidanceRadius = 5.5; 
+            const waterBottleAvoidanceRadius = 2.25;
+
+            // --- BOWL ---
+            const bowlGroup = new THREE.Group();
+            
+            // Hay Clipping
+            const hayClipPlanes = [];
+            const clipRadius = 1.45;
+            for (let i = 0; i < 8; i++) {
+                const angle = (i / 8) * Math.PI * 2;
+                const normal = new THREE.Vector3(-Math.cos(angle), 0, -Math.sin(angle));
+                const plane = new THREE.Plane(normal, clipRadius);
+                hayClipPlanes.push(plane);
+            }
+
+            const bowlMat = new THREE.MeshStandardMaterial({ color: 0x2196F3, roughness: 0.4, side: THREE.DoubleSide });
+            const bowlGeo = new THREE.CylinderGeometry(1.8, 1.6, 1.0, 32, 1, true);
+            const bowlMesh = new THREE.Mesh(bowlGeo, bowlMat);
+            bowlMesh.position.y = 0.5; 
+            bowlMesh.castShadow = true;
+            bowlMesh.receiveShadow = true;
+            bowlGroup.add(bowlMesh);
+
+            const baseGeo = new THREE.CylinderGeometry(1.6, 1.6, 0.05, 32);
+            const baseMesh = new THREE.Mesh(baseGeo, bowlMat);
+            baseMesh.position.y = 0.025; 
+            baseMesh.receiveShadow = true;
+            bowlGroup.add(baseMesh);
+
+            // Hay
+            const hayColors = [0xfffacd, 0xffe4b5, 0xdaa520, 0xc0d9af, 0xeedd82].map(c => new THREE.Color(c));
+            const cuc1Pos = { x: 0.4, z: 0.2, y: 1.6 };
+            const cuc2Pos = { x: -0.5, z: -0.4, y: 1.65 };
+            const dummy = new THREE.Object3D();
+
+            // Upright Hay
+            const uprightHayCount = 2500; 
+            const uprightHayGeo = new THREE.BoxGeometry(0.03, 1.0, 0.008);
+            uprightHayGeo.translate(0, 0.5, 0);
+            const uprightHayMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1.0, side: THREE.DoubleSide, clippingPlanes: hayClipPlanes });
+            const uprightMesh = new THREE.InstancedMesh(uprightHayGeo, uprightHayMat, uprightHayCount);
+            uprightMesh.castShadow = true;
+            uprightMesh.receiveShadow = true;
+
+            for (let i = 0; i < uprightHayCount; i++) {
+                const length = 0.5 + Math.random() * 0.5; 
+                const angle = Math.random() * Math.PI * 2;
+                const radius = Math.sqrt(Math.random()) * 1.25; 
+                const x = Math.cos(angle) * radius;
+                const z = Math.sin(angle) * radius;
+                
+                const distCuc1 = Math.sqrt((x - cuc1Pos.x)**2 + (z - cuc1Pos.z)**2);
+                const distCuc2 = Math.sqrt((x - cuc2Pos.x)**2 + (z - cuc2Pos.z)**2);
+                const underCucumber = (distCuc1 < 0.4 || distCuc2 < 0.4);
+
+                dummy.position.set(0,0,0); dummy.rotation.set(0,0,0); dummy.scale.set(1,1,1);
+
+                if (radius > 0.7) {
+                    dummy.position.set(x, 0.05 + Math.random() * 0.5, z); 
+                    dummy.lookAt(0, 4.0 + Math.random() * 4.0, 0); 
+                    dummy.rotateZ(Math.random() * Math.PI);
+                } else {
+                    const rotationY = Math.random() * Math.PI;
+                    let tiltX = (Math.random() - 0.5) * 2; 
+                    let tiltZ = (Math.random() - 0.5) * 2; 
+                    let heightBase = underCucumber ? 0.05 + Math.random() * 0.6 : 0.05 + Math.random() * 1.1; 
+                    dummy.position.set(x, heightBase, z); 
+                    dummy.rotation.set(tiltX, rotationY, tiltZ);
+                }
+                dummy.scale.set(1, length, 1);
+                dummy.updateMatrix();
+                uprightMesh.setMatrixAt(i, dummy.matrix);
+                uprightMesh.setColorAt(i, hayColors[Math.floor(Math.random() * hayColors.length)]);
+            }
+            bowlGroup.add(uprightMesh);
+
+            // Flat Hay
+            const flatHayCount = 2500;
+            const flatHayGeo = new THREE.BoxGeometry(0.035, 1.0, 0.005);
+            const flatHayMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1.0, side: THREE.DoubleSide, clippingPlanes: hayClipPlanes });
+            const flatMesh = new THREE.InstancedMesh(flatHayGeo, flatHayMat, flatHayCount);
+            flatMesh.castShadow = true;
+            flatMesh.receiveShadow = true;
+
+            for (let i = 0; i < flatHayCount; i++) {
+                const length = 0.4 + Math.random() * 0.4; 
+                const angle = Math.random() * Math.PI * 2;
+                const radius = Math.sqrt(Math.random()) * 1.35; 
+                const x = Math.cos(angle) * radius;
+                const z = Math.sin(angle) * radius;
+                
+                const distCuc1 = Math.sqrt((x - cuc1Pos.x)**2 + (z - cuc1Pos.z)**2);
+                const distCuc2 = Math.sqrt((x - cuc2Pos.x)**2 + (z - cuc2Pos.z)**2);
+                const underCucumber = (distCuc1 < 0.4 || distCuc2 < 0.4);
+
+                let y = underCucumber ? 0.1 + Math.random() * 0.8 : 0.1 + Math.random() * 1.3;
+                dummy.position.set(x, y, z);
+                dummy.rotation.set(Math.PI / 2 + (Math.random() - 0.5) * 0.5, Math.random() * Math.PI * 2, (Math.random() - 0.5) * 0.5);
+                dummy.scale.set(1, length, 1);
+                dummy.updateMatrix();
+                flatMesh.setMatrixAt(i, dummy.matrix);
+                flatMesh.setColorAt(i, hayColors[Math.floor(Math.random() * hayColors.length)]);
+            }
+            bowlGroup.add(flatMesh);
+
+            // Cucumbers
+            const cucSkinColor = 0x1b5e20; 
+            const cucFleshColor = 0xDFF7DF; 
+            const cucSkinMat = new THREE.MeshStandardMaterial({ color: cucSkinColor, roughness: 0.3 });
+            const cucFleshMat = new THREE.MeshStandardMaterial({ color: cucFleshColor, roughness: 0.5, side: THREE.DoubleSide });
+            const cucMats = [cucSkinMat, cucFleshMat, cucFleshMat];
+
+            function createCucumberSlice() {
+                const group = new THREE.Group();
+                const radius = 0.5; const thick = 0.1; 
+                const geo = new THREE.CylinderGeometry(radius, radius, thick, 32, 1, false, 0, Math.PI);
+                const mesh = new THREE.Mesh(geo, cucMats);
+                mesh.castShadow = true;
+                group.add(mesh);
+                const cutGeo = new THREE.BoxGeometry(radius * 2, thick, 0.02);
+                const cutMesh = new THREE.Mesh(cutGeo, cucFleshMat);
+                cutMesh.rotation.y = Math.PI / 2;
+                cutMesh.position.set(-0.01, 0, 0); 
+                group.add(cutMesh);
+                return group;
+            }
+
+            const slice1 = createCucumberSlice();
+            slice1.position.set(cuc1Pos.x, cuc1Pos.y, cuc1Pos.z); 
+            slice1.rotation.set(0.1, Math.random() * Math.PI, 0.1); 
+            bowlGroup.add(slice1);
+            cucumbers.push(slice1);
+
+            const slice2 = createCucumberSlice();
+            slice2.position.set(cuc2Pos.x, cuc2Pos.y, cuc2Pos.z); 
+            slice2.rotation.set(-0.1, Math.random() * Math.PI, -0.1);
+            bowlGroup.add(slice2);
+            cucumbers.push(slice2);
+
+            bowlGroup.position.copy(bowlPos);
+            worldGroup.add(bowlGroup);
+
+            // --- WATER BOTTLE ---
+            const waterBottleGroup = new THREE.Group();
+            const bottleGeo = new THREE.CylinderGeometry(0.6, 0.6, 4.0, 32);
+            const bottleMat = new THREE.MeshStandardMaterial({ color: 0xE0F0FF, opacity: 0.3, transparent: true, roughness: 0.1, metalness: 0.0, depthWrite: false });
+            const bottleMesh = new THREE.Mesh(bottleGeo, bottleMat);
+            bottleMesh.position.y = 3.5; 
+            bottleMesh.castShadow = true;
+            bottleMesh.receiveShadow = false; 
+            waterBottleGroup.add(bottleMesh);
+
+            const waterGeo = new THREE.CylinderGeometry(0.55, 0.55, 3.2, 32);
+            const waterMat = new THREE.MeshStandardMaterial({ color: 0xC3E7FD, opacity: 0.8, transparent: true, roughness: 0.0, metalness: 0.0, emissive: 0x4da6ff, emissiveIntensity: 0.2 });
+            const waterMesh = new THREE.Mesh(waterGeo, waterMat);
+            waterMesh.position.y = 3.3; 
+            waterBottleGroup.add(waterMesh);
+
+            const attachGeo = new THREE.CylinderGeometry(0.6, 0.6, 0.5, 32); 
+            const attachMat = new THREE.MeshStandardMaterial({ color: 0x32cd32, roughness: 0.5 });
+            const attachMesh = new THREE.Mesh(attachGeo, attachMat);
+            attachMesh.position.y = 1.25; 
+            attachMesh.castShadow = true;
+            waterBottleGroup.add(attachMesh);
+
+            const nozzleGeo = new THREE.CylinderGeometry(0.1, 0.1, 1.0, 16); 
+            const nozzleMat = new THREE.MeshStandardMaterial({ color: 0xc0c0c0, roughness: 0.3, metalness: 1.0 });
+            const nozzleMesh = new THREE.Mesh(nozzleGeo, nozzleMat);
+            nozzleMesh.rotation.z = -Math.PI / 2; 
+            nozzleMesh.position.set(1.1, 1.25, 0); 
+            nozzleMesh.castShadow = true;
+            waterBottleGroup.add(nozzleMesh);
+
+            waterBottleGroup.position.copy(waterBottlePos);
+            // UPDATED: Adjusted rotation 90 degrees CCW (was 3PI/4, now 5PI/4)
+            // 3PI/4 + PI/2 = 5PI/4
+            waterBottleGroup.rotation.y = 5 * Math.PI / 4;
+            worldGroup.add(waterBottleGroup);
+
+            // --- PLASTIC IGLOO ---
+            const iglooGroup = new THREE.Group();
+            iglooGroup.position.copy(iglooPos);
+            iglooGroup.lookAt(0, 0, 0); 
+
+            const toOrigin = new THREE.Vector3(0, 0, 0).sub(iglooPos).normalize();
+            const iglooEntrancePoint = iglooPos.clone().add(toOrigin.clone().multiplyScalar(6.5));
+
+            const floorClipPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+            const iglooMat = new THREE.MeshPhysicalMaterial({ color: 0xFF69B4, opacity: 0.5, transparent: true, roughness: 0.2, metalness: 0.0, side: THREE.DoubleSide, depthWrite: false, clippingPlanes: [floorClipPlane] });
+
+            const domeGeo = new THREE.SphereGeometry(4.0, 128, 64, 0, Math.PI * 2, 0, Math.PI / 2);
+            const posAttr = domeGeo.attributes.position;
+            const indexAttr = domeGeo.index;
+            const newIndices = [];
+            const vA = new THREE.Vector3(), vB = new THREE.Vector3(), vC = new THREE.Vector3();
+            const cutoutRadiusSq = 1.7 * 1.7; 
+
+            for (let i = 0; i < indexAttr.count; i += 3) {
+                const a = indexAttr.getX(i);
+                const b = indexAttr.getX(i+1);
+                const c = indexAttr.getX(i+2);
+                vA.fromBufferAttribute(posAttr, a);
+                vB.fromBufferAttribute(posAttr, b);
+                vC.fromBufferAttribute(posAttr, c);
+                const cX = (vA.x + vB.x + vC.x) / 3;
+                const cY = (vA.y + vB.y + vC.y) / 3;
+                const cZ = (vA.z + vB.z + vC.z) / 3;
+                if (cZ > 2.0 && (cX*cX + cY*cY) < cutoutRadiusSq) continue;
+                newIndices.push(a, b, c);
+            }
+            domeGeo.setIndex(newIndices);
+
+            const dome = new THREE.Mesh(domeGeo, iglooMat);
+            dome.castShadow = false; 
+            dome.receiveShadow = false;
+            iglooGroup.add(dome);
+
+            const tunnelGeo = new THREE.CylinderGeometry(1.8, 1.8, 1.92, 32, 1, true);
+            const tunnel = new THREE.Mesh(tunnelGeo, iglooMat);
+            tunnel.rotation.set(-Math.PI / 2, 0, 0);
+            tunnel.position.set(0, 0, 4.56); 
+            iglooGroup.add(tunnel);
+            worldGroup.add(iglooGroup);
+
+            // --- WOODEN CHEW STICK ---
+            function createWoodTexture() {
+                const size = 512;
+                const canvas = document.createElement('canvas');
+                canvas.width = size; canvas.height = size;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#DEB887'; ctx.fillRect(0, 0, size, size);
+                for (let i = 0; i < 100; i++) {
+                    const x = Math.random() * size;
+                    const thickness = 1 + Math.random() * 3;
+                    const opacity = 0.1 + Math.random() * 0.2;
+                    ctx.strokeStyle = `rgba(101, 67, 33, ${opacity})`; 
+                    ctx.lineWidth = thickness;
+                    ctx.beginPath(); ctx.moveTo(x, 0);
+                    for (let y = 0; y <= size; y += 10) {
+                        const drift = Math.sin(y * 0.02 + x) * 10;
+                        ctx.lineTo(x + drift, y);
+                    }
+                    ctx.stroke();
+                }
+                for (let i = 0; i < 5000; i++) {
+                    const x = Math.random() * size; const y = Math.random() * size;
+                    const val = Math.random() > 0.5 ? 255 : 0;
+                    ctx.fillStyle = `rgba(${val},${val},${val},0.05)`;
+                    ctx.fillRect(x, y, 1, 1);
+                }
+                const texture = new THREE.CanvasTexture(canvas);
+                texture.wrapS = THREE.RepeatWrapping; texture.wrapT = THREE.RepeatWrapping;
+                texture.repeat.set(4, 1); 
+                return texture;
+            }
+            const stickTexture = createWoodTexture();
+
+            const stickWrapper = new THREE.Group(); 
+            const stickVisuals = new THREE.Group(); 
+            stickWrapper.add(stickVisuals);
+
+            const stickGeo = new THREE.CylinderGeometry(0.1875, 0.1875, 2.8, 32, 32, false);
+            function displaceVertices(geometry, magnitude, twist) {
+                const posAttr = geometry.attributes.position;
+                const vertex = new THREE.Vector3();
+                const displacementMap = {}; 
+                for (let i = 0; i < posAttr.count; i++) {
+                    vertex.fromBufferAttribute(posAttr, i);
+                    const key = `${vertex.x.toFixed(4)},${vertex.y.toFixed(4)},${vertex.z.toFixed(4)}`;
+                    let dx, dz;
+                    if (displacementMap[key]) {
+                        dx = displacementMap[key].dx; dz = displacementMap[key].dz;
+                    } else {
+                        dx = (Math.random() - 0.5) * magnitude;
+                        dz = (Math.random() - 0.5) * magnitude;
+                        if (twist) { dx += Math.sin(vertex.y * 3.0) * twist; dz += Math.cos(vertex.y * 3.0) * twist; }
+                        displacementMap[key] = { dx, dz };
+                    }
+                    vertex.x += dx; vertex.z += dz;
+                    posAttr.setXYZ(i, vertex.x, vertex.y, vertex.z);
+                }
+                geometry.computeVertexNormals(); 
+            }
+            displaceVertices(stickGeo, 0.03, 0.05);
+
+            const stickSideMat = new THREE.MeshStandardMaterial({ color: 0x8B4513, map: stickTexture, bumpMap: stickTexture, bumpScale: 0.1, roughness: 0.9 });
+            const stickEndMat = new THREE.MeshStandardMaterial({ color: 0xDEB887, map: stickTexture, bumpMap: stickTexture, bumpScale: 0.05, roughness: 0.8 });
+            const stickMats = [stickSideMat, stickEndMat, stickEndMat];
+
+            const mainStick = new THREE.Mesh(stickGeo, stickMats);
+            mainStick.castShadow = true; mainStick.receiveShadow = true;
+            mainStick.rotation.z = Math.PI / 2;
+            stickVisuals.add(mainStick);
+
+            const nobGeo = new THREE.CylinderGeometry(0.1, 0.15, 0.5, 16, 8, false);
+            displaceVertices(nobGeo, 0.02, 0.0); 
+            const nob = new THREE.Mesh(nobGeo, stickMats);
+            nob.position.set(0.18, 0.5, 0); 
+            nob.rotation.z = Math.PI / 2 - 0.3; 
+            nob.rotation.y = Math.random() * Math.PI;
+            nob.castShadow = true; nob.receiveShadow = true;
+            stickVisuals.add(nob);
+            
+            stickWrapper.position.set(2.0, 0.19, 4.0); 
+            stickWrapper.rotation.y = Math.random() * Math.PI;
+            stickVisuals.rotation.x = Math.random() * Math.PI; 
+            worldGroup.add(stickWrapper);
+            
+            const stickVelocity = new THREE.Vector3(0, 0, 0);
+
+            // --- WOVEN PLAY BALL ---
+            const ballWrapper = new THREE.Group(); 
+            const ballMesh = new THREE.Group();    
+            ballWrapper.add(ballMesh);
+            const ballMat = new THREE.MeshStandardMaterial({ color: 0xCD853F, roughness: 1.0 });
+            for (let i = 0; i < 12; i++) {
+                const ringGeo = new THREE.TorusGeometry(0.8, 0.06, 6, 16); 
+                const ring = new THREE.Mesh(ringGeo, ballMat);
+                ring.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+                ring.castShadow = true; ring.receiveShadow = true;
+                ballMesh.add(ring);
+            }
+            ballWrapper.position.set(-1.0, 0.8, -4.0); 
+            worldGroup.add(ballWrapper);
+            const ballVelocity = new THREE.Vector3(0, 0, 0);
+
+            // --- WOODEN ARCHWAY (TUNNEL) ---
+            const archGroup = new THREE.Group();
+            // archPos is already defined at top (-5, 0, -3.5)
+            archGroup.position.copy(archPos);
+
+            const tunnelShape = new THREE.Shape();
+            const legHeight = 1.5;
+            tunnelShape.moveTo(2.0, -legHeight);
+            tunnelShape.lineTo(2.0, 0);
+            tunnelShape.absarc(0, 0, 2.0, 0, Math.PI, false);
+            tunnelShape.lineTo(-2.0, -legHeight);
+            tunnelShape.lineTo(-1.6, -legHeight);
+            tunnelShape.lineTo(-1.6, 0);
+            tunnelShape.absarc(0, 0, 1.6, Math.PI, 0, true);
+            tunnelShape.lineTo(1.6, -legHeight);
+            tunnelShape.lineTo(2.0, -legHeight);
+
+            const extrudeSettings = { depth: 4.0, bevelEnabled: true, bevelThickness: 0.05, bevelSize: 0.05, bevelSegments: 2, steps: 1, curveSegments: 16 };
+            const woodenTunnelGeo = new THREE.ExtrudeGeometry(tunnelShape, extrudeSettings);
+            woodenTunnelGeo.center(); 
+            const woodenTunnel = new THREE.Mesh(woodenTunnelGeo, [stickSideMat, stickEndMat]);
+            woodenTunnel.rotation.y = Math.PI / 2;
+            woodenTunnel.position.y = 1.75; 
+            woodenTunnel.castShadow = true; woodenTunnel.receiveShadow = true;
+            archGroup.add(woodenTunnel);
+            worldGroup.add(archGroup);
+            
+            // ARCH OBSTACLES (Correctly populated now)
+            const archObstacles = [];
+            const tunnelLen = 4.0;
+            const zOffset = 1.8;
+            for(let x = -tunnelLen/2; x <= tunnelLen/2 + 0.1; x += 0.5) {
+                archObstacles.push({ pos: new THREE.Vector3(archPos.x + x, 0, archPos.z + zOffset), radius: 0.8, name: 'archWall' });
+                archObstacles.push({ pos: new THREE.Vector3(archPos.x + x, 0, archPos.z - zOffset), radius: 0.8, name: 'archWall' });
+            }
+            const cornerRadius = 1.0;
+            archObstacles.push({ pos: new THREE.Vector3(archPos.x - 2.2, 0, archPos.z + 2.0), radius: cornerRadius, name: 'archCorner' }); // Approx corners relative to archPos (-5, 0, -3.5)
+            archObstacles.push({ pos: new THREE.Vector3(archPos.x + 2.2, 0, archPos.z + 2.0), radius: cornerRadius, name: 'archCorner' });
+            archObstacles.push({ pos: new THREE.Vector3(archPos.x - 2.2, 0, archPos.z - 2.0), radius: cornerRadius, name: 'archCorner' });
+            archObstacles.push({ pos: new THREE.Vector3(archPos.x + 2.2, 0, archPos.z - 2.0), radius: cornerRadius, name: 'archCorner' });
+
+            const tunnelWestEntry = new THREE.Vector3(archPos.x - 3.0, 0, archPos.z);
+            const tunnelEastEntry = new THREE.Vector3(archPos.x + 3.0, 0, archPos.z);
+            const tunnelSafeZone = { minX: -8.0, maxX: -2.0, minZ: -4.5, maxZ: -2.5 };
+
+            // Environment Floor
+            function createBeddingTexture() {
+                const size = 1024;
+                const canvas = document.createElement('canvas');
+                canvas.width = size; canvas.height = size;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#fdfbf7'; ctx.fillRect(0, 0, size, size);
+                for (let i = 0; i < 5000; i++) {
+                    const x = Math.random() * size; const y = Math.random() * size;
+                    const w = 15 + Math.random() * 25; const h = 15 + Math.random() * 25;
+                    const rotation = Math.random() * Math.PI;
+                    const val = 230 + Math.floor(Math.random() * 25);
+                    ctx.fillStyle = `rgb(${val}, ${val}, ${val})`;
+                    ctx.save(); ctx.translate(x, y); ctx.rotate(rotation);
+                    ctx.beginPath(); ctx.moveTo(-w/2, -h/2); ctx.lineTo(w/2, -h/2 + Math.random()*5);
+                    ctx.lineTo(w/2, h/2); ctx.lineTo(-w/2 + Math.random()*5, h/2);
+                    ctx.closePath(); ctx.fill(); ctx.restore();
+                }
+                const texture = new THREE.CanvasTexture(canvas);
+                texture.wrapS = THREE.RepeatWrapping; texture.wrapT = THREE.RepeatWrapping; texture.repeat.set(6, 6); 
+                return texture;
+            }
+            const beddingTexture = createBeddingTexture();
+            const floorGeo = new THREE.PlaneGeometry(20, 20);
+            const floorMat = new THREE.MeshStandardMaterial({ color: 0xffffff, map: beddingTexture, bumpMap: beddingTexture, bumpScale: 0.15, roughness: 1.0, metalness: 0.0 });
+            const floor = new THREE.Mesh(floorGeo, floorMat);
+            floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true;
+            worldGroup.add(floor);
+
+            // Walls
+            const wallHeight = 0.5; const wallThickness = 0.5; const floorSize = 20;
+            const wallGeoH = new THREE.BoxGeometry(floorSize + wallThickness * 2, wallHeight, wallThickness); 
+            const wallGeoV = new THREE.BoxGeometry(wallThickness, wallHeight, floorSize); 
+            const wall1 = new THREE.Mesh(wallGeoH, floorMat); wall1.position.set(0, wallHeight/2, -floorSize/2 - wallThickness/2); wall1.receiveShadow = true; worldGroup.add(wall1);
+            const wall2 = new THREE.Mesh(wallGeoH, floorMat); wall2.position.set(0, wallHeight/2, floorSize/2 + wallThickness/2); wall2.receiveShadow = true; worldGroup.add(wall2);
+            const wall3 = new THREE.Mesh(wallGeoV, floorMat); wall3.position.set(-floorSize/2 - wallThickness/2, wallHeight/2, 0); wall3.receiveShadow = true; worldGroup.add(wall3);
+            const wall4 = new THREE.Mesh(wallGeoV, floorMat); wall4.position.set(floorSize/2 + wallThickness/2, wallHeight/2, 0); wall4.receiveShadow = true; worldGroup.add(wall4);
+
+            // Clouds
+            const cloudGroup = new THREE.Group();
+            worldGroup.add(cloudGroup); 
+            function createCloud() {
+                const cloud = new THREE.Group();
+                const puffCount = 3 + Math.floor(Math.random() * 4);
+                const puffGeo = new THREE.SphereGeometry(1, 8, 8); 
+                const puffMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.8, flatShading: true });
+                for (let i = 0; i < puffCount; i++) {
+                    const puff = new THREE.Mesh(puffGeo, puffMat);
+                    puff.position.set(Math.random() * 2 - 1, Math.random() * 1, Math.random() * 2 - 1);
+                    puff.scale.setScalar(0.8 + Math.random() * 0.5);
+                    cloud.add(puff);
+                }
+                return cloud;
+            }
+            for (let i = 0; i < 20; i++) {
+                const cloud = createCloud();
+                const angle = Math.random() * Math.PI * 2;
+                const radius = 25 + Math.random() * 15; const height = 8 + Math.random() * 8;   
+                cloud.position.set(Math.cos(angle) * radius, height, Math.sin(angle) * radius);
+                cloud.lookAt(0, height, 0);
+                cloudGroup.add(cloud);
+            }
+            for (let i = 0; i < 15; i++) {
+                const cloud = createCloud();
+                const angle = Math.random() * Math.PI * 2;
+                const radius = 15 + Math.random() * 10; const height = 3 + Math.random() * 3;   
+                cloud.position.set(Math.cos(angle) * radius, height, Math.sin(angle) * radius);
+                cloud.scale.setScalar(0.8);
+                cloud.lookAt(0, height, 0);
+                cloudGroup.add(cloud);
+            }
+
+            // Logic Functions
+            function dropPoop() {
+                const group = new THREE.Group();
+                const poopGeo = new THREE.CapsuleGeometry(0.09, 0.18, 4, 8);
+                const poopMat = new THREE.MeshStandardMaterial({ color: 0x4E342E, roughness: 0.9 });
+                const pellet = new THREE.Mesh(poopGeo, poopMat);
+                pellet.rotation.set(Math.PI/2, Math.random() * Math.PI, Math.random() * 0.5);
+                pellet.castShadow = true; pellet.receiveShadow = true;
+                group.add(pellet);
+                const hitGeo = new THREE.SphereGeometry(0.5, 8, 8); 
+                const hitMat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.0, depthWrite: false });
+                const hitbox = new THREE.Mesh(hitGeo, hitMat);
+                hitbox.userData.parentGroup = group;
+                group.add(hitbox);
+                group.position.copy(guineaPig.position); group.position.y = 0.09;
+                worldGroup.add(group);
+                poops.push(hitbox);
+            }
+            function removePoop(hitbox) {
+                const group = hitbox.userData.parentGroup;
+                if (group) {
+                    worldGroup.remove(group);
+                    group.traverse((child) => { if (child.geometry) child.geometry.dispose(); if (child.material) child.material.dispose(); });
+                }
+                const index = poops.indexOf(hitbox); if (index > -1) poops.splice(index, 1);
+            }
+            function spawnBubble() {
+                const bubbleGeo = new THREE.SphereGeometry(0.1, 8, 8);
+                const bubbleMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.6 });
+                const bubble = new THREE.Mesh(bubbleGeo, bubbleMat);
+                bubble.position.set(0, 1.5, 0);
+                waterBottleGroup.add(bubble);
+                bubbles.push(bubble);
+            }
+
+            function calculatePath(start, end) {
+                const path = [];
+                const startPosFlat = new THREE.Vector3(start.x, 0, start.z);
+                const endPosFlat = new THREE.Vector3(end.x, 0, end.z);
+                let routeStart = start; let routeEnd = end; let finalLeg = null;
+
+                if (startPosFlat.distanceTo(iglooPos) < iglooRadius - 0.5) { path.push(iglooEntrancePoint); routeStart = iglooEntrancePoint; }
+                if (endPosFlat.distanceTo(iglooPos) < iglooRadius - 0.5) { routeEnd = iglooEntrancePoint; finalLeg = end; }
+
+                const isStartInSafe = (routeStart.x >= tunnelSafeZone.minX && routeStart.x <= tunnelSafeZone.maxX && routeStart.z >= tunnelSafeZone.minZ && routeStart.z <= tunnelSafeZone.maxZ);
+                const isEndInSafe = (routeEnd.x >= tunnelSafeZone.minX && routeEnd.x <= tunnelSafeZone.maxX && routeEnd.z >= tunnelSafeZone.minZ && routeEnd.z <= tunnelSafeZone.maxZ);
+                const isSafeCorridor = isStartInSafe && isEndInSafe;
+
+                if (!isSafeCorridor) {
+                    const inTunnelBoxX = (routeEnd.x > -8 && routeEnd.x < -2);
+                    const inTunnelBoxZ = (routeEnd.z > -6 && routeEnd.z < -1);
+                    if (inTunnelBoxX && inTunnelBoxZ) {
+                        const distWest = startPosFlat.distanceTo(tunnelWestEntry);
+                        const distEast = startPosFlat.distanceTo(tunnelEastEntry);
+                        routeEnd = (distWest < distEast) ? tunnelWestEntry : tunnelEastEntry;
+                        finalLeg = end; 
+                    }
+                }
+
+                const obstacles = [{ pos: bowlPos, radius: avoidanceRadius, name: 'bowl' }, { pos: iglooPos, radius: iglooAvoidanceRadius, name: 'igloo' }, { pos: waterBottlePos, radius: waterBottleAvoidanceRadius, name: 'waterBottle' }, ...archObstacles];
+                const startVec = new THREE.Vector2(routeStart.x, routeStart.z);
+                const endVec = new THREE.Vector2(routeEnd.x, routeEnd.z);
+                const dir = new THREE.Vector2().subVectors(endVec, startVec);
+                const totalDist = dir.length();
+                if (totalDist > 0.1) {
+                    dir.normalize();
+                    let closestBlock = null; let closestDist = Infinity;
+                    obstacles.forEach(obs => {
+                        if (obs.name === 'igloo' && new THREE.Vector3(routeStart.x, 0, routeStart.z).distanceTo(iglooPos) < iglooAvoidanceRadius + 1.0) return; 
+                        if (isSafeCorridor && (obs.name === 'archWall' || obs.name === 'archCorner')) return;
+                        const obsVec = new THREE.Vector2(obs.pos.x, obs.pos.z);
+                        const toObs = new THREE.Vector2().subVectors(obsVec, startVec);
+                        const projection = toObs.dot(dir);
+                        if (projection > 0 && projection < totalDist) {
+                            const closestPoint = new THREE.Vector2().copy(dir).multiplyScalar(projection).add(startVec);
+                            if (closestPoint.distanceTo(obsVec) < obs.radius) {
+                                const distFromStart = startVec.distanceTo(closestPoint);
+                                if (distFromStart < closestDist) { closestDist = distFromStart; closestBlock = { obs: obs, closestPoint: closestPoint }; }
+                            }
+                        }
+                    });
+                    if (closestBlock) {
+                        const obs = closestBlock.obs; const obsVec = new THREE.Vector2(obs.pos.x, obs.pos.z);
+                        const pushDir = new THREE.Vector2().subVectors(closestBlock.closestPoint, obsVec);
+                        if (pushDir.lengthSq() < 0.001) pushDir.set(-dir.y, dir.x);
+                        pushDir.normalize();
+                        const waypointVec = new THREE.Vector2().copy(obsVec).add(pushDir.multiplyScalar(obs.radius));
+                        path.push(new THREE.Vector3(waypointVec.x, 0, waypointVec.y));
+                    }
+                }
+                path.push(routeEnd);
+                if (finalLeg) path.push(finalLeg);
+                return path;
+            }
+
+            // Input Handling
+            const keysPressed = {};
+            document.addEventListener('keydown', (e) => { keysPressed[e.key.toLowerCase()] = true; keysPressed[e.code] = true; });
+            document.addEventListener('keyup', (e) => { keysPressed[e.key.toLowerCase()] = false; keysPressed[e.code] = false; });
+            document.addEventListener('mousedown', (e) => { isDragging = true; isClick = true; previousMousePosition = { x: e.offsetX, y: e.offsetY }; });
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    const deltaMove = { x: e.offsetX - previousMousePosition.x, y: e.offsetY - previousMousePosition.y };
+                    if (Math.abs(deltaMove.x) > 2 || Math.abs(deltaMove.y) > 2) isClick = false;
+                    worldGroup.rotation.y += deltaMove.x * 0.01;
+                }
+                previousMousePosition = { x: e.offsetX, y: e.offsetY };
+            });
+            document.addEventListener('mouseup', (e) => {
+                isDragging = false;
+                if (isClick) {
+                    mouse.x = (e.clientX / window.innerWidth) * 2 - 1; mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+                    raycaster.setFromCamera(mouse, camera);
+                    const poopIntersects = raycaster.intersectObjects(poops);
+                    if (poopIntersects.length > 0) { removePoop(poopIntersects[0].object); return; }
+                    const ballIntersects = raycaster.intersectObject(ballWrapper, true);
+                    if (ballIntersects.length > 0) { ballVelocity.add(raycaster.ray.direction.clone().setY(0).normalize().multiplyScalar(0.15)); return; }
+                    const stickIntersects = raycaster.intersectObject(stickWrapper, true);
+                    if (stickIntersects.length > 0) { stickVelocity.add(raycaster.ray.direction.clone().setY(0).normalize().multiplyScalar(0.3)); return; }
+                    const intersects = raycaster.intersectObject(floor);
+                    if (intersects.length > 0) {
+                        const point = intersects[0].point;
+                        const localPoint = worldGroup.worldToLocal(point.clone());
+                        const finalTarget = new THREE.Vector3(localPoint.x, 0, localPoint.z);
+                        if (finalTarget.distanceTo(waterBottlePos) < waterBottleAvoidanceRadius) {
+                            const dir = new THREE.Vector3().subVectors(finalTarget, waterBottlePos);
+                            if (dir.lengthSq() < 0.001) dir.set(1, 0, 0);
+                            dir.normalize();
+                            finalTarget.copy(waterBottlePos).add(dir.multiplyScalar(waterBottleAvoidanceRadius));
+                        }
+                        const currentPos = new THREE.Vector3(guineaPig.position.x, 0, guineaPig.position.z);
+                        pathQueue = calculatePath(currentPos, finalTarget);
+                        if (pathQueue.length > 0) { targetPosition = pathQueue.shift(); isMoving = true; }
+                    }
+                }
+            });
+            document.addEventListener('touchstart', (e) => { isDragging = true; isClick = true; previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY }; });
+            document.addEventListener('touchmove', (e) => { if (isDragging) { isClick = false; const currentX = e.touches[0].clientX; const currentY = e.touches[0].clientY; worldGroup.rotation.y += (currentX - previousMousePosition.x) * 0.01; previousMousePosition = { x: currentX, y: currentY }; } });
+            document.addEventListener('touchend', () => { isDragging = false; });
+            document.addEventListener('wheel', (e) => { camera.position.y += e.deltaY * 0.01; });
+
+            document.getElementById('btnRefill').addEventListener('click', () => { cucumbers.forEach(c => c.visible = true); });
+            document.getElementById('btnEat').addEventListener('click', () => {
+                const center = new THREE.Vector3(0, 0, 0);
+                const dirToCenter = new THREE.Vector3().subVectors(center, bowlPos).normalize();
+                const eatSpotLocal = bowlPos.clone().add(dirToCenter.multiplyScalar(3.0));
+                pathQueue = calculatePath(guineaPig.position, eatSpotLocal);
+                if (pathQueue.length > 0) { targetPosition = pathQueue.shift(); isMoving = true; isEatingSequence = true; isDrinkingSequence = false; }
+            });
+            document.getElementById('btnDrink').addEventListener('click', () => {
+                const center = new THREE.Vector3(0, 0, 0);
+                const dirToCenter = new THREE.Vector3().subVectors(center, waterBottlePos).normalize();
+                const drinkSpotLocal = waterBottlePos.clone().add(dirToCenter.multiplyScalar(waterBottleAvoidanceRadius + 1.1));
+                pathQueue = calculatePath(guineaPig.position, drinkSpotLocal);
+                if (pathQueue.length > 0) { targetPosition = pathQueue.shift(); isMoving = true; isDrinkingSequence = true; isEatingSequence = false; }
+            });
+
+            // Animation Loop
+            let time = 0; let walkCycle = 0;
+            let blinkState = 0; let blinkTimer = Math.random() * 200 + 100;
+            let previousMousePosition = { x: 0, y: 0 };
+            let isDragging = false;
+
+            function animate() {
+                requestAnimationFrame(animate);
+                time += 0.05;
+
+                for (let i = bubbles.length - 1; i >= 0; i--) {
+                    const b = bubbles[i];
+                    b.position.y += 0.04;
+                    b.position.x = Math.sin(time * 5 + i) * 0.05; b.position.z = Math.cos(time * 5 + i) * 0.05;
+                    if (b.position.y > 4.8) { waterBottleGroup.remove(b); b.geometry.dispose(); b.material.dispose(); bubbles.splice(i, 1); }
+                }
+
+                if (blinkState === 0) { if (--blinkTimer <= 0) blinkState = 1; }
+                else if (blinkState === 1) { const s = Math.max(0.1, leftEye.scale.y - 0.2); leftEye.scale.y = s; rightEye.scale.y = s; if (s <= 0.1) blinkState = 2; }
+                else if (blinkState === 2) { const s = Math.min(1.0, leftEye.scale.y + 0.2); leftEye.scale.y = s; rightEye.scale.y = s; if (s >= 1.0) { blinkState = 0; blinkTimer = Math.random() * 200 + 100; } }
+
+                bowlGroup.updateMatrixWorld();
+                for (let i = 0; i < 8; i++) {
+                    const angle = (i / 8) * Math.PI * 2;
+                    hayClipPlanes[i].normal.set(-Math.cos(angle), 0, -Math.sin(angle));
+                    hayClipPlanes[i].constant = clipRadius;
+                    hayClipPlanes[i].applyMatrix4(bowlGroup.matrixWorld);
+                }
+
+                const distToStick = guineaPig.position.distanceTo(stickWrapper.position);
+                if (distToStick < 1.6) stickVelocity.add(new THREE.Vector3().subVectors(stickWrapper.position, guineaPig.position).normalize().setY(0).multiplyScalar(0.02));
+                stickWrapper.position.add(stickVelocity);
+                const stickSpeed = stickVelocity.length();
+                if (stickSpeed > 0.0001) {
+                    const wrapperSideVec = new THREE.Vector3(0, 0, 1).applyQuaternion(stickWrapper.quaternion);
+                    const sideSpeed = stickVelocity.dot(wrapperSideVec);
+                    if (Math.abs(sideSpeed) > 0.0001) stickVisuals.rotateX(sideSpeed / 0.19);
+                }
+                stickVelocity.multiplyScalar(0.90);
+                if (Math.abs(stickWrapper.position.x) > 9.0) { stickWrapper.position.x = Math.sign(stickWrapper.position.x) * 9.0; stickVelocity.x *= -0.5; }
+                if (Math.abs(stickWrapper.position.z) > 9.0) { stickWrapper.position.z = Math.sign(stickWrapper.position.z) * 9.0; stickVelocity.z *= -0.5; }
+                if (stickWrapper.position.distanceTo(iglooPos) < 4.3) {
+                    const bn = new THREE.Vector3().subVectors(stickWrapper.position, iglooPos).normalize();
+                    stickWrapper.position.copy(iglooPos).add(bn.multiplyScalar(4.3));
+                    if (stickVelocity.dot(bn) < 0) stickVelocity.sub(bn.multiplyScalar(2 * stickVelocity.dot(bn))).multiplyScalar(0.5);
+                }
+
+                const distToBall = guineaPig.position.distanceTo(ballWrapper.position);
+                if (distToBall < 1.6) ballVelocity.add(new THREE.Vector3().subVectors(ballWrapper.position, guineaPig.position).normalize().setY(0).multiplyScalar(0.03));
+                ballWrapper.position.add(ballVelocity);
+                const speed = ballVelocity.length();
+                if (speed > 0.0001) ballMesh.rotateOnAxis(new THREE.Vector3(ballVelocity.z, 0, -ballVelocity.x).normalize(), speed / 0.8);
+                ballVelocity.multiplyScalar(0.96);
+                if (Math.abs(ballWrapper.position.x) > 9.2) { ballWrapper.position.x = Math.sign(ballWrapper.position.x) * 9.2; ballVelocity.x *= -0.7; }
+                if (Math.abs(ballWrapper.position.z) > 9.2) { ballWrapper.position.z = Math.sign(ballWrapper.position.z) * 9.2; ballVelocity.z *= -0.7; }
+                const envObstacles = [
+                    { pos: iglooPos, radius: 4.0 }, { pos: bowlPos, radius: 1.8 }, { pos: waterBottlePos, radius: 1.0 }, { pos: stickWrapper.position, radius: 0.5 },
+                    ...archObstacles
+                ];
+                envObstacles.forEach(obs => {
+                    const dist = new THREE.Vector3(ballWrapper.position.x, 0, ballWrapper.position.z).distanceTo(new THREE.Vector3(obs.pos.x, 0, obs.pos.z));
+                    const minSep = obs.radius + 0.8;
+                    if (dist < minSep) {
+                        const norm = new THREE.Vector3().subVectors(ballWrapper.position, obs.pos).setY(0).normalize();
+                        ballWrapper.position.add(norm.multiplyScalar(minSep - dist));
+                        if (ballVelocity.dot(norm) < 0) ballVelocity.sub(norm.multiplyScalar(2 * ballVelocity.dot(norm))).multiplyScalar(0.6);
+                    }
+                });
+
+                cloudGroup.rotation.y += 0.0005;
+
+                const panSpeed = 0.15; const verticalSpeed = 0.1;
+                if (keysPressed['arrowleft']) camera.position.x -= panSpeed;
+                if (keysPressed['arrowright']) camera.position.x += panSpeed;
+                if (keysPressed['arrowup']) camera.position.z -= panSpeed;
+                if (keysPressed['arrowdown']) camera.position.z += panSpeed;
+                if (keysPressed['z']) camera.position.y += verticalSpeed;
+                if (keysPressed['x']) camera.position.y -= verticalSpeed;
+                if (keysPressed[','] || keysPressed['<']) worldGroup.rotation.y -= 0.03;
+                if (keysPressed['.'] || keysPressed['>']) worldGroup.rotation.y += 0.03;
+                camera.position.y = Math.max(0.5, Math.min(20, camera.position.y));
+                const tiltOffset = 5 + camera.position.y * 0.5;
+                camera.lookAt(camera.position.x, 2.0, camera.position.z - tiltOffset);
+
+                if (isMoving) {
+                    const currentPos = new THREE.Vector3(guineaPig.position.x, 0, guineaPig.position.z);
+                    const targetPosFlat = new THREE.Vector3(targetPosition.x, 0, targetPosition.z);
+                    const distance = currentPos.distanceTo(targetPosFlat);
+                    distanceTraveled += moveSpeed;
+                    if (distanceTraveled > stepThreshold) { dropPoop(); distanceTraveled = 0; }
+
+                    if (distance > 0.1) {
+                        const direction = new THREE.Vector3().subVectors(targetPosFlat, currentPos).normalize();
+                        const targetRotation = Math.atan2(direction.x, direction.z);
+                        let rotDiff = targetRotation - guineaPig.rotation.y;
+                        while (rotDiff > Math.PI) rotDiff -= Math.PI * 2;
+                        while (rotDiff < -Math.PI) rotDiff += Math.PI * 2;
+                        guineaPig.rotation.y += rotDiff * 0.1;
+                        guineaPig.rotation.x = 0; guineaPig.rotation.z = 0;
+                        guineaPig.position.add(direction.multiplyScalar(moveSpeed));
+                        walkCycle += 0.4;
+                        guineaPig.position.y = Math.abs(Math.sin(walkCycle)) * 0.1;
+                        flFoot.position.y = 0.1 + Math.max(0, Math.sin(walkCycle)) * 0.1;
+                        brFoot.position.y = 0.1 + Math.max(0, Math.sin(walkCycle)) * 0.1;
+                        frFoot.position.y = 0.1 + Math.max(0, Math.sin(walkCycle + Math.PI)) * 0.1;
+                        blFoot.position.y = 0.1 + Math.max(0, Math.sin(walkCycle + Math.PI)) * 0.1;
+                    } else {
+                        if (pathQueue.length > 0) { targetPosition = pathQueue.shift(); }
+                        else {
+                            isMoving = false; guineaPig.position.y = 0; flFoot.position.y = 0.1; frFoot.position.y = 0.1; blFoot.position.y = 0.1; brFoot.position.y = 0.1;
+                            if (guineaPig.position.distanceTo(iglooPos) < 3.5) guineaPig.lookAt(0, guineaPig.position.y, 0);
+                            if (isEatingSequence) {
+                                isEatingSequence = false;
+                                const dx = bowlPos.x - guineaPig.position.x; const dz = bowlPos.z - guineaPig.position.z;
+                                guineaPig.rotation.y = Math.atan2(dx, dz); guineaPig.rotation.x = 0; guineaPig.rotation.z = 0;
+                                setTimeout(() => { if(cucumbers[0]) cucumbers[0].visible = false; }, 1000);
+                                setTimeout(() => { if(cucumbers[1]) cucumbers[1].visible = false; }, 2500);
+                            }
+                            if (isDrinkingSequence) {
+                                isDrinkingSequence = false;
+                                const dx = waterBottlePos.x - guineaPig.position.x; const dz = waterBottlePos.z - guineaPig.position.z;
+                                guineaPig.rotation.y = Math.atan2(dx, dz); guineaPig.rotation.x = 0; guineaPig.rotation.z = 0;
+                                setTimeout(() => { spawnBubble(); }, 1000);
+                                setTimeout(() => { spawnBubble(); }, 1500);
+                            }
+                        }
+                    }
+                } else {
+                    const breathScale = 1 + Math.sin(time) * 0.005;
+                    body.scale.set(1, breathScale, 1);
+                    guineaPig.position.y = 0;
+                    guineaPig.rotation.x = 0; guineaPig.rotation.z = 0;
+                }
+                if (Math.random() > 0.98) nose.position.y = 0.9 + Math.random() * 0.02; else nose.position.y = 0.9;
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+    </script>
+</body>
+</html>

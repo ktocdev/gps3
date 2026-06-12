@@ -1,0 +1,160 @@
+[
+  {
+    "id": "food_carrot",
+    "name": "Carrot",
+    "description": "Crunchy carrot, high in sugar (treat only)",
+    "category": "food",
+    "subCategory": "vegetables",
+    "basePrice": 1.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 7,
+      "hungerSatisfaction": 12,
+      "servingSize": "1-2 baby carrots",
+      "shelfLife": "7-10 days",
+      "servings": 4,
+      "foodBallColor": "#FF6B00"
+    },
+    "availability": "always",
+    "emoji": "🥕",
+    "tags": ["popular"]
+  },
+  {
+    "id": "food_bell_pepper_red",
+    "name": "Red Bell Pepper",
+    "description": "Sweet red bell pepper, excellent vitamin C source",
+    "category": "food",
+    "subCategory": "vegetables",
+    "basePrice": 3.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 9,
+      "hungerSatisfaction": 20,
+      "servingSize": "1/8 pepper",
+      "shelfLife": "5-7 days",
+      "foodBallColor": "#E53935"
+    },
+    "availability": "always",
+    "emoji": "🫑",
+    "tags": ["fresh", "popular"]
+  },
+  {
+    "id": "food_bell_pepper_yellow",
+    "name": "Yellow Bell Pepper",
+    "description": "Sweet yellow bell pepper, vitamin C rich",
+    "category": "food",
+    "subCategory": "vegetables",
+    "basePrice": 3.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 9,
+      "hungerSatisfaction": 20,
+      "servingSize": "1/8 pepper",
+      "shelfLife": "5-7 days",
+      "foodBallColor": "#FDD835"
+    },
+    "availability": "always",
+    "emoji": "🫑",
+    "tags": ["fresh"]
+  },
+  {
+    "id": "food_cucumber",
+    "name": "Cucumber",
+    "description": "Refreshing cucumber with high water content",
+    "category": "food",
+    "subCategory": "vegetables",
+    "basePrice": 2.49,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 6,
+      "hungerSatisfaction": 16,
+      "servingSize": "2-3 slices",
+      "shelfLife": "5-7 days",
+      "servings": 6,
+      "foodBallColor": "#66BB6A"
+    },
+    "availability": "always",
+    "emoji": "🥒",
+    "tags": ["fresh"]
+  },
+  {
+    "id": "food_celery",
+    "name": "Celery",
+    "description": "Crunchy celery stalks (remove strings)",
+    "category": "food",
+    "subCategory": "vegetables",
+    "basePrice": 2.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 5,
+      "hungerSatisfaction": 14,
+      "servingSize": "1 small stalk",
+      "shelfLife": "7-10 days",
+      "servings": 6,
+      "foodBallColor": "#81C784"
+    },
+    "availability": "always",
+    "emoji": "🥬",
+    "tags": []
+  },
+  {
+    "id": "food_zucchini",
+    "name": "Zucchini",
+    "description": "Fresh zucchini, mild flavor",
+    "category": "food",
+    "subCategory": "vegetables",
+    "basePrice": 2.79,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 6,
+      "hungerSatisfaction": 15,
+      "servingSize": "2-3 slices",
+      "shelfLife": "5-7 days",
+      "servings": 6,
+      "foodBallColor": "#43A047"
+    },
+    "availability": "always",
+    "emoji": "🥒",
+    "tags": ["fresh"]
+  },
+  {
+    "id": "food_cherry_tomato",
+    "name": "Cherry Tomato",
+    "description": "Sweet cherry tomato (occasional treat, high in acid)",
+    "category": "food",
+    "subCategory": "vegetables",
+    "basePrice": 3.49,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 7,
+      "hungerSatisfaction": 13,
+      "servingSize": "1 small tomato",
+      "shelfLife": "5-7 days",
+      "servings": 1,
+      "foodBallColor": "#EF5350"
+    },
+    "availability": "seasonal",
+    "emoji": "🍅",
+    "tags": ["fresh"]
+  },
+  {
+    "id": "food_broccoli",
+    "name": "Broccoli",
+    "description": "Nutritious broccoli florets (feed in moderation)",
+    "category": "food",
+    "subCategory": "vegetables",
+    "basePrice": 3.29,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 9,
+      "hungerSatisfaction": 17,
+      "servingSize": "1 small floret",
+      "shelfLife": "5-7 days",
+      "servings": 4,
+      "foodBallColor": "#2E7D32"
+    },
+    "availability": "always",
+    "emoji": "🥦",
+    "tags": ["fresh"]
+  }
+]

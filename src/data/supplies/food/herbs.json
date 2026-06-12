@@ -1,0 +1,122 @@
+[
+  {
+    "id": "food_dill",
+    "name": "Dill",
+    "description": "Fresh dill with aromatic flavor",
+    "category": "food",
+    "subCategory": "herbs",
+    "basePrice": 2.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 6,
+      "hungerSatisfaction": 8,
+      "servingSize": "1-2 sprigs",
+      "shelfLife": "3-5 days",
+      "servings": 4,
+      "foodBallColor": "#558B2F"
+    },
+    "availability": "always",
+    "emoji": "🌿",
+    "tags": ["fresh"]
+  },
+  {
+    "id": "food_cilantro",
+    "name": "Cilantro",
+    "description": "Fresh cilantro, guinea pig favorite!",
+    "category": "food",
+    "subCategory": "herbs",
+    "basePrice": 2.49,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 7,
+      "hungerSatisfaction": 10,
+      "servingSize": "2-3 sprigs",
+      "shelfLife": "3-5 days",
+      "servings": 4,
+      "foodBallColor": "#33691E"
+    },
+    "availability": "always",
+    "emoji": "🌿",
+    "tags": ["fresh", "popular"]
+  },
+  {
+    "id": "food_parsley",
+    "name": "Parsley",
+    "description": "Fresh parsley, rich in vitamin C",
+    "category": "food",
+    "subCategory": "herbs",
+    "basePrice": 2.79,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 8,
+      "hungerSatisfaction": 9,
+      "servingSize": "1-2 sprigs",
+      "shelfLife": "5-7 days",
+      "servings": 4,
+      "foodBallColor": "#1B5E20"
+    },
+    "availability": "always",
+    "emoji": "🌿",
+    "tags": ["fresh"]
+  },
+  {
+    "id": "food_mint",
+    "name": "Mint",
+    "description": "Fresh mint leaves with cooling properties",
+    "category": "food",
+    "subCategory": "herbs",
+    "basePrice": 3.49,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 6,
+      "hungerSatisfaction": 8,
+      "servingSize": "1-2 leaves",
+      "shelfLife": "3-5 days",
+      "servings": 4,
+      "foodBallColor": "#4DB6AC"
+    },
+    "availability": "always",
+    "emoji": "🌿",
+    "tags": ["fresh"]
+  },
+  {
+    "id": "food_basil",
+    "name": "Basil",
+    "description": "Sweet basil with aromatic fragrance",
+    "category": "food",
+    "subCategory": "herbs",
+    "basePrice": 2.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 7,
+      "hungerSatisfaction": 9,
+      "servingSize": "1-2 leaves",
+      "shelfLife": "3-5 days",
+      "servings": 4,
+      "foodBallColor": "#2E7D32"
+    },
+    "availability": "always",
+    "emoji": "🌿",
+    "tags": ["fresh"]
+  },
+  {
+    "id": "food_oregano",
+    "name": "Oregano",
+    "description": "Fresh oregano with earthy flavor (feed sparingly)",
+    "category": "food",
+    "subCategory": "herbs",
+    "basePrice": 2.79,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 6,
+      "hungerSatisfaction": 7,
+      "servingSize": "1 small sprig",
+      "shelfLife": "5-7 days",
+      "servings": 4,
+      "foodBallColor": "#689F38"
+    },
+    "availability": "always",
+    "emoji": "🌿",
+    "tags": ["fresh"]
+  }
+]

@@ -1,0 +1,129 @@
+[
+  {
+    "id": "bedding_cheap",
+    "name": "Cheap Bedding",
+    "description": "Basic paper bedding, budget-friendly option",
+    "category": "bedding",
+    "basePrice": 5.99,
+    "currency": "dollars",
+    "stats": {
+      "absorbency": 0.8,
+      "decayRate": 1.2
+    },
+    "availability": "always",
+    "emoji": "📄",
+    "quality": "cheap",
+    "tier": "basic",
+    "tags": ["budget"]
+  },
+  {
+    "id": "bedding_average",
+    "name": "Average Bedding",
+    "description": "Quality paper bedding with good absorbency",
+    "category": "bedding",
+    "basePrice": 9.99,
+    "currency": "dollars",
+    "stats": {
+      "absorbency": 1.0,
+      "decayRate": 1.0
+    },
+    "availability": "always",
+    "emoji": "📋",
+    "quality": "average",
+    "tier": "standard",
+    "tags": ["popular", "best-value"]
+  },
+  {
+    "id": "bedding_premium",
+    "name": "Premium Bedding",
+    "description": "Ultra-soft premium bedding with superior absorbency",
+    "category": "bedding",
+    "basePrice": 15.99,
+    "currency": "dollars",
+    "stats": {
+      "absorbency": 1.3,
+      "decayRate": 0.7
+    },
+    "availability": "always",
+    "emoji": "✨",
+    "quality": "premium",
+    "tier": "premium",
+    "tags": []
+  },
+  {
+    "id": "bedding_color_pink",
+    "name": "Pink Color Bedding",
+    "description": "Vibrant pink paper bedding for a fun habitat look",
+    "category": "bedding",
+    "basePrice": 11.99,
+    "currency": "dollars",
+    "stats": {
+      "absorbency": 0.95,
+      "decayRate": 1.1,
+      "aestheticBoost": 1.2,
+      "stimulationBoost": 5
+    },
+    "availability": "always",
+    "emoji": "🌸",
+    "quality": "average",
+    "tier": "standard",
+    "tags": ["colorful", "aesthetic"]
+  },
+  {
+    "id": "bedding_color_blue",
+    "name": "Blue Color Bedding",
+    "description": "Cool blue paper bedding for a calming habitat",
+    "category": "bedding",
+    "basePrice": 11.99,
+    "currency": "dollars",
+    "stats": {
+      "absorbency": 0.95,
+      "decayRate": 1.1,
+      "aestheticBoost": 1.2,
+      "comfortBoost": 5
+    },
+    "availability": "always",
+    "emoji": "💙",
+    "quality": "average",
+    "tier": "standard",
+    "tags": ["colorful", "calming"]
+  },
+  {
+    "id": "bedding_color_purple",
+    "name": "Purple Color Bedding",
+    "description": "Rich purple paper bedding for a regal habitat",
+    "category": "bedding",
+    "basePrice": 11.99,
+    "currency": "dollars",
+    "stats": {
+      "absorbency": 0.95,
+      "decayRate": 1.1,
+      "aestheticBoost": 1.2,
+      "stimulationBoost": 5
+    },
+    "availability": "always",
+    "emoji": "💜",
+    "quality": "average",
+    "tier": "standard",
+    "tags": ["colorful", "aesthetic"]
+  },
+  {
+    "id": "bedding_color_green",
+    "name": "Green Color Bedding",
+    "description": "Fresh green paper bedding for a natural habitat look",
+    "category": "bedding",
+    "basePrice": 11.99,
+    "currency": "dollars",
+    "stats": {
+      "absorbency": 0.95,
+      "decayRate": 1.1,
+      "aestheticBoost": 1.2,
+      "comfortBoost": 5
+    },
+    "availability": "always",
+    "emoji": "💚",
+    "quality": "average",
+    "tier": "standard",
+    "tags": ["colorful", "natural"]
+  }
+]

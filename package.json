@@ -1,0 +1,31 @@
+{
+  "name": "gps3",
+  "version": "0.0.1",
+  "description": "Guinea Pig Simulation Game - Virtual pet care simulator with personality discovery",
+  "author": "ktocdev",
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@floating-ui/vue": "^1.1.9",
+    "@iconify-json/flowbite": "^1.2.7",
+    "@iconify/vue": "^5.0.0",
+    "pinia": "^3.0.3",
+    "pinia-plugin-persistedstate": "^4.4.1",
+    "three": "^0.181.2",
+    "vue": "^3.5.17",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@types/three": "^0.181.0",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "@vue/tsconfig": "^0.7.0",
+    "typescript": "~5.8.3",
+    "vite": "^7.0.4",
+    "vue-tsc": "^2.2.12"
+  }
+}

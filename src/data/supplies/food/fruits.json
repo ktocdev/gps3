@@ -1,0 +1,142 @@
+[
+  {
+    "id": "food_apple",
+    "name": "Apple",
+    "description": "Sweet apple slice (remove seeds, occasional treat)",
+    "category": "food",
+    "subCategory": "fruits",
+    "basePrice": 2.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 6,
+      "hungerSatisfaction": 10,
+      "servingSize": "1 small slice",
+      "shelfLife": "7-10 days",
+      "servings": 4,
+      "foodBallColor": "#E53935"
+    },
+    "availability": "always",
+    "emoji": "🍎",
+    "tags": []
+  },
+  {
+    "id": "food_strawberry",
+    "name": "Strawberry",
+    "description": "Sweet strawberry, high in vitamin C (occasional treat)",
+    "category": "food",
+    "subCategory": "fruits",
+    "basePrice": 4.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 7,
+      "hungerSatisfaction": 12,
+      "servingSize": "1 small berry",
+      "shelfLife": "3-5 days",
+      "servings": 1,
+      "foodBallColor": "#F44336"
+    },
+    "availability": "seasonal",
+    "emoji": "🍓",
+    "tags": ["fresh"]
+  },
+  {
+    "id": "food_blueberry",
+    "name": "Blueberry",
+    "description": "Tiny blueberries packed with antioxidants (occasional treat)",
+    "category": "food",
+    "subCategory": "fruits",
+    "basePrice": 5.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 7,
+      "hungerSatisfaction": 8,
+      "servingSize": "2-3 berries",
+      "shelfLife": "5-7 days",
+      "servings": 1,
+      "foodBallColor": "#3949AB"
+    },
+    "availability": "seasonal",
+    "emoji": "🫐",
+    "tags": ["fresh"]
+  },
+  {
+    "id": "food_banana",
+    "name": "Banana",
+    "description": "Creamy banana, very high in sugar (rare treat only)",
+    "category": "food",
+    "subCategory": "fruits",
+    "basePrice": 1.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 5,
+      "hungerSatisfaction": 14,
+      "servingSize": "1 small coin",
+      "shelfLife": "3-5 days",
+      "servings": 4,
+      "foodBallColor": "#FFEB3B"
+    },
+    "availability": "always",
+    "emoji": "🍌",
+    "tags": []
+  },
+  {
+    "id": "food_melon",
+    "name": "Melon",
+    "description": "Refreshing melon, hydrating summer treat",
+    "category": "food",
+    "subCategory": "fruits",
+    "basePrice": 3.99,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 6,
+      "hungerSatisfaction": 16,
+      "servingSize": "1 small cube",
+      "shelfLife": "3-5 days",
+      "servings": 6,
+      "foodBallColor": "#FF8A80"
+    },
+    "availability": "seasonal",
+    "emoji": "🍉",
+    "tags": ["fresh"]
+  },
+  {
+    "id": "food_orange",
+    "name": "Orange",
+    "description": "Juicy orange segment, vitamin C boost (occasional treat)",
+    "category": "food",
+    "subCategory": "fruits",
+    "basePrice": 2.49,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 8,
+      "hungerSatisfaction": 11,
+      "servingSize": "1 small segment",
+      "shelfLife": "7-10 days",
+      "servings": 4,
+      "foodBallColor": "#FF9800"
+    },
+    "availability": "always",
+    "emoji": "🍊",
+    "tags": []
+  },
+  {
+    "id": "food_pear",
+    "name": "Pear",
+    "description": "Sweet pear slice (occasional treat)",
+    "category": "food",
+    "subCategory": "fruits",
+    "basePrice": 2.79,
+    "currency": "dollars",
+    "stats": {
+      "nutrition": 6,
+      "hungerSatisfaction": 12,
+      "servingSize": "1 small slice",
+      "shelfLife": "5-7 days",
+      "servings": 4,
+      "foodBallColor": "#C5E1A5"
+    },
+    "availability": "always",
+    "emoji": "🍐",
+    "tags": []
+  }
+]

@@ -1,0 +1,1257 @@
+[
+  {
+    "name": "GPS2 Background 1",
+    "colors": [
+      {
+        "name": "bg-primary",
+        "hex": "#FFFFFF",
+        "rgb": {
+          "r": 255,
+          "g": 255,
+          "b": 255
+        }
+      },
+      {
+        "name": "bg-secondary",
+        "hex": "#F8FAFC",
+        "rgb": {
+          "r": 248,
+          "g": 250,
+          "b": 252
+        }
+      },
+      {
+        "name": "bg-tertiary",
+        "hex": "#F1F5F9",
+        "rgb": {
+          "r": 241,
+          "g": 245,
+          "b": 249
+        }
+      },
+      {
+        "name": "bg-canvas",
+        "hex": "#000000",
+        "rgb": {
+          "r": 0,
+          "g": 0,
+          "b": 0
+        }
+      },
+      {
+        "name": "bg-primary",
+        "hex": "#0F172A",
+        "rgb": {
+          "r": 15,
+          "g": 23,
+          "b": 42
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Background 2",
+    "colors": [
+      {
+        "name": "bg-secondary",
+        "hex": "#1E293B",
+        "rgb": {
+          "r": 30,
+          "g": 41,
+          "b": 59
+        }
+      },
+      {
+        "name": "bg-tertiary",
+        "hex": "#334155",
+        "rgb": {
+          "r": 51,
+          "g": 65,
+          "b": 85
+        }
+      },
+      {
+        "name": "bg-primary",
+        "hex": "#0F172A",
+        "rgb": {
+          "r": 15,
+          "g": 23,
+          "b": 42
+        }
+      },
+      {
+        "name": "bg-secondary",
+        "hex": "#1E293B",
+        "rgb": {
+          "r": 30,
+          "g": 41,
+          "b": 59
+        }
+      },
+      {
+        "name": "bg-tertiary",
+        "hex": "#334155",
+        "rgb": {
+          "r": 51,
+          "g": 65,
+          "b": 85
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Text 1",
+    "colors": [
+      {
+        "name": "text-primary",
+        "hex": "#1E293B",
+        "rgb": {
+          "r": 30,
+          "g": 41,
+          "b": 59
+        }
+      },
+      {
+        "name": "text-secondary",
+        "hex": "#475569",
+        "rgb": {
+          "r": 71,
+          "g": 85,
+          "b": 105
+        }
+      },
+      {
+        "name": "text-tertiary",
+        "hex": "#64748B",
+        "rgb": {
+          "r": 100,
+          "g": 116,
+          "b": 139
+        }
+      },
+      {
+        "name": "text-muted",
+        "hex": "#94A3B8",
+        "rgb": {
+          "r": 148,
+          "g": 163,
+          "b": 184
+        }
+      },
+      {
+        "name": "text-inverse",
+        "hex": "#FFFFFF",
+        "rgb": {
+          "r": 255,
+          "g": 255,
+          "b": 255
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Text 2",
+    "colors": [
+      {
+        "name": "text-primary",
+        "hex": "#F8FAFC",
+        "rgb": {
+          "r": 248,
+          "g": 250,
+          "b": 252
+        }
+      },
+      {
+        "name": "text-secondary",
+        "hex": "#E2E8F0",
+        "rgb": {
+          "r": 226,
+          "g": 232,
+          "b": 240
+        }
+      },
+      {
+        "name": "text-tertiary",
+        "hex": "#CBD5E1",
+        "rgb": {
+          "r": 203,
+          "g": 213,
+          "b": 225
+        }
+      },
+      {
+        "name": "text-muted",
+        "hex": "#94A3B8",
+        "rgb": {
+          "r": 148,
+          "g": 163,
+          "b": 184
+        }
+      },
+      {
+        "name": "text-primary",
+        "hex": "#F8FAFC",
+        "rgb": {
+          "r": 248,
+          "g": 250,
+          "b": 252
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Text 3",
+    "colors": [
+      {
+        "name": "text-secondary",
+        "hex": "#E2E8F0",
+        "rgb": {
+          "r": 226,
+          "g": 232,
+          "b": 240
+        }
+      },
+      {
+        "name": "text-tertiary",
+        "hex": "#CBD5E1",
+        "rgb": {
+          "r": 203,
+          "g": 213,
+          "b": 225
+        }
+      },
+      {
+        "name": "text-muted",
+        "hex": "#94A3B8",
+        "rgb": {
+          "r": 148,
+          "g": 163,
+          "b": 184
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Pink 1",
+    "colors": [
+      {
+        "name": "accent-pink-50",
+        "hex": "#FDF2F8",
+        "rgb": {
+          "r": 253,
+          "g": 242,
+          "b": 248
+        }
+      },
+      {
+        "name": "accent-pink-100",
+        "hex": "#FCE7F3",
+        "rgb": {
+          "r": 252,
+          "g": 231,
+          "b": 243
+        }
+      },
+      {
+        "name": "accent-pink-200",
+        "hex": "#FBCFE8",
+        "rgb": {
+          "r": 251,
+          "g": 207,
+          "b": 232
+        }
+      },
+      {
+        "name": "accent-pink-300",
+        "hex": "#F9A8D4",
+        "rgb": {
+          "r": 249,
+          "g": 168,
+          "b": 212
+        }
+      },
+      {
+        "name": "accent-pink-400",
+        "hex": "#F472B6",
+        "rgb": {
+          "r": 244,
+          "g": 114,
+          "b": 182
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Pink 2",
+    "colors": [
+      {
+        "name": "accent-pink-500",
+        "hex": "#EC4899",
+        "rgb": {
+          "r": 236,
+          "g": 72,
+          "b": 153
+        }
+      },
+      {
+        "name": "accent-pink-600",
+        "hex": "#DB2777",
+        "rgb": {
+          "r": 219,
+          "g": 39,
+          "b": 119
+        }
+      },
+      {
+        "name": "accent-pink-700",
+        "hex": "#BE185D",
+        "rgb": {
+          "r": 190,
+          "g": 24,
+          "b": 93
+        }
+      },
+      {
+        "name": "accent-pink-800",
+        "hex": "#9F1239",
+        "rgb": {
+          "r": 159,
+          "g": 18,
+          "b": 57
+        }
+      },
+      {
+        "name": "accent-pink-900",
+        "hex": "#831843",
+        "rgb": {
+          "r": 131,
+          "g": 24,
+          "b": 67
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Green 1",
+    "colors": [
+      {
+        "name": "accent-green-50",
+        "hex": "#F0FDF4",
+        "rgb": {
+          "r": 240,
+          "g": 253,
+          "b": 244
+        }
+      },
+      {
+        "name": "accent-green-100",
+        "hex": "#DCFCE7",
+        "rgb": {
+          "r": 220,
+          "g": 252,
+          "b": 231
+        }
+      },
+      {
+        "name": "accent-green-200",
+        "hex": "#BBF7D0",
+        "rgb": {
+          "r": 187,
+          "g": 247,
+          "b": 208
+        }
+      },
+      {
+        "name": "accent-green-300",
+        "hex": "#86EFAC",
+        "rgb": {
+          "r": 134,
+          "g": 239,
+          "b": 172
+        }
+      },
+      {
+        "name": "accent-green-400",
+        "hex": "#4ADE80",
+        "rgb": {
+          "r": 74,
+          "g": 222,
+          "b": 128
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Green 2",
+    "colors": [
+      {
+        "name": "accent-green-500",
+        "hex": "#22C55E",
+        "rgb": {
+          "r": 34,
+          "g": 197,
+          "b": 94
+        }
+      },
+      {
+        "name": "accent-green-600",
+        "hex": "#178740",
+        "rgb": {
+          "r": 23,
+          "g": 135,
+          "b": 64
+        }
+      },
+      {
+        "name": "accent-green-700",
+        "hex": "#15803D",
+        "rgb": {
+          "r": 21,
+          "g": 128,
+          "b": 61
+        }
+      },
+      {
+        "name": "accent-green-800",
+        "hex": "#166534",
+        "rgb": {
+          "r": 22,
+          "g": 101,
+          "b": 52
+        }
+      },
+      {
+        "name": "accent-green-900",
+        "hex": "#14532D",
+        "rgb": {
+          "r": 20,
+          "g": 83,
+          "b": 45
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Violet 1",
+    "colors": [
+      {
+        "name": "accent-violet-50",
+        "hex": "#F5F3FF",
+        "rgb": {
+          "r": 245,
+          "g": 243,
+          "b": 255
+        }
+      },
+      {
+        "name": "accent-violet-100",
+        "hex": "#EDE9FE",
+        "rgb": {
+          "r": 237,
+          "g": 233,
+          "b": 254
+        }
+      },
+      {
+        "name": "accent-violet-200",
+        "hex": "#DDD6FE",
+        "rgb": {
+          "r": 221,
+          "g": 214,
+          "b": 254
+        }
+      },
+      {
+        "name": "accent-violet-300",
+        "hex": "#C4B5FD",
+        "rgb": {
+          "r": 196,
+          "g": 181,
+          "b": 253
+        }
+      },
+      {
+        "name": "accent-violet-400",
+        "hex": "#A78BFA",
+        "rgb": {
+          "r": 167,
+          "g": 139,
+          "b": 250
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Violet 2",
+    "colors": [
+      {
+        "name": "accent-violet-500",
+        "hex": "#8B5CF6",
+        "rgb": {
+          "r": 139,
+          "g": 92,
+          "b": 246
+        }
+      },
+      {
+        "name": "accent-violet-600",
+        "hex": "#7C3AED",
+        "rgb": {
+          "r": 124,
+          "g": 58,
+          "b": 237
+        }
+      },
+      {
+        "name": "accent-violet-700",
+        "hex": "#6D28D9",
+        "rgb": {
+          "r": 109,
+          "g": 40,
+          "b": 217
+        }
+      },
+      {
+        "name": "accent-violet-800",
+        "hex": "#5B21B6",
+        "rgb": {
+          "r": 91,
+          "g": 33,
+          "b": 182
+        }
+      },
+      {
+        "name": "accent-violet-900",
+        "hex": "#4C1D95",
+        "rgb": {
+          "r": 76,
+          "g": 29,
+          "b": 149
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Yellow 1",
+    "colors": [
+      {
+        "name": "accent-yellow-50",
+        "hex": "#FEFCE8",
+        "rgb": {
+          "r": 254,
+          "g": 252,
+          "b": 232
+        }
+      },
+      {
+        "name": "accent-yellow-100",
+        "hex": "#FEF9C3",
+        "rgb": {
+          "r": 254,
+          "g": 249,
+          "b": 195
+        }
+      },
+      {
+        "name": "accent-yellow-200",
+        "hex": "#FEF08A",
+        "rgb": {
+          "r": 254,
+          "g": 240,
+          "b": 138
+        }
+      },
+      {
+        "name": "accent-yellow-300",
+        "hex": "#FDE047",
+        "rgb": {
+          "r": 253,
+          "g": 224,
+          "b": 71
+        }
+      },
+      {
+        "name": "accent-yellow-400",
+        "hex": "#FACC15",
+        "rgb": {
+          "r": 250,
+          "g": 204,
+          "b": 21
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Yellow 2",
+    "colors": [
+      {
+        "name": "accent-yellow-500",
+        "hex": "#EAB308",
+        "rgb": {
+          "r": 234,
+          "g": 179,
+          "b": 8
+        }
+      },
+      {
+        "name": "accent-yellow-600",
+        "hex": "#CA8A04",
+        "rgb": {
+          "r": 202,
+          "g": 138,
+          "b": 4
+        }
+      },
+      {
+        "name": "accent-yellow-700",
+        "hex": "#A16207",
+        "rgb": {
+          "r": 161,
+          "g": 98,
+          "b": 7
+        }
+      },
+      {
+        "name": "accent-yellow-800",
+        "hex": "#854D0E",
+        "rgb": {
+          "r": 133,
+          "g": 77,
+          "b": 14
+        }
+      },
+      {
+        "name": "accent-yellow-900",
+        "hex": "#713F12",
+        "rgb": {
+          "r": 113,
+          "g": 63,
+          "b": 18
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Cyan 1",
+    "colors": [
+      {
+        "name": "accent-cyan-50",
+        "hex": "#ECFEFF",
+        "rgb": {
+          "r": 236,
+          "g": 254,
+          "b": 255
+        }
+      },
+      {
+        "name": "accent-cyan-100",
+        "hex": "#CFFAFE",
+        "rgb": {
+          "r": 207,
+          "g": 250,
+          "b": 254
+        }
+      },
+      {
+        "name": "accent-cyan-200",
+        "hex": "#A5F3FC",
+        "rgb": {
+          "r": 165,
+          "g": 243,
+          "b": 252
+        }
+      },
+      {
+        "name": "accent-cyan-300",
+        "hex": "#67E8F9",
+        "rgb": {
+          "r": 103,
+          "g": 232,
+          "b": 249
+        }
+      },
+      {
+        "name": "accent-cyan-400",
+        "hex": "#22D3EE",
+        "rgb": {
+          "r": 34,
+          "g": 211,
+          "b": 238
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Cyan 2",
+    "colors": [
+      {
+        "name": "accent-cyan-500",
+        "hex": "#06B6D4",
+        "rgb": {
+          "r": 6,
+          "g": 182,
+          "b": 212
+        }
+      },
+      {
+        "name": "accent-cyan-600",
+        "hex": "#0891B2",
+        "rgb": {
+          "r": 8,
+          "g": 145,
+          "b": 178
+        }
+      },
+      {
+        "name": "accent-cyan-700",
+        "hex": "#0E7490",
+        "rgb": {
+          "r": 14,
+          "g": 116,
+          "b": 144
+        }
+      },
+      {
+        "name": "accent-cyan-800",
+        "hex": "#155E75",
+        "rgb": {
+          "r": 21,
+          "g": 94,
+          "b": 117
+        }
+      },
+      {
+        "name": "accent-cyan-900",
+        "hex": "#164E63",
+        "rgb": {
+          "r": 22,
+          "g": 78,
+          "b": 99
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Neutral 1",
+    "colors": [
+      {
+        "name": "neutral-50",
+        "hex": "#F8FAFC",
+        "rgb": {
+          "r": 248,
+          "g": 250,
+          "b": 252
+        }
+      },
+      {
+        "name": "neutral-100",
+        "hex": "#F1F5F9",
+        "rgb": {
+          "r": 241,
+          "g": 245,
+          "b": 249
+        }
+      },
+      {
+        "name": "neutral-200",
+        "hex": "#E2E8F0",
+        "rgb": {
+          "r": 226,
+          "g": 232,
+          "b": 240
+        }
+      },
+      {
+        "name": "neutral-300",
+        "hex": "#CBD5E1",
+        "rgb": {
+          "r": 203,
+          "g": 213,
+          "b": 225
+        }
+      },
+      {
+        "name": "neutral-400",
+        "hex": "#94A3B8",
+        "rgb": {
+          "r": 148,
+          "g": 163,
+          "b": 184
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Neutral 2",
+    "colors": [
+      {
+        "name": "neutral-500",
+        "hex": "#64748B",
+        "rgb": {
+          "r": 100,
+          "g": 116,
+          "b": 139
+        }
+      },
+      {
+        "name": "neutral-600",
+        "hex": "#475569",
+        "rgb": {
+          "r": 71,
+          "g": 85,
+          "b": 105
+        }
+      },
+      {
+        "name": "neutral-700",
+        "hex": "#334155",
+        "rgb": {
+          "r": 51,
+          "g": 65,
+          "b": 85
+        }
+      },
+      {
+        "name": "neutral-800",
+        "hex": "#1E293B",
+        "rgb": {
+          "r": 30,
+          "g": 41,
+          "b": 59
+        }
+      },
+      {
+        "name": "neutral-900",
+        "hex": "#0F172A",
+        "rgb": {
+          "r": 15,
+          "g": 23,
+          "b": 42
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Warning 1",
+    "colors": [
+      {
+        "name": "warning-50",
+        "hex": "#FFFBEB",
+        "rgb": {
+          "r": 255,
+          "g": 251,
+          "b": 235
+        }
+      },
+      {
+        "name": "warning-100",
+        "hex": "#FEF3C7",
+        "rgb": {
+          "r": 254,
+          "g": 243,
+          "b": 199
+        }
+      },
+      {
+        "name": "warning-200",
+        "hex": "#FDE68A",
+        "rgb": {
+          "r": 253,
+          "g": 230,
+          "b": 138
+        }
+      },
+      {
+        "name": "warning-300",
+        "hex": "#FBBF24",
+        "rgb": {
+          "r": 251,
+          "g": 191,
+          "b": 36
+        }
+      },
+      {
+        "name": "warning-400",
+        "hex": "#F59E0B",
+        "rgb": {
+          "r": 245,
+          "g": 158,
+          "b": 11
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Warning 2",
+    "colors": [
+      {
+        "name": "warning-500",
+        "hex": "#EA580C",
+        "rgb": {
+          "r": 234,
+          "g": 88,
+          "b": 12
+        }
+      },
+      {
+        "name": "warning-600",
+        "hex": "#C2410C",
+        "rgb": {
+          "r": 194,
+          "g": 65,
+          "b": 12
+        }
+      },
+      {
+        "name": "warning-700",
+        "hex": "#9A3412",
+        "rgb": {
+          "r": 154,
+          "g": 52,
+          "b": 18
+        }
+      },
+      {
+        "name": "warning-800",
+        "hex": "#7C2D12",
+        "rgb": {
+          "r": 124,
+          "g": 45,
+          "b": 18
+        }
+      },
+      {
+        "name": "warning-900",
+        "hex": "#431407",
+        "rgb": {
+          "r": 67,
+          "g": 20,
+          "b": 7
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Error 1",
+    "colors": [
+      {
+        "name": "error-50",
+        "hex": "#FEF2F2",
+        "rgb": {
+          "r": 254,
+          "g": 242,
+          "b": 242
+        }
+      },
+      {
+        "name": "error-100",
+        "hex": "#FEE2E2",
+        "rgb": {
+          "r": 254,
+          "g": 226,
+          "b": 226
+        }
+      },
+      {
+        "name": "error-200",
+        "hex": "#FECACA",
+        "rgb": {
+          "r": 254,
+          "g": 202,
+          "b": 202
+        }
+      },
+      {
+        "name": "error-300",
+        "hex": "#F87171",
+        "rgb": {
+          "r": 248,
+          "g": 113,
+          "b": 113
+        }
+      },
+      {
+        "name": "error-400",
+        "hex": "#EF4444",
+        "rgb": {
+          "r": 239,
+          "g": 68,
+          "b": 68
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Error 2",
+    "colors": [
+      {
+        "name": "error-500",
+        "hex": "#DC2626",
+        "rgb": {
+          "r": 220,
+          "g": 38,
+          "b": 38
+        }
+      },
+      {
+        "name": "error-600",
+        "hex": "#B91C1C",
+        "rgb": {
+          "r": 185,
+          "g": 28,
+          "b": 28
+        }
+      },
+      {
+        "name": "error-700",
+        "hex": "#991B1B",
+        "rgb": {
+          "r": 153,
+          "g": 27,
+          "b": 27
+        }
+      },
+      {
+        "name": "error-800",
+        "hex": "#7F1D1D",
+        "rgb": {
+          "r": 127,
+          "g": 29,
+          "b": 29
+        }
+      },
+      {
+        "name": "error-900",
+        "hex": "#450A0A",
+        "rgb": {
+          "r": 69,
+          "g": 10,
+          "b": 10
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Info 1",
+    "colors": [
+      {
+        "name": "info-50",
+        "hex": "#EFF6FF",
+        "rgb": {
+          "r": 239,
+          "g": 246,
+          "b": 255
+        }
+      },
+      {
+        "name": "info-100",
+        "hex": "#DBEAFE",
+        "rgb": {
+          "r": 219,
+          "g": 234,
+          "b": 254
+        }
+      },
+      {
+        "name": "info-200",
+        "hex": "#BFDBFE",
+        "rgb": {
+          "r": 191,
+          "g": 219,
+          "b": 254
+        }
+      },
+      {
+        "name": "info-300",
+        "hex": "#60A5FA",
+        "rgb": {
+          "r": 96,
+          "g": 165,
+          "b": 250
+        }
+      },
+      {
+        "name": "info-400",
+        "hex": "#3B82F6",
+        "rgb": {
+          "r": 59,
+          "g": 130,
+          "b": 246
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Info 2",
+    "colors": [
+      {
+        "name": "info-500",
+        "hex": "#2563EB",
+        "rgb": {
+          "r": 37,
+          "g": 99,
+          "b": 235
+        }
+      },
+      {
+        "name": "info-600",
+        "hex": "#1D4ED8",
+        "rgb": {
+          "r": 29,
+          "g": 78,
+          "b": 216
+        }
+      },
+      {
+        "name": "info-700",
+        "hex": "#1E40AF",
+        "rgb": {
+          "r": 30,
+          "g": 64,
+          "b": 175
+        }
+      },
+      {
+        "name": "info-800",
+        "hex": "#1E3A8A",
+        "rgb": {
+          "r": 30,
+          "g": 58,
+          "b": 138
+        }
+      },
+      {
+        "name": "info-900",
+        "hex": "#172554",
+        "rgb": {
+          "r": 23,
+          "g": 37,
+          "b": 84
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Needs 1",
+    "colors": [
+      {
+        "name": "need-hunger",
+        "hex": "#F59E0B",
+        "rgb": {
+          "r": 245,
+          "g": 158,
+          "b": 11
+        }
+      },
+      {
+        "name": "need-thirst",
+        "hex": "#06B6D4",
+        "rgb": {
+          "r": 6,
+          "g": 182,
+          "b": 212
+        }
+      },
+      {
+        "name": "need-energy",
+        "hex": "#1E3A8A",
+        "rgb": {
+          "r": 30,
+          "g": 58,
+          "b": 138
+        }
+      },
+      {
+        "name": "need-shelter",
+        "hex": "#92400E",
+        "rgb": {
+          "r": 146,
+          "g": 64,
+          "b": 14
+        }
+      },
+      {
+        "name": "need-play",
+        "hex": "#10B981",
+        "rgb": {
+          "r": 16,
+          "g": 185,
+          "b": 129
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Needs 2",
+    "colors": [
+      {
+        "name": "need-social",
+        "hex": "#EC4899",
+        "rgb": {
+          "r": 236,
+          "g": 72,
+          "b": 153
+        }
+      },
+      {
+        "name": "need-stimulation",
+        "hex": "#F97316",
+        "rgb": {
+          "r": 249,
+          "g": 115,
+          "b": 22
+        }
+      },
+      {
+        "name": "need-comfort",
+        "hex": "#818CF8",
+        "rgb": {
+          "r": 129,
+          "g": 140,
+          "b": 248
+        }
+      },
+      {
+        "name": "need-hygiene",
+        "hex": "#0EA5E9",
+        "rgb": {
+          "r": 14,
+          "g": 165,
+          "b": 233
+        }
+      },
+      {
+        "name": "need-nails",
+        "hex": "#64748B",
+        "rgb": {
+          "r": 100,
+          "g": 116,
+          "b": 139
+        }
+      }
+    ]
+  },
+  {
+    "name": "GPS2 Needs 3",
+    "colors": [
+      {
+        "name": "need-health",
+        "hex": "#EF4444",
+        "rgb": {
+          "r": 239,
+          "g": 68,
+          "b": 68
+        }
+      },
+      {
+        "name": "need-chew",
+        "hex": "#F5F5DC",
+        "rgb": {
+          "r": 245,
+          "g": 245,
+          "b": 220
+        }
+      }
+    ]
+  }
+]

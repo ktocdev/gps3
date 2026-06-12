@@ -1,0 +1,306 @@
+[
+  {
+    "id": "habitat_basic_platform",
+    "name": "Basic Platform",
+    "description": "Single level wooden platform",
+    "category": "habitat_item",
+    "subCategory": "enrichment",
+    "basePrice": 14.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 9,
+      "stimulationBoost": 10,
+      "spaceRequired": "medium"
+    },
+    "availability": "always",
+    "emoji": "📐",
+    "tier": "basic",
+    "tags": []
+  },
+  {
+    "id": "habitat_corner_ramp",
+    "name": "Corner Ramp",
+    "description": "Space-saving corner platform with ramp",
+    "category": "habitat_item",
+    "subCategory": "enrichment",
+    "basePrice": 18.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 9,
+      "stimulationBoost": 12,
+      "spaceRequired": "small"
+    },
+    "availability": "always",
+    "emoji": "↗️",
+    "tier": "standard",
+    "tags": []
+  },
+  {
+    "id": "habitat_multi_level_platform",
+    "name": "Multi-Level Platform",
+    "description": "Two-tier platform system",
+    "category": "habitat_item",
+    "subCategory": "enrichment",
+    "basePrice": 26.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 10,
+      "stimulationBoost": 16,
+      "spaceRequired": "large"
+    },
+    "availability": "always",
+    "emoji": "🏢",
+    "tier": "standard",
+    "tags": []
+  },
+  {
+    "id": "habitat_bridge_platform",
+    "name": "Bridge Platform",
+    "description": "Connecting bridge between two areas",
+    "category": "habitat_item",
+    "subCategory": "enrichment",
+    "basePrice": 22.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 8,
+      "stimulationBoost": 14,
+      "playBoost": 8,
+      "spaceRequired": "large"
+    },
+    "availability": "always",
+    "emoji": "🌉",
+    "tier": "standard",
+    "tags": []
+  },
+  {
+    "id": "habitat_tube_system",
+    "name": "Tube System",
+    "description": "Modular connecting tubes (3-piece set)",
+    "category": "habitat_item",
+    "subCategory": "enrichment",
+    "basePrice": 24.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 8,
+      "stimulationBoost": 18,
+      "playBoost": 12,
+      "spaceRequired": "large"
+    },
+    "availability": "always",
+    "emoji": "🚇",
+    "tier": "standard",
+    "tags": []
+  },
+  {
+    "id": "habitat_peekaboo_tunnel",
+    "name": "Peek-a-Boo Tunnel",
+    "description": "Tunnel with viewing windows",
+    "category": "habitat_item",
+    "subCategory": "enrichment",
+    "basePrice": 19.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 7,
+      "stimulationBoost": 15,
+      "playBoost": 10,
+      "spaceRequired": "medium"
+    },
+    "availability": "always",
+    "emoji": "👀",
+    "tier": "standard",
+    "tags": []
+  },
+  {
+    "id": "habitat_maze_kit",
+    "name": "Maze Kit",
+    "description": "Reconfigurable maze walls (6-piece)",
+    "category": "habitat_item",
+    "subCategory": "enrichment",
+    "basePrice": 29.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 10,
+      "stimulationBoost": 22,
+      "interactiveRating": 9,
+      "complexityRating": 8,
+      "spaceRequired": "large"
+    },
+    "availability": "always",
+    "emoji": "🧩",
+    "tier": "premium",
+    "tags": []
+  },
+  {
+    "id": "habitat_observation_deck",
+    "name": "Observation Deck",
+    "description": "Elevated viewing platform",
+    "category": "habitat_item",
+    "subCategory": "enrichment",
+    "basePrice": 21.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 9,
+      "stimulationBoost": 16,
+      "comfortBoost": 6,
+      "spaceRequired": "medium"
+    },
+    "availability": "always",
+    "emoji": "🔭",
+    "tier": "standard",
+    "tags": []
+  },
+  {
+    "id": "habitat_texture_board",
+    "name": "Texture Board",
+    "description": "Board with various textures to explore",
+    "category": "habitat_item",
+    "subCategory": "enrichment",
+    "basePrice": 16.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 8,
+      "stimulationBoost": 14,
+      "interactiveRating": 7
+    },
+    "availability": "always",
+    "emoji": "🎨",
+    "tier": "standard",
+    "tags": []
+  },
+  {
+    "id": "habitat_scent_garden",
+    "name": "Scent Garden Box",
+    "description": "Safe herbs planted in box for exploration",
+    "category": "habitat_item",
+    "subCategory": "enrichment",
+    "basePrice": 18.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 5,
+      "stimulationBoost": 18,
+      "interactiveRating": 8,
+      "spaceRequired": "medium"
+    },
+    "availability": "seasonal",
+    "emoji": "🌿",
+    "tier": "standard",
+    "tags": []
+  },
+  {
+    "id": "habitat_crinkle_mat",
+    "name": "Crinkle Mat",
+    "description": "Noisy crinkly mat for sensory play",
+    "category": "habitat_item",
+    "subCategory": "enrichment",
+    "basePrice": 12.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 6,
+      "stimulationBoost": 12,
+      "playBoost": 8,
+      "washable": true
+    },
+    "availability": "always",
+    "emoji": "📄",
+    "tier": "basic",
+    "tags": []
+  },
+  {
+    "id": "habitat_mirror_toy",
+    "name": "Mirror Toy",
+    "description": "Safe acrylic mirror for curiosity",
+    "category": "habitat_item",
+    "subCategory": "enrichment",
+    "basePrice": 14.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 10,
+      "stimulationBoost": 16,
+      "interactiveRating": 7
+    },
+    "availability": "always",
+    "emoji": "🪞",
+    "tier": "standard",
+    "tags": []
+  },
+  {
+    "id": "habitat_adventure_playground",
+    "name": "Adventure Playground",
+    "description": "Multi-feature complex with tunnels, ramps, platforms",
+    "category": "habitat_item",
+    "subCategory": "enrichment",
+    "basePrice": 49.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 10,
+      "stimulationBoost": 30,
+      "playBoost": 20,
+      "interactiveRating": 10,
+      "complexityRating": 10,
+      "spaceRequired": "large"
+    },
+    "availability": "always",
+    "emoji": "🎡",
+    "tier": "premium",
+    "tags": []
+  },
+  {
+    "id": "habitat_foraging_wall",
+    "name": "Foraging Wall",
+    "description": "Vertical wall with pockets for hiding food",
+    "category": "habitat_item",
+    "subCategory": "enrichment",
+    "basePrice": 36.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 9,
+      "stimulationBoost": 24,
+      "interactiveRating": 9,
+      "spaceRequired": "medium"
+    },
+    "availability": "always",
+    "emoji": "🧗",
+    "tier": "premium",
+    "tags": []
+  },
+  {
+    "id": "habitat_climbing_frame",
+    "name": "Climbing Frame",
+    "description": "Safe low-height climbing structure",
+    "category": "habitat_item",
+    "subCategory": "enrichment",
+    "basePrice": 42.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 10,
+      "stimulationBoost": 26,
+      "playBoost": 18,
+      "spaceRequired": "large"
+    },
+    "availability": "always",
+    "emoji": "🪜",
+    "tier": "premium",
+    "tags": []
+  },
+  {
+    "id": "habitat_sensory_course",
+    "name": "Sensory Course",
+    "description": "Complete course with textures, sounds, obstacles",
+    "category": "habitat_item",
+    "subCategory": "enrichment",
+    "basePrice": 54.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 9,
+      "stimulationBoost": 28,
+      "playBoost": 16,
+      "interactiveRating": 10,
+      "complexityRating": 9,
+      "spaceRequired": "large"
+    },
+    "availability": "always",
+    "emoji": "🎪",
+    "tier": "premium",
+    "tags": []
+  }
+]

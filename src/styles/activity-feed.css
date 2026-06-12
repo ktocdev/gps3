@@ -1,0 +1,64 @@
+/* Activity Feed - Message list styles */
+
+.activity-feed__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  block-size: 100%;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.activity-feed__messages {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.activity-feed__message {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-secondary);
+  font-size: var(--font-size-xs);
+  border-inline-start: 3px solid var(--color-neutral-400);
+}
+
+/* Message category variants */
+.activity-feed__message--player_action {
+  border-inline-start-color: var(--color-primary);
+}
+
+.activity-feed__message--guinea_pig_reaction {
+  border-inline-start-color: var(--color-secondary);
+}
+
+.activity-feed__message--autonomous_behavior {
+  border-inline-start-color: var(--color-info);
+}
+
+.activity-feed__message--environmental {
+  border-inline-start-color: var(--color-warning);
+}
+
+.activity-feed__message--achievement {
+  border-inline-start-color: var(--color-accent-pink-500);
+  background-color: var(--color-accent-pink-50);
+}
+
+.activity-feed__emoji {
+  flex-shrink: 0;
+}
+
+.activity-feed__text {
+  flex: 1;
+  color: var(--color-text-primary);
+}
+
+.activity-feed__time {
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}

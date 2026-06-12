@@ -1,0 +1,139 @@
+/* Game Floating Action Buttons (FABs) */
+
+/* FAB container - positioned at bottom corners */
+.game-fab-container {
+  position: absolute;
+  inset-inline-end: var(--spacing-md);
+  inset-block-end: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  z-index: 10;
+}
+
+.game-fab-container--left {
+  inset-inline-end: auto;
+  inset-inline-start: var(--spacing-md);
+}
+
+/* FAB row - contains main FAB + subactions */
+.game-fab-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-xs);
+}
+
+/* Main FAB button */
+.game-fab {
+  inline-size: 48px;
+  block-size: 48px;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.game-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.game-fab--active {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+  filter: brightness(1.1);
+}
+
+/* FAB color variants */
+.game-fab--pink {
+  background-color: var(--color-accent-pink-600);
+}
+
+.game-fab--violet {
+  background-color: var(--color-accent-violet-500);
+}
+
+.game-fab--green {
+  background-color: var(--color-accent-green-600);
+}
+
+.game-fab--orange {
+  background-color: var(--color-warning-400);
+}
+
+.game-fab--yellow {
+  background-color: var(--color-accent-yellow-500);
+}
+
+.game-fab--cyan {
+  background-color: var(--color-accent-cyan-600);
+}
+
+.game-fab--red-orange {
+  background-color: #fec802;
+}
+
+/* Subactions container */
+.game-fab-subactions {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-xs);
+  animation: fab-slide-in 0.2s ease-out;
+}
+
+/* Subaction button (smaller) */
+.game-fab-sub {
+  inline-size: 40px;
+  block-size: 40px;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.game-fab-sub:hover {
+  transform: scale(1.1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* Subaction colors (slightly lighter than main FAB) */
+.game-fab-sub--green {
+  background-color: var(--color-accent-green-600);
+}
+
+.game-fab-sub--pink {
+  background-color: var(--color-accent-pink-400);
+}
+
+.game-fab-sub--violet {
+  background-color: var(--color-accent-violet-400);
+}
+
+.game-fab-sub--cyan {
+  background-color: var(--color-accent-cyan-600);
+}
+
+@keyframes fab-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

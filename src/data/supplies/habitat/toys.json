@@ -1,0 +1,207 @@
+[
+  {
+    "id": "habitat_willow_ball",
+    "name": "Willow Ball",
+    "description": "Natural woven ball, rollable and chewable",
+    "category": "habitat_item",
+    "subCategory": "toys",
+    "basePrice": 6.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 5,
+      "playBoost": 10
+    },
+    "availability": "always",
+    "emoji": "⚽",
+    "tier": "basic",
+    "tags": []
+  },
+  {
+    "id": "habitat_rattan_ball",
+    "name": "Rattan Ball",
+    "description": "Durable rattan sphere with bell inside",
+    "category": "habitat_item",
+    "subCategory": "toys",
+    "basePrice": 8.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 7,
+      "playBoost": 12,
+      "stimulationBoost": 6
+    },
+    "availability": "always",
+    "emoji": "🔔",
+    "tier": "basic",
+    "tags": []
+  },
+  {
+    "id": "habitat_activity_ball",
+    "name": "Activity Ball",
+    "description": "Plastic ball with treat dispensing holes",
+    "category": "habitat_item",
+    "subCategory": "toys",
+    "basePrice": 11.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 9,
+      "playBoost": 14,
+      "stimulationBoost": 8,
+      "interactiveRating": 7
+    },
+    "availability": "always",
+    "emoji": "⚽",
+    "tier": "standard",
+    "tags": []
+  },
+  {
+    "id": "habitat_rolling_tunnel_ball",
+    "name": "Rolling Tunnel Ball",
+    "description": "Hollow ball guinea pig can push around",
+    "category": "habitat_item",
+    "subCategory": "toys",
+    "basePrice": 12.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 8,
+      "playBoost": 16
+    },
+    "availability": "always",
+    "emoji": "🏀",
+    "tier": "standard",
+    "tags": []
+  },
+  {
+    "id": "habitat_treat_maze",
+    "name": "Treat Maze",
+    "description": "Puzzle toy requiring problem-solving",
+    "category": "habitat_item",
+    "subCategory": "toys",
+    "basePrice": 15.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 9,
+      "playBoost": 12,
+      "stimulationBoost": 15,
+      "interactiveRating": 9
+    },
+    "availability": "always",
+    "emoji": "🧩",
+    "tier": "standard",
+    "tags": ["popular"]
+  },
+  {
+    "id": "habitat_foraging_mat",
+    "name": "Foraging Mat",
+    "description": "Textured mat for hiding food",
+    "category": "habitat_item",
+    "subCategory": "toys",
+    "basePrice": 14.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 8,
+      "playBoost": 10,
+      "stimulationBoost": 12,
+      "interactiveRating": 8,
+      "washable": true
+    },
+    "availability": "always",
+    "emoji": "🎯",
+    "tier": "standard",
+    "tags": []
+  },
+  {
+    "id": "habitat_hanging_toy",
+    "name": "Hanging Toy",
+    "description": "Suspended toy with dangling chewables",
+    "category": "habitat_item",
+    "subCategory": "toys",
+    "basePrice": 13.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 6,
+      "playBoost": 14,
+      "stimulationBoost": 10
+    },
+    "availability": "always",
+    "emoji": "🎪",
+    "tier": "standard",
+    "tags": []
+  },
+  {
+    "id": "habitat_push_toy",
+    "name": "Push Toy",
+    "description": "Small cart guinea pig can push",
+    "category": "habitat_item",
+    "subCategory": "toys",
+    "basePrice": 16.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 9,
+      "playBoost": 18,
+      "interactiveRating": 7
+    },
+    "availability": "always",
+    "emoji": "🛒",
+    "tier": "standard",
+    "tags": []
+  },
+  {
+    "id": "habitat_activity_center",
+    "name": "Activity Center",
+    "description": "Multi-feature toy with tunnels, ramps, bells",
+    "category": "habitat_item",
+    "subCategory": "toys",
+    "basePrice": 34.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 9,
+      "playBoost": 25,
+      "stimulationBoost": 18,
+      "interactiveRating": 10,
+      "spaceRequired": "large"
+    },
+    "availability": "always",
+    "emoji": "🎡",
+    "tier": "premium",
+    "tags": []
+  },
+  {
+    "id": "habitat_digging_box",
+    "name": "Digging Box",
+    "description": "Safe digging area with soft fill material",
+    "category": "habitat_item",
+    "subCategory": "toys",
+    "basePrice": 28.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 7,
+      "playBoost": 22,
+      "stimulationBoost": 15,
+      "spaceRequired": "medium"
+    },
+    "availability": "always",
+    "emoji": "⛏️",
+    "tier": "premium",
+    "tags": []
+  },
+  {
+    "id": "habitat_obstacle_course",
+    "name": "Obstacle Course Kit",
+    "description": "Modular pieces for custom courses",
+    "category": "habitat_item",
+    "subCategory": "toys",
+    "basePrice": 39.99,
+    "currency": "dollars",
+    "stats": {
+      "durability": 10,
+      "playBoost": 24,
+      "stimulationBoost": 20,
+      "interactiveRating": 9,
+      "spaceRequired": "large"
+    },
+    "availability": "always",
+    "emoji": "🏃",
+    "tier": "premium",
+    "tags": []
+  }
+]

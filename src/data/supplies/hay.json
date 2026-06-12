@@ -1,0 +1,114 @@
+[
+  {
+    "id": "hay_timothy",
+    "name": "Timothy Hay",
+    "description": "Classic timothy hay, most popular choice for guinea pigs",
+    "category": "hay",
+    "basePrice": 12.99,
+    "currency": "dollars",
+    "stats": {
+      "servings": 4
+    },
+    "availability": "always",
+    "emoji": "🌾",
+    "tags": ["popular", "best-value"]
+  },
+  {
+    "id": "hay_orchard_grass",
+    "name": "Orchard Grass",
+    "description": "Soft and sweet orchard grass hay",
+    "category": "hay",
+    "basePrice": 13.99,
+    "currency": "dollars",
+    "stats": {
+      "servings": 4
+    },
+    "availability": "always",
+    "emoji": "🌿",
+    "tags": []
+  },
+  {
+    "id": "hay_alfalfa",
+    "name": "Alfalfa Hay",
+    "description": "Rich alfalfa hay, high in calcium (young guinea pigs only)",
+    "category": "hay",
+    "basePrice": 11.99,
+    "currency": "dollars",
+    "stats": {
+      "servings": 4
+    },
+    "availability": "always",
+    "emoji": "🍀",
+    "tags": []
+  },
+  {
+    "id": "hay_meadow",
+    "name": "Meadow Hay",
+    "description": "Mixed meadow hay with variety of grasses",
+    "category": "hay",
+    "basePrice": 12.49,
+    "currency": "dollars",
+    "stats": {
+      "servings": 4
+    },
+    "availability": "always",
+    "emoji": "🌾",
+    "tags": []
+  },
+  {
+    "id": "hay_oat",
+    "name": "Oat Hay",
+    "description": "Oat hay with tasty oat heads for enrichment",
+    "category": "hay",
+    "basePrice": 14.99,
+    "currency": "dollars",
+    "stats": {
+      "servings": 4
+    },
+    "availability": "always",
+    "emoji": "🌾",
+    "tags": []
+  },
+  {
+    "id": "hay_botanical",
+    "name": "Botanical Hay",
+    "description": "Timothy hay blend with dried flowers and herbs",
+    "category": "hay",
+    "basePrice": 16.99,
+    "currency": "dollars",
+    "stats": {
+      "servings": 4
+    },
+    "availability": "always",
+    "emoji": "💐",
+    "tags": []
+  },
+  {
+    "id": "hay_wheat",
+    "name": "Wheat Hay",
+    "description": "Soft wheat hay for sensitive guinea pigs",
+    "category": "hay",
+    "basePrice": 13.49,
+    "currency": "dollars",
+    "stats": {
+      "servings": 4
+    },
+    "availability": "seasonal",
+    "emoji": "🌾",
+    "tags": []
+  },
+  {
+    "id": "hay_mixed",
+    "name": "Mixed Hay",
+    "description": "Blend of timothy, orchard grass, and meadow hay",
+    "category": "hay",
+    "basePrice": 12.99,
+    "currency": "dollars",
+    "stats": {
+      "servings": 4
+    },
+    "availability": "always",
+    "emoji": "🌿",
+    "tags": []
+  }
+]

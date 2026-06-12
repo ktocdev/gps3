@@ -1,0 +1,324 @@
+/* CSS Custom Properties - Design System Variables */
+
+:root {
+  /* Typography - Font Families */
+  --font-family-heading: 'Gaegu', cursive;
+  --font-family-body: 'Inter', sans-serif;
+  --font-family-mono: 'Consolas', 'Monaco', monospace;
+
+  /* Typography - Font Sizes (Mobile First) */
+  --font-size-xs: 0.75rem;   /* 12px */
+  --font-size-sm: 0.875rem;  /* 14px */
+  --font-size-base: 1rem;    /* 16px */
+  --font-size-lg: 1.125rem;  /* 18px */
+  --font-size-xl: 1.25rem;   /* 20px */
+  --font-size-2xl: 1.5rem;   /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem;  /* 36px */
+
+  /* Typography - Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-heading: 700;
+
+  /* Typography - Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* Spacing Scale */
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.25rem;  /* 20px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --space-10: 2.5rem;  /* 40px */
+  --space-12: 3rem;    /* 48px */
+  --space-16: 4rem;    /* 64px */
+
+  /* Spacing Aliases */
+  --spacing-2xs: var(--space-1);
+  --spacing-xs: var(--space-2);
+  --spacing-sm: var(--space-3);
+  --spacing-md: var(--space-4);
+  --spacing-lg: var(--space-5);
+  --spacing-xl: var(--space-6);
+
+  /* Color Palette - Light Mode (Default) */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f8fafc;
+  --color-bg-tertiary: #f1f5f9;
+  --color-bg-canvas: #000000; /* 3D/WebGL canvas background */
+
+  --color-text-primary: #1e293b;
+  --color-text-secondary: #475569;
+  --color-text-tertiary: #64748b;
+  --color-text-muted: #94a3b8;
+  --color-text-inverse: #ffffff;
+
+  /* Accent Colors - Pink Theme */
+  --color-accent-pink-50: #fdf2f8;
+  --color-accent-pink-100: #fce7f3;
+  --color-accent-pink-200: #fbcfe8;
+  --color-accent-pink-300: #f9a8d4;
+  --color-accent-pink-400: #f472b6;
+  --color-accent-pink-500: #ec4899;
+  --color-accent-pink-600: #db2777;
+  --color-accent-pink-700: #be185d;
+  --color-accent-pink-800: #9f1239;
+  --color-accent-pink-900: #831843;
+
+  /* Accent Colors - Light Green Theme */
+  --color-accent-green-50: #f0fdf4;
+  --color-accent-green-100: #dcfce7;
+  --color-accent-green-200: #bbf7d0;
+  --color-accent-green-300: #86efac;
+  --color-accent-green-400: #4ade80;
+  --color-accent-green-500: #22c55e;
+  --color-accent-green-600: #178740;  /* Darker for better contrast */
+  --color-accent-green-700: #15803d;
+  --color-accent-green-800: #166534;
+  --color-accent-green-900: #14532d;
+
+  /* Accent Colors - Violet Theme */
+  --color-accent-violet-50: #f5f3ff;
+  --color-accent-violet-100: #ede9fe;
+  --color-accent-violet-200: #ddd6fe;
+  --color-accent-violet-300: #c4b5fd;
+  --color-accent-violet-400: #a78bfa;
+  --color-accent-violet-500: #8b5cf6;
+  --color-accent-violet-600: #7c3aed;
+  --color-accent-violet-700: #6d28d9;
+  --color-accent-violet-800: #5b21b6;
+  --color-accent-violet-900: #4c1d95;
+
+  /* Accent Colors - Yellow Theme */
+  --color-accent-yellow-50: #fefce8;
+  --color-accent-yellow-100: #fef9c3;
+  --color-accent-yellow-200: #fef08a;
+  --color-accent-yellow-300: #fde047;
+  --color-accent-yellow-400: #facc15;
+  --color-accent-yellow-500: #eab308;
+  --color-accent-yellow-600: #ca8a04;
+  --color-accent-yellow-700: #a16207;
+  --color-accent-yellow-800: #854d0e;
+  --color-accent-yellow-900: #713f12;
+
+  /* Accent Colors - Cyan Theme */
+  --color-accent-cyan-50: #ecfeff;
+  --color-accent-cyan-100: #cffafe;
+  --color-accent-cyan-200: #a5f3fc;
+  --color-accent-cyan-300: #67e8f9;
+  --color-accent-cyan-400: #22d3ee;
+  --color-accent-cyan-500: #06b6d4;
+  --color-accent-cyan-600: #0891b2;
+  --color-accent-cyan-700: #0e7490;
+  --color-accent-cyan-800: #155e75;
+  --color-accent-cyan-900: #164e63;
+
+  /* Primary Action Colors (Pink) - Updated for contrast */
+  --color-primary: var(--color-accent-pink-600);    /* Now #db2777 for better small text contrast */
+  --color-primary-hover: var(--color-accent-pink-700);
+  --color-primary-active: var(--color-accent-pink-800);
+  --color-primary-bg: var(--color-accent-pink-50);
+
+  /* Secondary Action Colors (Light Green) - Updated for contrast */
+  --color-secondary: var(--color-accent-green-600);  /* Now #178740 for better contrast */
+  --color-secondary-hover: var(--color-accent-green-700);
+  --color-secondary-active: var(--color-accent-green-800);
+  --color-secondary-bg: var(--color-accent-green-50);
+
+  /* Neutral Colors */
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #0f172a;
+
+  /* Border Colors */
+  --color-border-light: var(--color-neutral-200);
+  --color-border-medium: var(--color-neutral-300);
+  --color-border-dark: var(--color-neutral-400);
+
+  /* Status Colors - Warning (Amber/Orange) - Improved contrast spread */
+  --color-warning-50: #fffbeb;    /* Very light - backgrounds */
+  --color-warning-100: #fef3c7;  /* Light - hover backgrounds */
+  --color-warning-200: #fde68a;  /* Light - borders */
+  --color-warning-300: #fbbf24;  /* Mid-light - muted text */
+  --color-warning-400: #f59e0b;  /* Mid - standard amber */
+  --color-warning-500: #ea580c;  /* Mid-dark - primary orange (button default) */
+  --color-warning-600: #c2410c;  /* Dark - hover states */
+  --color-warning-700: #9a3412;  /* Darker - active states */
+  --color-warning-800: #7c2d12;  /* Very dark - emphasis */
+  --color-warning-900: #431407;  /* Darkest - maximum contrast */
+
+  /* Status Colors - Error (Red) - Improved contrast spread */
+  --color-error-50: #fef2f2;    /* Very light - backgrounds */
+  --color-error-100: #fee2e2;  /* Light - hover backgrounds */
+  --color-error-200: #fecaca;  /* Light - borders */
+  --color-error-300: #f87171;  /* Mid-light - muted text */
+  --color-error-400: #ef4444;  /* Mid - standard red */
+  --color-error-500: #dc2626;  /* Mid-dark - primary error */
+  --color-error-600: #b91c1c;  /* Dark - hover states */
+  --color-error-700: #991b1b;  /* Darker - active states */
+  --color-error-800: #7f1d1d;  /* Very dark - emphasis */
+  --color-error-900: #450a0a;  /* Darkest - maximum contrast */
+
+  /* Status Colors - Info (Blue) - Improved contrast spread */
+  --color-info-50: #eff6ff;    /* Very light - backgrounds */
+  --color-info-100: #dbeafe;  /* Light - hover backgrounds */
+  --color-info-200: #bfdbfe;  /* Light - borders */
+  --color-info-300: #60a5fa;  /* Mid-light - muted text */
+  --color-info-400: #3b82f6;  /* Mid - standard blue */
+  --color-info-500: #2563eb;  /* Mid-dark - primary info */
+  --color-info-600: #1d4ed8;  /* Dark - hover states */
+  --color-info-700: #1e40af;  /* Darker - active states */
+  --color-info-800: #1e3a8a;  /* Very dark - emphasis */
+  --color-info-900: #172554;  /* Darkest - maximum contrast */
+
+  /* Status Color Aliases - Updated to use new scale midpoints */
+  --color-success: var(--color-accent-green-600);  /* Updated to #178740 for better contrast */
+  --color-success-bg: var(--color-accent-green-50);
+  --color-success-surface: var(--color-accent-green-100);
+  --color-success-border: var(--color-accent-green-300);
+
+  --color-warning: var(--color-warning-500);        /* Now orange #ea580c */
+  --color-warning-hover: var(--color-warning-600);  /* Now #c2410c */
+  --color-warning-active: var(--color-warning-700); /* Now #9a3412 */
+  --color-warning-bg: var(--color-warning-50);
+  --color-warning-surface: var(--color-warning-100);
+  --color-warning-border: var(--color-warning-300);
+
+  --color-error: var(--color-error-500);            /* Now #dc2626 */
+  --color-error-hover: var(--color-error-600);      /* Now #b91c1c */
+  --color-error-active: var(--color-error-700);     /* Now #991b1b */
+  --color-error-bg: var(--color-error-50);
+
+  --color-info: var(--color-info-500);              /* Now #2563eb */
+  --color-info-hover: var(--color-info-600);        /* Now #1d4ed8 */
+  --color-info-active: var(--color-info-700);       /* Now #1e40af */
+  --color-info-bg: var(--color-info-50);
+
+  /* Chat Bubble Variants */
+  --color-danger-surface: var(--color-error-100);
+  --color-danger-border: var(--color-error-300);
+  --color-critical-surface: var(--color-error-200);
+  --color-critical-border: var(--color-error-400);
+
+  /* Surface and Border Colors */
+  --color-surface-elevated: var(--color-bg-primary);
+  --color-border-default: var(--color-border-light);
+
+  /* Border Radius (Logical Properties) */
+  --radius-none: 0;
+  --radius-sm: 0.125rem;  /* 2px */
+  --radius-base: 0.25rem; /* 4px */
+  --radius-md: 0.375rem;  /* 6px */
+  --radius-lg: 0.5rem;    /* 8px */
+  --radius-xl: 0.75rem;   /* 12px */
+  --radius-2xl: 1rem;     /* 16px */
+  --radius-full: 9999px;
+
+  /* Logical Border Radius Variables */
+  --border-radius-start-start: var(--radius-base);
+  --border-radius-start-end: var(--radius-base);
+  --border-radius-end-start: var(--radius-base);
+  --border-radius-end-end: var(--radius-base);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-base: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Z-Index Scale */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+
+  /* Need-Specific Colors */
+  /* Critical Needs */
+  --color-need-hunger: #f59e0b;      /* Amber - food/nutrition */
+  --color-need-thirst: #06b6d4;      /* Cyan - water/hydration */
+  --color-need-energy: #1e3a8a;      /* Navy blue - rest/stamina */
+  --color-need-shelter: #92400e;     /* Warm brown - security/comfort */
+
+  /* Environmental Needs */
+  --color-need-play: #10b981;        /* Green - activity/fun */
+  --color-need-social: #ec4899;      /* Hot pink - friendship/bonding */
+  --color-need-stimulation: #f97316; /* Orange - enrichment/variety */
+  --color-need-comfort: #818cf8;     /* Indigo - relaxation/coziness */
+
+  /* Maintenance Needs */
+  --color-need-hygiene: #0ea5e9;     /* Sky blue - cleanliness/grooming */
+  --color-need-nails: #64748b;       /* Slate - grooming/maintenance */
+  --color-need-chew: #f5f5dc;        /* Light beige - dental/enrichment */
+
+  /* Transitions */
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 250ms ease-in-out;
+  --transition-slow: 350ms ease-in-out;
+}
+
+/* Dark Mode Theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg-primary: #0f172a;
+    --color-bg-secondary: #1e293b;
+    --color-bg-tertiary: #334155;
+
+    --color-text-primary: #f8fafc;
+    --color-text-secondary: #e2e8f0;
+    --color-text-tertiary: #cbd5e1;
+    --color-text-muted: #94a3b8;
+
+    --color-border-light: var(--color-neutral-700);
+    --color-border-medium: var(--color-neutral-600);
+    --color-border-dark: var(--color-neutral-500);
+
+    /* Accent colors remain the same for consistency */
+    --color-primary-bg: rgba(236, 72, 153, 0.1);
+    --color-secondary-bg: rgba(34, 197, 94, 0.1);
+    --color-success-bg: rgba(34, 197, 94, 0.1);
+    --color-warning-bg: rgba(245, 158, 11, 0.1);
+    --color-error-bg: rgba(239, 68, 68, 0.1);
+    --color-info-bg: rgba(59, 130, 246, 0.1);
+  }
+}
+
+/* Alternative class-based dark mode */
+[data-theme="dark"] {
+  --color-bg-primary: #0f172a;
+  --color-bg-secondary: #1e293b;
+  --color-bg-tertiary: #334155;
+
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #e2e8f0;
+  --color-text-tertiary: #cbd5e1;
+  --color-text-muted: #94a3b8;
+
+  --color-border-light: var(--color-neutral-700);
+  --color-border-medium: var(--color-neutral-600);
+  --color-border-dark: var(--color-neutral-500);
+
+  --color-primary-bg: rgba(236, 72, 153, 0.1);
+  --color-secondary-bg: rgba(34, 197, 94, 0.1);
+  --color-success-bg: rgba(34, 197, 94, 0.1);
+  --color-warning-bg: rgba(245, 158, 11, 0.1);
+  --color-error-bg: rgba(239, 68, 68, 0.1);
+  --color-info-bg: rgba(59, 130, 246, 0.1);
+}

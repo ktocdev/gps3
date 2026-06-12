@@ -1,0 +1,35 @@
+/* Game Dialog Styles */
+
+/**
+ * Common styles for game action dialogs (FAB actions, etc.)
+ * Apply .game-dialog to the wrapper div inside BaseDialog for consistent sizing
+ */
+.game-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  min-inline-size: 320px;
+}
+
+.game-dialog__header {
+  text-align: center;
+}
+
+.game-dialog__title {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.game-dialog__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.game-dialog__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+}

@@ -1,0 +1,13 @@
+/* Text Utility Classes */
+
+.text-success {
+  color: var(--color-success) !important;
+}
+
+.text-error {
+  color: var(--color-error) !important;
+}
+
+.text-muted {
+  color: var(--color-text-muted) !important;
+}
