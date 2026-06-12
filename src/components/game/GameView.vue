@@ -9,12 +9,13 @@
     />
 
     <div class="game-view__canvas-wrapper">
-      <!-- Interaction Instruction Overlay -->
-      <InstructionOverlay
+      <!-- Targeting / placement banner -->
+      <ParchmentBanner
         v-if="interactionInstruction"
-        :message="interactionInstruction.message"
-        :theme="interactionInstruction.theme"
-      />
+        :accent="interactionInstruction.accent"
+        :icon="interactionInstruction.icon"
+        @cancel="cancelInteraction"
+      >{{ interactionInstruction.message }}</ParchmentBanner>
 
       <canvas
         ref="canvasRef"
@@ -135,94 +136,8 @@
         @select-food="handleFoodSelected"
       />
 
-      <!-- Right FABs - Actions -->
-      <div class="game-fab-container">
-        <!-- GP-to-GP Social FAB with popover menu -->
-        <div class="game-fab-row">
-          <button
-            ref="socialFabRef"
-            class="game-fab game-fab--red-orange"
-            :class="{ 'game-fab--active': showSocialMenu || pendingSocialAction }"
-            @click="handleSocialFabClick"
-            title="Social Interactions"
-          >
-            👯
-          </button>
-        </div>
-
-        <!-- Social popover menu -->
-        <FabSubnavMenu
-          :show="showSocialMenu"
-          :anchor-x="socialMenuPosition.x"
-          :anchor-y="socialMenuPosition.y"
-          :actions="socialActions"
-          theme="orange"
-          @select="handleSocialAction"
-          @close="showSocialMenu = false"
-        />
-
-        <!-- Interact FAB with popover menu -->
-        <div class="game-fab-row">
-          <button
-            ref="interactFabRef"
-            class="game-fab game-fab--violet"
-            :class="{ 'game-fab--active': showInteractMenu || pendingInteraction }"
-            @click="handleInteractFabClick"
-            title="Interact"
-          >
-            💛
-          </button>
-        </div>
-
-        <!-- Interact popover menu -->
-        <FabSubnavMenu
-          :show="showInteractMenu"
-          :anchor-x="interactMenuPosition.x"
-          :anchor-y="interactMenuPosition.y"
-          :actions="interactActions"
-          theme="violet"
-          @select="handleInteractAction"
-          @close="showInteractMenu = false"
-        />
-
-        <!-- Habitat Care FAB -->
-        <div class="game-fab-row">
-          <button
-            ref="habitatCareFabRef"
-            class="game-fab game-fab--cyan"
-            :class="{ 'game-fab--active': showHabitatCareMenu }"
-            @click="handleHabitatCareFabClick"
-            title="Habitat Care"
-          >
-            🏠
-          </button>
-        </div>
-
-        <!-- Habitat Care popover menu -->
-        <FabSubnavMenu
-          :show="showHabitatCareMenu"
-          :anchor-x="habitatCareMenuPosition.x"
-          :anchor-y="habitatCareMenuPosition.y"
-          :actions="habitatCareActions"
-          theme="cyan"
-          @select="handleHabitatCareAction"
-          @close="showHabitatCareMenu = false"
-        />
-      </div>
-
-      <!-- Left FAB - Help -->
-      <div class="game-fab-container game-fab-container--left">
-        <div class="game-fab-row">
-          <button
-            class="game-fab game-fab--cyan"
-            :class="{ 'game-fab--active': showHelp }"
-            @click="showHelp = !showHelp"
-            title="Help & Controls"
-          >
-            💡
-          </button>
-        </div>
-      </div>
+      <!-- FAB cluster: hanging plaques on a wooden rail (bottom-center) -->
+      <FabCluster :fabs="fabConfigs" @action="handleFabAction" />
 
       <!-- Help Dialog -->
       <HelpDialog v-model="showHelp" />
@@ -256,8 +171,9 @@ import ActionResultDialog from './dialogs/ActionResultDialog.vue'
 import HelpDialog from './dialogs/HelpDialog.vue'
 import FoodSelectionDialog from './dialogs/FoodSelectionDialog.vue'
 import SimTopBar from '../chrome/SimTopBar.vue'
-import FabSubnavMenu, { type FabSubnavAction } from './FabSubnavMenu.vue'
-import InstructionOverlay from './InstructionOverlay.vue'
+import FabCluster from '../chrome/FabCluster.vue'
+import ParchmentBanner from '../chrome/ParchmentBanner.vue'
+import type { FabAction, FabConfig, FabTheme } from '../chrome/fabThemes'
 import { useGuineaPigStore } from '../../stores/guineaPigStore'
 import { useHabitatConditions } from '../../stores/habitatConditions'
 import { useMovement3DStore } from '../../stores/movement3DStore'
@@ -299,28 +215,15 @@ const emit = defineEmits<{
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const simTopBarRef = ref<InstanceType<typeof SimTopBar> | null>(null)
-const interactFabRef = ref<HTMLButtonElement | null>(null)
-const socialFabRef = ref<HTMLButtonElement | null>(null)
-const habitatCareFabRef = ref<HTMLButtonElement | null>(null)
 const selectedGuineaPigId = ref<string | null>(null)
 const guineaPigMenuPosition = ref({ x: 0, y: 0 })
 
 // Help panel state
 const showHelp = ref(false)
 
-// Interact popover state
-const showInteractMenu = ref(false)
-const interactMenuPosition = ref({ x: 0, y: 0 })
+// Pending interaction modes
 const pendingInteraction = ref<string | null>(null)
-
-// Social (GP-to-GP) popover state
-const showSocialMenu = ref(false)
-const socialMenuPosition = ref({ x: 0, y: 0 })
 const pendingSocialAction = ref<string | null>(null)
-
-// Habitat care popover state
-const showHabitatCareMenu = ref(false)
-const habitatCareMenuPosition = ref({ x: 0, y: 0 })
 
 // Hand feed state
 const showFoodSelectionDialog = ref(false)
@@ -357,26 +260,6 @@ const habitatContainers = useHabitatContainers()
 const socialBehaviors = useSocialBehaviors()
 const socialActions3D = use3DSocialActions()
 
-// Interact actions for FAB subnav
-const interactActions: FabSubnavAction[] = [
-  { id: 'pet', icon: '🫳', label: 'Pet' },
-  { id: 'hand-feed', icon: '🥕', label: 'Hand Feed' },
-  { id: 'talk-to', icon: '💬', label: 'Talk To' },
-  { id: 'show-toy', icon: '🧸', label: 'Show Toy' },
-  { id: 'hold', icon: '🫴', label: 'Hold' },
-  { id: 'gentle-wipe', icon: '🧼', label: 'Gentle Wipe' },
-  { id: 'trim-nails', icon: '✂️', label: 'Trim Nails' },
-]
-
-// Social (GP-to-GP) actions for FAB subnav
-const socialActions: FabSubnavAction[] = [
-  { id: 'approach', icon: '🚶', label: 'Approach Companion' },
-  { id: 'play-together', icon: '🎾', label: 'Play Together' },
-  { id: 'groom', icon: '✨', label: 'Groom Partner' },
-  { id: 'share-food', icon: '🥬', label: 'Share Food' },
-  { id: 'greet', icon: '👋', label: 'Greet' },
-]
-
 // Social action instruction messages
 const socialActionMessages: Record<string, string> = {
   'approach': 'Select a guinea pig to initiate socialization!',
@@ -386,37 +269,110 @@ const socialActionMessages: Record<string, string> = {
   'greet': 'Select a guinea pig to greet their companion!'
 }
 
-// Habitat care actions for FAB subnav
-const habitatCareActions: FabSubnavAction[] = [
-  { id: 'fill-hay', icon: '🌾', label: 'Fill Hay Racks' },
-  { id: 'refill-water', icon: '💧', label: 'Refill Water' },
-  { id: 'quick-clean', icon: '🧹', label: 'Quick Clean' },
-  { id: 'deep-clean', icon: '🧽', label: 'Deep Clean' },
-]
+// Give Food submenu: food actually in inventory (with servings left)
+const foodFabActions = computed<FabAction[]>(() => {
+  const actions: FabAction[] = []
+  for (const invItem of inventoryStore.allItems) {
+    const supplyItem = suppliesStore.getItemById(invItem.itemId)
+    if (!supplyItem || supplyItem.category !== 'food') continue
+    if (inventoryStore.getTotalServings(invItem.itemId) <= 0) continue
+    actions.push({
+      id: invItem.itemId,
+      icon: supplyItem.emoji || '🍎',
+      label: supplyItem.name
+    })
+  }
+  return actions
+})
 
-// Computed instruction message based on current interaction mode
+// FAB cluster: 5 themed plaques mapped onto existing game actions
+const fabConfigs = computed<FabConfig[]>(() => [
+  {
+    theme: 'pink',
+    icon: '🍎',
+    label: 'Give Food',
+    actions: foodFabActions.value,
+    emptyMessage: 'No food in inventory — visit the Supplies Store!'
+  },
+  {
+    theme: 'green',
+    icon: '🎾',
+    label: 'Help Play',
+    actions: [{ id: 'show-toy', icon: '🧸', label: 'Show Toy' }]
+  },
+  {
+    theme: 'violet',
+    icon: '🧼',
+    label: 'Give Care',
+    actions: [
+      { id: 'gentle-wipe', icon: '🧼', label: 'Gentle Wipe' },
+      { id: 'trim-nails', icon: '✂️', label: 'Trim Nails' },
+      { id: 'quick-clean', icon: '🧹', label: 'Quick Clean' },
+      { id: 'deep-clean', icon: '🧽', label: 'Deep Clean' },
+      { id: 'refill-water', icon: '💧', label: 'Refill Water' },
+      { id: 'fill-hay', icon: '🌾', label: 'Fill Hay' }
+    ]
+  },
+  {
+    theme: 'orange',
+    icon: '🤗',
+    label: 'Socialize',
+    actions: [
+      { id: 'pet', icon: '🫳', label: 'Pet' },
+      { id: 'hold', icon: '🫴', label: 'Hold' },
+      { id: 'talk-to', icon: '💬', label: 'Talk To' }
+    ]
+  },
+  {
+    theme: 'cyan',
+    icon: '💞',
+    label: 'Encourage',
+    actions: [
+      { id: 'greet', icon: '👋', label: 'Greet' },
+      { id: 'groom', icon: '✨', label: 'Groom' },
+      { id: 'play-together', icon: '🎾', label: 'Play Together' },
+      { id: 'share-food', icon: '🥬', label: 'Share Food' },
+      { id: 'approach', icon: '🚶', label: 'Approach' }
+    ]
+  }
+])
+
+// Computed instruction banner based on current interaction mode
 const interactionInstruction = computed(() => {
   // U2G interactions
   if (pendingInteraction.value === 'pet') {
-    return { message: 'Click the guinea pig you want to pet!', theme: 'pink' as const }
+    return { message: 'Click the guinea pig you want to pet!', icon: '🫳', accent: 'var(--color-pink)' }
   }
   if (pendingInteraction.value === 'hand-feed' && selectedFoodForFeeding.value) {
     const foodItem = suppliesStore.getItemById(selectedFoodForFeeding.value)
     const foodName = foodItem?.name || 'food'
-    return { message: `Click the guinea pig you want to feed! (${foodName})`, theme: 'pink' as const }
+    return { message: `Click the guinea pig you want to feed! (${foodName})`, icon: '🥕', accent: 'var(--color-pink)' }
+  }
+  if (pendingInteraction.value) {
+    return { message: 'Click a guinea pig!', icon: '🐹', accent: 'var(--color-pink)' }
   }
   // G2G social interactions
   if (pendingSocialAction.value) {
     const message = socialActionMessages[pendingSocialAction.value] || 'Select a guinea pig!'
-    return { message, theme: 'orange' as const }
+    return { message, icon: '💞', accent: 'var(--color-orange)' }
   }
   // Placement mode
   const currentPlacement = placement.getPlacementMode()
   if (currentPlacement) {
-    return { message: `Click to place ${currentPlacement.itemName}`, theme: 'green' as const }
+    return { message: `Click to place ${currentPlacement.itemName}`, icon: '📦', accent: 'var(--color-green)' }
   }
   return null
 })
+
+// Cancel any pending targeting / placement mode (banner ✕)
+function cancelInteraction() {
+  pendingInteraction.value = null
+  selectedFoodForFeeding.value = null
+  pendingSocialAction.value = null
+  if (placement.isActive()) placement.exitPlacementMode()
+  if (containerFillMode.value) exitContainerFillMode()
+  simTopBarRef.value?.clearInventorySelection()
+}
 
 // Hover state for interaction targeting
 const hoveredGuineaPigId = ref<string | null>(null)
@@ -1530,13 +1486,6 @@ function handleKeyDown(event: KeyboardEvent) {
 }
 
 // Interact FAB handlers
-function handleInteractFabClick() {
-  if (!interactFabRef.value) return
-  const rect = interactFabRef.value.getBoundingClientRect()
-  interactMenuPosition.value = { x: rect.left + rect.width / 2, y: rect.top }
-  showInteractMenu.value = !showInteractMenu.value
-}
-
 function handleInteractAction(actionId: string) {
   if (actionId === 'hand-feed') {
     showFoodSelectionDialog.value = true
@@ -1551,31 +1500,13 @@ function handleFoodSelected(foodId: string) {
   showFoodSelectionDialog.value = false
 }
 
-// Social FAB handlers
-function handleSocialFabClick() {
-  if (!socialFabRef.value) return
-  const rect = socialFabRef.value.getBoundingClientRect()
-  socialMenuPosition.value = { x: rect.left + rect.width / 2, y: rect.top }
-  showSocialMenu.value = !showSocialMenu.value
-}
-
 function handleSocialAction(actionId: string) {
   console.log('[GameView] Social action selected:', actionId)
-  showSocialMenu.value = false
   pendingSocialAction.value = actionId
-}
-
-// Habitat Care FAB handlers
-function handleHabitatCareFabClick() {
-  if (!habitatCareFabRef.value) return
-  const rect = habitatCareFabRef.value.getBoundingClientRect()
-  habitatCareMenuPosition.value = { x: rect.left + rect.width / 2, y: rect.top }
-  showHabitatCareMenu.value = !showHabitatCareMenu.value
 }
 
 function handleHabitatCareAction(actionId: string) {
   console.log('[GameView] Habitat care action selected:', actionId)
-  showHabitatCareMenu.value = false
 
   switch (actionId) {
     case 'fill-hay':
@@ -1589,6 +1520,33 @@ function handleHabitatCareAction(actionId: string) {
       break
     case 'deep-clean':
       habitatCare.fabCleanHabitat()
+      break
+  }
+}
+
+// FAB cluster action dispatch — routes each themed plaque onto the
+// existing interaction / habitat-care / social handlers
+function handleFabAction(theme: FabTheme, actionId: string) {
+  switch (theme) {
+    case 'pink':
+      // actionId is a food itemId from inventory
+      handleFoodSelected(actionId)
+      break
+    case 'green':
+      handleInteractAction(actionId)
+      break
+    case 'violet':
+      if (actionId === 'gentle-wipe' || actionId === 'trim-nails') {
+        handleInteractAction(actionId)
+      } else {
+        handleHabitatCareAction(actionId)
+      }
+      break
+    case 'orange':
+      handleInteractAction(actionId)
+      break
+    case 'cyan':
+      handleSocialAction(actionId)
       break
   }
 }
