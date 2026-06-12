@@ -1,0 +1,107 @@
+<template>
+  <header class="dbg-header">
+    <div class="dbg-header__awning"></div>
+    <div class="dbg-header__row">
+      <div>
+        <h1 class="dbg-header__title">🔧 GPS3 Debug Dashboard</h1>
+        <p class="dbg-header__subtitle">Development &amp; testing interface · auto-paused on entry</p>
+      </div>
+
+      <div class="dbg-header__util">
+        <span class="dbg-pill" :class="{ 'dbg-pill--paused': gameController.isPaused }">
+          <span class="dbg-pill__dot"></span>
+          {{ gameController.isPaused ? 'Paused' : 'Live' }}
+        </span>
+
+        <Button
+          size="sm"
+          :disabled="!canTogglePause"
+          :title="pauseButtonTitle"
+          @click="toggleGamePause"
+        >
+          {{ gameController.isPaused ? '▶ Resume' : '⏸ Pause' }}
+        </Button>
+
+        <Button
+          size="sm"
+          :title="themeStore.debugTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+          @click="themeStore.toggleDebugTheme()"
+        >
+          {{ themeStore.debugTheme === 'dark' ? '☀️ Light' : '🌙 Dark' }}
+        </Button>
+
+        <Button size="sm" title="Clear all storage and reload" @click="clearAllStorage">
+          ✨ Clear Storage
+        </Button>
+      </div>
+    </div>
+  </header>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import Button from '../../basic/Button.vue'
+import { useGameController } from '../../../stores/gameController'
+import { usePetStoreManager } from '../../../stores/petStoreManager'
+import { useHabitatConditions } from '../../../stores/habitatConditions'
+import { useGuineaPigStore } from '../../../stores/guineaPigStore'
+import { useGameTimingStore } from '../../../stores/gameTimingStore'
+import { useThemeStore } from '../../../stores/themeStore'
+
+const gameController = useGameController()
+const petStoreManager = usePetStoreManager()
+const habitatConditions = useHabitatConditions()
+const guineaPigStore = useGuineaPigStore()
+const gameTimingStore = useGameTimingStore()
+const themeStore = useThemeStore()
+
+const canTogglePause = computed(() => petStoreManager.activeGameSession !== null)
+
+const pauseButtonTitle = computed(() => {
+  if (!petStoreManager.activeGameSession) return 'No active game session'
+  return gameController.isPaused ? 'Resume the game' : 'Pause the game'
+})
+
+const toggleGamePause = () => {
+  if (gameController.isPaused) {
+    gameController.resumeGame()
+  } else {
+    gameController.pauseGame('manual')
+  }
+}
+
+const clearAllStorage = () => {
+  if (confirm('⚠️ This will clear ALL storage (localStorage + sessionStorage) and reload the page. Continue?')) {
+    try {
+      // Stop game loop and timers first so nothing writes state mid-clear
+      gameTimingStore.stopGameLoop()
+      if (gameController.isGameActive) {
+        gameController.stopGame()
+      }
+
+      habitatConditions.habitatItems = []
+      habitatConditions.itemPositions.clear()
+      habitatConditions.poops = []
+      habitatConditions.guineaPigPositions.clear()
+      habitatConditions.bowlContents.clear()
+      habitatConditions.hayRackContents.clear()
+
+      guineaPigStore.activeGuineaPigs.forEach(gp => {
+        guineaPigStore.deleteGuineaPig(gp.id)
+      })
+
+      localStorage.clear()
+      sessionStorage.clear()
+
+      setTimeout(() => {
+        window.location.reload()
+      }, 100)
+    } catch (error) {
+      console.error('Error clearing storage:', error)
+      localStorage.clear()
+      sessionStorage.clear()
+      window.location.reload()
+    }
+  }
+}
+</script>

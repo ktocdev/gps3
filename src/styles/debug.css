@@ -1,0 +1,648 @@
+/* ============================================================
+   GPS3 — Debug dashboard skin
+   Visual spec: gps2-design/prototype/Debug Dashboard.html
+   Every selector is scoped under .debug-view so this skin never
+   leaks into the game chrome (shared basic/* components).
+
+   Surface hierarchy uses --dbg-* vars so light/dark both keep
+   "panel lighter than page"; text/border colors use the semantic
+   tokens, which [data-theme="dark"] (themes.css) already flips.
+   ============================================================ */
+
+.debug-view {
+  --dbg-page-bg: var(--color-neutral-100);
+  --dbg-panel-bg: #ffffff;
+  --dbg-strip-bg: var(--color-neutral-50);
+  --dbg-nav-bg: var(--color-gold-50);
+  --dbg-control-bg: #ffffff;
+  --dbg-active-tab-bg: var(--color-pink-50);
+  --dbg-active-tab-text: var(--color-pink-900);
+
+  background-color: var(--dbg-page-bg);
+}
+
+[data-theme="dark"] .debug-view {
+  --dbg-page-bg: var(--color-neutral-900);
+  --dbg-panel-bg: var(--color-neutral-800);
+  --dbg-strip-bg: rgba(255, 255, 255, 0.04);
+  --dbg-nav-bg: var(--color-neutral-800);
+  --dbg-control-bg: var(--color-neutral-700);
+  --dbg-active-tab-bg: rgba(236, 72, 153, 0.18);
+  --dbg-active-tab-text: var(--color-pink-200);
+}
+
+/* ── Parchment header (stays parchment in dark — brand anchor) ─────────── */
+
+.debug-view .dbg-header {
+  background: linear-gradient(180deg, var(--color-gold-50) 0%, var(--color-gold-100) 100%);
+  border-block-end: 4px solid var(--color-wood-dark);
+  position: relative;
+}
+
+.debug-view .dbg-header__awning {
+  block-size: 12px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-pink-500) 0 14px,
+    var(--color-gold-50) 14px 28px
+  );
+  border-block-end: 2px solid var(--color-wood-dark);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18);
+}
+
+.debug-view .dbg-header__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-6);
+}
+
+.debug-view .dbg-header__title {
+  font-family: var(--font-family-heading);
+  font-size: 2rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gold-800);
+  margin: 0;
+  line-height: 1;
+}
+
+.debug-view .dbg-header__subtitle {
+  font-size: var(--font-size-xs);
+  color: var(--color-wood-dark);
+  margin-block-start: var(--space-1);
+  margin-block-end: 0;
+  font-weight: var(--font-weight-semibold);
+}
+
+.debug-view .dbg-header__util {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Status pill (Live / Paused) */
+.debug-view .dbg-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.65);
+  border: 2px solid var(--color-wood-dark);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gold-800);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.debug-view .dbg-pill__dot {
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-green-500);
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25);
+}
+
+.debug-view .dbg-pill--paused .dbg-pill__dot {
+  background: var(--color-gold-400);
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25);
+}
+
+/* Header utility buttons (live on parchment in both themes) */
+.debug-view .dbg-header__util .button {
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid var(--color-wood-dark);
+  color: var(--color-gold-800);
+  box-shadow: none;
+}
+
+.debug-view .dbg-header__util .button:hover:not(:disabled) {
+  background: #ffffff;
+}
+
+/* ── Category nav ──────────────────────────────────────────────────────── */
+
+.debug-view .dbg-nav {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  align-items: center;
+  padding-block: var(--space-3);
+  padding-inline: var(--space-6);
+  background: var(--dbg-nav-bg);
+  border-block-end: 1px solid var(--color-border-light);
+}
+
+.debug-view .dbg-nav__group {
+  font-size: var(--font-size-2xs);
+  font-weight: 800;
+  color: var(--color-wood-dark);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+}
+
+[data-theme="dark"] .debug-view .dbg-nav__group {
+  color: var(--color-gold-300);
+}
+
+.debug-view .dbg-nav__tab {
+  border: 1px solid var(--color-border-medium);
+  background: var(--dbg-control-bg);
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-md);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-3);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  font-family: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: all var(--transition-fast);
+}
+
+.debug-view .dbg-nav__tab:hover {
+  border-color: var(--color-pink-500);
+  color: var(--color-text-primary);
+}
+
+.debug-view .dbg-nav__tab--active {
+  background: var(--dbg-active-tab-bg);
+  border-color: var(--color-pink-500);
+  color: var(--dbg-active-tab-text);
+  box-shadow: 0 1px 2px rgba(190, 24, 93, 0.15);
+}
+
+.debug-view .dbg-nav__divider {
+  inline-size: 1px;
+  background: var(--color-border-light);
+  align-self: stretch;
+  margin-block: var(--space-1);
+  margin-inline: var(--space-1);
+}
+
+/* ── Layout ────────────────────────────────────────────────────────────── */
+
+.debug-view .dbg-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  padding-block: var(--space-4) var(--space-8);
+  padding-inline: var(--space-6);
+  align-items: start;
+}
+
+.debug-view .dbg-main--with-side {
+  grid-template-columns: minmax(0, 1fr) 360px;
+}
+
+@media (max-width: 1100px) {
+  .debug-view .dbg-main--with-side {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.debug-view .dbg-panels {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-inline-size: 0;
+}
+
+.debug-view .dbg-side {
+  position: sticky;
+  inset-block-start: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ── Panels (restyles the existing .panel BEM used by debug components) ── */
+
+.debug-view .panel {
+  background-color: var(--dbg-panel-bg);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  border-style: solid;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  overflow: hidden;
+}
+
+.debug-view .panel:hover {
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  border-color: var(--color-border-light);
+  transform: none;
+}
+
+/* Header-strip layout when the panel uses the header/content structure */
+.debug-view .panel:has(> .panel__header) {
+  padding: 0;
+}
+
+.debug-view .panel > .panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin: 0;
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
+  border-block-end: 1px solid var(--color-border-light);
+  background: var(--dbg-strip-bg);
+}
+
+.debug-view .panel > .panel__header h2,
+.debug-view .panel > .panel__header h3,
+.debug-view .panel > .panel__header h4 {
+  margin: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.debug-view .panel > .panel__content {
+  padding: var(--space-4);
+}
+
+/* Accent edge (set --accent inline or via DebugPanel prop) */
+.debug-view .panel--accent-edge {
+  border-inline-start: 3px solid var(--accent, var(--color-pink-500));
+}
+
+/* Neutralize legacy decorative panel variants inside debug */
+.debug-view .panel--accent {
+  border-style: solid;
+  background-color: var(--dbg-panel-bg);
+}
+
+.debug-view .panel--accent::before {
+  display: none;
+}
+
+.debug-view .panel--border-primary,
+.debug-view .panel--border-secondary {
+  background-color: var(--dbg-panel-bg);
+}
+
+/* Panel anchor metadata (right-aligned, monospace-ish) */
+.debug-view .dbg-anchor {
+  font-size: var(--font-size-2xs);
+  color: var(--color-text-muted);
+  font-family: var(--font-family-stats);
+  letter-spacing: 0.04em;
+}
+
+/* ── Sections ──────────────────────────────────────────────────────────── */
+
+.debug-view .dbg-section + .dbg-section {
+  margin-block-start: var(--space-4);
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--color-border-light);
+}
+
+.debug-view .dbg-section__title,
+.debug-view .section-title {
+  font-size: var(--font-size-2xs);
+  font-weight: 800;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-block: 0 var(--space-2);
+  font-family: var(--font-family-body);
+}
+
+/* ── Stats (restyles existing .stats-grid/.stat-item) ──────────────────── */
+
+.debug-view .stats-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.debug-view .stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+  background: var(--dbg-strip-bg);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+}
+
+.debug-view .stat-label {
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-xs);
+}
+
+.debug-view .stat-value {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family-stats);
+  font-size: var(--font-size-xs);
+}
+
+/* ── Badges ────────────────────────────────────────────────────────────── */
+
+.debug-view .dbg-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding-block: 2px;
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border: 1px solid;
+}
+
+.debug-view .dbg-badge--ok {
+  background: var(--color-success-bg);
+  border-color: var(--color-success-border);
+  color: var(--color-success);
+}
+
+.debug-view .dbg-badge--warn {
+  background: var(--color-warning-bg);
+  border-color: var(--color-warning-border);
+  color: var(--color-warning);
+}
+
+.debug-view .dbg-badge--err {
+  background: var(--color-error-bg);
+  border-color: var(--color-danger-border);
+  color: var(--color-error);
+}
+
+.debug-view .dbg-badge--info {
+  background: var(--color-info-bg);
+  border-color: var(--color-blue-200);
+  color: var(--color-info);
+}
+
+/* ── Buttons (restyles existing .button inside debug) ─────────────────── */
+
+.debug-view .button {
+  border: 1px solid var(--color-border-medium);
+  background: var(--dbg-control-bg);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  box-shadow: none;
+  text-shadow: none;
+  transition: all var(--transition-fast);
+}
+
+.debug-view .button:hover:not(:disabled) {
+  border-color: var(--color-pink-500);
+  transform: translateY(-1px);
+  box-shadow: none;
+}
+
+.debug-view .button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.debug-view .button--primary {
+  background: var(--color-pink-500);
+  border-color: var(--color-pink-500);
+  color: #ffffff;
+}
+
+.debug-view .button--primary:hover:not(:disabled) {
+  background: var(--color-pink-600);
+  border-color: var(--color-pink-600);
+}
+
+.debug-view .button--secondary {
+  background: var(--color-success-bg);
+  border-color: var(--color-green-400);
+  color: var(--color-success);
+}
+
+.debug-view .button--secondary:hover:not(:disabled) {
+  background: var(--color-success-surface);
+  border-color: var(--color-green-500);
+}
+
+.debug-view .button--warning {
+  background: var(--color-warning-bg);
+  border-color: var(--color-gold-400);
+  color: var(--color-warning);
+}
+
+.debug-view .button--danger {
+  background: var(--color-error-bg);
+  border-color: var(--color-red-300);
+  color: var(--color-error);
+}
+
+/* ── Form controls ─────────────────────────────────────────────────────── */
+
+.debug-view .form-field__label,
+.debug-view .select__label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.debug-view .form-field__input,
+.debug-view .select__input {
+  block-size: 36px;
+  border: 1px solid var(--color-border-medium);
+  background: var(--dbg-control-bg);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+
+.debug-view .form-field__input:focus,
+.debug-view .select__input:focus {
+  outline: 2px solid var(--color-pink-500);
+  outline-offset: 0;
+  border-color: var(--color-pink-500);
+}
+
+.debug-view .form-field__input--readonly {
+  background: var(--dbg-strip-bg);
+  color: var(--color-text-secondary);
+}
+
+/* Toggle group → segmented control */
+.debug-view .toggle-group {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+  background: var(--dbg-strip-bg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+}
+
+.debug-view .toggle-group .toggle-group__option {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding-block: var(--space-1);
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  box-shadow: none;
+  transition: all var(--transition-fast);
+}
+
+.debug-view .toggle-group .toggle-group__option--selected {
+  background: var(--dbg-control-bg);
+  color: var(--dbg-active-tab-text);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08), 0 0 0 1px var(--color-pink-500);
+}
+
+/* ── Slider (DebugSlider component) ────────────────────────────────────── */
+
+.debug-view .dbg-slider {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.debug-view .dbg-slider__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-block-end: 2px;
+}
+
+.debug-view .dbg-slider__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.debug-view .dbg-slider__value {
+  font-family: var(--font-family-stats);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  background: var(--dbg-strip-bg);
+  border: 1px solid var(--color-border-light);
+  padding-block: 2px;
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-full);
+  color: var(--color-text-primary);
+  min-inline-size: 52px;
+  text-align: center;
+}
+
+.debug-view .dbg-slider__input {
+  -webkit-appearance: none;
+  appearance: none;
+  inline-size: 100%;
+  block-size: 6px;
+  background: linear-gradient(
+    to right,
+    var(--accent, var(--color-pink-500)) var(--pct, 50%),
+    var(--color-border-light) var(--pct, 50%)
+  );
+  border-radius: var(--radius-full);
+  outline: none;
+}
+
+.debug-view .dbg-slider__input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  inline-size: 16px;
+  block-size: 16px;
+  border-radius: var(--radius-full);
+  background: #ffffff;
+  border: 2px solid var(--accent, var(--color-pink-500));
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.2);
+  cursor: pointer;
+}
+
+.debug-view .dbg-slider__input::-moz-range-thumb {
+  inline-size: 16px;
+  block-size: 16px;
+  border-radius: var(--radius-full);
+  background: #ffffff;
+  border: 2px solid var(--accent, var(--color-pink-500));
+  cursor: pointer;
+}
+
+.debug-view .dbg-slider__minmax {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-family-stats);
+  font-size: var(--font-size-3xs);
+  color: var(--color-text-muted);
+  margin-block-start: -2px;
+}
+
+.debug-view .dbg-slider__hint {
+  font-size: var(--font-size-2xs);
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ── Console-style activity log (LoggingSystem + LivePreview) ──────────── */
+
+.debug-view .dbg-console {
+  background: var(--color-neutral-900);
+  color: var(--color-neutral-300);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-2xs);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-neutral-800);
+  max-block-size: 280px;
+  overflow-y: auto;
+}
+
+.debug-view .dbg-console__ts {
+  color: var(--color-neutral-500);
+}
+
+.debug-view .dbg-console__ev {
+  color: var(--color-pink-300);
+}
+
+/* ── Scrollbars ────────────────────────────────────────────────────────── */
+
+.debug-view ::-webkit-scrollbar {
+  inline-size: 8px;
+  block-size: 8px;
+}
+
+.debug-view ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.debug-view ::-webkit-scrollbar-thumb {
+  background: var(--color-border-medium);
+  border-radius: var(--radius-base);
+}

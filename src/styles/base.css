@@ -4,6 +4,7 @@
 /* Design tokens (source of truth: gps2-design/src/styles/tokens.css — sync by whole-file copy) */
 @import './tokens.css';
 @import './tokens-compat.css';
+@import './themes.css';
 
 /* CSS Reset and Base Styles */
 *, *::before, *::after {
