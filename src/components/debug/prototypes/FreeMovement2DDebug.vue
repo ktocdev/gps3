@@ -489,14 +489,4 @@ onUnmounted(() => {
   margin-block-end: var(--space-2);
 }
 
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  .free-movement-2d-debug__canvas-container {
-    background: var(--color-bg-primary);
-  }
-
-  .free-movement-2d-debug__overlay-info {
-    background: rgba(0, 0, 0, 0.9);
-  }
-}
 </style>

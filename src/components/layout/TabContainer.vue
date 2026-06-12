@@ -378,17 +378,6 @@ defineExpose({
   }
 }
 
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  .tab-container__tab:hover:not(.tab-container__tab--disabled) {
-    background-color: var(--color-bg-primary);
-  }
-
-  .tab-container__tab--active {
-    background-color: var(--color-bg-secondary);
-  }
-}
-
 /* High Contrast Mode Support */
 @media (prefers-contrast: high) {
   .tab-container__header {

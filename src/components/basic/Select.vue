@@ -314,17 +314,6 @@ const handleChange = (event: Event) => {
   color: var(--color-text-secondary);
 }
 
-/* Dark mode adjustments */
-@media (prefers-color-scheme: dark) {
-  .select__input {
-    background-color: var(--color-bg-secondary);
-  }
-
-  .select--bordered .select__input {
-    background-color: var(--color-bg-tertiary);
-  }
-}
-
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   .select__input {

@@ -1,0 +1,343 @@
+/* GPS2 Design Tokens v1.0 */
+/* Source of truth: gps2-design/src/views/TokensView.vue */
+
+:root {
+
+  color-scheme: light; /* Light mode only — pin UA controls (scrollbars, inputs) to light */
+
+  /* ── COLOR PALETTES ─────────────────────────────────────────────────────── */
+
+  /* Pink — Primary Accent */
+  --color-pink-50:  #fdf2f8;
+  --color-pink-100: #fce7f3;
+  --color-pink-200: #fbcfe8;
+  --color-pink-300: #f9a8d4;
+  --color-pink-400: #f472b6;
+  --color-pink-500: #ec4899;
+  --color-pink-600: #db2777;
+  --color-pink-700: #be185d;
+  --color-pink-800: #9f1239;
+  --color-pink-900: #831843;
+
+  /* Green — Secondary Accent */
+  --color-green-50:  #f0fdf4;
+  --color-green-100: #dcfce7;
+  --color-green-200: #bbf7d0;
+  --color-green-300: #86efac;
+  --color-green-400: #4ade80;
+  --color-green-500: #22c55e;
+  --color-green-600: #178740;
+  --color-green-700: #15803d;
+  --color-green-800: #166534;
+  --color-green-900: #14532d;
+
+  /* Violet */
+  --color-violet-50:  #f5f3ff;
+  --color-violet-100: #ede9fe;
+  --color-violet-200: #ddd6fe;
+  --color-violet-300: #c4b5fd;
+  --color-violet-400: #a78bfa;
+  --color-violet-500: #8b5cf6;
+  --color-violet-600: #7c3aed;
+  --color-violet-700: #6d28d9;
+  --color-violet-800: #5b21b6;
+  --color-violet-900: #4c1d95;
+
+  /* Yellow */
+  --color-yellow-50:  #fefce8;
+  --color-yellow-100: #fef9c3;
+  --color-yellow-200: #fef08a;
+  --color-yellow-300: #fde047;
+  --color-yellow-400: #facc15;
+  --color-yellow-500: #eab308;
+  --color-yellow-600: #ca8a04;
+  --color-yellow-700: #a16207;
+  --color-yellow-800: #854d0e;
+  --color-yellow-900: #713f12;
+
+  /* Cyan */
+  --color-cyan-50:  #ecfeff;
+  --color-cyan-100: #cffafe;
+  --color-cyan-200: #a5f3fc;
+  --color-cyan-300: #67e8f9;
+  --color-cyan-400: #22d3ee;
+  --color-cyan-500: #06b6d4;
+  --color-cyan-600: #0891b2;
+  --color-cyan-700: #0e7490;
+  --color-cyan-800: #155e75;
+  --color-cyan-900: #164e63;
+
+  /* Neutral */
+  --color-neutral-50:  #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #0f172a;
+
+  /* Gold — Amber → Orange */
+  --color-gold-50:  #fffbeb;
+  --color-gold-100: #fef3c7;
+  --color-gold-200: #fde68a;
+  --color-gold-300: #fbbf24;
+  --color-gold-400: #f59e0b;
+  --color-gold-500: #ea580c;
+  --color-gold-600: #c2410c;
+  --color-gold-700: #9a3412;
+  --color-gold-800: #7c2d12;
+  --color-gold-900: #431407;
+
+  /* Red */
+  --color-red-50:  #fef2f2;
+  --color-red-100: #fee2e2;
+  --color-red-200: #fecaca;
+  --color-red-300: #f87171;
+  --color-red-400: #ef4444;
+  --color-red-500: #dc2626;
+  --color-red-600: #b91c1c;
+  --color-red-700: #991b1b;
+  --color-red-800: #7f1d1d;
+  --color-red-900: #450a0a;
+
+  /* Blue */
+  --color-blue-50:  #eff6ff;
+  --color-blue-100: #dbeafe;
+  --color-blue-200: #bfdbfe;
+  --color-blue-300: #60a5fa;
+  --color-blue-400: #3b82f6;
+  --color-blue-500: #2563eb;
+  --color-blue-600: #1d4ed8;
+  --color-blue-700: #1e40af;
+  --color-blue-800: #1e3a8a;
+  --color-blue-900: #172554;
+
+  /* ── SEMANTIC — ACTION ──────────────────────────────────────────────────── */
+
+  --color-primary-bg:     var(--color-pink-50);
+  --color-primary:        var(--color-pink-600);
+  --color-primary-hover:  var(--color-pink-700);
+  --color-primary-active: var(--color-pink-800);
+
+  --color-secondary-bg:     var(--color-green-50);
+  --color-secondary:        var(--color-green-600);
+  --color-secondary-hover:  var(--color-green-700);
+  --color-secondary-active: var(--color-green-800);
+
+  /* ── SEMANTIC — STATUS ──────────────────────────────────────────────────── */
+
+  --color-success-bg:      var(--color-green-50);
+  --color-success-surface: var(--color-green-100);
+  --color-success-border:  var(--color-green-300);
+  --color-success:         var(--color-green-600);
+
+  --color-warning-bg:     var(--color-gold-50);
+  --color-warning-border: var(--color-gold-300);
+  --color-warning:        var(--color-gold-500);
+  --color-warning-hover:  var(--color-gold-600);
+
+  --color-error-bg:         var(--color-red-50);
+  --color-danger:           var(--color-red-100);
+  --color-critical:         var(--color-red-200);
+  --color-danger-border:    var(--color-red-300);
+  --color-critical-border:  var(--color-red-400);
+  --color-error:            var(--color-red-500);
+  --color-error-hover:      var(--color-red-600);
+
+  --color-info-bg:    var(--color-blue-50);
+  --color-info:       var(--color-blue-500);
+  --color-info-hover: var(--color-blue-600);
+
+  /* ── SEMANTIC — BACKGROUND & TEXT ──────────────────────────────────────── */
+
+  --color-bg-primary:   #ffffff;
+  --color-bg-secondary: var(--color-neutral-50);
+  --color-bg-tertiary:  var(--color-neutral-100);
+  --color-bg-canvas:    #000000; /* 3D/WebGL viewport background */
+
+  --color-text-inverse:   #ffffff;
+  --color-text-muted:     var(--color-neutral-400);
+  --color-text-tertiary:  var(--color-neutral-500);
+  --color-text-secondary: var(--color-neutral-600);
+  --color-text-primary:   var(--color-neutral-800);
+
+  /* ── BORDERS ────────────────────────────────────────────────────────────── */
+
+  --color-border-light:  var(--color-neutral-200);
+  --color-border-medium: var(--color-neutral-300);
+  --color-border-dark:   var(--color-neutral-400);
+
+  /* ── WOOD — STRUCTURAL UI SURFACES ─────────────────────────────────────── */
+
+  --color-wood-amber:  #d97706; /* Bonded pair slot · aisle plaque */
+  --color-wood-light:  #c2700d; /* SimTopBar plank */
+  --color-wood-mid:    #b45309; /* Cage frame · shelf · beam · GPS2 brand */
+  --color-wood-dark:   #92400e; /* Mid-grain shadow · sill */
+  --color-wood-shadow: #78350f; /* Dark edge · leg base */
+  --color-wood-border: #451a03; /* Darkest border · stud centres */
+
+  /* ── NEEDS — GAME-SPECIFIC SEMANTIC COLORS ──────────────────────────────── */
+
+  --color-need-hunger:      var(--color-gold-400);    /* #f59e0b */
+  --color-need-thirst:      var(--color-cyan-500);    /* #06b6d4 */
+  --color-need-energy:      var(--color-blue-800);    /* #1e3a8a */
+  --color-need-shelter:     var(--color-gold-700);    /* #9a3412 — prod variables.css used #92400e (brown) */
+  --color-need-play:        var(--color-green-500);   /* #22c55e — prod used #10b981 (emerald) */
+  --color-need-social:      var(--color-pink-500);    /* #ec4899 */
+  --color-need-stimulation: var(--color-gold-500);    /* #ea580c */
+  --color-need-comfort:     var(--color-violet-500);  /* #8b5cf6 — prod used #818cf8 (indigo) */
+  --color-need-hygiene:     var(--color-cyan-300);    /* #67e8f9 — prod used #0ea5e9 (sky) */
+  --color-need-nails:       var(--color-neutral-500); /* #64748b */
+  --color-need-chew:        var(--color-gold-200);    /* #fde68a — prod used #f5f5dc (beige) */
+
+  /* ── ITEM ACCENTS — HABITAT SUPPLY UI IDENTIFICATION ────────────────────── */
+
+  --color-item-water:          #38bdf8; /* sky blue — water bottle popover */
+  --color-item-chew:           #f5f5dc; /* beige    — chew toy popover */
+  --color-item-food-container: #f59e0b; /* amber    — food container (aligns with need-hunger) */
+  --color-item-igloo:          #818cf8; /* indigo   — igloo/hideout (aligns with need-comfort) */
+
+  /* ── GAME COLORS ────────────────────────────────────────────────────────── */
+  /* Panel header strips · icon discs · awning stripes · action boards */
+
+  --color-pink:        var(--color-pink-500);    /* #ec4899 — Give Food · Grocery · Primary CTA */
+  --color-pink-deep:   var(--color-pink-600);    /* #db2777 — Primary CTA bottom stop */
+  --color-orange:      var(--color-gold-500);    /* #ea580c — Action board (play · social) */
+  --color-gold-deep:   var(--color-gold-400);    /* #f59e0b — Activity icon border */
+  --color-gold:        var(--color-gold-300);    /* #fbbf24 — Activity · Today's Picks */
+  --color-lime:        var(--color-green-400);   /* #4ade80 — Habitat · Hay Loft */
+  --color-ivy:         #84cc16;                  /* bespoke  — Hay Loft · Habitat Status */
+  --color-green:       var(--color-green-600);   /* #178740 — Habitat icon border · player action */
+  --color-sky:         var(--color-cyan-500);    /* #06b6d4 — Habitat dept awning */
+  --color-cyan:        var(--color-cyan-400);    /* #22d3ee — Action board (hygiene · water) */
+  --color-violet:      var(--color-violet-400);  /* #a78bfa — Inventory pill · action board */
+  --color-violet-mid:  var(--color-violet-500);  /* #8b5cf6 — Activity badge · Bedding awning */
+  --color-violet-deep: var(--color-violet-600);  /* #7c3aed — Inventory icon border */
+
+  /* ── TYPOGRAPHY ─────────────────────────────────────────────────────────── */
+
+  --font-family-heading: 'Gaegu', cursive;
+  --font-family-body:    'Nunito', sans-serif;
+  --font-family-mono:    Consolas, Monaco, monospace;
+  --font-family-stats:   'Roboto', sans-serif;
+
+  --font-size-4xs:  0.59375rem; /* 9.5px */
+  --font-size-3xs:  0.625rem;   /* 10px */
+  --font-size-2xs:  0.6875rem;  /* 11px */
+  --font-size-xs:   0.75rem;   /* 12px */
+  --font-size-sm:   0.875rem;  /* 14px */
+  --font-size-base: 1rem;      /* 16px */
+  --font-size-lg:   1.125rem;  /* 18px */
+  --font-size-xl:   1.25rem;   /* 20px */
+  --font-size-2xl:  1.5rem;    /* 24px */
+  --font-size-3xl:  1.875rem;  /* 30px */
+  --font-size-4xl:  2.25rem;   /* 36px */
+
+  --font-weight-normal:   400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+  --font-weight-heading:  700;
+
+  --line-height-tight:   1.25;
+  --line-height-normal:  1.5;
+  --line-height-relaxed: 1.75;
+
+  /* ── SPACING ────────────────────────────────────────────────────────────── */
+
+  --space-1:  0.25rem;  /* 4px */
+  --space-2:  0.5rem;   /* 8px */
+  --space-3:  0.75rem;  /* 12px */
+  --space-4:  1rem;     /* 16px */
+  --space-5:  1.25rem;  /* 20px */
+  --space-6:  1.5rem;   /* 24px */
+  --space-8:  2rem;     /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+
+  --spacing-2xs: var(--space-1);  /* 4px  — tight gaps, icon nudges, inline offsets */
+  --spacing-xs:  var(--space-2);  /* 8px  — compact item gaps, badge padding */
+  --spacing-sm:  var(--space-3);  /* 12px — inline gaps, compact list items */
+  --spacing-md:  var(--space-4);  /* 16px — default component padding, standard gap */
+  --spacing-lg:  var(--space-5);  /* 20px — section internal spacing, looser gaps */
+  --spacing-xl:  var(--space-6);  /* 24px — panel padding (desktop), section dividers */
+
+  /* ── BORDER RADIUS ──────────────────────────────────────────────────────── */
+
+  --radius-none: 0;
+  --radius-sm:   0.125rem; /* 2px */
+  --radius-base: 0.25rem;  /* 4px */
+  --radius-md:   0.375rem; /* 6px */
+  --radius-lg:   0.5rem;   /* 8px */
+  --radius-xl:   0.75rem;  /* 12px */
+  --radius-2xl:  1rem;     /* 16px */
+  --radius-full: 9999px;
+
+  --border-radius-start-start: var(--radius-base);
+  --border-radius-start-end:   var(--radius-base);
+  --border-radius-end-start:   var(--radius-base);
+  --border-radius-end-end:     var(--radius-base);
+
+  /* ── SHADOWS — ELEVATION ────────────────────────────────────────────────── */
+
+  --shadow-sm:   0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-base: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md:   0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg:   0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl:   0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* ── SHADOWS — COMPONENT ────────────────────────────────────────────────── */
+
+  --shadow-rivet:       inset 0 -1px 1px rgba(0,0,0,.42);
+  --shadow-ball:        0 2px 3px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.4);
+  --shadow-badge:       0 2px 3px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.3);
+  --shadow-disc:        0 2px 3px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.4);
+  --shadow-lift-sm:     0 3px 6px rgba(0,0,0,.2);
+  --shadow-lift-md:     0 5px 8px rgba(0,0,0,.25);
+  --shadow-lift-lg:     0 6px 10px -2px rgba(0,0,0,.3);
+  --shadow-cta:         0 10px 15px -3px rgba(0,0,0,.25), 0 4px 6px -2px rgba(0,0,0,.15), inset 0 1px 0 rgba(255,255,255,.35);
+  --shadow-cta-pressed: 0 4px 6px -2px rgba(0,0,0,.25), 0 2px 4px -1px rgba(0,0,0,.15), inset 0 1px 0 rgba(255,255,255,.25);
+  --shadow-cta-header:  0 6px 10px -2px rgba(219,39,119,.45), 0 2px 4px -1px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.4), inset 0 -2px 0 rgba(0,0,0,.18);
+  --shadow-pill:        0 6px 8px -2px rgba(69,26,3,.4), 0 2px 4px -1px rgba(69,26,3,.25), inset 0 2px 0 rgba(255,255,255,.55), inset 0 -1px 0 rgba(146,64,14,.22);
+  --shadow-pill-active: 0 10px 14px -4px rgba(69,26,3,.55), 0 4px 6px -2px rgba(69,26,3,.35), inset 0 2px 0 rgba(255,255,255,.6), inset 0 -1px 0 rgba(146,64,14,.25);
+  --shadow-frame:       0 8px 14px -4px rgba(69,26,3,.45), 0 3px 6px -2px rgba(69,26,3,.3), inset 0 2px 0 rgba(255,255,255,.55), inset 0 -2px 0 rgba(0,0,0,.18);
+  --shadow-frame-hover: 0 14px 20px -4px rgba(69,26,3,.5), 0 6px 10px -2px rgba(69,26,3,.35), inset 0 2px 0 rgba(255,255,255,.55), inset 0 -2px 0 rgba(0,0,0,.18);
+  --shadow-amber-pill:  0 6px 10px -2px rgba(120,53,15,.4), 0 2px 4px -1px rgba(120,53,15,.25), inset 0 1px 0 rgba(255,255,255,.6), inset 0 -1px 0 rgba(146,64,14,.25);
+  --shadow-confirm:     0 6px 10px -2px rgba(0,0,0,.28), 0 2px 4px -1px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.4);
+
+  /* ── PARCHMENT PANEL ────────────────────────────────────────────────────── */
+  /* PanelShell · floating-panel recipe: brown frame · cream body · paper grain */
+
+  --panel-bg-top: #fffbeb; /* gold-50  */
+  --panel-bg-bot: #fef3c7; /* gold-100 */
+  --panel-border: #92400e; /* warm brown */
+  --panel-radius: 14px;
+  --panel-grain: repeating-linear-gradient(180deg,
+      transparent 0 7px,
+      rgba(120, 53, 15, .05) 7px 8px);
+  --panel-shadow:
+    0 22px 30px -8px rgba(69, 26, 3, .55),
+    0 10px 14px -4px rgba(69, 26, 3, .4),
+    inset 0 2px 0 rgba(255, 255, 255, .55),
+    inset 0 -2px 0 rgba(0, 0, 0, .18);
+
+  /* ── Z-INDEX ────────────────────────────────────────────────────────────── */
+
+  --z-index-dropdown:       1000;
+  --z-index-sticky:         1020;
+  --z-index-fixed:          1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal:          1050;
+  --z-index-popover:        1060;
+  --z-index-tooltip:        1070;
+
+  /* ── TRANSITIONS ────────────────────────────────────────────────────────── */
+
+  --transition-fast:   150ms ease-in-out;
+  --transition-normal: 250ms ease-in-out;
+  --transition-slow:   350ms ease-in-out;
+}

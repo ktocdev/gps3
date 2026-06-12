@@ -268,24 +268,4 @@ onUnmounted(() => {
 
 /* Note: Display toggle is controlled by parent container queries in DebugView */
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .navigation-dropdown__trigger {
-    background: var(--color-bg-tertiary);
-    border-color: var(--color-border-medium);
-  }
-
-  .navigation-dropdown__trigger:hover {
-    background: var(--color-bg-secondary);
-    border-color: var(--color-border-light);
-  }
-
-  .navigation-dropdown__menu {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-  }
-
-  .navigation-dropdown__overlay {
-    background: rgba(0, 0, 0, 0.5);
-  }
-}
 </style>

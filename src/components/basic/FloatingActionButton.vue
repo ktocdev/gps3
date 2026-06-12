@@ -394,15 +394,4 @@ const handleClick = (event: MouseEvent) => {
   }
 }
 
-/* === Dark Mode Support === */
-@media (prefers-color-scheme: dark) {
-  .floating-action-button__label {
-    background-color: var(--color-bg-tertiary);
-    border-color: var(--color-border-dark);
-  }
-
-  .floating-action-button__label::after {
-    border-inline-start-color: var(--color-border-dark);
-  }
-}
 </style>

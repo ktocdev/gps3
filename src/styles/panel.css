@@ -308,17 +308,6 @@
   }
 }
 
-/* Dark Mode Adjustments */
-@media (prefers-color-scheme: dark) {
-  .panel {
-    background-color: var(--color-bg-tertiary);
-  }
-
-  .panel--accent::before {
-    opacity: 0.8;
-  }
-}
-
 /* High Contrast Mode Support */
 @media (prefers-contrast: high) {
   .panel {

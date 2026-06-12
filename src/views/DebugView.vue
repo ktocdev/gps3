@@ -295,13 +295,6 @@ onUnmounted(() => {
   }
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .debug-view__header {
-    background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(34, 197, 94, 0.1));
-  }
-}
-
 /* Fullscreen mode for 3D Habitat - hides header and nav */
 body.habitat-fullscreen .debug-view__header,
 body.habitat-fullscreen .debug-view__nav {

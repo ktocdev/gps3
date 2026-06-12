@@ -234,29 +234,4 @@ onUnmounted(() => {
   font-weight: var(--font-weight-bold);
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .category-dropdown__trigger {
-    background: var(--color-bg-tertiary);
-    border-color: var(--color-border-medium);
-  }
-
-  .category-dropdown__trigger:hover {
-    background: var(--color-bg-secondary);
-    border-color: var(--color-border-light);
-  }
-
-  .category-dropdown__trigger--active {
-    background: rgba(236, 72, 153, 0.2);
-    border-color: var(--color-primary);
-  }
-
-  .category-dropdown__menu {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-  }
-
-  .category-dropdown__overlay {
-    background: rgba(0, 0, 0, 0.5);
-  }
-}
 </style>

@@ -307,14 +307,4 @@ li {
   line-height: var(--line-height-relaxed);
 }
 
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  .html-demo-debug__iframe-container {
-    background: var(--color-bg-primary);
-  }
-
-  code {
-    background: var(--color-bg-primary);
-  }
-}
 </style>
