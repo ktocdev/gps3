@@ -134,7 +134,7 @@ const positionStyle = computed(() => ({
 
 /* Variant colors - Positive (parchment, green ink) */
 .chat-bubble-3d--positive .chat-bubble-3d__text {
-  color: var(--color-accent-green-800);
+  color: var(--color-green-800);
 }
 
 /* Variant colors - Negative (red-tinted parchment) */
@@ -144,7 +144,7 @@ const positionStyle = computed(() => ({
 }
 
 .chat-bubble-3d--negative .chat-bubble-3d__text {
-  color: var(--color-error-800);
+  color: var(--color-red-800);
 }
 
 /* Variant colors - Warning (parchment, amber ink) */
@@ -159,7 +159,7 @@ const positionStyle = computed(() => ({
 }
 
 .chat-bubble-3d--critical .chat-bubble-3d__text {
-  color: var(--color-error-900);
+  color: var(--color-red-900);
 }
 
 /* Reduced motion support */

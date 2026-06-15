@@ -375,7 +375,7 @@ onMounted(() => {
 }
 
 .activity-feed__message--achievement {
-  border-inline-start: 3px solid var(--color-accent-pink-400);
+  border-inline-start: 3px solid var(--color-pink-400);
   background-color: var(--color-primary-bg);
 }
 

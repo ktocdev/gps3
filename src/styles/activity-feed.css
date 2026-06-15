@@ -44,8 +44,8 @@
 }
 
 .activity-feed__message--achievement {
-  border-inline-start-color: var(--color-accent-pink-500);
-  background-color: var(--color-accent-pink-50);
+  border-inline-start-color: var(--color-pink-500);
+  background-color: var(--color-pink-50);
 }
 
 .activity-feed__emoji {

@@ -174,7 +174,7 @@ function handleAction(action: PopoverAction) {
 
 .habitat-item-popover__content {
   background: var(--color-bg-primary);
-  border: 1px solid var(--color-border-default);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
   padding-block: var(--space-2);
   padding-inline: var(--space-3);
@@ -186,7 +186,7 @@ function handleAction(action: PopoverAction) {
 .habitat-item-popover__header {
   margin-block-end: var(--space-2);
   padding-block-end: var(--space-2);
-  border-block-end: 1px solid var(--color-border-default);
+  border-block-end: 1px solid var(--color-border-light);
 }
 
 .habitat-item-popover__title {
@@ -223,13 +223,13 @@ function handleAction(action: PopoverAction) {
   flex-direction: column;
   gap: var(--space-2);
   padding-block-start: var(--space-2);
-  border-block-start: 1px solid var(--color-border-default);
+  border-block-start: 1px solid var(--color-border-light);
 }
 
 .habitat-item-popover__action-button {
   padding-block: var(--space-1);
   padding-inline: var(--space-2);
-  border: 1px solid var(--color-border-default);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-sm);
   background: var(--color-bg-secondary);
   color: var(--color-text);

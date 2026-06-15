@@ -234,11 +234,11 @@ const lastUsedText = computed(() => {
 }
 
 .chew-popover__durability-status--good {
-  color: var(--color-accent-green-600);
+  color: var(--color-green-600);
 }
 
 .chew-popover__durability-status--worn {
-  color: var(--color-accent-yellow-600);
+  color: var(--color-yellow-600);
 }
 
 .chew-popover__durability-status--degraded {
@@ -267,11 +267,11 @@ const lastUsedText = computed(() => {
 }
 
 .chew-popover__bar--good {
-  background-color: var(--color-accent-green-500);
+  background-color: var(--color-green-500);
 }
 
 .chew-popover__bar--worn {
-  background-color: var(--color-accent-yellow-500);
+  background-color: var(--color-yellow-500);
 }
 
 .chew-popover__bar--degraded {

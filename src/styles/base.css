@@ -3,7 +3,6 @@
 
 /* Design tokens (source of truth: gps2-design/src/styles/tokens.css — sync by whole-file copy) */
 @import './tokens.css';
-@import './tokens-compat.css';
 @import './themes.css';
 
 /* CSS Reset and Base Styles */
@@ -608,7 +607,7 @@ img {
   inline-size: 360px;
   max-inline-size: 100%;
   background-color: var(--color-bg-secondary);
-  border-inline-start: 2px solid var(--color-border-default);
+  border-inline-start: 2px solid var(--color-border-light);
   padding: var(--space-4);
   overflow-y: auto;
 }
@@ -630,7 +629,7 @@ img {
     inline-size: 100%;
     max-block-size: 300px;
     border-inline-start: none;
-    border-block-start: 2px solid var(--color-border-default);
+    border-block-start: 2px solid var(--color-border-light);
   }
 }
 

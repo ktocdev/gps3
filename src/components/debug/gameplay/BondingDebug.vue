@@ -257,8 +257,8 @@ function formatFactorName(factor: string): string {
 }
 
 .bond-tier--bonded {
-  background: var(--color-accent-pink-100);
-  color: var(--color-accent-pink-700);
+  background: var(--color-pink-100);
+  color: var(--color-pink-700);
 }
 
 .bond-benefits {

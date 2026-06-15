@@ -39,8 +39,8 @@ const chatBubbleModifierClass = computed(() =>
   padding-block: var(--spacing-2xs);
   padding-inline: var(--spacing-xs);
 
-  background-color: var(--color-surface-elevated);
-  border: 1px solid var(--color-border-default);
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
 
   box-shadow: var(--shadow-md);
@@ -59,7 +59,7 @@ const chatBubbleModifierClass = computed(() =>
   inline-size: 0;
   block-size: 0;
   border-inline: 6px solid transparent;
-  border-block-start: 6px solid var(--color-surface-elevated);
+  border-block-start: 6px solid var(--color-bg-primary);
 }
 
 @keyframes chat-bubble-enter {
@@ -132,46 +132,46 @@ const chatBubbleModifierClass = computed(() =>
 }
 
 .chat-bubble--positive .chat-bubble__text {
-  color: var(--color-accent-green-800);
+  color: var(--color-green-800);
 }
 
 .chat-bubble--negative {
-  background-color: var(--color-danger-surface);
+  background-color: var(--color-danger);
   border-color: var(--color-danger-border);
 }
 
 .chat-bubble--negative::after {
-  border-block-start-color: var(--color-danger-surface);
+  border-block-start-color: var(--color-danger);
 }
 
 .chat-bubble--negative .chat-bubble__text {
-  color: var(--color-error-800);
+  color: var(--color-red-800);
 }
 
 .chat-bubble--warning {
-  background-color: var(--color-warning-surface);
+  background-color: var(--color-gold-100);
   border-color: var(--color-warning-border);
 }
 
 .chat-bubble--warning::after {
-  border-block-start-color: var(--color-warning-surface);
+  border-block-start-color: var(--color-gold-100);
 }
 
 .chat-bubble--warning .chat-bubble__text {
-  color: var(--color-warning-800);
+  color: var(--color-gold-800);
 }
 
 .chat-bubble--critical {
-  background-color: var(--color-critical-surface);
+  background-color: var(--color-critical);
   border-color: var(--color-critical-border);
 }
 
 .chat-bubble--critical::after {
-  border-block-start-color: var(--color-critical-surface);
+  border-block-start-color: var(--color-critical);
 }
 
 .chat-bubble--critical .chat-bubble__text {
-  color: var(--color-error-900);
+  color: var(--color-red-900);
 }
 
 /* Reduced motion support */

@@ -268,58 +268,58 @@ defineEmits<{
 
 /* Color variants - Yellow */
 .side-panel-3d--yellow .side-panel-3d__tab {
-  background-color: var(--color-accent-yellow-500);
+  background-color: var(--color-yellow-500);
   color: var(--color-neutral-900);
 }
 
 .side-panel-3d--yellow .side-panel-3d__tab:hover {
-  background-color: var(--color-accent-yellow-600);
+  background-color: var(--color-yellow-600);
 }
 
 .side-panel-3d--yellow .side-panel-3d__header {
-  background-color: var(--color-accent-yellow-500);
+  background-color: var(--color-yellow-500);
   color: var(--color-neutral-900);
 }
 
 /* Color variants - Violet */
 .side-panel-3d--violet .side-panel-3d__tab {
-  background-color: var(--color-accent-violet-500);
+  background-color: var(--color-violet-500);
   color: white;
 }
 
 .side-panel-3d--violet .side-panel-3d__tab:hover {
-  background-color: var(--color-accent-violet-600);
+  background-color: var(--color-violet-600);
 }
 
 .side-panel-3d--violet .side-panel-3d__header {
-  background-color: var(--color-accent-violet-500);
+  background-color: var(--color-violet-500);
 }
 
 /* Color variants - Pink */
 .side-panel-3d--pink .side-panel-3d__tab {
-  background-color: var(--color-accent-pink-600);
+  background-color: var(--color-pink-600);
   color: white;
 }
 
 .side-panel-3d--pink .side-panel-3d__tab:hover {
-  background-color: var(--color-accent-pink-600);
+  background-color: var(--color-pink-600);
 }
 
 .side-panel-3d--pink .side-panel-3d__header {
-  background-color: var(--color-accent-pink-700);
+  background-color: var(--color-pink-700);
 }
 
 /* Color variants - Green */
 .side-panel-3d--green .side-panel-3d__tab {
-  background-color: var(--color-accent-green-500);
+  background-color: var(--color-green-500);
   color: white;
 }
 
 .side-panel-3d--green .side-panel-3d__tab:hover {
-  background-color: var(--color-accent-green-600);
+  background-color: var(--color-green-600);
 }
 
 .side-panel-3d--green .side-panel-3d__header {
-  background-color: var(--color-accent-green-500);
+  background-color: var(--color-green-500);
 }
 </style>

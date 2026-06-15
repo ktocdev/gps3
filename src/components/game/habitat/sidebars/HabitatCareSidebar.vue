@@ -322,12 +322,12 @@ function getOverallConditionVariant(value: number): 'success' | 'warning' | 'err
 
 /* Color-coded habitat care buttons */
 .habitat-care-button--clean-habitat {
-  background-color: var(--color-accent-green-300);
+  background-color: var(--color-green-300);
   color: #1e293b;
 }
 
 .habitat-care-button--clean-habitat:hover:not(:disabled) {
-  background-color: var(--color-accent-green-400);
+  background-color: var(--color-green-400);
 }
 
 .habitat-care-button--quick-clean {
@@ -349,12 +349,12 @@ function getOverallConditionVariant(value: number): 'success' | 'warning' | 'err
 }
 
 .habitat-care-button--fill-hay {
-  background-color: var(--color-warning-400);
+  background-color: var(--color-gold-400);
   color: #1e293b;
 }
 
 .habitat-care-button--fill-hay:hover:not(:disabled) {
-  background-color: var(--color-warning-500);
+  background-color: var(--color-gold-500);
 }
 
 /* Disabled state reduces opacity */

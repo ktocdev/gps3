@@ -851,12 +851,12 @@ defineExpose({
 
 .btn--secondary {
   background: rgba(34, 197, 94, 0.15);
-  border-color: var(--color-accent-green-400);
-  color: var(--color-accent-green-400);
+  border-color: var(--color-green-400);
+  color: var(--color-green-400);
 }
 
 .btn--secondary:hover {
-  background: var(--color-accent-green-400);
+  background: var(--color-green-400);
   color: var(--color-neutral-900);
 }
 
@@ -883,8 +883,8 @@ defineExpose({
 
 .btn--secondary:disabled:hover {
   background: rgba(34, 197, 94, 0.15);
-  border-color: var(--color-accent-green-400);
-  color: var(--color-accent-green-400);
+  border-color: var(--color-green-400);
+  color: var(--color-green-400);
 }
 
 .btn--warning:disabled:hover {

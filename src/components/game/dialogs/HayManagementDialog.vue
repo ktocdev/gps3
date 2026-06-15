@@ -337,11 +337,11 @@ function handleReplaceAll() {
 }
 
 .hay-rack-item__freshness--good {
-  color: var(--color-accent-green-600);
+  color: var(--color-green-600);
 }
 
 .hay-rack-item__freshness--warning {
-  color: var(--color-accent-yellow-600);
+  color: var(--color-yellow-600);
 }
 
 .hay-rack-item__freshness--critical {
@@ -366,11 +366,11 @@ function handleReplaceAll() {
 }
 
 .hay-rack-item__bar--full {
-  background-color: var(--color-accent-green-500);
+  background-color: var(--color-green-500);
 }
 
 .hay-rack-item__bar--medium {
-  background-color: var(--color-accent-yellow-500);
+  background-color: var(--color-yellow-500);
 }
 
 .hay-rack-item__bar--low {

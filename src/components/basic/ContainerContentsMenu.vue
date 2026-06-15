@@ -299,11 +299,11 @@ function getFreshnessClass(value: number): string {
 }
 
 .container-contents-menu__freshness--good {
-  color: var(--color-accent-green-600);
+  color: var(--color-green-600);
 }
 
 .container-contents-menu__freshness--warning {
-  color: var(--color-accent-yellow-600);
+  color: var(--color-yellow-600);
 }
 
 .container-contents-menu__freshness--critical {

@@ -196,8 +196,8 @@ const handleClick = (event: MouseEvent) => {
 }
 
 .button--danger:active:not(:disabled) {
-  background-color: var(--color-error-active);
-  border-color: var(--color-error-active);
+  background-color: var(--color-red-700);
+  border-color: var(--color-red-700);
   transform: translateY(0);
   box-shadow: var(--shadow-sm);
 }
@@ -217,8 +217,8 @@ const handleClick = (event: MouseEvent) => {
 }
 
 .button--warning:active:not(:disabled) {
-  background-color: var(--color-warning-active);
-  border-color: var(--color-warning-active);
+  background-color: var(--color-gold-700);
+  border-color: var(--color-gold-700);
   transform: translateY(0);
   box-shadow: var(--shadow-sm);
 }
