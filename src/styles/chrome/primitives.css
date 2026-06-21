@@ -1,0 +1,305 @@
+/* ============================================================
+   GPS3 — Chrome primitives
+   Parchment panel, sign pill, pill dropdown, parchment banner.
+   All other chrome files depend on these vars + keyframes.
+   ============================================================ */
+
+:root {
+  /* Parchment fills not covered by tokens.css */
+  --chrome-entry-bg: #fff7e6;     /* activity entry / meter track */
+  --chrome-entry-border: #fcd5a5; /* entry border */
+  --chrome-divider: #d6a873;      /* drawer divider / meter border */
+}
+
+@keyframes chrome-panel-pop {
+  from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes chrome-fab-pop {
+  from { opacity: 0; transform: translateY(8px) scale(0.94); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Parchment panel (PanelShell) ──────────────────────────────────────── */
+
+.parchment-panel {
+  background: linear-gradient(180deg, var(--panel-bg-top) 0%, var(--panel-bg-bot) 100%);
+  border: 4px solid var(--panel-border);
+  border-radius: var(--panel-radius);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--panel-shadow);
+  color: var(--color-wood-border);
+}
+
+.parchment-panel--animate {
+  animation: chrome-panel-pop 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.parchment-panel--flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.parchment-panel__awning {
+  block-size: 14px;
+  flex-shrink: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--accent, var(--color-gold)) 0 14px,
+    var(--color-gold-50) 14px 28px
+  );
+  border-block-end: 2px solid var(--panel-border);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18);
+}
+
+.parchment-panel__stud {
+  position: absolute;
+  inline-size: 7px;
+  block-size: 7px;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle at 30% 30%, var(--color-gold-200), var(--color-wood-border));
+  box-shadow: var(--shadow-rivet);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.parchment-panel__stud--tl { inset-block-start: 5px; inset-inline-start: 5px; }
+.parchment-panel__stud--tr { inset-block-start: 5px; inset-inline-end: 5px; }
+.parchment-panel__stud--bl { inset-block-end: 5px; inset-inline-start: 5px; }
+.parchment-panel__stud--br { inset-block-end: 5px; inset-inline-end: 5px; }
+
+.parchment-panel__sheen {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 14px;
+  block-size: 52px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.42) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.parchment-panel__grain {
+  position: absolute;
+  inset: 20px 6px 6px;
+  background-image: var(--panel-grain);
+  pointer-events: none;
+  border-radius: var(--radius-base);
+}
+
+.parchment-panel__body {
+  position: relative;
+  padding: 14px;
+}
+
+.parchment-panel--flex-col .parchment-panel__body {
+  overflow-y: auto;
+  flex: 1 1 auto;
+}
+
+/* Gaegu heading used at the top of dropdown panels */
+.parchment-panel__title {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gold-800);
+  border-block-end: 2px solid var(--color-wood-amber);
+  padding-block-end: var(--space-2);
+  margin-block-end: var(--space-3);
+  padding-inline-start: var(--space-1);
+}
+
+/* ── Sign pill (cream signboard trigger) ───────────────────────────────── */
+
+.sign-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  block-size: 42px;
+  padding-inline: 14px;
+  border-radius: 10px;
+  border: 3px solid var(--color-wood-dark);
+  cursor: pointer;
+  background: linear-gradient(180deg, var(--panel-bg-top) 0%, var(--panel-bg-bot) 100%);
+  color: var(--color-wood-border);
+  font-family: inherit;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-sm);
+  transform: rotate(var(--tilt, 0deg));
+  box-shadow: var(--shadow-pill);
+  transition:
+    transform 140ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 160ms ease,
+    border-color 140ms ease;
+}
+
+.sign-pill--active {
+  border-color: var(--accent-deep, var(--color-gold-800));
+  transform: rotate(var(--tilt, 0deg)) translateY(-2px);
+  box-shadow: var(--shadow-pill-active);
+}
+
+.sign-pill:hover:not(.sign-pill--active) {
+  transform: rotate(var(--tilt, 0deg)) translateY(-1px);
+}
+
+.sign-pill__rivet {
+  position: absolute;
+  inline-size: 4px;
+  block-size: 4px;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle at 30% 30%, var(--color-gold-200), var(--color-wood-border));
+  box-shadow: var(--shadow-rivet);
+}
+
+.sign-pill__rivet--tl { inset-block-start: 3px; inset-inline-start: 4px; }
+.sign-pill__rivet--tr { inset-block-start: 3px; inset-inline-end: 4px; }
+.sign-pill__rivet--bl { inset-block-end: 3px; inset-inline-start: 4px; }
+.sign-pill__rivet--br { inset-block-end: 3px; inset-inline-end: 4px; }
+
+/* Wax-seal icon disc */
+.sign-pill__disc {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 26px;
+  block-size: 26px;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle at 35% 30%, var(--accent, var(--color-gold)), var(--accent-deep, var(--color-gold)));
+  border: 2px solid var(--accent-deep, var(--color-gold));
+  font-size: 15px;
+  line-height: 1;
+  box-shadow: var(--shadow-disc);
+}
+
+.sign-pill__label {
+  color: var(--color-gold-800);
+  white-space: nowrap;
+}
+
+.sign-pill__badge {
+  min-inline-size: 20px;
+  block-size: 20px;
+  padding-inline: 6px;
+  border-radius: var(--radius-md);
+  background: var(--badge-color, var(--color-red-500));
+  border: 1.5px solid var(--color-wood-border);
+  color: #ffffff;
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-3deg);
+  box-shadow: var(--shadow-badge);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.sign-pill__caret {
+  font-size: 9px;
+  color: var(--color-wood-dark);
+  opacity: 0.7;
+  margin-inline-start: -2px;
+}
+
+/* Status chip used as pill suffix (habitat cleanliness, pig worst-need) */
+.sign-pill__chip {
+  min-inline-size: 42px;
+  padding-block: 2px;
+  padding-inline: 10px;
+  border-radius: var(--radius-md);
+  background: var(--chip-color, var(--color-green));
+  color: #ffffff;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  border: 1.5px solid var(--color-wood-border);
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+  transform: rotate(-2deg);
+  box-shadow: var(--shadow-badge);
+}
+
+.sign-pill__dot {
+  inline-size: 9px;
+  block-size: 9px;
+  border-radius: var(--radius-full);
+  background: var(--color-green);
+  border: 1.5px solid var(--color-green-900);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Pig portrait disc variant */
+.sign-pill__portrait {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 26px;
+  block-size: 26px;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle at 35% 30%, var(--color-gold-100), var(--color-gold-300));
+  border: 2px solid var(--color-wood-dark);
+  font-size: 18px;
+  line-height: 1;
+  box-shadow: var(--shadow-disc);
+}
+
+/* ── Pill dropdown wrapper ─────────────────────────────────────────────── */
+
+.pill-dropdown {
+  position: absolute;
+  inset-block-start: calc(100% + 12px);
+  z-index: 50;
+}
+
+.pill-dropdown--left { inset-inline-start: 0; }
+.pill-dropdown--right { inset-inline-end: 0; }
+
+.pill-dropdown--center {
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+}
+
+/* ── Parchment banner (targeting / placement notices) ──────────────────── */
+
+.parchment-banner {
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: 18px;
+  transform: translateX(-50%);
+  z-index: 35;
+  max-inline-size: min(480px, calc(100% - 32px));
+}
+
+.parchment-banner__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-wood-border);
+}
+
+.parchment-banner__icon {
+  font-size: var(--font-size-xl);
+  line-height: 1;
+}
+
+.parchment-banner__cancel {
+  margin-inline-start: auto;
+  inline-size: 26px;
+  block-size: 26px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-wood-dark);
+  background: linear-gradient(180deg, var(--color-gold-50) 0%, var(--color-gold-200) 100%);
+  color: var(--color-gold-800);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-confirm);
+}

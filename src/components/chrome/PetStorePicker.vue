@@ -1,6 +1,10 @@
 <template>
   <div class="petstore">
     <div class="petstore__inner">
+      <!-- Pet-shop scenery layer (window, habitats, plants, chair, treats) -->
+      <PetStoreBackdrop />
+
+      <div class="petstore__content">
       <h1 class="petstore__title">Pick your bonded pair</h1>
       <p class="petstore__subtitle">
         Each habitat holds two pigs who've grown up together. Adopt the habitat — take both home.
@@ -62,13 +66,24 @@
       </div>
 
       <p v-else class="petstore__empty">The pet store is restocking — check back in a moment.</p>
+      </div>
     </div>
+
+    <!-- Certificate of Adoption — confirms the bonded pair before play begins -->
+    <AdoptionCertificate
+      v-if="showCertificate"
+      :pigs="selectedPigs"
+      @start="confirmAdopt"
+      @cancel="showCertificate = false"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import PigSvg from './PigSvg.vue'
+import PetStoreBackdrop from './PetStoreBackdrop.vue'
+import AdoptionCertificate from './AdoptionCertificate.vue'
 import { pigColors, furHex } from './pigColor'
 import { usePetStoreManager } from '../../stores/petStoreManager'
 import type { GuineaPig } from '../../stores/guineaPigStore'
@@ -100,6 +115,7 @@ const habitats = computed<Habitat[]>(() => {
 
 const selectedHabitat = ref<number | null>(null)
 const errorMessage = ref<string | null>(null)
+const showCertificate = ref(false)
 
 const selectedPigs = computed(() => {
   if (selectedHabitat.value === null) return []
@@ -142,6 +158,15 @@ function adopt() {
     errorMessage.value = validation.reason ?? 'These guinea pigs can’t be paired.'
     return
   }
+  // Valid pairing — present the Certificate of Adoption. The session only
+  // begins once the player confirms on the certificate (confirmAdopt).
+  showCertificate.value = true
+}
+
+// Player clicked "Adopt" on the Certificate of Adoption — commit the adoption.
+function confirmAdopt() {
+  const ids = selectedPigs.value.map(p => p.id).slice(0, 2)
+  if (ids.length === 0) return
   petStoreManager.startGameSession(ids)
   // activeGameSession is now set — PlayView swaps to the game.
 }
@@ -149,18 +174,28 @@ function adopt() {
 
 <style scoped>
 .petstore {
+  position: relative;
   flex: 1;
   min-block-size: 0;
   overflow-y: auto;
+  /* Clip the full-bleed backdrop where it hangs past the screen edges. */
+  overflow-x: hidden;
   background:
     repeating-linear-gradient(0deg, rgba(146, 64, 14, .025) 0 1px, transparent 1px 9px),
     radial-gradient(ellipse at 50% 0%, var(--color-gold-50) 0%, var(--color-gold-100) 55%, #fde8b8 100%);
 }
 
 .petstore__inner {
+  position: relative;
   max-inline-size: 1040px;
   margin-inline: auto;
   padding: var(--space-6);
+}
+
+/* Picker content sits above the decorative backdrop layer. */
+.petstore__content {
+  position: relative;
+  z-index: 1;
 }
 
 .petstore__title {
