@@ -185,7 +185,7 @@
               v-for="(pig, pi) in h.pigs"
               :key="pig.id"
               class="hutch__pig"
-              :style="pigPosStyle(pig.id)"
+              :style="pigStyleMap[pig.id]"
             >
               <div class="hutch__pig-bob" :style="{ animationDelay: `${pi * 220}ms` }">
                 <!-- 2D chrome renders every pig as the American shorthair (breed art deferred) -->
@@ -244,7 +244,7 @@ import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
 import PigSvg from './PigSvg.vue'
 import PetStoreBackdrop from './PetStoreBackdrop.vue'
 import AdoptionCertificate from './AdoptionCertificate.vue'
-import { pigColors, pigSpots, pigSwatches } from './pigColor'
+import { pigColors, pigSpots, pigSwatches, h32 } from './pigColor'
 import { usePetStoreManager } from '../../stores/petStoreManager'
 import type { GuineaPig, GuineaPigPersonality } from '../../stores/guineaPigStore'
 
@@ -316,11 +316,6 @@ interface WalkState {
   walkDuration: number
 }
 
-function h32(s: string): number {
-  let h = 0
-  for (let i = 0; i < s.length; i++) h = (Math.imul(31, h) + s.charCodeAt(i)) | 0
-  return Math.abs(h)
-}
 
 const pigWalk = ref<Record<string, WalkState>>({})
 const walkTimers: Record<string, ReturnType<typeof window.setTimeout>> = {}
@@ -329,7 +324,7 @@ function initWalk(pigId: string, pi: number) {
   // Start pigs in separate halves so they don't overlap on load
   const startX = pi === 0
     ? 5  + (h32(pigId)        % 20)   // 5–24%
-    : 38 + (h32(pigId + '~') % 25)   // 38–62%
+    : 38 + (h32(pigId + '~') % 20)   // 38–57%
   pigWalk.value[pigId] = {
     x: startX,
     facing: h32(pigId) % 2 === 0 ? 1 : -1,
@@ -350,7 +345,7 @@ function startWalk(pigId: string) {
 
   const dir: 1 | -1 = Math.random() < 0.5 ? 1 : -1
   const dist = 12 + Math.random() * 28
-  const newX = Math.max(5, Math.min(65, state.x + dir * dist))
+  const newX = Math.max(5, Math.min(60, state.x + dir * dist))
 
   if (newX === state.x) { scheduleIdle(pigId); return }
 
@@ -370,15 +365,13 @@ function startWalk(pigId: string) {
   }, walkDuration)
 }
 
-function pigPosStyle(pigId: string) {
-  const s = pigWalk.value[pigId]
-  if (!s) return {}
-  return {
-    '--pig-x': s.x,
-    '--pig-facing': s.facing,
-    '--pig-walk-dur': `${s.walkDuration}ms`,
+const pigStyleMap = computed(() => {
+  const out: Record<string, Record<string, string | number>> = {}
+  for (const [id, s] of Object.entries(pigWalk.value)) {
+    out[id] = { '--pig-x': s.x, '--pig-facing': s.facing, '--pig-walk-dur': `${s.walkDuration}ms` }
   }
-}
+  return out
+})
 
 watch(habitats, (newHabitats) => {
   newHabitats.forEach(h => {
@@ -940,22 +933,14 @@ function confirmAdopt() {
 
 .hutch__pig {
   position: absolute;
-  bottom: 8px;
-  left: calc(var(--pig-x, 30) * 1%);
+  inset-block-end: 8px;
+  inset-inline-start: calc(var(--pig-x, 30) * 1%);
   transform: scaleX(var(--pig-facing, 1));
   transform-origin: center bottom;
-  transition: left var(--pig-walk-dur, 0ms) linear, transform 80ms ease;
+  transition: inset-inline-start var(--pig-walk-dur, 0ms) linear, transform 80ms ease;
   z-index: 2;
 }
 
-.hutch__pig-bob {
-  animation: hutch-bob 2600ms ease-in-out infinite;
-}
-
-@keyframes hutch-bob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
 
 .hutch__plates {
   display: grid;
@@ -1027,7 +1012,6 @@ function confirmAdopt() {
 
 @media (prefers-reduced-motion: reduce) {
   .hutch__pig { transition: none; }
-  .hutch__pig-bob { animation: none; }
 }
 
 /* Hint text crossfade */

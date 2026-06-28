@@ -5,7 +5,7 @@ const SPOT_COLOR_NAMES = ['White', 'Black', 'Brown', 'Cream'] as const
 const SPOT_LOCATIONS = ['back', 'belly', 'face', 'neck'] as const
 
 /** Cheap deterministic hash of a pig's id string → stable spot appearance. */
-function h32(str: string): number {
+export function h32(str: string): number {
   let h = 0
   for (let i = 0; i < str.length; i++) h = (Math.imul(31, h) + str.charCodeAt(i)) | 0
   return Math.abs(h)
