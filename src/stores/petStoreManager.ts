@@ -440,66 +440,31 @@ export const usePetStoreManager = defineStore('petStoreManager', () => {
     }
   }
 
-  function generateRandomGuineaPigs(count: number = 10): void {
+  function generateRandomGuineaPigs(count: number = 8): void {
     const guineaPigs: GuineaPig[] = []
 
     for (let i = 0; i < count; i++) {
       guineaPigs.push(generateRandomGuineaPig())
     }
 
-    // Assign guinea pigs to habitats (minimum 2 per habitat, prefer 3-4)
-    let currentHabitat = 1
-    let guineaPigsInCurrentHabitat = 0
-    let guineaPigsPerHabitat = Math.floor(Math.random() * 2) + 3 // 3 or 4
-    const bonded: number[] = [] // Track which guinea pigs should form bonded pairs
-
+    // Assign exactly 2 guinea pigs per habitat — each habitat is a bonded pair.
     for (let i = 0; i < guineaPigs.length; i++) {
-      const guineaPig = guineaPigs[i]
-      const remainingGuineaPigs = guineaPigs.length - i
-
-      // Check if this is the last guinea pig
-      const isLastGuineaPig = i === guineaPigs.length - 1
-
-      // If we're about to move to a new habitat but only 1 guinea pig remains,
-      // add it to the current habitat instead
-      if (guineaPigsInCurrentHabitat >= guineaPigsPerHabitat && isLastGuineaPig) {
-        // Keep in current habitat to avoid lone guinea pig
-      } else if (guineaPigsInCurrentHabitat >= guineaPigsPerHabitat && remainingGuineaPigs >= 2) {
-        // Only start new habitat if at least 2 guinea pigs remain
-        currentHabitat++
-        guineaPigsInCurrentHabitat = 0
-        guineaPigsPerHabitat = Math.floor(Math.random() * 2) + 3 // 3 or 4 for next habitat
-      }
-
-      guineaPig.habitat = currentHabitat
-      guineaPigsInCurrentHabitat++
-
-      // If this is the start of a new habitat, randomly decide if it should have a bonded pair
-      if (guineaPigsInCurrentHabitat === 1 && i + 1 < guineaPigs.length && Math.random() < 0.4) {
-        // 40% chance of creating a bonded pair in this habitat
-        bonded.push(i) // Mark these two indices as bonded
-      }
+      guineaPigs[i].habitat = Math.floor(i / 2) + 1
     }
 
-    // Apply bonded pair timers (give both guinea pigs the same adoption timer)
-    for (const firstIndex of bonded) {
-      const firstGuineaPig = guineaPigs[firstIndex]
-      const secondGuineaPig = guineaPigs[firstIndex + 1]
-
-      if (secondGuineaPig && firstGuineaPig.habitat === secondGuineaPig.habitat) {
-        // Use the first guinea pig's timer for both
-        secondGuineaPig.adoptionTimer = firstGuineaPig.adoptionTimer
-        secondGuineaPig.adoptionDuration = firstGuineaPig.adoptionDuration
-      }
+    // Give each bonded pair the same adoption timer so they expire together.
+    for (let i = 0; i < guineaPigs.length - 1; i += 2) {
+      guineaPigs[i + 1].adoptionTimer = guineaPigs[i].adoptionTimer
+      guineaPigs[i + 1].adoptionDuration = guineaPigs[i].adoptionDuration
     }
 
     availableGuineaPigs.value = guineaPigs
 
     const logging = getLoggingStore()
     logging.addPlayerAction(
-      `Generated ${count} random guinea pigs for pet store 🏪${bonded.length > 0 ? ` (${bonded.length} bonded pairs)` : ''}`,
+      `Generated ${count} random guinea pigs for pet store 🏪 (${count / 2} bonded pairs)`,
       '🏪',
-      { count, bondedPairs: bonded.length }
+      { count, bondedPairs: count / 2 }
     )
   }
 
@@ -508,62 +473,31 @@ export const usePetStoreManager = defineStore('petStoreManager', () => {
    * Called after guinea pigs are adopted
    */
   function replenishGuineaPigPool(): void {
-    const targetCount = 10
+    const targetCount = 8
     const currentCount = availableGuineaPigs.value.length
     const needed = targetCount - currentCount
 
     if (needed > 0) {
-      const newGuineaPigs: GuineaPig[] = []
+      const maxHabitat = availableGuineaPigs.value.reduce((max, gp) =>
+        Math.max(max, gp.habitat ?? 0), 0)
 
+      const newGuineaPigs: GuineaPig[] = []
       for (let i = 0; i < needed; i++) {
         newGuineaPigs.push(generateRandomGuineaPig())
       }
 
-      // Assign new guinea pigs to habitats (minimum 2 per habitat, prefer 3-4)
-      // Find the highest existing habitat number
-      const maxHabitat = availableGuineaPigs.value.reduce((max, gp) =>
-        Math.max(max, gp.habitat || 1), 0)
-
-      let currentHabitat = maxHabitat
-      let guineaPigsInCurrentHabitat = availableGuineaPigs.value.filter(
-        gp => gp.habitat === currentHabitat
-      ).length
-
-      // Ensure current habitat has at least 2 guinea pigs
-      // If current habitat has only 1, add at least one more to it
-      const minGuineaPigsNeeded = guineaPigsInCurrentHabitat === 1 ? 1 : 0
-      let guineaPigsPerHabitat = Math.max(
-        Math.floor(Math.random() * 2) + 3, // 3 or 4
-        minGuineaPigsNeeded + guineaPigsInCurrentHabitat
-      )
-
-      for (let i = 0; i < newGuineaPigs.length; i++) {
-        const guineaPig = newGuineaPigs[i]
-
-        // Check if this is the last guinea pig
-        const isLastGuineaPig = i === newGuineaPigs.length - 1
-
-        if (guineaPigsInCurrentHabitat >= guineaPigsPerHabitat) {
-          // Don't start a new habitat if this is the last guinea pig
-          if (isLastGuineaPig) {
-            // Add to previous habitat instead
-            currentHabitat = Math.max(1, currentHabitat - 1)
-            guineaPigsInCurrentHabitat = availableGuineaPigs.value.filter(
-              gp => gp.habitat === currentHabitat
-            ).length
-          } else if (newGuineaPigs.length - i >= 2) {
-            // Only start new habitat if at least 2 guinea pigs remain
-            currentHabitat++
-            guineaPigsInCurrentHabitat = 0
-            guineaPigsPerHabitat = Math.floor(Math.random() * 2) + 3
-          }
+      // Assign 2 per new habitat, continuing from the highest existing habitat number.
+      for (let i = 0; i < newGuineaPigs.length; i += 2) {
+        const habitat = maxHabitat + Math.floor(i / 2) + 1
+        newGuineaPigs[i].habitat = habitat
+        if (i + 1 < newGuineaPigs.length) {
+          newGuineaPigs[i + 1].habitat = habitat
+          newGuineaPigs[i + 1].adoptionTimer = newGuineaPigs[i].adoptionTimer
+          newGuineaPigs[i + 1].adoptionDuration = newGuineaPigs[i].adoptionDuration
         }
-
-        guineaPig.habitat = currentHabitat
-        guineaPigsInCurrentHabitat++
-
-        availableGuineaPigs.value.push(guineaPig)
       }
+
+      availableGuineaPigs.value.push(...newGuineaPigs)
 
       const logging = getLoggingStore()
       logging.logInfo(`Replenished pet store with ${needed} new guinea pig${needed > 1 ? 's' : ''} 🏪`)
@@ -1194,7 +1128,7 @@ export const usePetStoreManager = defineStore('petStoreManager', () => {
     }
 
     if (availableGuineaPigs.value.length === 0) {
-      generateRandomGuineaPigs(10)
+      generateRandomGuineaPigs(8)
     } else {
       // Regenerate preferences for any guinea pigs with empty preferences (from before migration)
       let regeneratedCount = 0

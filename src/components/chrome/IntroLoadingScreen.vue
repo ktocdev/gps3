@@ -17,7 +17,7 @@
       >
         <div :class="{ 'intro-bob': phase === 'reveal' }" :style="{ animationDelay: `${i * 80}ms` }">
           <!-- 2D chrome renders every pig as the American shorthair (breed art deferred) -->
-          <PigSvg breed="American" :colors="p.colors" :size="p.size" :uid="`intro-${i}`" />
+          <PigSvg breed="American" :colors="p.colors" :spots="p.spots" :size="p.size" :uid="`intro-${i}`" />
         </div>
       </div>
     </div>
@@ -53,8 +53,11 @@ type Phase = 'run' | 'drop' | 'reveal' | 'gone'
 const phase = ref<Phase>('run')
 const revealing = ref(false)
 
+import type { SpotKey } from './PigSvg.vue'
+
 interface IntroPig {
   colors: string[]
+  spots?: Partial<Record<SpotKey, string>>
   size: number
   lane: 0 | 1 | 2
   startDelay: number
@@ -63,13 +66,13 @@ interface IntroPig {
 
 // lanes 0 + 2 run left→right, lane 1 runs right→left
 const PIGS: IntroPig[] = [
-  { colors: ['Cream'], size: 92, lane: 0, startDelay: 0, speed: 1.0 },
-  { colors: ['Gray'], size: 96, lane: 1, startDelay: 140, speed: 0.98 },
-  { colors: ['Orange'], size: 100, lane: 2, startDelay: 280, speed: 0.86 },
-  { colors: ['Brown'], size: 88, lane: 0, startDelay: 420, speed: 1.06 },
-  { colors: ['Tortoise'], size: 84, lane: 1, startDelay: 560, speed: 0.92 },
-  { colors: ['Black'], size: 82, lane: 2, startDelay: 700, speed: 1.04 },
-  { colors: ['Tricolor'], size: 92, lane: 0, startDelay: 840, speed: 0.9 }
+  { colors: ['Cream'],    spots: { back: 'Brown',  belly: 'Brown'  }, size: 92, lane: 0, startDelay: 0,   speed: 1.0  },
+  { colors: ['Gray'],                                                   size: 96, lane: 1, startDelay: 140, speed: 0.98 },
+  { colors: ['Orange'],   spots: { neck: 'White'                   }, size: 100, lane: 2, startDelay: 280, speed: 0.86 },
+  { colors: ['Brown'],                                                  size: 88, lane: 0, startDelay: 420, speed: 1.06 },
+  { colors: ['Tortoise'], spots: { back: 'Cream',  face: 'Black'   }, size: 84, lane: 1, startDelay: 560, speed: 0.92 },
+  { colors: ['Black'],    spots: { back: 'Orange', neck: 'White'   }, size: 82, lane: 2, startDelay: 700, speed: 1.04 },
+  { colors: ['Tricolor'],                                               size: 92, lane: 0, startDelay: 840, speed: 0.9  }
 ]
 
 const LANE_TOPS = ['56%', '66%', '76%']
@@ -206,7 +209,7 @@ onUnmounted(() => {
 .intro__title {
   position: absolute;
   inset-inline: 0;
-  top: 32%;
+  top: min(32%, 26vh);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -217,7 +220,7 @@ onUnmounted(() => {
 .intro__wordmark {
   font-family: var(--font-family-heading);
   font-weight: 700;
-  font-size: clamp(120px, 18vw, 240px);
+  font-size: clamp(80px, min(18vw, 26vh), 240px);
   line-height: 0.95;
   letter-spacing: -0.02em;
   color: var(--color-wood-dark);

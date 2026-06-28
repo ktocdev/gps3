@@ -62,12 +62,14 @@ const props = withDefaults(defineProps<{
   eye?: string
   size?: number
   uid?: string
+  walking?: boolean
 }>(), {
   breed: 'American',
   colors: () => ['Orange'],
   eye: 'black',
   size: 110,
   uid: 'default',
+  walking: false,
 })
 
 const hex = computed(() => props.colors.map(c => FUR_COLORS[c] ?? c))
@@ -89,6 +91,13 @@ const clipId      = computed(() => `pig-clip-${props.uid}`)
 const svgH        = computed(() => props.size * (120 / 180))
 
 const eyeHex = computed(() => EYE_COLORS[props.eye] ?? props.eye)
+
+function h32uid(s: string): number {
+  let h = 0
+  for (let i = 0; i < s.length; i++) h = (Math.imul(31, h) + s.charCodeAt(i)) | 0
+  return Math.abs(h)
+}
+const blinkDelay = computed(() => `${-(h32uid(props.uid) % 7000)}ms`)
 
 // Feet are black when the lower-body area carries black fur.
 // A black saddle alone doesn't darken the feet.
@@ -185,6 +194,7 @@ const TUFTS    = [[50, 40], [66, 33], [82, 34], [98, 34], [114, 37], [130, 41]]
     viewBox="0 0 180 120"
     :aria-label="`${breed} guinea pig`"
     style="display:block;overflow:visible"
+    :class="{ 'pig--walking': walking }"
   >
     <defs>
       <clipPath :id="clipId">
@@ -206,8 +216,8 @@ const TUFTS    = [[50, 40], [66, 33], [82, 34], [98, 34], [114, 37], [130, 41]]
 
     <!-- Far-side feet (hidden under the Peruvian's skirt) -->
     <template v-if="breed !== 'Peruvian'">
-      <ellipse cx="62" cy="99" rx="6" ry="4" :fill="footColor" opacity="0.6" />
-      <ellipse cx="125" cy="97" rx="6" ry="4" :fill="footColor" opacity="0.6" />
+      <ellipse class="pig-foot-b" cx="62" cy="99" rx="6" ry="4" :fill="footColor" opacity="0.6" />
+      <ellipse class="pig-foot-a" cx="125" cy="97" rx="6" ry="4" :fill="footColor" opacity="0.6" />
     </template>
 
     <!-- Far ear (flat, folded — no inner color) -->
@@ -269,8 +279,8 @@ const TUFTS    = [[50, 40], [66, 33], [82, 34], [98, 34], [114, 37], [130, 41]]
 
     <!-- Near-side feet (hidden under the Peruvian's skirt) -->
     <template v-if="breed !== 'Peruvian'">
-      <ellipse cx="50"  cy="101" rx="7" ry="4" :fill="footColor" />
-      <ellipse cx="115" cy="101" rx="7" ry="4" :fill="footColor" />
+      <ellipse class="pig-foot-a" cx="50"  cy="101" rx="7" ry="4" :fill="footColor" />
+      <ellipse class="pig-foot-b" cx="115" cy="101" rx="7" ry="4" :fill="footColor" />
     </template>
 
     <!-- Peruvian: long skirt flaring outward over the feet, tail tip at rear, + tall forward crest -->
@@ -298,9 +308,11 @@ const TUFTS    = [[50, 40], [66, 33], [82, 34], [98, 34], [114, 37], [130, 41]]
     </template>
 
     <!-- Eye -->
-    <circle cx="150"   cy="66"   r="3.2" :fill="eyeHex" />
-    <circle cx="150"   cy="66"   r="1.6" fill="#000"    opacity="0.35" />
-    <circle cx="150.8" cy="64.8" r="1.1" fill="#fff"    opacity="0.9" />
+    <g class="pig-eye" :style="{ animationDelay: blinkDelay }">
+      <circle cx="150"   cy="66"   r="3.2" :fill="eyeHex" />
+      <circle cx="150"   cy="66"   r="1.6" fill="#000"    opacity="0.35" />
+      <circle cx="150.8" cy="64.8" r="1.1" fill="#fff"    opacity="0.9" />
+    </g>
 
     <!-- Blush -->
     <ellipse cx="156" cy="80" rx="7" ry="4" :fill="BLUSH_COLOR" opacity="0.55" />
@@ -312,3 +324,41 @@ const TUFTS    = [[50, 40], [66, 33], [82, 34], [98, 34], [114, 37], [130, 41]]
     <path d="M 163 80 q 2.5 2 5 0" stroke="#7a4040" stroke-width="0.8" fill="none" stroke-linecap="round" />
   </svg>
 </template>
+
+<style>
+.pig-eye {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pig-blink 7s ease-in-out infinite;
+}
+
+@keyframes pig-blink {
+  0%, 93%, 100% { transform: scaleY(1); }
+  96%           { transform: scaleY(0.05); }
+}
+
+.pig-foot-a,
+.pig-foot-b {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes pig-step {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+
+.pig--walking .pig-foot-a {
+  animation: pig-step 320ms ease-in-out infinite;
+}
+
+.pig--walking .pig-foot-b {
+  animation: pig-step 320ms ease-in-out infinite;
+  animation-delay: -160ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pig--walking .pig-foot-a,
+  .pig--walking .pig-foot-b { animation: none; }
+}
+</style>
