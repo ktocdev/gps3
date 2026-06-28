@@ -132,14 +132,65 @@
               <ellipse cx="30" cy="34" rx="9" ry="10" fill="rgba(0,0,0,.55)" />
               <ellipse cx="30" cy="25.5" rx="6.5" ry="1.2" fill="var(--hutch-tint)" />
             </svg>
+            <!-- Hay rack — wooden barrel feeder -->
+            <svg class="hutch__hayrack" viewBox="0 0 56 70" aria-hidden="true">
+              <!-- Ground shadow -->
+              <ellipse cx="28" cy="67" rx="21" ry="2.5" fill="rgba(0,0,0,.15)" />
+              <!-- Hay interior background (visible through gaps between planks) -->
+              <rect x="8" y="14" width="40" height="40" fill="#cec448" />
+              <!-- Interior hay texture strands -->
+              <g stroke="#989228" stroke-width="0.9" stroke-linecap="round" fill="none" opacity="0.6">
+                <line x1="10" y1="20" x2="14" y2="30" />
+                <line x1="11" y1="33" x2="8" y2="44" />
+                <line x1="21" y1="18" x2="24" y2="28" />
+                <line x1="19" y1="36" x2="23" y2="47" />
+                <line x1="33" y1="22" x2="30" y2="32" />
+                <line x1="36" y1="34" x2="39" y2="45" />
+                <line x1="44" y1="19" x2="41" y2="30" />
+              </g>
+              <!-- Vertical wooden planks — 7 planks, wider at center to suggest cylinder curvature -->
+              <g stroke="#6b2e08" stroke-width="0.4">
+                <rect x="8"     y="14" width="2.5" height="40" rx="0.5" fill="#a06828" />
+                <rect x="13.25" y="14" width="3.5" height="40" rx="0.8" fill="#b87832" />
+                <rect x="18.75" y="14" width="4.5" height="40" rx="0.8" fill="#c88840" />
+                <rect x="25.5"  y="14" width="5"   height="40" rx="1"   fill="#d89448" />
+                <rect x="32.5"  y="14" width="4.5" height="40" rx="0.8" fill="#c88840" />
+                <rect x="39.25" y="14" width="3.5" height="40" rx="0.8" fill="#b87832" />
+                <rect x="45.5"  y="14" width="2.5" height="40" rx="0.5" fill="#a06828" />
+              </g>
+              <!-- Bottom wooden disc -->
+              <ellipse cx="28" cy="54" rx="22" ry="5" fill="#b87428" stroke="#6b2e08" stroke-width="1.2" />
+              <ellipse cx="28" cy="53.5" rx="16" ry="3" fill="#cc9040" opacity="0.5" />
+              <!-- Hay strands poking up through the top opening gaps -->
+              <g stroke="#c8bc40" stroke-width="1.2" stroke-linecap="round" fill="none">
+                <line x1="12" y1="14" x2="10" y2="3" />
+                <line x1="18" y1="14" x2="17" y2="2" />
+                <line x1="24" y1="14" x2="22" y2="1" />
+                <line x1="32" y1="14" x2="33" y2="0" />
+                <line x1="38" y1="14" x2="40" y2="2" />
+                <line x1="44" y1="14" x2="46" y2="4" />
+              </g>
+              <!-- Top wooden disc (drawn over planks and hay strand bases) -->
+              <ellipse cx="28" cy="14" rx="22" ry="5" fill="#b87428" stroke="#6b2e08" stroke-width="1.2" />
+              <ellipse cx="28" cy="13" rx="16" ry="3" fill="#e8cc78" />
+              <ellipse cx="23" cy="11.5" rx="7" ry="1.8" fill="rgba(255,255,255,.42)" transform="rotate(-12,23,11.5)" />
+              <!-- Stray hay scattered on ground -->
+              <g stroke="#a0a030" stroke-width="1" stroke-linecap="round" fill="none">
+                <line x1="4"  y1="60" x2="1"  y2="63" />
+                <line x1="51" y1="59" x2="55" y2="62" />
+                <line x1="20" y1="62" x2="15" y2="65" />
+              </g>
+            </svg>
             <div
               v-for="(pig, pi) in h.pigs"
               :key="pig.id"
               class="hutch__pig"
-              :style="{ animationDelay: `${pi * 220}ms` }"
+              :style="pigPosStyle(pig.id)"
             >
-              <!-- 2D chrome renders every pig as the American shorthair (breed art deferred) -->
-              <PigSvg breed="American" :colors="pigColors(pig)" :spots="pigSpots(pig)" :eye="pig.appearance.eyeColor" :size="92" :uid="pig.id" />
+              <div class="hutch__pig-bob" :style="{ animationDelay: `${pi * 220}ms` }">
+                <!-- 2D chrome renders every pig as the American shorthair (breed art deferred) -->
+                <PigSvg breed="American" :colors="pigColors(pig)" :spots="pigSpots(pig)" :eye="pig.appearance.eyeColor" :size="92" :uid="pig.id" :walking="!!pigWalk[pig.id]?.walking" />
+              </div>
             </div>
             <!-- Water bottle hanging from cage wall -->
             <svg class="hutch__waterbottle" viewBox="0 0 22 56" aria-hidden="true">
@@ -189,7 +240,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, onUnmounted } from 'vue'
+import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
 import PigSvg from './PigSvg.vue'
 import PetStoreBackdrop from './PetStoreBackdrop.vue'
 import AdoptionCertificate from './AdoptionCertificate.vue'
@@ -257,8 +308,89 @@ onMounted(() => {
   }, 3200)
 })
 
+// ── Per-pig walking state machine ────────────────────────────────────────────
+interface WalkState {
+  x: number           // left% within the stage (5–65)
+  facing: 1 | -1     // 1 = right, -1 = left
+  walking: boolean
+  walkDuration: number
+}
+
+function h32(s: string): number {
+  let h = 0
+  for (let i = 0; i < s.length; i++) h = (Math.imul(31, h) + s.charCodeAt(i)) | 0
+  return Math.abs(h)
+}
+
+const pigWalk = ref<Record<string, WalkState>>({})
+const walkTimers: Record<string, ReturnType<typeof window.setTimeout>> = {}
+
+function initWalk(pigId: string, pi: number) {
+  // Start pigs in separate halves so they don't overlap on load
+  const startX = pi === 0
+    ? 5  + (h32(pigId)        % 20)   // 5–24%
+    : 38 + (h32(pigId + '~') % 25)   // 38–62%
+  pigWalk.value[pigId] = {
+    x: startX,
+    facing: h32(pigId) % 2 === 0 ? 1 : -1,
+    walking: false,
+    walkDuration: 0,
+  }
+  scheduleIdle(pigId)
+}
+
+function scheduleIdle(pigId: string) {
+  // Idle 1.8–5 s — stopped much more than walking
+  walkTimers[pigId] = window.setTimeout(() => startWalk(pigId), 1800 + Math.random() * 3200)
+}
+
+function startWalk(pigId: string) {
+  const state = pigWalk.value[pigId]
+  if (!state) return
+
+  const dir: 1 | -1 = Math.random() < 0.5 ? 1 : -1
+  const dist = 12 + Math.random() * 28
+  const newX = Math.max(5, Math.min(65, state.x + dir * dist))
+
+  if (newX === state.x) { scheduleIdle(pigId); return }
+
+  // Always derive facing from actual movement direction so the pig never walks backward
+  const facing: 1 | -1 = newX > state.x ? 1 : -1
+  const actualDist = Math.abs(newX - state.x)
+  const walkDuration = 600 + actualDist * 28 + Math.random() * 300
+
+  pigWalk.value[pigId] = { x: newX, facing, walking: true, walkDuration }
+
+  walkTimers[pigId] = window.setTimeout(() => {
+    if (pigWalk.value[pigId]) {
+      pigWalk.value[pigId].walking = false
+      pigWalk.value[pigId].walkDuration = 0
+    }
+    scheduleIdle(pigId)
+  }, walkDuration)
+}
+
+function pigPosStyle(pigId: string) {
+  const s = pigWalk.value[pigId]
+  if (!s) return {}
+  return {
+    '--pig-x': s.x,
+    '--pig-facing': s.facing,
+    '--pig-walk-dur': `${s.walkDuration}ms`,
+  }
+}
+
+watch(habitats, (newHabitats) => {
+  newHabitats.forEach(h => {
+    h.pigs.forEach((pig, pi) => {
+      if (!pigWalk.value[pig.id]) initWalk(pig.id, pi)
+    })
+  })
+}, { immediate: true })
+
 onUnmounted(() => {
   if (hintTimer !== null) clearInterval(hintTimer)
+  Object.values(walkTimers).forEach(t => clearTimeout(t))
 })
 
 const ctaHint = computed(() => {
@@ -768,10 +900,6 @@ function confirmAdopt() {
 
 .hutch__stage {
   position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-around;
-  gap: 8px;
   min-block-size: 130px;
   padding: 10px;
   background: linear-gradient(180deg, #fffef5 0%, #fdf3c4 100%);
@@ -782,12 +910,22 @@ function confirmAdopt() {
 
 .hutch__igloo {
   position: absolute;
-  inset-block-end: 6px;
+  inset-block-start: 6px;
   inset-inline-start: 6px;
-  inline-size: 48px;
+  inline-size: 76px;
   block-size: auto;
   pointer-events: none;
   z-index: 0;
+}
+
+.hutch__hayrack {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-end: 30px;
+  inline-size: 52px;
+  block-size: auto;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .hutch__waterbottle {
@@ -801,8 +939,16 @@ function confirmAdopt() {
 }
 
 .hutch__pig {
-  position: relative;
+  position: absolute;
+  bottom: 8px;
+  left: calc(var(--pig-x, 30) * 1%);
+  transform: scaleX(var(--pig-facing, 1));
+  transform-origin: center bottom;
+  transition: left var(--pig-walk-dur, 0ms) linear, transform 80ms ease;
   z-index: 2;
+}
+
+.hutch__pig-bob {
   animation: hutch-bob 2600ms ease-in-out infinite;
 }
 
@@ -880,7 +1026,8 @@ function confirmAdopt() {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hutch__pig { animation: none; }
+  .hutch__pig { transition: none; }
+  .hutch__pig-bob { animation: none; }
 }
 
 /* Hint text crossfade */

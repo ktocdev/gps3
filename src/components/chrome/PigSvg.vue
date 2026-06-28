@@ -62,6 +62,7 @@ const props = withDefaults(defineProps<{
   eye?: string
   size?: number
   uid?: string
+  walking?: boolean
 }>(), {
   breed: 'American',
   colors: () => ['Orange'],
@@ -192,6 +193,7 @@ const TUFTS    = [[50, 40], [66, 33], [82, 34], [98, 34], [114, 37], [130, 41]]
     viewBox="0 0 180 120"
     :aria-label="`${breed} guinea pig`"
     style="display:block;overflow:visible"
+    :class="{ 'pig--walking': walking }"
   >
     <defs>
       <clipPath :id="clipId">
@@ -213,8 +215,8 @@ const TUFTS    = [[50, 40], [66, 33], [82, 34], [98, 34], [114, 37], [130, 41]]
 
     <!-- Far-side feet (hidden under the Peruvian's skirt) -->
     <template v-if="breed !== 'Peruvian'">
-      <ellipse cx="62" cy="99" rx="6" ry="4" :fill="footColor" opacity="0.6" />
-      <ellipse cx="125" cy="97" rx="6" ry="4" :fill="footColor" opacity="0.6" />
+      <ellipse class="pig-foot-b" cx="62" cy="99" rx="6" ry="4" :fill="footColor" opacity="0.6" />
+      <ellipse class="pig-foot-a" cx="125" cy="97" rx="6" ry="4" :fill="footColor" opacity="0.6" />
     </template>
 
     <!-- Far ear (flat, folded — no inner color) -->
@@ -276,8 +278,8 @@ const TUFTS    = [[50, 40], [66, 33], [82, 34], [98, 34], [114, 37], [130, 41]]
 
     <!-- Near-side feet (hidden under the Peruvian's skirt) -->
     <template v-if="breed !== 'Peruvian'">
-      <ellipse cx="50"  cy="101" rx="7" ry="4" :fill="footColor" />
-      <ellipse cx="115" cy="101" rx="7" ry="4" :fill="footColor" />
+      <ellipse class="pig-foot-a" cx="50"  cy="101" rx="7" ry="4" :fill="footColor" />
+      <ellipse class="pig-foot-b" cx="115" cy="101" rx="7" ry="4" :fill="footColor" />
     </template>
 
     <!-- Peruvian: long skirt flaring outward over the feet, tail tip at rear, + tall forward crest -->
@@ -332,5 +334,30 @@ const TUFTS    = [[50, 40], [66, 33], [82, 34], [98, 34], [114, 37], [130, 41]]
 @keyframes pig-blink {
   0%, 93%, 100% { transform: scaleY(1); }
   96%           { transform: scaleY(0.05); }
+}
+
+.pig-foot-a,
+.pig-foot-b {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes pig-step {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+
+.pig--walking .pig-foot-a {
+  animation: pig-step 320ms ease-in-out infinite;
+}
+
+.pig--walking .pig-foot-b {
+  animation: pig-step 320ms ease-in-out infinite;
+  animation-delay: -160ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pig--walking .pig-foot-a,
+  .pig--walking .pig-foot-b { animation: none; }
 }
 </style>
