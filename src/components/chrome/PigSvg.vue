@@ -1,4 +1,4 @@
-﻿<script lang="ts">
+<script lang="ts">
 export const FUR_COLORS: Record<string, string> = {
   // Common
   White:     '#f5f5f0',
@@ -47,7 +47,7 @@ const BODY_PATH =
 const TEDDY_PATH =
   'M 30 90 C 8 75 20 45 40 38 Q 50 26 60 40 Q 70 26 80 40 Q 90 26 100 40 Q 110 28 122 40 Q 132 30 142 40 C 165 46 175 65 168 78 C 162 90 145 96 110 98 C 70 100 35 98 30 90 Z'
 
-// Abyssinian: plump bean body â€” rounder and taller than the American oval
+// Abyssinian: plump bean body — rounder and taller than the American oval
 const ABYSSINIAN_PATH =
   'M 26 86 C 4 70 10 42 38 34 C 66 27 102 29 132 35 C 162 42 178 58 170 74 C 162 89 142 97 108 98 C 70 100 32 97 26 86 Z'
 
@@ -111,7 +111,7 @@ const footColor = computed(() => {
   return FOOT_COLOR
 })
 
-// Named per-spot colors â€” each key independently overrides a patch position
+// Named per-spot colors — each key independently overrides a patch position
 const spotHex = computed(() => {
   const s = props.spots
   if (!s) return {} as Partial<Record<'face' | 'neck' | 'back' | 'belly', string>>
@@ -123,7 +123,7 @@ const spotHex = computed(() => {
   return out
 })
 
-// â”€â”€ Abyssinian fur â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Abyssinian fur ───────────────────────────────────────────
 // Shade a hex color toward black (amt<0) or white (amt>0)
 function shade(color: string, amt: number): string {
   if (!/^#[0-9a-f]{6}$/i.test(color)) return color
@@ -145,7 +145,7 @@ function rand(i: number): number {
   return x - Math.floor(x)
 }
 
-// Rosette whorl centers â€” fur radiates outward from each (sunburst)
+// Rosette whorl centers — fur radiates outward from each (sunburst)
 const ABY_CENTERS = [[40, 56], [70, 50], [100, 52], [126, 56], [74, 80]]
 
 // Fine fur strokes covering the body, each radiating from the nearest rosette
@@ -176,7 +176,7 @@ const abyFur = computed(() => {
   return out
 })
 
-// Fluffy rounded tufts along the top edge â€” taller at rear (left) and crest (right)
+// Fluffy rounded tufts along the top edge — taller at rear (left) and crest (right)
 const ABY_TUFTS = [
   [30, 42, 8], [37, 34, 9], [47, 30, 9], [57, 32, 8],     // rear cluster
   [68, 33, 7], [80, 32, 7], [92, 33, 7],                  // mid back
@@ -220,7 +220,7 @@ const TUFTS    = [[50, 40], [66, 33], [82, 34], [98, 34], [114, 37], [130, 41]]
       <ellipse class="pig-foot-a" cx="125" cy="97" rx="6" ry="4" :fill="footColor" opacity="0.6" />
     </template>
 
-    <!-- Far ear (flat, folded â€” no inner color) -->
+    <!-- Far ear (flat, folded — no inner color) -->
     <ellipse cx="146" cy="40" rx="9" ry="8" :fill="earColor" />
 
     <!-- Abyssinian: fluffy rounded tufts (before body so body covers their bases) -->
@@ -238,13 +238,13 @@ const TUFTS    = [[50, 40], [66, 33], [82, 34], [98, 34], [114, 37], [130, 41]]
       <ellipse v-if="rearColor"   cx="142" cy="72" rx="32" ry="24" :fill="rearColor" />
       <ellipse v-if="saddleColor" cx="120" cy="44" rx="14" ry="9"  :fill="saddleColor" />
 
-      <!-- Named spots â€” each independently colored, rendered over base patches -->
+      <!-- Named spots — each independently colored, rendered over base patches -->
       <ellipse v-if="spotHex.back"   cx="58"  cy="46" rx="50" ry="22" :fill="spotHex.back" />
       <ellipse v-if="spotHex.belly"  cx="68"  cy="88" rx="40" ry="14" :fill="spotHex.belly" />
       <ellipse v-if="spotHex.face"   cx="142" cy="72" rx="32" ry="24" :fill="spotHex.face" />
       <ellipse v-if="spotHex.neck"   cx="120" cy="44" rx="14" ry="9"  :fill="spotHex.neck" />
 
-      <!-- Abyssinian: fine diffused fur â€” short strokes radiating from each rosette -->
+      <!-- Abyssinian: fine diffused fur — short strokes radiating from each rosette -->
       <template v-if="breed === 'Abyssinian'">
         <line v-for="(f, i) in abyFur" :key="i"
           :x1="f.x1" :y1="f.y1" :x2="f.x2" :y2="f.y2"
@@ -285,7 +285,7 @@ const TUFTS    = [[50, 40], [66, 33], [82, 34], [98, 34], [114, 37], [130, 41]]
 
     <!-- Peruvian: long skirt flaring outward over the feet, tail tip at rear, + tall forward crest -->
     <template v-if="breed === 'Peruvian'">
-      <!-- long ruffly fur skirt â€” flares out below the body and drapes low, tapering to a tail tip -->
+      <!-- long ruffly fur skirt — flares out below the body and drapes low, tapering to a tail tip -->
       <path
         d="M 144 74 C 158 84 164 96 159 106 Q 150 114 141 104 Q 132 115 123 104 Q 114 115 105 104 Q 96 115 87 104 Q 78 115 69 103 Q 60 114 51 102 Q 42 112 33 100 Q 24 109 16 97 C 9 93 5 91 5 85 C 9 79 22 72 44 70 C 82 67 118 68 144 74 Z"
         :fill="c0"
