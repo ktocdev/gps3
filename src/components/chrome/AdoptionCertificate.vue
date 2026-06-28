@@ -68,6 +68,7 @@
                 <PigSvg
                   breed="American"
                   :colors="pigColors(pig)"
+                  :spots="pigSpots(pig)"
                   :eye="pig.appearance.eyeColor"
                   :size="46"
                   :uid="`cert-${pig.id}`"
@@ -87,9 +88,10 @@
               <span class="cert-card__stat-label">Coat</span>
               <span class="cert-card__stat-value cert-card__coat">
                 <span
+                  v-for="(hex, si) in pigSwatches(pig)"
+                  :key="si"
                   class="cert-card__swatch"
-                  :style="{ background: furHex(pig.appearance.furColor) }"
-                  :title="coatNames(pig)"
+                  :style="{ background: hex }"
                 ></span>
                 <span>{{ coatNames(pig) }}</span>
               </span>
@@ -149,7 +151,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import PigSvg from './PigSvg.vue'
-import { pigColors, furHex } from './pigColor'
+import { pigColors, pigSpots, pigSwatches } from './pigColor'
 import type { GuineaPig } from '../../stores/guineaPigStore'
 
 const props = defineProps<{ pigs: GuineaPig[] }>()
@@ -213,7 +215,7 @@ function disposition(pig: GuineaPig): string {
 }
 
 function genderLabel(pig: GuineaPig): string {
-  return pig.gender === 'male' ? '♂ Boar' : '♀ Sow'
+  return pig.gender === 'male' ? 'Boar' : 'Sow'
 }
 
 function coatNames(pig: GuineaPig): string {

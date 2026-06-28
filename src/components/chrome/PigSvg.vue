@@ -90,6 +90,13 @@ const svgH        = computed(() => props.size * (120 / 180))
 
 const eyeHex = computed(() => EYE_COLORS[props.eye] ?? props.eye)
 
+function h32uid(s: string): number {
+  let h = 0
+  for (let i = 0; i < s.length; i++) h = (Math.imul(31, h) + s.charCodeAt(i)) | 0
+  return Math.abs(h)
+}
+const blinkDelay = computed(() => `${-(h32uid(props.uid) % 7000)}ms`)
+
 // Feet are black when the lower-body area carries black fur.
 // A black saddle alone doesn't darken the feet.
 const footColor = computed(() => {
@@ -298,9 +305,11 @@ const TUFTS    = [[50, 40], [66, 33], [82, 34], [98, 34], [114, 37], [130, 41]]
     </template>
 
     <!-- Eye -->
-    <circle cx="150"   cy="66"   r="3.2" :fill="eyeHex" />
-    <circle cx="150"   cy="66"   r="1.6" fill="#000"    opacity="0.35" />
-    <circle cx="150.8" cy="64.8" r="1.1" fill="#fff"    opacity="0.9" />
+    <g class="pig-eye" :style="{ animationDelay: blinkDelay }">
+      <circle cx="150"   cy="66"   r="3.2" :fill="eyeHex" />
+      <circle cx="150"   cy="66"   r="1.6" fill="#000"    opacity="0.35" />
+      <circle cx="150.8" cy="64.8" r="1.1" fill="#fff"    opacity="0.9" />
+    </g>
 
     <!-- Blush -->
     <ellipse cx="156" cy="80" rx="7" ry="4" :fill="BLUSH_COLOR" opacity="0.55" />
@@ -312,3 +321,16 @@ const TUFTS    = [[50, 40], [66, 33], [82, 34], [98, 34], [114, 37], [130, 41]]
     <path d="M 163 80 q 2.5 2 5 0" stroke="#7a4040" stroke-width="0.8" fill="none" stroke-linecap="round" />
   </svg>
 </template>
+
+<style scoped>
+.pig-eye {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pig-blink 7s ease-in-out infinite;
+}
+
+@keyframes pig-blink {
+  0%, 93%, 100% { transform: scaleY(1); }
+  96%           { transform: scaleY(0.05); }
+}
+</style>
