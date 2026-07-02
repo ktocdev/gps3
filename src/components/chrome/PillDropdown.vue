@@ -9,13 +9,14 @@
       :accent="accent"
       :show-grain="showGrain"
       :no-padding="noPadding"
-      :flex-col="flexCol"
-      :style="flexCol ? { maxBlockSize: '70vh' } : undefined"
     >
-      <template v-if="title && !noPadding">
-        <div class="parchment-panel__title">{{ icon }} {{ title }}</div>
+      <template v-if="!noPadding">
+        <div v-if="title" class="parchment-panel__title">{{ icon }} {{ title }}</div>
+        <div class="parchment-panel__scroll"><slot /></div>
       </template>
-      <slot />
+      <template v-else>
+        <slot />
+      </template>
     </ParchmentPanel>
   </div>
 </template>

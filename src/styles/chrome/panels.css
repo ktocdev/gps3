@@ -73,28 +73,31 @@
   gap: 6px;
   align-items: center;
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  color: var(--meter-text, var(--color-wood-border));
+  font-weight: var(--font-weight-bold);
+  color: var(--color-wood-border);
 }
 
 .chrome-meter__value {
-  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family-heading);
+  font-weight: 800;
   font-size: var(--font-size-sm);
   color: var(--meter-text, var(--color-wood-border));
 }
 
 .chrome-meter__track {
   block-size: 8px;
-  background: var(--chrome-entry-bg);
-  border: 1px solid var(--chrome-divider);
+  background: linear-gradient(180deg, var(--color-wood-shadow) 0%, var(--color-wood-dark) 100%);
   border-radius: var(--radius-full);
   overflow: hidden;
+  border: 1.5px solid var(--color-wood-border);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .chrome-meter__fill {
   block-size: 100%;
   border-radius: var(--radius-full);
   transition: width 300ms ease;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
 /* ── Need rows (pig drawer Needs tab) ──────────────────────────────────── */
@@ -110,7 +113,8 @@
   border-inline-start: 3px solid var(--need-border, var(--color-gold-700));
 }
 
-.need-row__head {
+.need-row__head,
+.need-row__info {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -130,6 +134,8 @@
   font-weight: 800;
   font-size: var(--font-size-sm);
   color: var(--need-text, var(--color-wood-shadow));
+  min-inline-size: 3rem;
+  text-align: end;
 }
 
 .need-row__track {
@@ -146,6 +152,36 @@
   border-radius: var(--radius-full);
   transition: width 300ms ease;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.need-row__slider {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+/* Urgency states — set by data-need-urgency attr (NeedRow.vue) or inline vars (PigNeedsPanel.vue) */
+.need-row[data-need-urgency="satisfied"] {
+  --need-bg:     rgba(22, 163, 74, 0.14);
+  --need-border: var(--color-green-500);
+  --need-text:   var(--color-green-800);
+}
+
+.need-row[data-need-urgency="good"] {
+  --need-bg:     rgba(100, 116, 139, 0.05);
+  --need-border: var(--color-border-dark);
+  --need-text:   var(--color-wood-shadow);
+}
+
+.need-row[data-need-urgency="medium"] {
+  --need-bg:     rgba(234, 88, 12, 0.14);
+  --need-border: var(--color-gold-500);
+  --need-text:   var(--color-gold-700);
+}
+
+.need-row[data-need-urgency="critical"] {
+  --need-bg:     rgba(220, 38, 38, 0.14);
+  --need-border: var(--color-red-500);
+  --need-text:   var(--color-red-700);
 }
 
 /* ── Pig drawer (tabs + info) ──────────────────────────────────────────── */

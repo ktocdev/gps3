@@ -55,8 +55,6 @@
           width="380px"
           accent="var(--color-ivy)"
           show-grain
-          icon="🏠"
-          title="Habitat Status"
         >
           <HabitatStatusPanel />
         </PillDropdown>
@@ -160,7 +158,14 @@ const inventoryPanelRef = ref<InstanceType<typeof InventoryPanel> | null>(null)
 // One dropdown open at a time: 'activity' | 'habitat' | 'inventory' | <pigId>
 const openPanel = ref<string | null>(null)
 
+// When mousedown closes a panel, remember which one so the subsequent
+// click event on the same pill doesn't immediately reopen it.
+let closedByMousedown: string | null = null
+
 function togglePanel(id: string) {
+  const suppress = closedByMousedown
+  closedByMousedown = null
+  if (suppress === id) return
   openPanel.value = openPanel.value === id ? null : id
 }
 
@@ -182,12 +187,15 @@ function worstNeedEmoji(pig: GuineaPig): string {
   return worst ? NEED_META[worst].emoji : ''
 }
 
-// Close all dropdowns on outside mousedown. Must NOT stopPropagation —
-// the same click can still raycast into the canvas.
+// Close the open dropdown on any mousedown that doesn't land inside it.
+// Keeps the panel open only when interacting with its own content ([data-sim-panel]).
+// Clicks on the bar background, rivets, or other pills all dismiss.
+// Must NOT stopPropagation — the same click still raycasts into the canvas.
 function onDocumentMouseDown(e: MouseEvent) {
   if (!openPanel.value) return
-  const target = e.target as Node
-  if (rootRef.value && rootRef.value.contains(target)) return
+  const target = e.target as HTMLElement
+  if (target.closest?.('[data-sim-panel]')) return
+  closedByMousedown = openPanel.value
   openPanel.value = null
 }
 

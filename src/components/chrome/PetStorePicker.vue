@@ -47,17 +47,17 @@
                     <input
                       v-if="editingSlot === slot"
                       v-focus
+                      v-model="editingValue"
                       class="slot__name slot__name--input"
-                      :value="displayName(pig)"
-                      @keydown.enter.prevent="commitName(pig.id, pig.name, ($event.target as HTMLInputElement).value)"
+                      @keydown.enter.prevent="commitName(pig.id, pig.name, editingValue)"
                       @keydown.escape.prevent="editingSlot = null"
-                      @blur="(e) => commitName(pig.id, pig.name, (e.target as HTMLInputElement).value)"
+                      @blur="commitName(pig.id, pig.name, editingValue)"
                     />
                     <button
                       v-else
                       class="slot__name slot__name--editable"
                       :title="`Rename ${displayName(pig)}`"
-                      @click="editingSlot = slot"
+                      @click="startEdit(slot, pig)"
                     >{{ displayName(pig) }}</button>
                     <span class="slot__gender">{{ pig.gender === 'male' ? 'Boar' : 'Sow' }}</span>
                   </div>
@@ -397,6 +397,12 @@ const ctaHint = computed(() => {
 // Inline name editing — local overrides keyed by pig id, not persisted to store.
 const customNames = ref<Record<string, string>>({})
 const editingSlot = ref<number | null>(null)
+const editingValue = ref('')
+
+function startEdit(slot: number, pig: GuineaPig) {
+  editingValue.value = displayName(pig)
+  editingSlot.value = slot
+}
 
 function displayName(pig: GuineaPig): string {
   return customNames.value[pig.id] ?? pig.name

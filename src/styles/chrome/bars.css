@@ -231,7 +231,7 @@
 
 .sim-topbar {
   position: relative;
-  z-index: 25;
+  z-index: 40;
   padding-block: 12px 14px;
   padding-inline: 18px;
   background: linear-gradient(180deg, var(--color-wood-light) 0%, #a05a0c 50%, #87470b 100%);
