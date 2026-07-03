@@ -8,7 +8,7 @@
       @deselect-inventory-item="handleInventoryDeselect"
     />
 
-    <div class="game-view__canvas-wrapper" data-tutorial="cage">
+    <div class="game-view__canvas-wrapper">
       <!-- Targeting / placement banner -->
       <ParchmentBanner
         v-if="interactionInstruction"
@@ -17,8 +17,12 @@
         @cancel="cancelInteraction"
       >{{ interactionInstruction.message }}</ParchmentBanner>
 
+      <!-- data-tutorial lives on the canvas itself, not the wrapper: the
+           wrapper also contains FabCluster/dialogs, which would otherwise
+           satisfy the "cage" step's click-to-advance check. -->
       <canvas
         ref="canvasRef"
+        data-tutorial="cage"
         :class="{
           'game-view__canvas--placing': placement.isActive(),
           'game-view__canvas--petting': pendingInteraction === 'pet'
