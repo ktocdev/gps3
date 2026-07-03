@@ -25,9 +25,18 @@
             <span class="help-overlay__title-icon" aria-hidden="true">📖</span>
             <span>Help — Live Mode</span>
           </div>
-          <button class="help-overlay__close" type="button" aria-label="Close help" @click="close">
-            ✕ Close
-          </button>
+          <div class="help-overlay__actions">
+            <button
+              class="help-overlay__btn help-overlay__btn--accent"
+              type="button"
+              @click="replayTutorial"
+            >
+              🎓 Replay Tutorial
+            </button>
+            <button class="help-overlay__btn" type="button" aria-label="Close help" @click="close">
+              ✕ Close
+            </button>
+          </div>
         </div>
 
         <!-- Body: tab rail + content panel -->
@@ -137,7 +146,9 @@
  * topic preserves the camera/keyboard shortcuts the old HelpDialog carried.
  */
 import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { NEED_META } from './needMeta'
+import { useTutorialStore } from '../../stores/tutorialStore'
 
 interface HelpListItem { emoji: string; label: string; text: string }
 interface HelpGridItem { emoji: string; label: string; color: string }
@@ -397,6 +408,9 @@ const HELP_TOPICS: HelpTopic[] = [
   }
 ]
 
+const router = useRouter()
+const tutorialStore = useTutorialStore()
+
 const activeId = ref(HELP_TOPICS[0].id)
 
 const topic = computed<HelpTopic>(
@@ -413,6 +427,16 @@ watch(
 
 function close() {
   emit('update:modelValue', false)
+}
+
+// Flag the tour for a relaunch; GameShellView's watcher starts it once we're
+// in Live Mode. Close Help first so it isn't covering the spotlight.
+function replayTutorial() {
+  close()
+  tutorialStore.requestReplay()
+  if (router.currentRoute.value.path !== '/') {
+    router.push('/')
+  }
 }
 
 function onKeydown(e: KeyboardEvent) {

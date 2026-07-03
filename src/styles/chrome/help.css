@@ -103,7 +103,13 @@
   font-size: var(--font-size-2xl);
 }
 
-.help-overlay__close {
+.help-overlay__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.help-overlay__btn {
   display: flex;
   align-items: center;
   gap: var(--space-1);
@@ -119,8 +125,13 @@
   box-shadow: 0 2px 3px rgba(69, 26, 3, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
-.help-overlay__close:hover {
+.help-overlay__btn:hover {
   filter: brightness(1.04);
+}
+
+/* Replay-tutorial call to action — gold fill to set it apart from Close. */
+.help-overlay__btn--accent {
+  background: linear-gradient(180deg, var(--color-gold-200) 0%, var(--color-gold-300) 100%);
 }
 
 /* ── Body: rail + content ──────────────────────────────────────────────── */
