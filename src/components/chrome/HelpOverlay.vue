@@ -225,9 +225,9 @@ const HELP_TOPICS: HelpTopic[] = [
       { kind: 'h', text: 'Friendship & bonds' },
       { kind: 'list', items: [
         { emoji: '💖', label: 'Friendship', text: 'how close YOU are with that pig. Grows every time you interact directly (pet, hold, feed).' },
-        { emoji: '🤝', label: 'Bonds', text: 'how close two pigs are with each other. Grows when you use the Encourage actions on the pair.' }
+        { emoji: '🤝', label: 'Bonds', text: 'how close two pigs are with each other. Grows fastest with the Encourage actions, and slowly on its own as they spend time together.' }
       ] },
-      { kind: 'tip', text: 'Pigs glow when they are selectable as the target for a pending action.' }
+      { kind: 'tip', text: 'A colored ring appears under a pig when it is selectable as the target for a pending action.' }
     ]
   },
   {
@@ -240,9 +240,10 @@ const HELP_TOPICS: HelpTopic[] = [
       { kind: 'grid', items: NEED_GRID },
       { kind: 'h', text: 'Reading the bars' },
       { kind: 'list', items: [
-        { emoji: '🟢', label: '60–100', text: 'all good. Pig is content.' },
-        { emoji: '🟡', label: '20–60', text: 'declining. Address soon.' },
-        { emoji: '🔴', label: '0–20', text: 'critical! The pig sign glows red.' }
+        { emoji: '🟢', label: '71–100', text: 'satisfied. Pig is content.' },
+        { emoji: '🟤', label: '41–70', text: 'moderate. Fine for now, but trending down.' },
+        { emoji: '🟡', label: '21–40', text: "warning. The pig sign shows a badge and counts toward its total." },
+        { emoji: '🔴', label: '0–20', text: 'critical! The pig sign badge turns red.' }
       ] },
       { kind: 'tip', text: 'Pause time anytime if you want to plan without things ticking down.' }
     ]
@@ -266,7 +267,7 @@ const HELP_TOPICS: HelpTopic[] = [
         'Click a plaque to expand its menu.',
         'Pick the specific action (e.g. a food).',
         'If a target is needed, the banner prompts you — click the pig to commit.',
-        'Press Esc to cancel a pending action.'
+        'Click the ✕ on the banner to cancel a pending action.'
       ] }
     ]
   },
@@ -280,12 +281,12 @@ const HELP_TOPICS: HelpTopic[] = [
       { kind: 'list', items: [
         { emoji: '🧴', label: 'Water Bottle', text: 'shows water level. Refill when it gets low to keep Thirst up.' },
         { emoji: '🌾', label: 'Hay Rack', text: 'tracks freshness and serving count. Pigs nibble from here passively.' },
-        { emoji: '🧺', label: 'Food Bowl', text: 'holds foods at once. Empty or refill it from the popover.' },
-        { emoji: '🏠', label: 'Cozy Igloo', text: 'shelter spot. Pigs nap here when Energy is low.' },
+        { emoji: '🧺', label: 'Food Bowl', text: 'holds up to 3 foods at once. Empty or refill it from the popover.' },
+        { emoji: '🏠', label: 'Plastic Igloo', text: 'shelter spot. Pigs nap here when Energy is low.' },
         { emoji: '🌿', label: 'Chew', text: 'durability decays as it gets gnawed on. Keeps the Chew need topped up.' },
         { emoji: '💩', label: 'Droppings', text: 'click to clean instantly. Builds up over time and tanks Cleanliness.' }
       ] },
-      { kind: 'tip', text: 'Most popovers include a "Return to Inventory" button so you can swap out worn items.' }
+      { kind: 'tip', text: 'Most popovers include a "Move to Inventory" button so you can swap out worn items.' }
     ]
   },
   {
@@ -294,17 +295,22 @@ const HELP_TOPICS: HelpTopic[] = [
     emoji: '📦',
     accent: 'var(--color-violet)',
     body: [
-      { kind: 'lede', text: "Inventory is the stack of supplies you own but haven't placed in the cage yet. Open it from the top bar." },
-      { kind: 'h', text: 'Placing an item' },
+      { kind: 'lede', text: "Inventory is the stack of supplies you own but haven't put to use yet. Open it from the top bar." },
+      { kind: 'h', text: 'What you see' },
+      { kind: 'list', items: [
+        { emoji: '🥬', label: 'Food & Consumables', text: 'produce and hay. Click a tile, then click an existing bowl or hay rack in the cage to load it in.' },
+        { emoji: '🏠', label: 'Habitat Items', text: 'water bottles, racks, toys, shelters. Click a tile to enter placement mode, then click an empty cell in the cage.' },
+        { emoji: '🛏️', label: 'Bedding', text: "used automatically during cage cleaning — these tiles aren't placed by hand." }
+      ] },
+      { kind: 'h', text: 'Placing a habitat item' },
       { kind: 'steps', items: [
         'Open Inventory from the top bar.',
-        'Find the item you want to place.',
-        'Click a tile — you enter placement mode.',
-        'Click a spot in the cage to drop it.',
+        'Click a tile under Habitat Items — you enter placement mode.',
+        'Click an empty cell in the cage to drop it.',
         'Press Esc to cancel placement.'
       ] },
       { kind: 'h', text: 'Returning to inventory' },
-      { kind: 'p', text: "Click any item you placed and choose 'Return to Inventory' to take it back. It re-stacks with the same kind." }
+      { kind: 'p', text: "Click any item you placed and choose 'Move to Inventory' to take it back. It re-stacks with the same kind." }
     ]
   },
   {
@@ -317,9 +323,9 @@ const HELP_TOPICS: HelpTopic[] = [
       { kind: 'list', items: [
         { emoji: '🪙', label: 'Coins', text: 'earn coins by caring for happy pigs. Your balance is in the top right.' },
         { emoji: '🛍️', label: 'Buy', text: 'purchases land in Inventory. You can place them in the cage afterward.' },
-        { emoji: '💰', label: 'Sell', text: 'sells back at a reduced price. Frees up inventory and converts surplus into coins.' }
+        { emoji: '💰', label: 'Sell', text: 'sells back for a full refund. Frees up inventory and converts surplus into coins.' }
       ] },
-      { kind: 'tip', text: 'Featured items are department picks — they auto-sort into the right inventory category.' }
+      { kind: 'tip', text: "Check the Today's Picks tab for handpicked items across every department in one place." }
     ]
   },
   {
@@ -330,7 +336,7 @@ const HELP_TOPICS: HelpTopic[] = [
     body: [
       { kind: 'lede', text: 'Open the Habitat panel in the top bar to see at-a-glance bars for the cage as a whole.' },
       { kind: 'list', items: [
-        { emoji: '💧', label: 'Water Level', text: 'how full the water bottle is. Drops slowly over time.' },
+        { emoji: '💧', label: 'Water Level', text: 'average fill level across all placed water bottles. Drops slowly over time.' },
         { emoji: '🌾', label: 'Hay Freshness', text: 'fresh hay is more nutritious. Empty and refill from the rack.' },
         { emoji: '💩', label: 'Poop Cleanliness', text: '100 = no droppings. Click poops in the cage to clean.' },
         { emoji: '🛏️', label: 'Bedding Cleanliness', text: 'replace bedding from the inventory before it bottoms out.' },
@@ -349,6 +355,9 @@ const HELP_TOPICS: HelpTopic[] = [
       { kind: 'list', items: [
         { emoji: '👋', label: 'Player', text: "things YOU did: 'Gave Pickle: Carrot'." },
         { emoji: '✨', label: 'Reaction', text: "what the pigs say back: 'Pickle: Wheek! I love this!'." },
+        { emoji: '🤖', label: 'Autonomous', text: 'things pigs do on their own — wandering, napping, snacking, socializing.' },
+        { emoji: '🌿', label: 'Environmental', text: 'habitat-level events: hay going stale, water running low, poop appearing.' },
+        { emoji: '🏆', label: 'Achievement', text: 'milestones you unlock, like adopting your first guinea pig.' },
         { emoji: '⚙️', label: 'System', text: "events: welcomes home, purchases, sales." }
       ] },
       { kind: 'tip', text: "Open the feed from the top bar's leftmost sign. Latest activity is at the top." }
