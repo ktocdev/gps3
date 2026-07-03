@@ -85,8 +85,8 @@
   letter-spacing: 0.01em;
   border: 2px solid rgba(124, 45, 18, 0.55);
   border-radius: var(--radius-full);
-  background: linear-gradient(180deg, var(--color-gold-50) 0%, var(--color-gold-200) 100%);
-  color: var(--color-gold-800);
+  background: linear-gradient(180deg, var(--color-pill-top) 0%, var(--color-pill-tab-bot) 100%);
+  color: var(--color-pill-text);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 2px 3px rgba(69, 26, 3, 0.22);
   cursor: pointer;
   text-decoration: none;
@@ -116,7 +116,7 @@
 }
 
 .game-header__tab:hover {
-  color: var(--color-gold-800);
+  color: var(--color-pill-text);
   transform: translateY(-1px);
   filter: brightness(1.04);
 }
@@ -132,7 +132,7 @@
 
 .game-header__tab--active {
   border-color: var(--color-gold-800);
-  background: linear-gradient(180deg, var(--color-pink-500) 0%, var(--color-pink-600) 100%);
+  background: linear-gradient(180deg, var(--color-pink) 0%, var(--color-pink-deep) 100%);
   color: #ffffff;
   box-shadow: var(--shadow-cta-header);
   text-shadow: 0 1px 0 rgba(69, 26, 3, 0.25);
@@ -158,8 +158,8 @@
   padding-inline: 14px;
   border-radius: var(--radius-full);
   border: 2px solid var(--color-wood-shadow);
-  background: linear-gradient(180deg, var(--color-gold-50) 0%, #fcd34d 100%);
-  color: var(--color-gold-800);
+  background: linear-gradient(180deg, var(--color-pill-top) 0%, var(--color-pill-coin-bot) 100%);
+  color: var(--color-pill-text);
   font-weight: 800;
   font-size: 15px;
   box-shadow: var(--shadow-amber-pill);
@@ -176,8 +176,8 @@
   block-size: 38px;
   border-radius: var(--radius-full);
   border: 2px solid var(--color-wood-shadow);
-  background: linear-gradient(180deg, var(--color-gold-50) 0%, #fcd34d 100%);
-  color: var(--color-gold-800);
+  background: linear-gradient(180deg, var(--color-pill-top) 0%, var(--color-pill-coin-bot) 100%);
+  color: var(--color-pill-text);
   font-weight: 900;
   font-size: 18px;
   cursor: pointer;

@@ -1,6 +1,9 @@
 # To Dos
 
 ## GameView Chrome
+- Visit Pet Store 
+    - what section should it go in?
+    - can just visit and look when two guinea pigs active and not a part of stardust santuary
 
 ### Bugs
 
@@ -17,7 +20,10 @@
 - guinea pigs should start with about 20-40% friendship depending on personality complement
 - habitat item panels should have a "Move" button that allows user to move item in habitat, in addition to the "Move to Habitat"
 - guinea pigs don't seem to be seeking water
+- add Fullscreen Mode button
 
 ## Supplies Store
 
+
 ## Debug
+
