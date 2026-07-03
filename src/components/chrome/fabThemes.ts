@@ -20,6 +20,8 @@ export interface FabAction {
   id: string
   icon: string
   label: string
+  /** Not wired to any game effect yet — shown greyed out with a "Soon" tag. */
+  disabled?: boolean
 }
 
 export interface FabConfig {

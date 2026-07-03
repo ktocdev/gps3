@@ -181,9 +181,14 @@ import { useInventoryStore } from '../../stores/inventoryStore'
 import { useSuppliesStore } from '../../stores/suppliesStore'
 import { useGameController } from '../../stores/gameController'
 import { useLoggingStore } from '../../stores/loggingStore'
+import { useNeedsController } from '../../stores/needsController'
+import { useBehaviorStateStore } from '../../stores/behaviorStateStore'
 import { GRID_CONFIG, ENVIRONMENT_CONFIG, ANIMATION_CONFIG, CLOUD_CONFIG } from '../../constants/3d'
 import { disposeObject3D } from '../../utils/three-cleanup'
 import { getBaseItemId } from '../../utils/placementId'
+import { getInteractionEffect, getInteractionName, getInteractionEmoji } from '../../utils/interactionEffects'
+import { attemptInteraction } from '../../utils/interactionValidation'
+import type { GuineaPigNeeds } from '../../stores/guineaPigStore'
 import { use3DInteractions } from '../../composables/3d/use3DInteractions'
 import { use3DContainerMenu } from '../../composables/3d/use3DContainerMenu'
 import { use3DPlacement } from '../../composables/3d/use3DPlacement'
@@ -299,7 +304,11 @@ const fabConfigs = computed<FabConfig[]>(() => [
     theme: 'green',
     icon: '🎾',
     label: 'Help Play',
-    actions: [{ id: 'show-toy', icon: '🧸', label: 'Show Toy' }]
+    actions: [
+      { id: 'show-toy', icon: '🧸', label: 'Show Toy' },
+      { id: 'peek-a-boo', icon: '👀', label: 'Peek-a-Boo' },
+      { id: 'wave-hand', icon: '👋', label: 'Wave Hand' }
+    ]
   },
   {
     theme: 'violet',
@@ -307,7 +316,7 @@ const fabConfigs = computed<FabConfig[]>(() => [
     label: 'Give Care',
     actions: [
       { id: 'gentle-wipe', icon: '🧼', label: 'Gentle Wipe' },
-      { id: 'trim-nails', icon: '✂️', label: 'Trim Nails' },
+      { id: 'clip-nails', icon: '✂️', label: 'Clip Nails' },
       { id: 'quick-clean', icon: '🧹', label: 'Quick Clean' },
       { id: 'deep-clean', icon: '🧽', label: 'Deep Clean' },
       { id: 'refill-water', icon: '💧', label: 'Refill Water' },
@@ -321,7 +330,9 @@ const fabConfigs = computed<FabConfig[]>(() => [
     actions: [
       { id: 'pet', icon: '🫳', label: 'Pet' },
       { id: 'hold', icon: '🫴', label: 'Hold' },
-      { id: 'talk-to', icon: '💬', label: 'Talk To' }
+      { id: 'talk-to', icon: '💬', label: 'Talk To' },
+      { id: 'sing-to', icon: '🎵', label: 'Sing To' },
+      { id: 'call-name', icon: '📣', label: 'Call Name' }
     ]
   },
   {
@@ -393,6 +404,8 @@ const movement3DStore = useMovement3DStore()
 const inventoryStore = useInventoryStore()
 const suppliesStore = useSuppliesStore()
 const gameController = useGameController()
+const needsController = useNeedsController()
+const behaviorStateStore = useBehaviorStateStore()
 
 // Computed
 const selectedGuineaPig = computed(() => {
@@ -1164,21 +1177,9 @@ function handleCanvasClick(event: MouseEvent) {
           return
         }
 
-        // Other interactions
-        console.log(`[GameView] Executing ${action} on guinea pig ${clickedGuineaPigId}`)
-        const gp = guineaPigStore.allGuineaPigs.find((g: { id: string }) => g.id === clickedGuineaPigId)
-        const gpName = gp?.name || 'Guinea pig'
-
-        const actionLabels: Record<string, { label: string; emoji: string }> = {
-          'hold': { label: 'Held', emoji: '🫴' },
-          'gentle-wipe': { label: 'Wiped', emoji: '🧼' },
-          'show-toy': { label: 'Showed toy to', emoji: '🧸' },
-          'peek-a-boo': { label: 'Played peek-a-boo with', emoji: '👀' },
-          'talk-to': { label: 'Talked to', emoji: '💬' },
-        }
-        const actionInfo = actionLabels[action] || { label: action, emoji: '❓' }
-        loggingStore.addPlayerAction(`${actionInfo.label} ${gpName}`, actionInfo.emoji)
-
+        // Effect-driven interactions (hold, gentle-wipe, clip-nails, talk-to,
+        // sing-to, call-name, peek-a-boo, wave-hand, show-toy).
+        applyPlayerInteraction(action, clickedGuineaPigId)
         pendingInteraction.value = null
         return
       }
@@ -1495,6 +1496,67 @@ function handleInteractAction(actionId: string) {
   pendingInteraction.value = actionId
 }
 
+// Player→guinea-pig interactions that apply need/friendship effects on click.
+// Wellness-gated (can be rejected), mirroring the flow gps2 uses in its
+// habitat sidebar. Pet and hand-feed are handled separately (they have their
+// own 3D animation flows).
+const INTERACTION_CATEGORY: Record<string, 'play' | 'socialize' | 'general'> = {
+  'show-toy': 'play',
+  'peek-a-boo': 'play',
+  'wave-hand': 'play',
+  'hold': 'socialize',
+  'talk-to': 'socialize',
+  'sing-to': 'socialize',
+  'call-name': 'socialize',
+  'gentle-wipe': 'general',
+  'clip-nails': 'general'
+}
+
+function applyPlayerInteraction(actionId: string, guineaPigId: string) {
+  const guineaPig = guineaPigStore.getGuineaPig(guineaPigId)
+  if (!guineaPig) return
+
+  const effect = getInteractionEffect(actionId)
+  if (!effect) {
+    console.warn(`[GameView] No effect data for interaction: ${actionId}`)
+    return
+  }
+
+  const name = getInteractionName(actionId)
+  const emoji = getInteractionEmoji(actionId)
+
+  // Wellness-gated success roll + reaction message
+  const wellness = needsController.calculateWellness(guineaPig.id)
+  const attempt = attemptInteraction(guineaPig, wellness, INTERACTION_CATEGORY[actionId] ?? 'general')
+
+  // Reaction chat bubble (the use3DChatBubbles composable listens for this)
+  document.dispatchEvent(new CustomEvent('show-chat-bubble', {
+    detail: { guineaPigId: guineaPig.id, reaction: attempt.reactionMessage },
+    bubbles: true
+  }))
+
+  if (!attempt.success) {
+    loggingStore.addPlayerAction(`${guineaPig.name} wasn't up for ${name.toLowerCase()} right now`, '❌')
+    return
+  }
+
+  // Wiggle animation for the acknowledged interaction
+  behaviorStateStore.triggerPlayerInteraction(guineaPig.id, 1500)
+
+  // Apply positive need impacts (negatives are cosmetic-only, skipped as in gps2)
+  for (const [need, value] of Object.entries(effect.needsImpact)) {
+    if (value && value > 0) {
+      guineaPigStore.satisfyNeed(guineaPig.id, need as keyof GuineaPigNeeds, value)
+    }
+  }
+
+  if (effect.friendshipGain > 0) {
+    guineaPigStore.adjustFriendship(guineaPig.id, effect.friendshipGain)
+  }
+
+  loggingStore.addPlayerAction(`${emoji} ${name} — ${guineaPig.name} enjoyed it!`, emoji)
+}
+
 function handleFoodSelected(foodId: string) {
   selectedFoodForFeeding.value = foodId
   pendingInteraction.value = 'hand-feed'
@@ -1537,7 +1599,8 @@ function handleFabAction(theme: FabTheme, actionId: string) {
       handleInteractAction(actionId)
       break
     case 'violet':
-      if (actionId === 'gentle-wipe' || actionId === 'trim-nails') {
+      // Per-pig care interactions need a target; habitat care is cage-wide.
+      if (actionId === 'gentle-wipe' || actionId === 'clip-nails') {
         handleInteractAction(actionId)
       } else {
         handleHabitatCareAction(actionId)
