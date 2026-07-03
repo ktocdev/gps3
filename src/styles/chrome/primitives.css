@@ -295,15 +295,20 @@
 }
 
 /* ── Parchment scrollbar (wood + gold theme) ───────────────────────────── */
-/* Applies to all scrollable regions inside pill-dropdown panels */
+/* Applies to all scrollable regions inside pill-dropdown panels, the pig
+   drawer, and the Help overlay's rail + content columns. */
 
 .parchment-panel__scroll::-webkit-scrollbar,
-.pig-drawer__content::-webkit-scrollbar {
+.pig-drawer__content::-webkit-scrollbar,
+.help-overlay__rail::-webkit-scrollbar,
+.help-overlay__content::-webkit-scrollbar {
   width: 8px;
 }
 
 .parchment-panel__scroll::-webkit-scrollbar-track,
-.pig-drawer__content::-webkit-scrollbar-track {
+.pig-drawer__content::-webkit-scrollbar-track,
+.help-overlay__rail::-webkit-scrollbar-track,
+.help-overlay__content::-webkit-scrollbar-track {
   background: linear-gradient(180deg, var(--color-wood-shadow) 0%, var(--color-wood-dark) 100%);
   border-radius: var(--radius-full);
   border: 1.5px solid var(--color-wood-border);
@@ -312,7 +317,9 @@
 }
 
 .parchment-panel__scroll::-webkit-scrollbar-thumb,
-.pig-drawer__content::-webkit-scrollbar-thumb {
+.pig-drawer__content::-webkit-scrollbar-thumb,
+.help-overlay__rail::-webkit-scrollbar-thumb,
+.help-overlay__content::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, var(--color-gold-300) 0%, var(--color-gold-500) 100%);
   border-radius: var(--radius-full);
   border: 1.5px solid var(--color-wood-border);
@@ -320,7 +327,9 @@
 }
 
 .parchment-panel__scroll::-webkit-scrollbar-thumb:hover,
-.pig-drawer__content::-webkit-scrollbar-thumb:hover {
+.pig-drawer__content::-webkit-scrollbar-thumb:hover,
+.help-overlay__rail::-webkit-scrollbar-thumb:hover,
+.help-overlay__content::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, var(--color-gold-200) 0%, var(--color-gold-400) 100%);
 }
 

@@ -142,9 +142,6 @@
 
       <!-- FAB cluster: hanging plaques on a wooden rail (bottom-center) -->
       <FabCluster :fabs="fabConfigs" @action="handleFabAction" />
-
-      <!-- Help Dialog -->
-      <HelpDialog v-model="showHelp" />
     </div>
   </div>
 </template>
@@ -172,7 +169,6 @@ import ContainerContentsMenu from '../basic/ContainerContentsMenu.vue'
 import CleanCageDialog from './dialogs/CleanCageDialog.vue'
 import HayManagementDialog from './dialogs/HayManagementDialog.vue'
 import ActionResultDialog from './dialogs/ActionResultDialog.vue'
-import HelpDialog from './dialogs/HelpDialog.vue'
 import FoodSelectionDialog from './dialogs/FoodSelectionDialog.vue'
 import SimTopBar from '../chrome/SimTopBar.vue'
 import FabCluster from '../chrome/FabCluster.vue'
@@ -225,9 +221,6 @@ const canvasRef = ref<HTMLCanvasElement | null>(null)
 const simTopBarRef = ref<InstanceType<typeof SimTopBar> | null>(null)
 const selectedGuineaPigId = ref<string | null>(null)
 const guineaPigMenuPosition = ref({ x: 0, y: 0 })
-
-// Help panel state
-const showHelp = ref(false)
 
 // Pending interaction modes
 const pendingInteraction = ref<string | null>(null)
