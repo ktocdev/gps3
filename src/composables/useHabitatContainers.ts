@@ -331,9 +331,10 @@ export function useHabitatContainers() {
     return data?.servings || []
   }
 
-  function getHayRackFreshness(hayRackPlacementId: string): number {
+  function getHayRackFreshness(hayRackPlacementId: string): number | null {
     const data = hayRackContents.value.get(hayRackPlacementId)
-    return data?.freshness ?? 100
+    if (!data || data.servings.length === 0) return null
+    return data.freshness
   }
 
   function setHayRackFreshness(hayRackPlacementId: string, freshness: number): void {
@@ -357,14 +358,11 @@ export function useHabitatContainers() {
   }
 
   function clearHayRack(hayRackPlacementId: string): void {
-    // Keep the rack entry but clear its servings and reset freshness
-    // This ensures the rack is still tracked in the system
+    // Remove the entry entirely — matches removeHayFromRack's last-serving
+    // behavior. An empty rack has no freshness; addHayToRack re-initializes
+    // it to 100% the next time hay is added.
     const newMap = new Map(hayRackContents.value)
-    newMap.set(hayRackPlacementId, {
-      servings: [],
-      freshness: 100,
-      lastDecayUpdate: Date.now()
-    })
+    newMap.delete(hayRackPlacementId)
     hayRackContents.value = newMap
   }
 
@@ -528,6 +526,12 @@ export function useHabitatContainers() {
    * Set chew durability (for debug controls)
    */
   function setChewDurability(chewPlacementId: string, durability: number): void {
+    // Chews are only initialized lazily (on first click/chew interaction),
+    // so a freshly-placed chew won't have a map entry yet — self-heal it.
+    if (!chewItems.value.has(chewPlacementId)) {
+      initializeChewItem(chewPlacementId)
+    }
+
     const chewData = chewItems.value.get(chewPlacementId)
     if (!chewData) {
       console.warn(`Chew item ${chewPlacementId} not found`)

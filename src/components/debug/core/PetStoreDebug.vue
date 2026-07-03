@@ -112,11 +112,6 @@
         :anchor="selectedGuineaPig ? selectedGuineaPig.name : 'none selected'"
       >
         <div v-if="selectedGuineaPig" class="pet-store-debug__editor">
-          <BlockMessage variant="info">
-            <template v-if="isSelectedGuineaPigActive">🔒 {{ selectedGuineaPig.name }} is active in the game — showing read-only info below.</template>
-            <template v-else>📋 Showing read-only info for {{ selectedGuineaPig.name }}.</template>
-          </BlockMessage>
-
           <DebugSection title="Appearance">
             <div class="stats-grid">
               <DebugStatRow label="Fur Color" :value="capitalize(selectedGuineaPig.appearance.furColor)" />
@@ -180,7 +175,6 @@ import { usePetStoreManager } from '../../../stores/petStoreManager'
 import { useGuineaPigStore } from '../../../stores/guineaPigStore'
 import type { GuineaPig } from '../../../stores/guineaPigStore'
 import Badge from '../../basic/Badge.vue'
-import BlockMessage from '../../basic/BlockMessage.vue'
 import DebugPanel from '../ui/DebugPanel.vue'
 import DebugPanelRow from '../ui/DebugPanelRow.vue'
 import DebugSection from '../ui/DebugSection.vue'
@@ -224,15 +218,6 @@ onUnmounted(() => {
   if (timerInterval) {
     clearInterval(timerInterval)
   }
-})
-
-const isGuineaPigActive = (guineaPigId: string): boolean => {
-  return petStoreManager.activeGameSession?.guineaPigIds.includes(guineaPigId) ?? false
-}
-
-const isSelectedGuineaPigActive = computed(() => {
-  if (!selectedGuineaPig.value) return false
-  return isGuineaPigActive(selectedGuineaPig.value.id)
 })
 
 // Phase 7: Group guinea pigs by habitat - split into active and inactive.

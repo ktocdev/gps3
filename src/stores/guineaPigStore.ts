@@ -389,6 +389,12 @@ export const useGuineaPigStore = defineStore('guineaPigStore', () => {
     collection.value.activeGuineaPigIds = [...ids]
     collection.value.lastUpdated = Date.now()
 
+    // System 16: Phase 4 - Initialize guinea pig position in habitat
+    // (addToActivePair does this per-id; setActivePair replaces the whole
+    // pair at once, so it needs the same side effect for each id)
+    const habitatConditions = useHabitatConditions()
+    ids.forEach(id => habitatConditions.initializeGuineaPigPosition(id))
+
     const logging = getLoggingStore()
     if (ids.length === 0) {
       logging.addPlayerAction('Cleared active guinea pig pair', '🔄', {})

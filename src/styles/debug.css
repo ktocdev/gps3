@@ -456,10 +456,20 @@
   color: var(--color-warning);
 }
 
+.debug-view .button--warning:hover:not(:disabled) {
+  background: var(--color-gold-100);
+  border-color: var(--color-gold-500);
+}
+
 .debug-view .button--danger {
   background: var(--color-error-bg);
   border-color: var(--color-red-300);
   color: var(--color-error);
+}
+
+.debug-view .button--danger:hover:not(:disabled) {
+  background: var(--color-danger);
+  border-color: var(--color-critical-border);
 }
 
 /* Button rows (prototype .btn-row) */

@@ -18,6 +18,7 @@
           :title="`💖 Friendship · ${guineaPig.name}`"
           :anchor="guineaPig.id"
           accent="var(--color-pink-500)"
+          class="friendship-debug__guinea-pig"
         >
           <DebugSlider
             :model-value="Math.round(guineaPig.friendship)"
@@ -26,7 +27,6 @@
             :max="100"
             :step="1"
             accent="var(--color-pink-500)"
-            :hint="`${getFriendshipTier(guineaPig.friendship).label} — affects how readily ${guineaPig.name} responds to interactions`"
             @update:model-value="value => setFriendship(guineaPig.id, value)"
           />
 
@@ -59,9 +59,35 @@
                 <Button @click="setFriendship(guineaPig.id, 85)" variant="secondary" size="sm">Set to 85%</Button>
                 <Button @click="setFriendship(guineaPig.id, 100)" variant="secondary" size="sm">Set to 100%</Button>
               </div>
-              <Button @click="testPlayInteraction(guineaPig.id)" variant="primary" full-width>Test Play Interaction</Button>
-              <Button @click="testSocialInteraction(guineaPig.id)" variant="primary" full-width>Test Social Interaction</Button>
             </div>
+          </DebugSection>
+
+          <!-- Player Interactions — same real action + feedback pattern as
+               Social Bonding's Pair Interactions, but user-to-pig -->
+          <DebugSection title="Player Interactions">
+            <div class="btn-row">
+              <Button
+                @click="triggerPlay(guineaPig.id)"
+                size="sm"
+                variant="secondary"
+                :disabled="isOnCooldown(guineaPig.id, 'play')"
+                :tooltip="isOnCooldown(guineaPig.id, 'play') ? getPlayCooldownStatus(guineaPig.id) : ''"
+              >🎮 Play</Button>
+              <Button
+                @click="triggerSocial(guineaPig.id)"
+                size="sm"
+                variant="secondary"
+                :disabled="isOnCooldown(guineaPig.id, 'social')"
+                :tooltip="isOnCooldown(guineaPig.id, 'social') ? getSocialCooldownStatus(guineaPig.id) : ''"
+              >🤗 Social</Button>
+            </div>
+            <p
+              v-if="interactionResults[guineaPig.id]"
+              class="text-label--small"
+              :class="interactionResults[guineaPig.id]!.success ? 'friendship-debug__result--success' : 'friendship-debug__result--fail'"
+            >
+              {{ interactionResults[guineaPig.id]!.message }}
+            </p>
           </DebugSection>
 
           <DebugSection title="Telemetry">
@@ -138,7 +164,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, reactive } from 'vue'
 import { useGuineaPigStore } from '../../../stores/guineaPigStore'
 import { useNeedsController } from '../../../stores/needsController'
 import type { GuineaPig } from '../../../stores/guineaPigStore'
@@ -229,12 +255,41 @@ const setFriendship = (guineaPigId: string, value: number) => {
   guineaPig.friendship = value
 }
 
-const testPlayInteraction = (guineaPigId: string) => {
-  guineaPigStore.playWithGuineaPig(guineaPigId, 'general_play')
+const isOnCooldown = (guineaPigId: string, type: 'play' | 'social'): boolean => {
+  return guineaPigStore.checkInteractionCooldown(guineaPigId, type).onCooldown
 }
 
-const testSocialInteraction = (guineaPigId: string) => {
-  guineaPigStore.socializeWithGuineaPig(guineaPigId)
+interface InteractionResult {
+  success: boolean
+  message: string
+}
+
+const interactionResults = reactive<Record<string, InteractionResult>>({})
+
+const triggerPlay = (guineaPigId: string) => {
+  const guineaPig = guineaPigStore.getGuineaPig(guineaPigId)
+  if (!guineaPig) return
+
+  const before = guineaPig.friendship
+  const success = guineaPigStore.playWithGuineaPig(guineaPigId, 'general_play')
+  const delta = guineaPig.friendship - before
+
+  interactionResults[guineaPigId] = success
+    ? { success: true, message: `✅ Play succeeded — friendship +${delta.toFixed(1)}.` }
+    : { success: false, message: `❌ Play failed — ${getPlayCooldownStatus(guineaPigId)}` }
+}
+
+const triggerSocial = (guineaPigId: string) => {
+  const guineaPig = guineaPigStore.getGuineaPig(guineaPigId)
+  if (!guineaPig) return
+
+  const before = guineaPig.friendship
+  const success = guineaPigStore.socializeWithGuineaPig(guineaPigId)
+  const delta = guineaPig.friendship - before
+
+  interactionResults[guineaPigId] = success
+    ? { success: true, message: `✅ Social succeeded — friendship +${delta.toFixed(1)}.` }
+    : { success: false, message: `❌ Social failed — ${getSocialCooldownStatus(guineaPigId)}` }
 }
 
 const formatTimestamp = (timestamp: number | null): string => {
@@ -263,8 +318,14 @@ const formatTimestamp = (timestamp: number | null): string => {
   flex: 1;
   min-inline-size: 0;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
   gap: var(--space-4);
+}
+
+.friendship-debug__guinea-pig {
+  flex: 1 1 320px;
+  min-inline-size: 0;
 }
 
 .friendship-debug__legend {
@@ -299,6 +360,16 @@ const formatTimestamp = (timestamp: number | null): string => {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+}
+
+.friendship-debug__result--success {
+  margin-block-start: var(--space-2);
+  color: var(--color-success);
+}
+
+.friendship-debug__result--fail {
+  margin-block-start: var(--space-2);
+  color: var(--color-error);
 }
 
 .friendship-debug__legend-list {

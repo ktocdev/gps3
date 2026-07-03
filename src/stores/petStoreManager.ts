@@ -1098,6 +1098,11 @@ export const usePetStoreManager = defineStore('petStoreManager', () => {
     const habitatConditions = useHabitatConditions()
     habitatConditions.resetToStarterHabitat()
 
+    // resetToStarterHabitat() clears all guinea pig positions, so the
+    // positions setActivePair() just set above need to be re-established
+    // for the new session's pair.
+    guineaPigIds.forEach(id => habitatConditions.initializeGuineaPigPosition(id))
+
     const playerProgression = usePlayerProgression()
     playerProgression.incrementGameSessions()
     playerProgression.incrementGuineaPigsAdopted(guineaPigIds.length)

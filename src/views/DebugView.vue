@@ -16,6 +16,7 @@
         <BondingDebug v-if="activeTab === 'bonding'" />
         <InventoryDebugView v-if="activeTab === 'inventory'" />
         <HabitatToolsDebug v-if="activeTab === 'habitat'" />
+        <HabitatStatusDebug v-if="activeTab === 'habitat-status'" />
         <ModelViewerDebug v-if="activeTab === 'model-viewer'" />
       </section>
     </main>
@@ -36,6 +37,7 @@ import FriendshipDebug from '../components/debug/gameplay/FriendshipDebug.vue'
 import BondingDebug from '../components/debug/gameplay/BondingDebug.vue'
 import StardustSanctuaryDebug from '../components/debug/core/StardustSanctuaryDebug.vue'
 import HabitatToolsDebug from '../components/debug/environment/HabitatToolsDebug.vue'
+import HabitatStatusDebug from '../components/debug/environment/HabitatStatusDebug.vue'
 import ModelViewerDebug from '../components/debug/prototypes/ModelViewerDebug.vue'
 import { useGameController } from '../stores/gameController'
 
@@ -104,6 +106,12 @@ const tabCategories: TabCategory[] = [
     tabs: [
       {
         id: 'habitat',
+        label: 'Needs',
+        icon: '🍎',
+        panelClass: 'tab-container__panel--constrained'
+      },
+      {
+        id: 'habitat-status',
         label: 'Habitat',
         icon: '🏠',
         panelClass: 'tab-container__panel--constrained'

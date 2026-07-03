@@ -11,47 +11,6 @@
         <DebugSection>
           <div class="decay-speed-control">
             <DebugSlider
-              :model-value="habitat.decaySpeedMultiplier"
-              label="Habitat"
-              :min="1"
-              :max="60"
-              :step="1"
-              suffix="x"
-              accent="#a78bfa"
-              @update:model-value="(v: number) => habitat.setDecaySpeed(v)"
-            />
-            <div class="btn-row">
-              <Button
-                @click="habitat.setDecaySpeed(6)"
-                variant="tertiary"
-                size="sm"
-                :class="{ 'button--active': habitat.decaySpeedMultiplier === 6 }"
-              >
-                Relaxed (6x)
-              </Button>
-              <Button
-                @click="habitat.setDecaySpeed(12)"
-                variant="tertiary"
-                size="sm"
-                :class="{ 'button--active': habitat.decaySpeedMultiplier === 12 }"
-              >
-                Normal (12x)
-              </Button>
-              <Button
-                @click="habitat.setDecaySpeed(24)"
-                variant="tertiary"
-                size="sm"
-                :class="{ 'button--active': habitat.decaySpeedMultiplier === 24 }"
-              >
-                Fast (24x)
-              </Button>
-            </div>
-          </div>
-        </DebugSection>
-
-        <DebugSection>
-          <div class="decay-speed-control">
-            <DebugSlider
               :model-value="guineaPigStore.settings.needsDecayRate"
               label="Needs"
               :min="0"
@@ -111,7 +70,6 @@
 </template>
 
 <script setup lang="ts">
-import { useHabitatConditions } from '../../../stores/habitatConditions'
 import { useGuineaPigStore } from '../../../stores/guineaPigStore'
 import Button from '../../basic/Button.vue'
 import DebugPanel from '../ui/DebugPanel.vue'
@@ -121,7 +79,6 @@ import DebugSlider from '../ui/DebugSlider.vue'
 import NeedsPanel from './NeedsPanel.vue'
 import PoopDebug from './PoopDebug.vue'
 
-const habitat = useHabitatConditions()
 const guineaPigStore = useGuineaPigStore()
 </script>
 

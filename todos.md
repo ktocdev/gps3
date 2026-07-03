@@ -3,17 +3,16 @@
 ## GameView Chrome
 - Visit Pet Store 
     - what section should it go in?
-    - can just visit and look when two guinea pigs active and not a part of stardust santuary
-
-### Bugs
+    - can just visit and look when two guinea pigs active
+    - can only adopt when no active guinea pigs because all are in stardust santuary 
 
 ### Redesign
 - rethink design of top guinea pig info panel
 - rethink guinea pig menu that opens on click
 
 ### Migration from Prototype
-- match help modal to whats in the prototype
-- implement tutorial flow from prototype
+- help modal
+- first time user tutorial
 
 ## 3D Game
 - make sure the 3d guinea pig matches the look of the svg with color and spots
@@ -22,8 +21,11 @@
 - guinea pigs don't seem to be seeking water
 - add Fullscreen Mode button
 
-## Supplies Store
-
-
 ## Debug
+- Does performance mode work?
+- Does error reporting work?
+- Does orientation pause work?
+- Does first time user work? It doesn't seem to change
+- Guinea Pig page > Guinea Pig Info
+    - show same block message "Showing read-only info for Truffle."
 

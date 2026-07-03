@@ -1052,7 +1052,8 @@ export function useGuineaPigBehavior(guineaPigId: string) {
       if (DEBUG_BEHAVIOR) console.log('[executeEatHayBehavior] Hay servings:', hayServings)
 
       if (hayServings && hayServings.length > 0) {
-        const freshness = habitatConditions.getHayRackFreshness(goal.targetItemId) / 100
+        // Servings exist, so freshness is guaranteed non-null here
+        const freshness = (habitatConditions.getHayRackFreshness(goal.targetItemId) ?? 100) / 100
         hayQuality = 0.6 + freshness * 0.4 // 60-100% based on freshness
 
         if (DEBUG_BEHAVIOR) console.log('[executeEatHayBehavior] Removing hay serving, freshness:', freshness)
