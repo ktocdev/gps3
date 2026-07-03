@@ -1,5 +1,5 @@
 <template>
-  <div ref="rootRef" class="fab-cluster">
+  <div ref="rootRef" class="fab-cluster" data-tutorial="fabs">
     <div class="fab-cluster__rail" aria-hidden="true"></div>
     <div class="fab-cluster__row">
       <FabPlaque

@@ -14,6 +14,7 @@
         :to="tab.path"
         class="game-header__tab"
         :class="{ 'game-header__tab--active': isActive(tab.path) }"
+        :data-tutorial="tab.path === '/store' ? 'supplies-tab' : undefined"
       >{{ tab.label }}</RouterLink>
     </nav>
     <span v-else></span>
@@ -42,6 +43,7 @@
           class="game-header__pause"
           :class="{ 'game-header__pause--paused': gameController.isPaused }"
           type="button"
+          data-tutorial="pause"
           :disabled="!canTogglePause"
           :aria-pressed="gameController.isPaused"
           :title="isDebugRoute ? 'Game is auto-paused while in Debug' : (gameController.isPaused ? 'Resume simulation' : 'Pause simulation')"
