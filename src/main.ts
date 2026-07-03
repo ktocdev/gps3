@@ -20,6 +20,7 @@ import './styles/chrome/primitives.css'
 import './styles/chrome/bars.css'
 import './styles/chrome/panels.css'
 import './styles/chrome/fab.css'
+import './styles/chrome/tutorial.css'
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)

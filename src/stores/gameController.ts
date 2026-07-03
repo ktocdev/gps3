@@ -26,6 +26,7 @@ interface GameSettings {
   tutorial: {
     mode: 'auto' | 'always_show' | 'never_show'
     isGlobalFirstTime: boolean
+    completed: boolean
   }
   performance: {
     mode: 'standard' | 'reduced'
@@ -68,7 +69,8 @@ export const useGameController = defineStore('gameController', () => {
   const settings = ref<GameSettings>({
     tutorial: {
       mode: 'auto',
-      isGlobalFirstTime: true
+      isGlobalFirstTime: true,
+      completed: false
     },
     performance: {
       mode: 'standard'
@@ -286,6 +288,10 @@ export const useGameController = defineStore('gameController', () => {
     settings.value.tutorial.mode = mode
   }
 
+  const setTutorialCompleted = (completed: boolean) => {
+    settings.value.tutorial.completed = completed
+  }
+
   const setPerformanceMode = (mode: 'standard' | 'reduced') => {
     settings.value.performance.mode = mode
   }
@@ -348,6 +354,7 @@ export const useGameController = defineStore('gameController', () => {
     // Settings
     updateSettings,
     setTutorialMode,
+    setTutorialCompleted,
     setPerformanceMode,
     toggleErrorReporting,
 

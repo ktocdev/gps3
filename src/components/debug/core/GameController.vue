@@ -121,7 +121,15 @@
               :value="String(gameController.gameState.isFirstTimeUser)"
               :muted="!gameController.gameState.isFirstTimeUser"
             />
+            <DebugStatRow
+              label="Tutorial Completed"
+              :value="String(gameController.settings.tutorial.completed)"
+              :muted="!gameController.settings.tutorial.completed"
+            />
           </div>
+          <Button @click="replayTutorial" variant="secondary" size="sm">
+            🎓 Replay Tutorial
+          </Button>
           <Button @click="resetFirstTimeUser" variant="warning" size="sm">
             🔄 Reset First Time User
           </Button>
@@ -133,10 +141,12 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { useGameController } from '../../../stores/gameController'
 import { usePetStoreManager } from '../../../stores/petStoreManager'
 import { useGuineaPigStore } from '../../../stores/guineaPigStore'
 import { usePlayerProgression } from '../../../stores/playerProgression'
+import { useTutorialStore } from '../../../stores/tutorialStore'
 import Button from '../../basic/Button.vue'
 import Select from '../../basic/Select.vue'
 import DebugPanel from '../ui/DebugPanel.vue'
@@ -149,6 +159,8 @@ const gameController = useGameController()
 const petStoreManager = usePetStoreManager()
 const guineaPigStore = useGuineaPigStore()
 const playerProgression = usePlayerProgression()
+const tutorialStore = useTutorialStore()
+const router = useRouter()
 
 // Pet Store Session State
 const selectedGuineaPig1 = ref<string | number>('')
@@ -281,6 +293,13 @@ const resetFirstTimeUser = () => {
       isGlobalFirstTime: true
     }
   })
+}
+
+// Flag the tour for a relaunch, then head to Live Mode where it runs.
+const replayTutorial = () => {
+  gameController.setTutorialCompleted(false)
+  tutorialStore.requestReplay()
+  router.push('/')
 }
 
 </script>

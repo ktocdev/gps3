@@ -8,7 +8,7 @@
       @deselect-inventory-item="handleInventoryDeselect"
     />
 
-    <div class="game-view__canvas-wrapper">
+    <div class="game-view__canvas-wrapper" data-tutorial="cage">
       <!-- Targeting / placement banner -->
       <ParchmentBanner
         v-if="interactionInstruction"

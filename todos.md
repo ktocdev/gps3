@@ -1,5 +1,8 @@
 # To Dos
 
+## Gameplay
+- guinea pigs should start with about 20-30% friendship depending on personality complement
+
 ## GameView Chrome
 - Visit Pet Store 
     - what section should it go in?
@@ -10,13 +13,11 @@
 - rethink design of top guinea pig info panel
 - rethink guinea pig menu that opens on click
 
-### Migration from Prototype
+### Port from Prototype
 - help modal
-- first time user tutorial
 
 ## 3D Game
 - make sure the 3d guinea pig matches the look of the svg with color and spots
-- guinea pigs should start with about 20-40% friendship depending on personality complement
 - habitat item panels should have a "Move" button that allows user to move item in habitat, in addition to the "Move to Habitat"
 - guinea pigs don't seem to be seeking water
 - add Fullscreen Mode button

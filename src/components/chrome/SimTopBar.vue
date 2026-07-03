@@ -7,7 +7,7 @@
     <span class="wood-bar__rivet sim-topbar__rivet--br" aria-hidden="true"></span>
 
     <!-- LEFT: Activity -->
-    <div class="sim-topbar__slot">
+    <div class="sim-topbar__slot" data-tutorial="activity">
       <SignPill
         icon="📓"
         label="Activity"
@@ -33,7 +33,7 @@
 
     <!-- CENTER: Habitat + per-pig pills -->
     <div class="sim-topbar__center">
-      <div class="sim-topbar__slot">
+      <div class="sim-topbar__slot" data-tutorial="habitat-status">
         <SignPill
           icon="🏠"
           label="Habitat"
@@ -64,6 +64,7 @@
         v-for="(pig, i) in guineaPigStore.activeGuineaPigs"
         :key="pig.id"
         class="sim-topbar__slot"
+        :data-tutorial="i === 0 ? 'pig-pill' : undefined"
       >
         <SignPill
           :label="pig.name"
@@ -101,7 +102,7 @@
     </div>
 
     <!-- RIGHT: Inventory -->
-    <div class="sim-topbar__slot">
+    <div class="sim-topbar__slot" data-tutorial="inventory">
       <SignPill
         icon="🎒"
         label="Inventory"
@@ -142,6 +143,7 @@ import { pigHealth, NEED_META } from './needMeta'
 import { useGuineaPigStore, type GuineaPig } from '../../stores/guineaPigStore'
 import { useHabitatConditions } from '../../stores/habitatConditions'
 import { useLoggingStore } from '../../stores/loggingStore'
+import { useTutorialStore } from '../../stores/tutorialStore'
 
 const emit = defineEmits<{
   'select-inventory-item': [itemId: string]
@@ -195,16 +197,40 @@ function onDocumentMouseDown(e: MouseEvent) {
   if (!openPanel.value) return
   const target = e.target as HTMLElement
   if (target.closest?.('[data-sim-panel]')) return
+  // Clicks on the tutorial card shouldn't dismiss a panel the tour opened
+  if (target.closest?.('[data-tutorial-overlay]')) return
   closedByMousedown = openPanel.value
   openPanel.value = null
 }
 
+// Let the guided tour open/close these dropdowns as steps play out.
+const tutorialStore = useTutorialStore()
+
+function setPanelForTutorial(id: string | null, open: boolean | string) {
+  if (open) {
+    if (id) openPanel.value = id
+  } else if (id && openPanel.value === id) {
+    openPanel.value = null
+  }
+}
+
 onMounted(() => {
   document.addEventListener('mousedown', onDocumentMouseDown)
+  tutorialStore.registerPanelHandler('activity', (open) => setPanelForTutorial('activity', open))
+  tutorialStore.registerPanelHandler('habitat-status', (open) => setPanelForTutorial('habitat', open))
+  tutorialStore.registerPanelHandler('inventory', (open) => setPanelForTutorial('inventory', open))
+  tutorialStore.registerPanelHandler('pig-pill', (open) => {
+    const firstPig = guineaPigStore.activeGuineaPigs[0]
+    setPanelForTutorial(firstPig?.id ?? null, open)
+  })
 })
 
 onUnmounted(() => {
   document.removeEventListener('mousedown', onDocumentMouseDown)
+  tutorialStore.unregisterPanelHandler('activity')
+  tutorialStore.unregisterPanelHandler('habitat-status')
+  tutorialStore.unregisterPanelHandler('inventory')
+  tutorialStore.unregisterPanelHandler('pig-pill')
 })
 
 function onInventorySelect(itemId: string) {
