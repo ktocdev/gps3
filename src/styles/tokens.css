@@ -217,6 +217,12 @@
   --color-violet-mid:  var(--color-violet-500);  /* #8b5cf6 — Activity badge · Bedding awning */
   --color-violet-deep: var(--color-violet-600);  /* #7c3aed — Inventory icon border */
 
+  /* Storefront awning label tints — light stop behind each department label.
+     Gold/pink/violet depts reuse palette-100 steps; these two are bespoke
+     (lime-100 / sky-100) because ivy + sky have no palette family. */
+  --color-ivy-soft:    #ecfccb;                  /* bespoke — Hay Loft awning label */
+  --color-sky-soft:    #e0f2fe;                  /* bespoke — Habitat awning label */
+
   /* ── TYPOGRAPHY ─────────────────────────────────────────────────────────── */
 
   --font-family-heading: 'Gaegu', cursive;
@@ -308,6 +314,9 @@
   --shadow-frame-hover: 0 14px 20px -4px rgba(69,26,3,.5), 0 6px 10px -2px rgba(69,26,3,.35), inset 0 2px 0 rgba(255,255,255,.55), inset 0 -2px 0 rgba(0,0,0,.18);
   --shadow-amber-pill:  0 6px 10px -2px rgba(120,53,15,.4), 0 2px 4px -1px rgba(120,53,15,.25), inset 0 1px 0 rgba(255,255,255,.6), inset 0 -1px 0 rgba(146,64,14,.25);
   --shadow-confirm:     0 6px 10px -2px rgba(0,0,0,.28), 0 2px 4px -1px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.4);
+  --shadow-shelf:       0 10px 14px -4px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.25), inset 0 -2px 0 rgba(0,0,0,.4);
+  --shadow-crate:       0 22px 28px -8px rgba(69,26,3,.5), 0 10px 14px -4px rgba(69,26,3,.35), inset 0 2px 0 rgba(255,255,255,.2), inset 0 -3px 0 rgba(69,26,3,.3);
+  --shadow-crate-hover: 0 28px 36px -10px rgba(69,26,3,.55), 0 14px 18px -6px rgba(69,26,3,.4), inset 0 2px 0 rgba(255,255,255,.25), inset 0 -3px 0 rgba(69,26,3,.3);
 
   /* ── PARCHMENT PANEL ────────────────────────────────────────────────────── */
   /* PanelShell · floating-panel recipe: brown frame · cream body · paper grain */

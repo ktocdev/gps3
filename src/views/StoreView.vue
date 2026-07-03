@@ -1,59 +1,83 @@
 <template>
-  <div class="store-view">
-    <div class="store-view__inner">
-      <h2 class="store-view__heading">🛒 Supplies Store</h2>
+  <div class="storefront">
+    <!-- Wooden beam the awnings hang from -->
+    <div class="storefront__beam" aria-hidden="true">
+      <div class="storefront__beam-grain"></div>
+      <div class="storefront__beam-rivet storefront__beam-rivet--start"></div>
+      <div class="storefront__beam-rivet storefront__beam-rivet--end"></div>
+    </div>
 
-      <!-- Department tabs -->
-      <div class="store-view__departments">
-        <SignPill
+    <!-- Storefront window with the awning department nav hung over it -->
+    <div class="storefront__window">
+      <StorefrontWindow />
+      <nav class="storefront__awnings" aria-label="Store departments">
+        <AwningTab
           v-for="dept in departments"
           :key="dept.id"
           :label="dept.label"
           :icon="dept.icon"
           :accent="dept.accent"
-          :accent-deep="dept.accentDeep"
+          :soft="dept.soft"
           :active="activeDept === dept.id"
-          :tilt="dept.tilt"
           @click="activeDept = dept.id"
         />
+      </nav>
+    </div>
+
+    <!-- Purchase feedback -->
+    <Transition name="storefront-toast">
+      <div v-if="toast" class="storefront__toast">
+        <ParchmentPanel :accent="toast.success ? 'var(--color-green)' : 'var(--color-red-500)'">
+          <div class="storefront__toast-message">{{ toast.message }}</div>
+        </ParchmentPanel>
       </div>
+    </Transition>
 
-      <!-- Purchase feedback -->
-      <Transition name="store-toast">
-        <div v-if="toast" class="store-view__toast">
-          <ParchmentPanel :accent="toast.success ? 'var(--color-green)' : 'var(--color-red-500)'">
-            <div class="store-view__toast-message">{{ toast.message }}</div>
-          </ParchmentPanel>
-        </div>
-      </Transition>
+    <!-- Aisle header: plaque · title · divider rule · coin badge -->
+    <div class="storefront__aisle">
+      <div class="aisle-plaque">
+        <div class="aisle-plaque__grain" aria-hidden="true"></div>
+        <div class="aisle-plaque__rivet aisle-plaque__rivet--start" aria-hidden="true"></div>
+        <div class="aisle-plaque__rivet aisle-plaque__rivet--end" aria-hidden="true"></div>
+        AISLE {{ aisleNumber }}
+      </div>
+      <h2 class="storefront__aisle-title">{{ activeDepartment.label }}</h2>
+      <div class="storefront__aisle-rule" aria-hidden="true"></div>
+      <div class="storefront__coins">🪙 {{ playerProgression.formattedCurrency }}</div>
+    </div>
+    <div class="storefront__tagline">{{ activeDepartment.tagline }}</div>
 
-      <!-- Item grid -->
-      <ParchmentPanel :accent="activeDepartment.accent" :animate="false" show-grain>
-        <div class="parchment-panel__title">{{ activeDepartment.icon }} {{ activeDepartment.label }}</div>
-        <div v-if="items.length === 0" class="chrome-inv__empty">Nothing in stock right now.</div>
-        <div v-else class="store-view__grid">
-          <div v-for="item in items" :key="item.id" class="store-view__card">
-            <span class="chrome-inv__tile-emoji">{{ itemEmoji(item) }}</span>
-            <span class="store-view__card-name">{{ item.name }}</span>
-            <span class="store-view__card-price">🪙 {{ item.basePrice }}</span>
-            <span v-if="ownedCount(item.id) > 0" class="store-view__card-owned">
-              owned ×{{ ownedCount(item.id) }}
-            </span>
-            <button
-              class="store-view__buy"
-              :disabled="!canAfford(item)"
-              @click="buy(item)"
-            >Buy</button>
+    <!-- Shelves of crates -->
+    <div v-if="shelves.length === 0" class="storefront__empty">Nothing in stock right now.</div>
+    <div v-else class="storefront__shelves">
+      <div v-for="(row, rowIndex) in shelves" :key="rowIndex" class="storefront__shelf-row">
+        <WoodShelf>
+          <div class="storefront__shelf-items">
+            <SupplyCrateCard
+              v-for="(item, itemIndex) in row"
+              :key="item.id"
+              :item="item"
+              :owned="ownedCount(item.id)"
+              :returnable="returnableCount(item.id)"
+              :affordable="canAfford(item)"
+              :tilt="crateTilt(rowIndex * shelfSize + itemIndex)"
+              :fallback-emoji="activeDepartment.icon"
+              @buy="buy"
+              @sell="sell"
+            />
           </div>
-        </div>
-      </ParchmentPanel>
+        </WoodShelf>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import SignPill from '../components/chrome/SignPill.vue'
+import AwningTab from '../components/game/shop/AwningTab.vue'
+import StorefrontWindow from '../components/game/shop/StorefrontWindow.vue'
+import WoodShelf from '../components/game/shop/WoodShelf.vue'
+import SupplyCrateCard from '../components/game/shop/SupplyCrateCard.vue'
 import ParchmentPanel from '../components/chrome/ParchmentPanel.vue'
 import { useSuppliesStore } from '../stores/suppliesStore'
 import { useInventoryStore } from '../stores/inventoryStore'
@@ -64,36 +88,116 @@ const suppliesStore = useSuppliesStore()
 const inventoryStore = useInventoryStore()
 const playerProgression = usePlayerProgression()
 
+type DepartmentId = SuppliesItem['category'] | 'featured'
+
 interface Department {
-  id: SuppliesItem['category']
+  id: DepartmentId
   label: string
   icon: string
   accent: string
-  accentDeep: string
-  tilt: number
+  soft: string
+  tagline: string
 }
 
 const departments: Department[] = [
-  { id: 'hay', label: 'Hay Loft', icon: '🌾', accent: 'var(--color-lime)', accentDeep: 'var(--color-green)', tilt: -1 },
-  { id: 'food', label: 'Grocery', icon: '🥕', accent: 'var(--color-pink)', accentDeep: 'var(--color-pink-deep)', tilt: 0.6 },
-  { id: 'bedding', label: 'Bedding', icon: '🛏️', accent: 'var(--color-violet-mid)', accentDeep: 'var(--color-violet-deep)', tilt: -0.5 },
-  { id: 'habitat_item', label: 'Habitat', icon: '🏠', accent: 'var(--color-sky)', accentDeep: 'var(--color-cyan-700)', tilt: 1 }
+  {
+    id: 'featured',
+    label: "Today's Picks",
+    icon: '⭐',
+    accent: 'var(--color-gold)',
+    soft: 'var(--color-gold-100)',
+    tagline: 'Hand-picked goodies. Fresh batch every visit.'
+  },
+  {
+    id: 'hay',
+    label: 'Hay Loft',
+    icon: '🌾',
+    accent: 'var(--color-ivy)',
+    soft: 'var(--color-ivy-soft)',
+    tagline: 'The good stuff. Long-stem, fragrant, crunchable.'
+  },
+  {
+    id: 'food',
+    label: 'Grocery',
+    icon: '🥗',
+    accent: 'var(--color-pink)',
+    soft: 'var(--color-pink-100)',
+    tagline: 'Fresh greens, herbs & treats. The grocery aisle.'
+  },
+  {
+    id: 'bedding',
+    label: 'Bedding',
+    icon: '🛏️',
+    accent: 'var(--color-violet-mid)',
+    soft: 'var(--color-violet-100)',
+    tagline: 'Soft floors. Cozy naps. Maximum snuggle.'
+  },
+  {
+    id: 'habitat_item',
+    label: 'Habitat',
+    icon: '🏠',
+    accent: 'var(--color-sky)',
+    soft: 'var(--color-sky-soft)',
+    tagline: 'Houses, tunnels, toys. Build the dream pad.'
+  }
 ]
 
-const activeDept = ref<SuppliesItem['category']>('hay')
+const shelfSize = 4
+
+const activeDept = ref<DepartmentId>('featured')
 const activeDepartment = computed(() => departments.find(d => d.id === activeDept.value)!)
-const items = computed(() => suppliesStore.getItemsByCategory(activeDept.value))
+const aisleNumber = computed(() => departments.findIndex(d => d.id === activeDept.value) + 1)
+
+const featuredItems = computed<SuppliesItem[]>(() => {
+  const popular = suppliesStore.catalog.filter(item => item.tags?.includes('popular'))
+  if (popular.length > 0) return popular.slice(0, shelfSize)
+  // Fallback: first item of each category
+  return departments
+    .filter(d => d.id !== 'featured')
+    .map(d => suppliesStore.getItemsByCategory(d.id as SuppliesItem['category'])[0])
+    .filter((item): item is SuppliesItem => item !== undefined)
+})
+
+const items = computed<SuppliesItem[]>(() =>
+  activeDept.value === 'featured'
+    ? featuredItems.value
+    : suppliesStore.getItemsByCategory(activeDept.value)
+)
+
+const shelves = computed<SuppliesItem[][]>(() => {
+  const rows: SuppliesItem[][] = []
+  for (let i = 0; i < items.value.length; i += shelfSize) {
+    rows.push(items.value.slice(i, i + shelfSize))
+  }
+  return rows
+})
+
+const crateTilts = [-1.5, 1, -0.5, 1.5]
+
+function crateTilt(index: number): number {
+  return crateTilts[index % crateTilts.length]
+}
 
 const toast = ref<{ success: boolean; message: string } | null>(null)
 let toastTimer: number | null = null
 
-function itemEmoji(item: SuppliesItem): string {
-  return (item as SuppliesItem & { emoji?: string }).emoji || activeDepartment.value.icon
+function showToast(success: boolean, message: string) {
+  toast.value = { success, message }
+  if (toastTimer !== null) window.clearTimeout(toastTimer)
+  toastTimer = window.setTimeout(() => {
+    toast.value = null
+  }, 2500)
 }
 
 function ownedCount(itemId: string): number {
   const inv = inventoryStore.allItems.find(i => i.itemId === itemId)
   return inv?.quantity ?? 0
+}
+
+function returnableCount(itemId: string): number {
+  const inv = inventoryStore.allItems.find(i => i.itemId === itemId)
+  if (!inv) return 0
+  return inv.instances.filter(inst => !inst.isOpened && !inst.isPlacedInHabitat).length
 }
 
 function canAfford(item: SuppliesItem): boolean {
@@ -102,132 +206,11 @@ function canAfford(item: SuppliesItem): boolean {
 
 function buy(item: SuppliesItem) {
   const result = suppliesStore.purchaseItem(item.id, 1)
-  toast.value = { success: result.success, message: result.message }
-  if (toastTimer !== null) window.clearTimeout(toastTimer)
-  toastTimer = window.setTimeout(() => {
-    toast.value = null
-  }, 2500)
+  showToast(result.success, result.message)
+}
+
+function sell(item: SuppliesItem) {
+  const result = inventoryStore.sellBackItem(item.id, 1)
+  showToast(result.success, result.message)
 }
 </script>
-
-<style>
-.store-view {
-  flex: 1;
-  min-block-size: 0;
-  overflow-y: auto;
-  background: #87ceeb; /* sim sky */
-  padding: var(--space-6);
-}
-
-.store-view__inner {
-  max-inline-size: 960px;
-  margin-inline: auto;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-
-.store-view__heading {
-  font-family: var(--font-family-heading);
-  color: var(--color-gold-50);
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45), 0 2px 4px rgba(0, 0, 0, 0.3);
-  margin: 0;
-}
-
-.store-view__departments {
-  display: flex;
-  gap: var(--space-3);
-  flex-wrap: wrap;
-}
-
-.store-view__toast {
-  position: fixed;
-  inset-block-start: 80px;
-  inset-inline-start: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
-  min-inline-size: 280px;
-}
-
-.store-view__toast-message {
-  font-weight: var(--font-weight-bold);
-  color: var(--color-wood-border);
-  text-align: center;
-}
-
-.store-toast-enter-active,
-.store-toast-leave-active {
-  transition: opacity 200ms ease, transform 200ms ease;
-}
-
-.store-toast-enter-from,
-.store-toast-leave-to {
-  opacity: 0;
-  transform: translateX(-50%) translateY(-8px);
-}
-
-.store-view__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: var(--space-3);
-}
-
-.store-view__card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-1);
-  padding: var(--space-3);
-  background: linear-gradient(180deg, var(--color-gold-50) 0%, var(--color-gold-100) 100%);
-  border: 2.5px solid var(--color-wood-dark);
-  border-radius: 10px;
-  box-shadow:
-    0 4px 6px rgba(69, 26, 3, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
-}
-
-.store-view__card-name {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-gold-800);
-  text-align: center;
-}
-
-.store-view__card-price {
-  font-family: var(--font-family-stats);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-wood-border);
-}
-
-.store-view__card-owned {
-  font-size: var(--font-size-2xs);
-  color: var(--color-wood-dark);
-  font-weight: var(--font-weight-semibold);
-}
-
-.store-view__buy {
-  margin-block-start: var(--space-1);
-  padding-block: var(--space-1);
-  padding-inline: var(--space-4);
-  border-radius: var(--radius-full);
-  border: 2px solid var(--color-gold-800);
-  background: linear-gradient(180deg, var(--color-pink-500) 0%, var(--color-pink-600) 100%);
-  color: #ffffff;
-  font-weight: var(--font-weight-bold);
-  font-family: inherit;
-  cursor: pointer;
-  box-shadow: var(--shadow-cta);
-  transition: transform 100ms ease, filter 140ms ease;
-}
-
-.store-view__buy:hover:not(:disabled) {
-  transform: translateY(-1px);
-  filter: brightness(1.05);
-}
-
-.store-view__buy:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-</style>
