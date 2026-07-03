@@ -1,69 +1,41 @@
 <template>
   <div class="poop-debug">
-    <div v-if="hasActiveGuineaPigs">
-      <div v-for="guineaPig in guineaPigStore.activeGuineaPigs" :key="guineaPig.id" class="guinea-pig-poop">
-        <div class="panel panel--compact mb-4">
-          <div class="panel__header">
-            <h5>{{ guineaPig.name }} - Poop Status</h5>
-          </div>
-          <div class="panel__content">
-            <!-- Poop Timer Info -->
-            <div class="poop-info mb-3">
-              <div class="info-row">
-                <span class="info-label">Last Poop:</span>
-                <span class="info-value">{{ getTimeSinceLastPoop(guineaPig.id) }}</span>
-              </div>
-              <div class="info-row">
-                <span class="info-label">Next Poop In:</span>
-                <span class="info-value">{{ getTimeUntilNextPoop(guineaPig.id) }}</span>
-              </div>
-              <div class="info-row">
-                <span class="info-label">Poop Interval:</span>
-                <span class="info-value">30 seconds</span>
-              </div>
-            </div>
+    <template v-if="hasActiveGuineaPigs">
+      <DebugSection
+        v-for="guineaPig in guineaPigStore.activeGuineaPigs"
+        :key="guineaPig.id"
+        :title="`${guineaPig.name} · Poop Status`"
+      >
+        <div class="stats-grid">
+          <DebugStatRow label="Last Poop" :value="getTimeSinceLastPoop(guineaPig.id)" />
+          <DebugStatRow label="Next Poop In" :value="getTimeUntilNextPoop(guineaPig.id)" />
+          <DebugStatRow label="Poop Interval" value="30 seconds" />
+        </div>
+        <div class="btn-row poop-debug__actions">
+          <Button
+            @click="triggerManualPoop(guineaPig.id)"
+            variant="secondary"
+            size="sm"
+          >
+            💩 Force Poop Now
+          </Button>
+        </div>
+      </DebugSection>
 
-            <!-- Manual Poop Button -->
-            <div class="poop-actions">
-              <Button
-                @click="triggerManualPoop(guineaPig.id)"
-                variant="secondary"
-                size="sm"
-              >
-                💩 Force Poop Now
-              </Button>
-            </div>
+      <DebugSection title="Habitat Poop Stats">
+        <div class="stats-grid">
+          <DebugStatRow label="Total Poops" :value="totalPoops" />
+          <div class="stat-item">
+            <span class="stat-label">Hygiene Impact</span>
+            <DebugBadge :variant="getHygieneBadgeVariant()">{{ getHygieneImpact() }}</DebugBadge>
           </div>
         </div>
-      </div>
+      </DebugSection>
+    </template>
 
-      <!-- Global Poop Stats -->
-      <div class="panel panel--compact">
-        <div class="panel__header">
-          <h5>Habitat Poop Stats</h5>
-        </div>
-        <div class="panel__content">
-          <div class="poop-stats">
-            <div class="stat-row">
-              <span class="stat-label">Total Poops:</span>
-              <span class="stat-value">{{ totalPoops }}</span>
-            </div>
-            <div class="stat-row">
-              <span class="stat-label">Hygiene Impact:</span>
-              <span class="stat-value" :class="getHygieneClass()">
-                {{ getHygieneImpact() }}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div v-else class="panel panel--compact panel--warning">
-      <div class="panel__content text-center">
-        <p class="text-label text-label--muted mb-2">No guinea pigs in game</p>
-        <p class="text-label--small">Start a game in the Game Controller view to see poop data.</p>
-      </div>
+    <div v-else class="text-center">
+      <p class="text-label text-label--muted mb-2">No guinea pigs in game</p>
+      <p class="text-label--small">Start a game in the Game Controller view to see poop data.</p>
     </div>
   </div>
 </template>
@@ -77,6 +49,9 @@ import { useLoggingStore } from '../../../stores/loggingStore'
 import { MessageGenerator } from '../../../utils/messageGenerator'
 import { detectNearbyLocation, gridToSubgridWithOffset, positionToGridCoords } from '../../../utils/locationDetection'
 import Button from '../../basic/Button.vue'
+import DebugSection from '../ui/DebugSection.vue'
+import DebugStatRow from '../ui/DebugStatRow.vue'
+import DebugBadge from '../ui/DebugBadge.vue'
 
 const guineaPigStore = useGuineaPigStore()
 const habitatConditions = useHabitatConditions()
@@ -148,93 +123,16 @@ function getHygieneImpact(): string {
   return 'Extremely dirty'
 }
 
-function getHygieneClass(): string {
+function getHygieneBadgeVariant(): 'ok' | 'warn' | 'err' {
   const poopCount = totalPoops.value
-  if (poopCount === 0) return 'stat-value--good'
-  if (poopCount < 10) return 'stat-value--warning'
-  return 'stat-value--error'
+  if (poopCount === 0) return 'ok'
+  if (poopCount < 10) return 'warn'
+  return 'err'
 }
 </script>
 
-<style scoped>
-.poop-debug {
-  margin-block-end: var(--spacing-6);
-}
-
-.guinea-pig-poop {
-  margin-block-end: var(--spacing-4);
-}
-
-.poop-info {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
-}
-
-.info-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--spacing-2);
-  background-color: var(--color-surface-secondary);
-  border-radius: var(--radius-md);
-}
-
-.info-label {
-  font-weight: 500;
-  color: var(--color-text-secondary);
-}
-
-.info-value {
-  font-weight: 600;
-  color: var(--color-text-primary);
-  font-family: var(--font-mono);
-}
-
-.poop-actions {
-  margin-block-start: var(--spacing-3);
-}
-
-.poop-stats {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
-}
-
-.stat-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--spacing-2);
-  background-color: var(--color-surface-secondary);
-  border-radius: var(--radius-md);
-}
-
-.stat-label {
-  font-weight: 500;
-  color: var(--color-text-secondary);
-}
-
-.stat-value {
-  font-weight: 600;
-  font-family: var(--font-mono);
-}
-
-.stat-value--good {
-  color: var(--color-success);
-}
-
-.stat-value--warning {
-  color: var(--color-warning);
-}
-
-.stat-value--error {
-  color: var(--color-error);
-}
-
-.no-guinea-pigs {
-  padding: var(--spacing-4);
-  text-align: center;
-  color: var(--color-text-secondary);
+<style>
+.poop-debug__actions {
+  margin-block-start: var(--space-3);
 }
 </style>

@@ -1,13 +1,5 @@
 <template>
   <div class="sanctuary-debug">
-    <h2>
-      Stardust Sanctuary
-      <InfoButton
-        message="Reach 85% friendship with a guinea pig to unlock Stardust Sanctuary. Guinea pigs in the Sanctuary have their friendship frozen at 100% wellness and can be brought back as companions at any time."
-        position="bottom"
-      />
-    </h2>
-
     <!-- Sanctuary Confirmation Dialog -->
     <ConfirmDialog
       v-model="showSanctuaryDialog"
@@ -31,19 +23,15 @@
       </div>
     </ConfirmDialog>
 
-    <div class="panel-row">
-    <!-- Active Guinea Pigs Section -->
-    <div class="panel panel--compact">
-      <div class="panel__header">
-        <h3>Active Guinea Pigs ({{ activeGuineaPigs.length }}/2)</h3>
-      </div>
-      <div class="panel__content">
-        <div v-if="activeGuineaPigs.length === 0" class="panel panel--compact panel--warning">
-          <div class="panel__content text-center">
-            <p class="text-label text-label--muted mb-2">No guinea pigs in game</p>
-            <p class="text-label--small">Start a game in the Game Controller view to see Stardust Sanctuary data.</p>
-          </div>
-        </div>
+    <DebugPanelRow :columns="3">
+      <!-- Active Guinea Pigs Section -->
+      <DebugPanel
+        title="🐹 Active Guinea Pigs"
+        :anchor="`${activeGuineaPigs.length}/2 active`"
+      >
+        <p v-if="activeGuineaPigs.length === 0" class="sanctuary-debug__empty">
+          No guinea pigs in game. Start a game in the Game Controller view to see Stardust Sanctuary data.
+        </p>
         <div v-else class="sanctuary-debug__guinea-pig-list">
           <div
             v-for="guineaPig in activeGuineaPigs"
@@ -52,7 +40,7 @@
           >
             <div class="sanctuary-debug__guinea-pig-header">
               <h4>{{ guineaPig.name }}</h4>
-              <Badge variant="info" size="sm">ACTIVE</Badge>
+              <DebugBadge variant="info">Active</DebugBadge>
             </div>
             <div class="sanctuary-debug__guinea-pig-info">
               <span>{{ guineaPig.breed }} • {{ guineaPig.gender }}</span>
@@ -62,7 +50,7 @@
               :threshold="85"
               :show-message="true"
             />
-            <div class="sanctuary-debug__actions">
+            <div class="btn-row sanctuary-debug__actions">
               <Button
                 @click="handleMoveToSanctuary(guineaPig.id)"
                 :disabled="guineaPig.friendship < 85"
@@ -75,20 +63,23 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </DebugPanel>
 
-    <!-- Stardust Sanctuary Section -->
-    <div class="panel panel--compact">
-      <div class="panel__header">
-        <h3>Stardust Sanctuary ({{ petStoreManager.sanctuaryCount }}/{{ petStoreManager.maxSanctuarySlots }})</h3>
-      </div>
-      <div class="panel__content">
-        <div v-if="petStoreManager.sanctuaryCount === 0" class="panel panel--compact panel--warning">
-          <div class="panel__content text-center">
-            <p>No guinea pigs in Stardust Sanctuary yet. Build friendship to 85% to unlock!</p>
-          </div>
-        </div>
+      <!-- Stardust Sanctuary Section -->
+      <DebugPanel
+        title="✨ Stardust Sanctuary"
+        accent="var(--color-pink-500)"
+      >
+        <template #header-extra>
+          <span class="dbg-anchor">{{ petStoreManager.sanctuaryCount }}/{{ petStoreManager.maxSanctuarySlots }} resting</span>
+          <InfoButton
+            message="Reach 85% friendship with a guinea pig to unlock Stardust Sanctuary. Guinea pigs in the Sanctuary have their friendship frozen at 100% wellness and can be brought back as companions at any time."
+            position="bottom"
+          />
+        </template>
+        <p v-if="petStoreManager.sanctuaryCount === 0" class="sanctuary-debug__empty">
+          No guinea pigs in Stardust Sanctuary yet. Build friendship to 85% to unlock!
+        </p>
         <div v-else class="sanctuary-debug__guinea-pig-list">
           <div
             v-for="guineaPig in petStoreManager.sanctuaryGuineaPigs"
@@ -97,7 +88,7 @@
           >
             <div class="sanctuary-debug__guinea-pig-header">
               <h4>{{ guineaPig.name }}</h4>
-              <Badge variant="success" size="sm">SANCTUARY</Badge>
+              <DebugBadge variant="ok">Sanctuary</DebugBadge>
             </div>
             <div class="sanctuary-debug__guinea-pig-info">
               <span>{{ guineaPig.breed }} • {{ guineaPig.gender }}</span>
@@ -106,7 +97,7 @@
               <span class="sanctuary-debug__friendship-value">💖 {{ Math.round(guineaPig.friendship) }}%</span>
               <span class="sanctuary-debug__friendship-label">Friendship Frozen</span>
             </div>
-            <div class="sanctuary-debug__actions">
+            <div class="btn-row sanctuary-debug__actions">
               <Button
                 @click="handleMoveFromSanctuary(guineaPig.id)"
                 :disabled="activeGuineaPigs.length >= 2"
@@ -120,30 +111,16 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </DebugPanel>
 
-    <!-- Sanctuary Slots Section -->
-    <div class="panel panel--compact">
-      <div class="panel__header">
-        <h3>Sanctuary Capacity</h3>
-      </div>
-      <div class="panel__content">
+      <!-- Sanctuary Slots Section -->
+      <DebugPanel title="📊 Sanctuary Capacity" anchor="read-only">
         <div class="stats-grid">
-          <div class="stat-item">
-            <span class="stat-label">Total Slots:</span>
-            <span class="stat-value">{{ petStoreManager.maxSanctuarySlots }}</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-label">Used Slots:</span>
-            <span class="stat-value">{{ petStoreManager.sanctuaryCount }}</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-label">Available Slots:</span>
-            <span class="stat-value">{{ petStoreManager.availableSanctuarySlots }}</span>
-          </div>
+          <DebugStatRow label="Total Slots" :value="petStoreManager.maxSanctuarySlots" />
+          <DebugStatRow label="Used Slots" :value="petStoreManager.sanctuaryCount" />
+          <DebugStatRow label="Available Slots" :value="petStoreManager.availableSanctuarySlots" />
         </div>
-        <BlockMessage variant="info" class="mt-4">
+        <BlockMessage variant="info" class="sanctuary-debug__note">
           <p>Guinea pigs in Stardust Sanctuary:</p>
           <ul>
             <li>✨ Have their friendship frozen at current level</li>
@@ -152,9 +129,8 @@
             <li>🔒 Are permanently adopted (never returned)</li>
           </ul>
         </BlockMessage>
-      </div>
-    </div>
-    </div>
+      </DebugPanel>
+    </DebugPanelRow>
   </div>
 </template>
 
@@ -164,10 +140,13 @@ import { usePetStoreManager } from '../../../stores/petStoreManager'
 import { useGuineaPigStore } from '../../../stores/guineaPigStore'
 import FriendshipProgress from '../../game/ui/FriendshipProgress.vue'
 import Button from '../../basic/Button.vue'
-import Badge from '../../basic/Badge.vue'
 import BlockMessage from '../../basic/BlockMessage.vue'
 import InfoButton from '../../basic/InfoButton.vue'
 import ConfirmDialog from '../../basic/dialogs/ConfirmDialog.vue'
+import DebugPanel from '../ui/DebugPanel.vue'
+import DebugPanelRow from '../ui/DebugPanelRow.vue'
+import DebugStatRow from '../ui/DebugStatRow.vue'
+import DebugBadge from '../ui/DebugBadge.vue'
 
 const petStoreManager = usePetStoreManager()
 const guineaPigStore = useGuineaPigStore()
@@ -226,7 +205,7 @@ const handleMoveFromSanctuary = (guineaPigId: string) => {
 .sanctuary-debug__guinea-pig-card {
   padding: var(--space-4);
   background-color: var(--color-bg-secondary);
-  border: 2px solid var(--color-border-medium);
+  border: 1px solid var(--color-border-medium);
   border-radius: var(--radius-md);
   display: flex;
   flex-direction: column;
@@ -246,13 +225,14 @@ const handleMoveFromSanctuary = (guineaPigId: string) => {
 
 .sanctuary-debug__guinea-pig-header h4 {
   margin: 0;
-  color: var(--color-text);
-  font-size: 1.1rem;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
 }
 
 .sanctuary-debug__guinea-pig-info {
   color: var(--color-text-muted);
-  font-size: 0.9rem;
+  font-size: var(--font-size-sm);
 }
 
 .sanctuary-debug__friendship-frozen {
@@ -266,29 +246,27 @@ const handleMoveFromSanctuary = (guineaPigId: string) => {
 }
 
 .sanctuary-debug__friendship-value {
-  font-size: 1.2rem;
-  font-weight: 700;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
   color: var(--color-success);
+  font-family: var(--font-family-stats);
 }
 
 .sanctuary-debug__friendship-label {
-  font-size: 0.85rem;
+  font-size: var(--font-size-xs);
   color: var(--color-text-muted);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
-.sanctuary-debug__actions {
-  display: flex;
-  gap: var(--space-2);
-}
-
-.empty-state {
-  padding: var(--space-6);
+.sanctuary-debug__empty {
+  color: var(--color-text-muted);
+  font-style: italic;
   text-align: center;
-  color: var(--color-text-muted);
+  margin-block: var(--space-4);
+  font-size: var(--font-size-sm);
 }
 
-.mt-4 {
+.sanctuary-debug__note {
   margin-block-start: var(--space-4);
 }
 

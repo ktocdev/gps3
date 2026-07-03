@@ -163,7 +163,6 @@ export interface GuineaPig {
   friendshipFrozen: boolean   // True when in Stardust Sanctuary (Phase 4)
   relationships: Record<string, number> // guinea pig ID -> friendship level (0-100)
   bonds: Record<string, GuineaPigBond> // Phase 5: Preserved bonds with Sanctuary guinea pigs
-  observationMessage?: string // Message from observing the guinea pig
 
   // System 2.5: Fulfillment Limitation System
   consumptionLimits: ConsumptionLimits
@@ -180,9 +179,6 @@ export interface GuineaPig {
   // Phase 2: Adoption timers (for store guinea pigs)
   adoptionTimer: number | null       // Timestamp when guinea pig entered store
   adoptionDuration: number           // How long available in store (ms)
-
-  // Phase 7: Observe interaction
-  observed: boolean                  // True if player has used Observe on this guinea pig
 
   // Pet Adoption organization
   habitat: number | null          // Habitat assignment in pet adoption (null if not in adoption center)
@@ -392,6 +388,12 @@ export const useGuineaPigStore = defineStore('guineaPigStore', () => {
 
     collection.value.activeGuineaPigIds = [...ids]
     collection.value.lastUpdated = Date.now()
+
+    // System 16: Phase 4 - Initialize guinea pig position in habitat
+    // (addToActivePair does this per-id; setActivePair replaces the whole
+    // pair at once, so it needs the same side effect for each id)
+    const habitatConditions = useHabitatConditions()
+    ids.forEach(id => habitatConditions.initializeGuineaPigPosition(id))
 
     const logging = getLoggingStore()
     if (ids.length === 0) {

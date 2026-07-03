@@ -428,9 +428,6 @@ export const usePetStoreManager = defineStore('petStoreManager', () => {
       adoptionTimer: Date.now(),
       adoptionDuration: Math.floor(Math.random() * (5 * 24 * 60 * 60 * 1000 - 2 * 24 * 60 * 60 * 1000) + 2 * 24 * 60 * 60 * 1000), // 2-5 days in ms
 
-      // Phase 7: Observe interaction
-      observed: false,
-
       // Pet Adoption organization
       habitat: null,
 
@@ -763,6 +760,11 @@ export const usePetStoreManager = defineStore('petStoreManager', () => {
       if (index !== -1) {
         const oldGuineaPig = availableGuineaPigs.value[index]
         const newGuineaPig = generateRandomGuineaPig()
+        // Keep the replacement in the same bonded-pair habitat slot as the
+        // guinea pig it replaces — generateRandomGuineaPig() defaults habitat
+        // to null, which would otherwise collapse unrelated replaced pairs
+        // into the same fallback bucket in the picker/debug panel.
+        newGuineaPig.habitat = oldGuineaPig.habitat
 
         availableGuineaPigs.value.splice(index, 1, newGuineaPig)
 
@@ -1096,6 +1098,11 @@ export const usePetStoreManager = defineStore('petStoreManager', () => {
     const habitatConditions = useHabitatConditions()
     habitatConditions.resetToStarterHabitat()
 
+    // resetToStarterHabitat() clears all guinea pig positions, so the
+    // positions setActivePair() just set above need to be re-established
+    // for the new session's pair.
+    guineaPigIds.forEach(id => habitatConditions.initializeGuineaPigPosition(id))
+
     const playerProgression = usePlayerProgression()
     playerProgression.incrementGameSessions()
     playerProgression.incrementGuineaPigsAdopted(guineaPigIds.length)
@@ -1140,6 +1147,27 @@ export const usePetStoreManager = defineStore('petStoreManager', () => {
       }
       if (regeneratedCount > 0) {
         logging.logInfo(`Regenerated preferences for ${regeneratedCount} guinea pigs with empty preferences`)
+      }
+
+      // Assign a bonded-pair habitat to any guinea pig left without one (e.g. from
+      // the pre-fix processAdoptionTimers() replacement bug, which dropped the
+      // habitat slot). Continues the habitat numbering and pairs them up the same
+      // way replenishGuineaPigPool() does.
+      const unassigned = availableGuineaPigs.value.filter(gp => gp.habitat == null)
+      if (unassigned.length > 0) {
+        const maxHabitat = availableGuineaPigs.value.reduce((max, gp) => Math.max(max, gp.habitat ?? 0), 0)
+
+        for (let i = 0; i < unassigned.length; i += 2) {
+          const habitat = maxHabitat + Math.floor(i / 2) + 1
+          unassigned[i].habitat = habitat
+          if (i + 1 < unassigned.length) {
+            unassigned[i + 1].habitat = habitat
+            unassigned[i + 1].adoptionTimer = unassigned[i].adoptionTimer
+            unassigned[i + 1].adoptionDuration = unassigned[i].adoptionDuration
+          }
+        }
+
+        logging.logInfo(`Assigned habitats to ${unassigned.length} guinea pig${unassigned.length > 1 ? 's' : ''} that were missing one`)
       }
     }
 

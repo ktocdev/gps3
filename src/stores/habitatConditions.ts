@@ -845,6 +845,42 @@ export const useHabitatConditions = defineStore('habitatConditions', () => {
   }
 
   /**
+   * DEBUG ONLY: Add an item directly to the habitat, bypassing inventory
+   * entirely (no unplaced-instance check, no consumption). Used by the
+   * debug panel to spawn test items on demand.
+   * @param itemId - The base item ID (e.g., "habitat_basic_water_bottle")
+   * @returns The placement ID
+   */
+  function debugAddItemToHabitat(itemId: string): string {
+    const instanceId = `debug_${crypto.randomUUID().slice(0, 8)}`
+    const placementId = generatePlacementId(itemId, instanceId)
+
+    habitatItems.value.push(placementId)
+
+    const position = findEmptyCell()
+    if (position) {
+      itemPositions.value.set(placementId, position)
+    }
+
+    itemUsageHistory.value.set(placementId, {
+      lastUsedAt: Date.now(),
+      usageCount: 0,
+      lastUsedBy: '',
+      effectiveness: 100,
+      freshnessBonus: true
+    })
+
+    const suppliesStore = useSuppliesStore()
+    const item = suppliesStore.getItemById(itemId)
+    if (item?.stats?.itemType === 'water_bottle') {
+      initializeWaterBottle(placementId, HABITAT_CONDITIONS.DEFAULT_WATER_LEVEL)
+    }
+
+    console.log(`🐞 [Debug] Added ${itemId} to habitat as ${placementId} (bypassing inventory)`)
+    return placementId
+  }
+
+  /**
    * Remove an item from the habitat
    * @param placementId - The placement ID (can be base itemId for legacy or full placement ID)
    */
@@ -1352,6 +1388,7 @@ export const useHabitatConditions = defineStore('habitatConditions', () => {
     resetHabitatConditions,
     resetToStarterHabitat,
     addItemToHabitat,
+    debugAddItemToHabitat,
     removeItemFromHabitat,
     initializeStarterHabitat,
     addFoodToBowl,

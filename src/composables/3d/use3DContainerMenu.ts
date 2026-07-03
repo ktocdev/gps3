@@ -166,7 +166,10 @@ export function use3DContainerMenu() {
     if (!selectedContainerId.value || selectedContainerType.value !== 'hay_rack') {
       return 100
     }
-    return habitatConditions.getHayRackFreshness(selectedContainerId.value)
+    // ContainerContentsMenu gates display on hayServings > 0, so an empty
+    // rack's null freshness never actually renders — 100 is just a safe
+    // placeholder to satisfy the prop's number type.
+    return habitatConditions.getHayRackFreshness(selectedContainerId.value) ?? 100
   })
 
   // ============================================================================

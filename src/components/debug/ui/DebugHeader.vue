@@ -15,15 +15,6 @@
 
         <Button
           size="sm"
-          :disabled="!canTogglePause"
-          :title="pauseButtonTitle"
-          @click="toggleGamePause"
-        >
-          {{ gameController.isPaused ? '▶ Resume' : '⏸ Pause' }}
-        </Button>
-
-        <Button
-          size="sm"
           :title="themeStore.debugTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
           @click="themeStore.toggleDebugTheme()"
         >
@@ -43,11 +34,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import Button from '../../basic/Button.vue'
 import { useGameController } from '../../../stores/gameController'
-import { usePetStoreManager } from '../../../stores/petStoreManager'
 import { useHabitatConditions } from '../../../stores/habitatConditions'
 import { useGuineaPigStore } from '../../../stores/guineaPigStore'
 import { useGameTimingStore } from '../../../stores/gameTimingStore'
@@ -55,26 +44,10 @@ import { useThemeStore } from '../../../stores/themeStore'
 
 const router = useRouter()
 const gameController = useGameController()
-const petStoreManager = usePetStoreManager()
 const habitatConditions = useHabitatConditions()
 const guineaPigStore = useGuineaPigStore()
 const gameTimingStore = useGameTimingStore()
 const themeStore = useThemeStore()
-
-const canTogglePause = computed(() => petStoreManager.activeGameSession !== null)
-
-const pauseButtonTitle = computed(() => {
-  if (!petStoreManager.activeGameSession) return 'No active game session'
-  return gameController.isPaused ? 'Resume the game' : 'Pause the game'
-})
-
-const toggleGamePause = () => {
-  if (gameController.isPaused) {
-    gameController.resumeGame()
-  } else {
-    gameController.pauseGame('manual')
-  }
-}
 
 const clearAllStorage = () => {
   if (confirm('⚠️ This will clear ALL storage (localStorage + sessionStorage) and reload the page. Continue?')) {

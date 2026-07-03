@@ -1,176 +1,194 @@
 <template>
-  <div class="friendship-debug debug-view__constrained">
-    <h2>Friendship</h2>
-    <div v-if="activeGuineaPigs.length === 0" class="panel panel--compact panel--warning mb-6">
-      <div class="panel__content text-center">
-        <p class="text-label text-label--muted mb-2">No guinea pigs in game</p>
-        <p class="text-label--small">Start a game in the Game Controller view to see friendship data.</p>
-      </div>
-    </div>
+  <div class="friendship-debug">
+    <DebugPanel
+      v-if="activeGuineaPigs.length === 0"
+      title="💖 Friendship"
+      anchor="no active game"
+      accent="var(--color-pink-500)"
+    >
+      <p class="text-label text-label--muted">No guinea pigs in game</p>
+      <p class="text-label--small">Start a game in the Game Controller view to see friendship data.</p>
+    </DebugPanel>
 
-    <div v-else>
-      <div class="panel-row">
-        <!-- Guinea Pig Panels (Left Column) -->
-        <div class="friendship-debug__guinea-pigs">
-          <div v-for="guineaPig in activeGuineaPigs" :key="guineaPig.id" class="mb-6">
-            <div class="panel-row">
-          <!-- Guinea Pig Info Panel -->
-          <div class="panel panel--compact">
-            <div class="panel__header">
-              <h3>{{ guineaPig.name }}</h3>
-            </div>
-            <div class="panel__content">
-              <div class="stats-grid mb-4">
-                <div class="stat-item">
-                  <span class="stat-label">Friendship:</span>
-                  <span class="stat-value">{{ Math.round(guineaPig.friendship) }}%</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">Wellness:</span>
-                  <span class="stat-value">{{ Math.round(getWellness(guineaPig.id)) }}%</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">Penalty Active:</span>
-                  <span class="stat-value" :class="needsController.isPenaltyActive ? 'text--error' : 'text--success'">
-                    {{ needsController.isPenaltyActive ? 'Yes' : 'No' }}
-                  </span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">Penalty Rate:</span>
-                  <span class="stat-value">{{ needsController.currentPenaltyRate.toFixed(2) }}/tick</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">Last Interaction:</span>
-                  <span class="stat-value">{{ formatTimestamp(guineaPig.lastInteraction) }}</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">Total Interactions:</span>
-                  <span class="stat-value">{{ guineaPig.totalInteractions }}</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">Net Change per Tick (5s):</span>
-                  <span class="stat-value" :class="getNetChangeClass(guineaPig.id)">
-                    {{ getNetChange(guineaPig.id) >= 0 ? '+' : '' }}{{ getNetChange(guineaPig.id).toFixed(2) }}
-                  </span>
-                </div>
-              </div>
+    <div v-else class="friendship-debug__layout">
+      <div class="friendship-debug__guinea-pigs">
+        <DebugPanel
+          v-for="guineaPig in activeGuineaPigs"
+          :key="guineaPig.id"
+          :title="`💖 Friendship · ${guineaPig.name}`"
+          :anchor="guineaPig.id"
+          accent="var(--color-pink-500)"
+          class="friendship-debug__guinea-pig"
+        >
+          <DebugSlider
+            :model-value="Math.round(guineaPig.friendship)"
+            label="Friendship Level"
+            :min="0"
+            :max="100"
+            :step="1"
+            accent="var(--color-pink-500)"
+            @update:model-value="value => setFriendship(guineaPig.id, value)"
+          />
 
-              <FriendshipProgress
-                :friendship="guineaPig.friendship"
-                :threshold="85"
-                :show-message="true"
-              />
-            </div>
+          <div class="friendship-debug__tier-row">
+            <span class="friendship-debug__tier-label">Relationship tier</span>
+            <DebugBadge :variant="getFriendshipTier(guineaPig.friendship).variant">
+              {{ getFriendshipTier(guineaPig.friendship).label }}
+            </DebugBadge>
           </div>
 
-          <!-- Cooldown Status Panel -->
-          <div class="panel panel--compact">
-            <div class="panel__header">
-              <h3>Cooldown Status</h3>
-            </div>
-            <div class="panel__content">
-              <div class="stats-grid">
-                <div class="stat-item">
-                  <span class="stat-label">Play Cooldown:</span>
-                  <span class="stat-value">{{ getPlayCooldownStatus(guineaPig.id) }}</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">Social Cooldown:</span>
-                  <span class="stat-value">{{ getSocialCooldownStatus(guineaPig.id) }}</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">Calculated Play CD:</span>
-                  <span class="stat-value">{{ guineaPigStore.calculateInteractionCooldown(guineaPig, 'play') }}s</span>
-                </div>
-                <div class="stat-item">
-                  <span class="stat-label">Calculated Social CD:</span>
-                  <span class="stat-value">{{ guineaPigStore.calculateInteractionCooldown(guineaPig, 'social') }}s</span>
-                </div>
-              </div>
-            </div>
+          <div class="friendship-debug__progress">
+            <FriendshipProgress
+              :friendship="guineaPig.friendship"
+              :threshold="85"
+              :show-message="true"
+            />
           </div>
 
-          <!-- Debug Controls Panel -->
-          <div class="panel panel--compact">
-          <div class="panel__header">
-            <h3>Debug Controls</h3>
-          </div>
-          <div class="panel__content">
-            <div class="flex flex-col gap-3">
-              <SliderField
-                v-model="guineaPig.friendship"
-                label="Friendship"
-                :min="0"
-                :max="100"
-                :step="1"
-              />
-              <div class="button-group">
-                <Button @click="addFriendship(guineaPig.id, 5)" size="sm">+5 Friendship</Button>
-                <Button @click="addFriendship(guineaPig.id, 10)" size="sm">+10 Friendship</Button>
+          <DebugSection title="Interaction Effects">
+            <div class="friendship-debug__controls">
+              <div class="btn-row">
+                <Button @click="addFriendship(guineaPig.id, 5)" variant="secondary" size="sm">+5 Friendship</Button>
+                <Button @click="addFriendship(guineaPig.id, 10)" variant="secondary" size="sm">+10 Friendship</Button>
                 <Button @click="addFriendship(guineaPig.id, -5)" variant="danger" size="sm">-5 Friendship</Button>
                 <Button @click="addFriendship(guineaPig.id, -10)" variant="danger" size="sm">-10 Friendship</Button>
               </div>
-              <div class="button-group">
+              <div class="btn-row">
                 <Button @click="setFriendship(guineaPig.id, 0)" variant="secondary" size="sm">Set to 0%</Button>
                 <Button @click="setFriendship(guineaPig.id, 50)" variant="secondary" size="sm">Set to 50%</Button>
                 <Button @click="setFriendship(guineaPig.id, 85)" variant="secondary" size="sm">Set to 85%</Button>
                 <Button @click="setFriendship(guineaPig.id, 100)" variant="secondary" size="sm">Set to 100%</Button>
               </div>
-              <hr class="divider">
-              <Button @click="testPlayInteraction(guineaPig.id)" full-width>Test Play Interaction</Button>
-              <Button @click="testSocialInteraction(guineaPig.id)" full-width>Test Social Interaction</Button>
             </div>
-          </div>
-        </div>
-        </div>
-          </div>
-        </div>
+          </DebugSection>
 
-        <!-- Friendship Gains/Losses Legend Panel (Right Column) -->
-        <div class="panel panel--compact friendship-debug__legend">
-          <div class="panel__header">
-            <h3>Friendship Gains/Losses Legend</h3>
-          </div>
-          <div class="panel__content">
-            <div class="friendship-debug__info-section">
-              <h5>Active Gains:</h5>
-              <ul>
-                <li>✅ Passive gain: +0.1 per tick (when wellness &gt; 50%)</li>
-                <li>🍎 Feed (normal): +1</li>
-                <li>💖 Feed (favorite): +5</li>
-                <li>🎮 Play: +3</li>
-                <li>🤗 Socialize: +2</li>
-                <li>🛁 Clean: +2</li>
-                <li>📊 Need fulfillment: +0.5 to +2</li>
-              </ul>
-
-              <h5 class="mt-4">Active Losses:</h5>
-              <ul>
-                <li class="text-danger">⚠️ Very poor care: -2 per tick (when wellness &lt; 30%)</li>
-                <li class="text-warning">⚠️ Poor care: -1 per tick (when wellness &lt; 50%)</li>
-                <li class="text-danger">⚠️ Critical needs: -0.5 per tick per need (when need &lt; 30%)</li>
-              </ul>
+          <!-- Player Interactions — same real action + feedback pattern as
+               Social Bonding's Pair Interactions, but user-to-pig -->
+          <DebugSection title="Player Interactions">
+            <div class="btn-row">
+              <Button
+                @click="triggerPlay(guineaPig.id)"
+                size="sm"
+                variant="secondary"
+                :disabled="isOnCooldown(guineaPig.id, 'play')"
+                :tooltip="isOnCooldown(guineaPig.id, 'play') ? getPlayCooldownStatus(guineaPig.id) : ''"
+              >🎮 Play</Button>
+              <Button
+                @click="triggerSocial(guineaPig.id)"
+                size="sm"
+                variant="secondary"
+                :disabled="isOnCooldown(guineaPig.id, 'social')"
+                :tooltip="isOnCooldown(guineaPig.id, 'social') ? getSocialCooldownStatus(guineaPig.id) : ''"
+              >🤗 Social</Button>
             </div>
-          </div>
-        </div>
+            <p
+              v-if="interactionResults[guineaPig.id]"
+              class="text-label--small"
+              :class="interactionResults[guineaPig.id]!.success ? 'friendship-debug__result--success' : 'friendship-debug__result--fail'"
+            >
+              {{ interactionResults[guineaPig.id]!.message }}
+            </p>
+          </DebugSection>
+
+          <DebugSection title="Telemetry">
+            <div class="stats-grid">
+              <DebugStatRow label="Friendship" :value="`${Math.round(guineaPig.friendship)}%`" />
+              <DebugStatRow label="Wellness" :value="`${Math.round(getWellness(guineaPig.id))}%`" />
+              <div class="stat-item">
+                <span class="stat-label">Penalty Active</span>
+                <DebugBadge :variant="needsController.isPenaltyActive ? 'err' : 'ok'">
+                  {{ needsController.isPenaltyActive ? 'Yes' : 'No' }}
+                </DebugBadge>
+              </div>
+              <DebugStatRow label="Penalty Rate" :value="`${needsController.currentPenaltyRate.toFixed(2)}/tick`" />
+              <DebugStatRow
+                label="Last Interaction"
+                :value="formatTimestamp(guineaPig.lastInteraction)"
+                :muted="!guineaPig.lastInteraction"
+              />
+              <DebugStatRow label="Total Interactions" :value="guineaPig.totalInteractions" />
+              <div class="stat-item">
+                <span class="stat-label">Net Change per Tick (5s)</span>
+                <DebugBadge :variant="getNetChangeVariant(guineaPig.id)">
+                  {{ getNetChange(guineaPig.id) >= 0 ? '+' : '' }}{{ getNetChange(guineaPig.id).toFixed(2) }}
+                </DebugBadge>
+              </div>
+            </div>
+          </DebugSection>
+
+          <DebugSection title="Cooldowns">
+            <div class="stats-grid">
+              <DebugStatRow label="Play Cooldown" :value="getPlayCooldownStatus(guineaPig.id)" />
+              <DebugStatRow label="Social Cooldown" :value="getSocialCooldownStatus(guineaPig.id)" />
+              <DebugStatRow
+                label="Calculated Play CD"
+                :value="`${guineaPigStore.calculateInteractionCooldown(guineaPig, 'play')}s`"
+              />
+              <DebugStatRow
+                label="Calculated Social CD"
+                :value="`${guineaPigStore.calculateInteractionCooldown(guineaPig, 'social')}s`"
+              />
+            </div>
+          </DebugSection>
+        </DebugPanel>
       </div>
+
+      <!-- Friendship Gains/Losses Legend (Right Column) -->
+      <DebugPanel
+        class="friendship-debug__legend"
+        title="📖 Friendship Gains/Losses"
+        anchor="legend"
+      >
+        <DebugSection title="Active Gains">
+          <ul class="friendship-debug__legend-list">
+            <li class="friendship-debug__legend-item">✅ Passive gain: +0.1 per tick (when wellness &gt; 50%)</li>
+            <li class="friendship-debug__legend-item">🍎 Feed (normal): +1</li>
+            <li class="friendship-debug__legend-item">💖 Feed (favorite): +5</li>
+            <li class="friendship-debug__legend-item">🎮 Play: +3</li>
+            <li class="friendship-debug__legend-item">🤗 Socialize: +2</li>
+            <li class="friendship-debug__legend-item">🛁 Clean: +2</li>
+            <li class="friendship-debug__legend-item">📊 Need fulfillment: +0.5 to +2</li>
+          </ul>
+        </DebugSection>
+
+        <DebugSection title="Active Losses">
+          <ul class="friendship-debug__legend-list">
+            <li class="friendship-debug__legend-item friendship-debug__legend-item--danger">⚠️ Very poor care: -2 per tick (when wellness &lt; 30%)</li>
+            <li class="friendship-debug__legend-item friendship-debug__legend-item--warning">⚠️ Poor care: -1 per tick (when wellness &lt; 50%)</li>
+            <li class="friendship-debug__legend-item friendship-debug__legend-item--danger">⚠️ Critical needs: -0.5 per tick per need (when need &lt; 30%)</li>
+          </ul>
+        </DebugSection>
+      </DebugPanel>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, reactive } from 'vue'
 import { useGuineaPigStore } from '../../../stores/guineaPigStore'
 import { useNeedsController } from '../../../stores/needsController'
 import type { GuineaPig } from '../../../stores/guineaPigStore'
 import FriendshipProgress from '../../game/ui/FriendshipProgress.vue'
-import SliderField from '../../basic/SliderField.vue'
 import Button from '../../basic/Button.vue'
+import DebugPanel from '../ui/DebugPanel.vue'
+import DebugSection from '../ui/DebugSection.vue'
+import DebugSlider from '../ui/DebugSlider.vue'
+import DebugStatRow from '../ui/DebugStatRow.vue'
+import DebugBadge from '../ui/DebugBadge.vue'
 
 const guineaPigStore = useGuineaPigStore()
 const needsController = useNeedsController()
 
 const activeGuineaPigs = computed(() => guineaPigStore.activeGuineaPigs)
+
+type BadgeVariant = 'ok' | 'warn' | 'err' | 'info'
+
+const getFriendshipTier = (friendship: number): { label: string; variant: BadgeVariant } => {
+  if (friendship >= 80) return { label: 'Devoted', variant: 'ok' }
+  if (friendship >= 60) return { label: 'Friends', variant: 'info' }
+  if (friendship >= 30) return { label: 'Acquainted', variant: 'warn' }
+  return { label: 'Wary', variant: 'err' }
+}
 
 const getWellness = (guineaPigId: string): number => {
   return needsController.calculateWellness(guineaPigId)
@@ -204,11 +222,11 @@ const getNetChange = (guineaPigId: string): number => {
   return change
 }
 
-const getNetChangeClass = (guineaPigId: string): string => {
+const getNetChangeVariant = (guineaPigId: string): BadgeVariant => {
   const netChange = getNetChange(guineaPigId)
-  if (netChange > 0) return 'text-success'
-  if (netChange < 0) return 'text-danger'
-  return 'text-muted'
+  if (netChange > 0) return 'ok'
+  if (netChange < 0) return 'err'
+  return 'info'
 }
 
 const getPlayCooldownStatus = (guineaPigId: string): string => {
@@ -237,12 +255,41 @@ const setFriendship = (guineaPigId: string, value: number) => {
   guineaPig.friendship = value
 }
 
-const testPlayInteraction = (guineaPigId: string) => {
-  guineaPigStore.playWithGuineaPig(guineaPigId, 'general_play')
+const isOnCooldown = (guineaPigId: string, type: 'play' | 'social'): boolean => {
+  return guineaPigStore.checkInteractionCooldown(guineaPigId, type).onCooldown
 }
 
-const testSocialInteraction = (guineaPigId: string) => {
-  guineaPigStore.socializeWithGuineaPig(guineaPigId)
+interface InteractionResult {
+  success: boolean
+  message: string
+}
+
+const interactionResults = reactive<Record<string, InteractionResult>>({})
+
+const triggerPlay = (guineaPigId: string) => {
+  const guineaPig = guineaPigStore.getGuineaPig(guineaPigId)
+  if (!guineaPig) return
+
+  const before = guineaPig.friendship
+  const success = guineaPigStore.playWithGuineaPig(guineaPigId, 'general_play')
+  const delta = guineaPig.friendship - before
+
+  interactionResults[guineaPigId] = success
+    ? { success: true, message: `✅ Play succeeded — friendship +${delta.toFixed(1)}.` }
+    : { success: false, message: `❌ Play failed — ${getPlayCooldownStatus(guineaPigId)}` }
+}
+
+const triggerSocial = (guineaPigId: string) => {
+  const guineaPig = guineaPigStore.getGuineaPig(guineaPigId)
+  if (!guineaPig) return
+
+  const before = guineaPig.friendship
+  const success = guineaPigStore.socializeWithGuineaPig(guineaPigId)
+  const delta = guineaPig.friendship - before
+
+  interactionResults[guineaPigId] = success
+    ? { success: true, message: `✅ Social succeeded — friendship +${delta.toFixed(1)}.` }
+    : { success: false, message: `❌ Social failed — ${getSocialCooldownStatus(guineaPigId)}` }
 }
 
 const formatTimestamp = (timestamp: number | null): string => {
@@ -260,31 +307,72 @@ const formatTimestamp = (timestamp: number | null): string => {
 </script>
 
 <style>
-.friendship-debug__legend {
-  max-inline-size: 100%;
-}
-
-@media (min-width: 768px) {
-  .friendship-debug__legend {
-    max-inline-size: 320px;
-  }
+.friendship-debug__layout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-4);
 }
 
 .friendship-debug__guinea-pigs {
   flex: 1;
+  min-inline-size: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.friendship-debug__guinea-pig {
+  flex: 1 1 320px;
+  min-inline-size: 0;
+}
+
+.friendship-debug__legend {
+  flex: 1 1 100%;
+}
+
+@media (min-width: 768px) {
+  .friendship-debug__legend {
+    flex: 0 0 320px;
+  }
+}
+
+.friendship-debug__tier-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-block: var(--space-3);
+}
+
+.friendship-debug__tier-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.friendship-debug__progress {
+  margin-block-end: var(--space-4);
+}
+
+.friendship-debug__controls {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-2);
 }
 
-.friendship-debug__info-section h5 {
-  margin-block-end: var(--space-2);
-  color: var(--color-text);
-  font-size: 0.95rem;
-  font-weight: 600;
+.friendship-debug__result--success {
+  margin-block-start: var(--space-2);
+  color: var(--color-success);
 }
 
-.friendship-debug__info-section ul {
+.friendship-debug__result--fail {
+  margin-block-start: var(--space-2);
+  color: var(--color-error);
+}
+
+.friendship-debug__legend-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -293,52 +381,17 @@ const formatTimestamp = (timestamp: number | null): string => {
   gap: var(--space-2);
 }
 
-.friendship-debug__info-section li {
+.friendship-debug__legend-item {
   padding-inline-start: var(--space-2);
   color: var(--color-text-muted);
-  font-size: 0.9rem;
+  font-size: var(--font-size-xs);
 }
 
-.friendship-debug__net-change {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.friendship-debug__net-change-value {
-  font-weight: 700;
-  font-size: 2rem;
-}
-
-.text-success {
-  color: var(--color-success);
-}
-
-.text-warning {
+.friendship-debug__legend-item--warning {
   color: var(--color-warning);
 }
 
-.text-danger {
-  color: var(--color-danger);
-}
-
-.text-muted {
-  color: var(--color-text-muted);
-}
-
-.button-group {
-  display: flex;
-  gap: var(--space-2);
-  flex-wrap: wrap;
-}
-
-.empty-state {
-  padding: var(--space-6);
-  text-align: center;
-  color: var(--color-text-muted);
-}
-
-.mt-4 {
-  margin-block-start: var(--space-4);
+.friendship-debug__legend-item--danger {
+  color: var(--color-error);
 }
 </style>

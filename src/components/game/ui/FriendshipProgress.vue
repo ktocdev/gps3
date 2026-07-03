@@ -116,24 +116,15 @@ const message = computed(() => {
   overflow: hidden;
 }
 
-.friendship-progress__bar--very-low {
-  background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
-}
-
-.friendship-progress__bar--low {
-  background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
-}
-
-.friendship-progress__bar--medium {
-  background: linear-gradient(90deg, #eab308 0%, #ca8a04 100%);
-}
-
-.friendship-progress__bar--high {
-  background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+.friendship-progress__bar--very-low,
+.friendship-progress__bar--low,
+.friendship-progress__bar--medium,
+.friendship-progress__bar--high,
+.friendship-progress__bar--complete {
+  background: linear-gradient(90deg, var(--color-gold-300) 0%, var(--color-gold-500) 100%);
 }
 
 .friendship-progress__bar--complete {
-  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
@@ -163,10 +154,10 @@ const message = computed(() => {
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+    box-shadow: 0 0 10px rgba(234, 88, 12, 0.5);
   }
   50% {
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.8);
+    box-shadow: 0 0 20px rgba(234, 88, 12, 0.8);
   }
 }
 
