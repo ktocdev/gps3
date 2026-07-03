@@ -156,12 +156,6 @@
 }
 
 /* FAB submenu (parchment grid popover) */
-.fab-submenu__backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 40;
-}
-
 .fab-submenu {
   position: absolute;
   inset-inline-end: 0;

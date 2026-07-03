@@ -1,6 +1,5 @@
 <template>
   <template v-if="show">
-    <div class="fab-submenu__backdrop" @click="emit('close')"></div>
     <div class="fab-submenu" :style="themeVars">
       <ParchmentPanel :accent="colors.stripe" :animate="false" show-grain>
         <div v-if="actions.length === 0" class="chrome-inv__empty">
