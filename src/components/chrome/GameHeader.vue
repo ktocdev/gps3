@@ -54,14 +54,14 @@
       </template>
     </div>
 
-    <HelpDialog v-model="showHelp" />
+    <HelpOverlay v-model="showHelp" />
   </header>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
-import HelpDialog from '../game/dialogs/HelpDialog.vue'
+import HelpOverlay from './HelpOverlay.vue'
 import { useGameController } from '../../stores/gameController'
 import { usePetStoreManager } from '../../stores/petStoreManager'
 import { usePlayerProgression } from '../../stores/playerProgression'

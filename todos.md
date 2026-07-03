@@ -9,9 +9,9 @@
     - can only adopt when no active guinea pigs because all are in stardust santuary 
 
 ## GameView Chrome
-### Redesign
 - rethink design of top guinea pig info panel
 - rethink guinea pig menu that opens on click
+- verify all fab gp-plaque-tile options are valid actions
 
 ## Port from Prototype
 - help modal
@@ -20,7 +20,7 @@
 ## 3D Game
 - make sure the 3d guinea pig matches the look of the svg with color and spots
 - habitat item panels should have a "Move" button that allows user to move item in habitat, in addition to the "Move to Habitat"
-- add Fullscreen Mode button
+- Fullscreen Mode button
 
 ## Debug
 - Verify Game Controller Tutorial section all works
