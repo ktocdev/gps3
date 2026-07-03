@@ -1,212 +1,133 @@
 <template>
   <div class="game-controller">
-    <h2>Game Controller</h2>
-    <!-- Pet Store Game Session -->
-    <div class="mb-8">
-      <div class="panel-row panel-row--grid-3 mb-4">
-        <!-- Session Controls -->
-        <div class="panel panel--compact">
-          <div class="panel__header">
-            <h3>Session Controls</h3>
-          </div>
-          <div class="panel__content">
-            <!-- Game View Select -->
-            <div class="game-view-select mb-5">
-              <span class="select__label">Game View</span>
-              <ToggleGroup
-                :model-value="gameViewStore.mode"
-                @update:model-value="(val: string) => gameViewStore.setMode(val as '2d' | '3d')"
-                :options="gameViewOptions"
-                size="md"
+    <DebugPanelRow :columns="2">
+      <!-- Guinea Pig Selection -->
+      <DebugPanel
+        :title="petStoreManager.activeGameSession ? '🐹 Active Guinea Pigs' : '🐹 Select Guinea Pigs'"
+        :anchor="`${[selectedGuineaPig1, selectedGuineaPig2].filter(id => id !== '').length} selected`"
+      >
+        <div class="game-controller__gp-selection">
+          <template v-if="petStoreManager.activeGameSession && guineaPigStore.activeGuineaPigs.length > 0">
+            <div class="form-field">
+              <label class="form-field__label">Guinea Pig 1</label>
+              <input
+                type="text"
+                :value="getGuineaPigName(selectedGuineaPig1)"
+                readonly
+                class="form-field__input form-field__input--readonly"
               />
             </div>
-
-            <div class="controls-grid">
-              <Button
-                @click="handleStartSession"
-                variant="primary"
-                :disabled="!canStartSession || !!petStoreManager.activeGameSession"
-                :title="petStoreManager.activeGameSession ? 'Game session already active' : (!canStartSession ? 'Select 1-2 guinea pigs from pet store' : 'Start game session')"
-              >
-                {{ petStoreManager.activeGameSession ? 'Game in Session' : 'Adopt Guinea Pig(s)' }}
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Guinea Pig Selection -->
-        <div class="panel panel--compact">
-          <div class="panel__header">
-            <h3>{{ petStoreManager.activeGameSession ? 'Active Guinea Pigs' : 'Select Guinea Pigs' }}</h3>
-          </div>
-          <div class="panel__content">
-            <div class="guinea-pig-selection">
-              <template v-if="petStoreManager.activeGameSession && guineaPigStore.activeGuineaPigs.length > 0">
-                <div class="form-field">
-                  <label class="form-field__label">Guinea Pig 1</label>
-                  <input
-                    type="text"
-                    :value="getGuineaPigName(selectedGuineaPig1)"
-                    readonly
-                    class="form-field__input form-field__input--readonly"
-                  />
-                </div>
-                <div v-if="selectedGuineaPig2" class="form-field">
-                  <label class="form-field__label">Guinea Pig 2</label>
-                  <input
-                    type="text"
-                    :value="getGuineaPigName(selectedGuineaPig2)"
-                    readonly
-                    class="form-field__input form-field__input--readonly"
-                  />
-                </div>
-              </template>
-              <template v-else>
-                <Select
-                  v-model="selectedGuineaPig1"
-                  :options="guineaPigOptions"
-                  label="Guinea Pig 1"
-                  placeholder="Select first guinea pig"
-                  size="sm"
-                />
-                <Select
-                  v-model="selectedGuineaPig2"
-                  :options="guineaPig2Options"
-                  label="Guinea Pig 2 (Optional)"
-                  placeholder="Select second guinea pig"
-                  size="sm"
-                />
-              </template>
-            </div>
-          </div>
-        </div>
-
-        <!-- Session Status -->
-        <div class="panel panel--compact">
-          <div class="panel__header">
-            <h3>Session Status</h3>
-          </div>
-          <div class="panel__content">
-            <div class="stats-grid">
-              <div class="stat-item">
-                <span class="stat-label">Active Session:</span>
-                <span class="stat-value">{{ petStoreManager.activeGameSession ? 'Yes' : 'No' }}</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Active Guinea Pigs:</span>
-                <span class="stat-value">{{ guineaPigStore.activeGuineaPigs.length }}</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Session Started:</span>
-                <span class="stat-value">
-                  {{ petStoreManager.activeGameSession
-                    ? new Date(petStoreManager.activeGameSession.startedAt).toLocaleString()
-                    : 'N/A' }}
-                </span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Currency:</span>
-                <span class="stat-value">{{ playerProgression.formattedCurrency }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel-row panel-row--grid-3">
-        <!-- Game State & Controls -->
-        <div class="panel panel--compact">
-          <div class="panel__header">
-            <h3>Game State & Controls</h3>
-          </div>
-          <div class="panel__content">
-            <!-- Game Controls -->
-            <div class="controls-grid">
-              <Button
-                @click="gameController.pauseGame('manual')"
-                variant="secondary"
-                :disabled="!canPauseGame"
-                :title="guineaPigStore.activeGuineaPigs.length === 0 ? 'No active guinea pigs in habitat' : (!canPauseGame ? 'Game must be active to pause' : 'Pause the game')"
-              >
-                Pause Game
-              </Button>
-              <Button
-                @click="gameController.resumeGame()"
-                variant="secondary"
-                :disabled="!canResumeGame"
-                :title="guineaPigStore.activeGuineaPigs.length === 0 ? 'No active guinea pigs in habitat' : (!canResumeGame ? 'Game must be paused to resume' : 'Resume the game')"
-              >
-                Resume Game
-              </Button>
-            </div>
-
-            <!-- Current State Stats -->
-            <div class="stats-grid mt-4">
-              <div class="stat-item">
-                <span class="stat-label">Game State:</span>
-                <span class="stat-value">{{ gameController.gameState.currentState }}</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Pause Reason:</span>
-                <span class="stat-value">{{ gameController.gameState.pauseReason || 'None' }}</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-label">Is Orientation Paused:</span>
-                <span class="stat-value">{{ gameController.isOrientationPaused }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- System Settings -->
-        <div class="panel panel--compact">
-          <div class="panel__header">
-            <h3>System Settings</h3>
-          </div>
-          <div class="panel__content">
-            <div class="flex flex-column gap-3">
-              <Select
-                v-model="performanceMode"
-                @change="updatePerformanceMode"
-                :options="performanceOptions"
-                label="Performance Mode"
-                size="sm"
+            <div v-if="selectedGuineaPig2" class="form-field">
+              <label class="form-field__label">Guinea Pig 2</label>
+              <input
+                type="text"
+                :value="getGuineaPigName(selectedGuineaPig2)"
+                readonly
+                class="form-field__input form-field__input--readonly"
               />
-              <Button @click="gameController.toggleErrorReporting()" variant="tertiary" size="sm">
-                {{ gameController.settings.errorReporting.enabled ? 'Disable' : 'Enable' }} Error Reporting
-              </Button>
             </div>
-          </div>
+          </template>
+          <template v-else>
+            <Select
+              v-model="selectedGuineaPig1"
+              :options="guineaPigOptions"
+              label="Guinea Pig 1"
+              placeholder="Select first guinea pig"
+              size="sm"
+            />
+            <Select
+              v-model="selectedGuineaPig2"
+              :options="guineaPig2Options"
+              label="Guinea Pig 2 (Optional)"
+              placeholder="Select second guinea pig"
+              size="sm"
+            />
+          </template>
         </div>
+      </DebugPanel>
 
-        <!-- Tutorial -->
-        <div class="panel panel--compact">
-          <div class="panel__header">
-            <h3>Tutorial</h3>
-          </div>
-          <div class="panel__content">
-            <div class="flex flex-column gap-3">
-              <Select
-                v-model="tutorialMode"
-                @change="updateTutorialMode"
-                :options="tutorialOptions"
-                label="Tutorial Mode"
-                size="sm"
-              />
-              <div class="stats-grid">
-                <div class="stat-item">
-                  <span class="stat-label">First Time User:</span>
-                  <span class="stat-value">{{ gameController.gameState.isFirstTimeUser }}</span>
-                </div>
-              </div>
-              <Button @click="resetFirstTimeUser" variant="tertiary" size="sm">
-                Reset First Time User
-              </Button>
-            </div>
-          </div>
+      <!-- Session Status -->
+      <DebugPanel title="📊 Session Status" anchor="read-only">
+        <div class="stats-grid">
+          <DebugStatRow label="Active Guinea Pigs" :value="guineaPigStore.activeGuineaPigs.length" />
+          <DebugStatRow
+            label="Session Started"
+            :value="petStoreManager.activeGameSession
+              ? new Date(petStoreManager.activeGameSession.startedAt).toLocaleString()
+              : 'N/A'"
+            :muted="!petStoreManager.activeGameSession"
+          />
+          <DebugStatRow label="Currency" :value="playerProgression.formattedCurrency" />
         </div>
-      </div>
-    </div>
+      </DebugPanel>
+    </DebugPanelRow>
+
+    <DebugPanelRow :columns="3">
+      <!-- Game State & Controls -->
+      <DebugPanel title="⏯️ Game State & Controls">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-label">Game State</span>
+            <DebugBadge
+              :variant="gameController.gameState.currentState === 'playing'
+                ? 'ok'
+                : gameController.gameState.currentState === 'paused' ? 'warn' : 'info'"
+            >
+              {{ gameController.gameState.currentState }}
+            </DebugBadge>
+          </div>
+          <DebugStatRow
+            label="Pause Reason"
+            :value="gameController.gameState.pauseReason || 'None'"
+            :muted="!gameController.gameState.pauseReason"
+          />
+          <DebugStatRow
+            label="Orientation Paused"
+            :value="String(gameController.isOrientationPaused)"
+            :muted="!gameController.isOrientationPaused"
+          />
+        </div>
+      </DebugPanel>
+
+      <!-- System Settings -->
+      <DebugPanel title="⚙️ System Settings">
+        <div class="game-controller__stack">
+          <Select
+            v-model="performanceMode"
+            @change="updatePerformanceMode"
+            :options="performanceOptions"
+            label="Performance Mode"
+            size="sm"
+          />
+          <Button @click="gameController.toggleErrorReporting()" variant="tertiary" size="sm">
+            {{ gameController.settings.errorReporting.enabled ? 'Disable' : 'Enable' }} Error Reporting
+          </Button>
+        </div>
+      </DebugPanel>
+
+      <!-- Tutorial -->
+      <DebugPanel title="🎓 Tutorial">
+        <div class="game-controller__stack">
+          <Select
+            v-model="tutorialMode"
+            @change="updateTutorialMode"
+            :options="tutorialOptions"
+            label="Tutorial Mode"
+            size="sm"
+          />
+          <div class="stats-grid">
+            <DebugStatRow
+              label="First Time User"
+              :value="String(gameController.gameState.isFirstTimeUser)"
+              :muted="!gameController.gameState.isFirstTimeUser"
+            />
+          </div>
+          <Button @click="resetFirstTimeUser" variant="warning" size="sm">
+            🔄 Reset First Time User
+          </Button>
+        </div>
+      </DebugPanel>
+    </DebugPanelRow>
   </div>
 </template>
 
@@ -218,21 +139,16 @@ import { useGuineaPigStore } from '../../../stores/guineaPigStore'
 import { usePlayerProgression } from '../../../stores/playerProgression'
 import Button from '../../basic/Button.vue'
 import Select from '../../basic/Select.vue'
-import ToggleGroup from '../../basic/ToggleGroup.vue'
-import { useGameViewStore } from '../../../stores/gameViewStore'
+import DebugPanel from '../ui/DebugPanel.vue'
+import DebugPanelRow from '../ui/DebugPanelRow.vue'
+import DebugStatRow from '../ui/DebugStatRow.vue'
+import DebugBadge from '../ui/DebugBadge.vue'
 
 // Stores
 const gameController = useGameController()
 const petStoreManager = usePetStoreManager()
 const guineaPigStore = useGuineaPigStore()
 const playerProgression = usePlayerProgression()
-const gameViewStore = useGameViewStore()
-
-// Game View options
-const gameViewOptions = [
-  { value: '2d', label: '📐 2D' },
-  { value: '3d', label: '🎮 3D' }
-]
 
 // Pet Store Session State
 const selectedGuineaPig1 = ref<string | number>('')
@@ -327,37 +243,6 @@ const guineaPig2Options = computed(() => {
     })
 })
 
-const canStartSession = computed(() => {
-  return !petStoreManager.activeGameSession && selectedGuineaPig1.value !== ''
-})
-
-const handleStartSession = () => {
-  const guineaPigIds: string[] = []
-  if (selectedGuineaPig1.value && selectedGuineaPig1.value !== '') {
-    guineaPigIds.push(String(selectedGuineaPig1.value))
-  }
-  if (selectedGuineaPig2.value && selectedGuineaPig2.value !== '') {
-    guineaPigIds.push(String(selectedGuineaPig2.value))
-  }
-
-  if (guineaPigIds.length > 0) {
-    petStoreManager.startGameSession(guineaPigIds)
-  }
-}
-
-// Game Control State
-const canPauseGame = computed(() => {
-  const hasActiveSession = petStoreManager.activeGameSession !== null
-  const hasActiveGuineaPigs = guineaPigStore.activeGuineaPigs.length > 0
-  return gameController.gameState.currentState === 'playing' && hasActiveSession && hasActiveGuineaPigs
-})
-
-const canResumeGame = computed(() => {
-  const hasActiveSession = petStoreManager.activeGameSession !== null
-  const hasActiveGuineaPigs = guineaPigStore.activeGuineaPigs.length > 0
-  return gameController.gameState.currentState === 'paused' && hasActiveSession && hasActiveGuineaPigs
-})
-
 // Settings Management
 const tutorialOptions = [
   { value: 'auto', label: 'Auto' },
@@ -403,19 +288,20 @@ const resetFirstTimeUser = () => {
 <style>
 /* Game Controller Styles */
 .game-controller {
-  max-inline-size: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
 }
 
-.guinea-pig-selection {
+.game-controller__gp-selection {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
 }
 
-.game-view-select {
-  align-items: center;
+.game-controller__stack {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-3);
 }
 </style>

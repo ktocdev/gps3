@@ -1,9 +1,7 @@
 <template>
   <div class="needs-panel">
-    <div v-if="hasActiveGuineaPigs" class="panel panel--compact panel--accent">
-      <div class="panel__header">
-        <h3>🍎 Needs</h3>
-        <!-- Toggle between guinea pigs if there are multiple -->
+    <DebugPanel v-if="hasActiveGuineaPigs" title="🍎 Needs" accent="var(--color-green-500)">
+      <template #header-extra>
         <Button
           v-if="guineaPigStore.activeGuineaPigs.length > 1"
           @click="toggleGuineaPig"
@@ -12,68 +10,59 @@
         >
           {{ selectedGuineaPig?.name }} ({{ selectedGuineaPigIndex + 1 }}/{{ guineaPigStore.activeGuineaPigs.length }})
         </Button>
-      </div>
-      <div v-if="selectedGuineaPig" class="panel__content">
-        <!-- Critical Needs -->
-        <div class="needs-category mb-4">
-          <h4 class="needs-category__title">Critical Needs</h4>
-          <div class="needs-list">
-            <NeedRow
+      </template>
+
+      <template v-if="selectedGuineaPig" #default>
+        <DebugSection title="Critical Needs">
+          <div class="needs-panel__list">
+            <DebugSlider
               v-for="need in criticalNeeds"
-              :key="need"
-              :id="`${selectedGuineaPig!.id}-${need}`"
+              :key="`${selectedGuineaPig!.id}-${need}`"
+              :model-value="Math.round(selectedGuineaPig!.needs[need])"
               :label="formatNeedName(need)"
-              :value="selectedGuineaPig!.needs[need]"
-              :needType="need"
-              @update:modelValue="(value: number) => adjustNeed(selectedGuineaPig!.id, need, value)"
+              :accent="`var(--color-need-${need})`"
+              @update:model-value="(value: number) => adjustNeed(selectedGuineaPig!.id, need, value)"
             />
           </div>
-        </div>
+        </DebugSection>
 
-        <!-- Environmental Needs -->
-        <div class="needs-category mb-4">
-          <h4 class="needs-category__title">Environmental Needs</h4>
-          <div class="needs-list">
-            <NeedRow
+        <DebugSection title="Environmental Needs">
+          <div class="needs-panel__list">
+            <DebugSlider
               v-for="need in environmentalNeeds"
-              :key="need"
-              :id="`${selectedGuineaPig!.id}-${need}`"
+              :key="`${selectedGuineaPig!.id}-${need}`"
+              :model-value="Math.round(selectedGuineaPig!.needs[need])"
               :label="formatNeedName(need)"
-              :value="selectedGuineaPig!.needs[need]"
-              :needType="need"
-              @update:modelValue="(value: number) => adjustNeed(selectedGuineaPig!.id, need, value)"
+              :accent="`var(--color-need-${need})`"
+              @update:model-value="(value: number) => adjustNeed(selectedGuineaPig!.id, need, value)"
             />
           </div>
-        </div>
+        </DebugSection>
 
-        <!-- Wellness Needs -->
-        <div class="needs-category">
-          <h4 class="needs-category__title">Wellness Needs</h4>
-          <div class="needs-list">
-            <NeedRow
+        <DebugSection title="Wellness Needs">
+          <div class="needs-panel__list">
+            <DebugSlider
               v-for="need in wellnessNeeds"
-              :key="need"
-              :id="`${selectedGuineaPig!.id}-${need}`"
+              :key="`${selectedGuineaPig!.id}-${need}`"
+              :model-value="Math.round(selectedGuineaPig!.needs[need])"
               :label="formatNeedName(need)"
-              :value="selectedGuineaPig!.needs[need]"
-              :needType="need"
-              @update:modelValue="(value: number) => adjustNeed(selectedGuineaPig!.id, need, value)"
+              :accent="`var(--color-need-${need})`"
+              @update:model-value="(value: number) => adjustNeed(selectedGuineaPig!.id, need, value)"
             />
           </div>
-        </div>
+        </DebugSection>
 
-        <!-- Quick Actions -->
-        <div class="needs-actions mt-4">
+        <div class="needs-panel__actions">
           <Button
             @click="replenishAllNeeds"
             variant="primary"
             size="sm"
           >
-            Replenish All Needs
+            ✨ Replenish All Needs
           </Button>
         </div>
-      </div>
-    </div>
+      </template>
+    </DebugPanel>
 
     <div v-else class="panel panel--compact panel--warning">
       <div class="panel__content text-center">
@@ -87,8 +76,10 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import { useGuineaPigStore } from '../../../stores/guineaPigStore'
-import NeedRow from '../../basic/NeedRow.vue'
 import Button from '../../basic/Button.vue'
+import DebugPanel from '../ui/DebugPanel.vue'
+import DebugSection from '../ui/DebugSection.vue'
+import DebugSlider from '../ui/DebugSlider.vue'
 import type { NeedType } from '../../../stores/guineaPigStore'
 
 const guineaPigStore = useGuineaPigStore()
@@ -167,41 +158,21 @@ function replenishAllNeeds() {
 }
 </script>
 
-<style scoped>
+<style>
 .needs-panel {
   container-type: inline-size;
   container-name: needs-panel;
 }
 
-.needs-category {
-  margin-block-end: var(--space-4);
-}
-
-.needs-category:last-child {
-  margin-block-end: 0;
-}
-
-.needs-category__title {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-secondary);
-  margin-block-end: var(--space-3);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.needs-list {
+.needs-panel__list {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
 }
 
-/* Need item styles now in NeedRow.vue component */
-
-.needs-actions {
+.needs-panel__actions {
   display: flex;
   justify-content: center;
-  padding-block-start: var(--space-4);
-  border-block-start: 1px solid var(--color-border-light);
+  margin-block-start: var(--space-4);
 }
 </style>

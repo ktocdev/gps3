@@ -1,125 +1,116 @@
 <template>
-  <div class="bonding-debug debug-view__constrained">
-    <h2>Social Bonding System</h2>
+  <div class="bonding-debug">
+    <DebugPanel
+      v-if="activeGuineaPigs.length === 0"
+      title="🤝 Social Bonding · pig-to-pig"
+      anchor="no active game"
+      accent="var(--color-cyan-500)"
+    >
+      <p class="text-label text-label--muted">No guinea pigs in game</p>
+      <p class="text-label--small">Start a game in the Game Controller view to see social bonding data.</p>
+    </DebugPanel>
 
-    <div v-if="activeGuineaPigs.length === 0" class="panel panel--compact panel--warning mb-6">
-      <div class="panel__content text-center">
-        <p class="text-label text-label--muted mb-2">No guinea pigs in game</p>
-        <p class="text-label--small">Start a game in the Game Controller view to see social bonding data.</p>
-      </div>
-    </div>
+    <DebugPanel
+      v-else-if="activeGuineaPigs.length < 2"
+      title="🤝 Social Bonding · pig-to-pig"
+      anchor="needs 2 pigs"
+      accent="var(--color-cyan-500)"
+    >
+      <p class="text-label--small">Bonding requires at least 2 active guinea pigs. Add another guinea pig from the Pet Store tab.</p>
+    </DebugPanel>
 
-    <div v-else-if="activeGuineaPigs.length < 2" class="panel panel--compact panel--warning mb-6">
-      <div class="panel__content text-center">
-        <p>Bonding requires at least 2 active guinea pigs. Add another guinea pig from the Pet Store tab.</p>
-      </div>
-    </div>
-
-    <div v-else>
-      <!-- Three Column Layout -->
-      <div class="panel-row panel-row--grid-3">
-        <!-- Active Bonds Overview -->
-        <div class="panel panel--compact">
-          <div class="panel__header">
-            <h3>Active Bonds</h3>
-          </div>
-          <div class="panel__content">
-            <div v-if="allBonds.length === 0" class="text-center text--muted">
-              No bonds created yet
-            </div>
-            <div v-else class="bonding-debug__bonds-list">
-              <div v-for="bond in allBonds" :key="bond.id" class="bonding-debug__bond-card">
-                <div class="bond-header">
-                  <span class="bond-names">{{ getGuineaPigName(bond.guineaPig1Id) }} & {{ getGuineaPigName(bond.guineaPig2Id) }}</span>
-                  <span class="bond-tier" :class="`bond-tier--${bond.bondingTier}`">{{ formatTier(bond.bondingTier) }}</span>
-                </div>
-
-                <div class="stats-grid mb-3">
-                  <div class="stat-item">
-                    <span class="stat-label">Bonding Level:</span>
-                    <span class="stat-value">{{ Math.round(bond.bondingLevel) }}%</span>
-                  </div>
-                  <div class="stat-item">
-                    <span class="stat-label">Compatibility:</span>
-                    <span class="stat-value">{{ bond.compatibilityScore }}/100</span>
-                  </div>
-                  <div class="stat-item">
-                    <span class="stat-label">Total Interactions:</span>
-                    <span class="stat-value">{{ bond.totalInteractions }}</span>
-                  </div>
-                  <div class="stat-item">
-                    <span class="stat-label">Proximity Time:</span>
-                    <span class="stat-value">{{ bond.proximityTime.toFixed(1) }}h</span>
-                  </div>
-                </div>
-
-                <div class="progress-bar mb-3">
-                  <div class="progress-bar__fill" :style="{ width: bond.bondingLevel + '%' }"></div>
-                </div>
-
-                <div class="bond-benefits">
-                  <span class="text-label text-label--muted">Benefits:</span>
-                  <ul class="text-label--small">
-                    <li>Social decay: {{ getBenefits(bond.bondingLevel).socialDecayModifier }}x</li>
-                    <li>Proximity bonus: {{ getBenefits(bond.bondingLevel).proximityBonus }}x</li>
-                    <li>Interaction frequency: {{ getBenefits(bond.bondingLevel).interactionFrequency }}x</li>
-                  </ul>
-                </div>
-
-                <!-- Manual Triggers -->
-                <div class="button-group mt-3">
-                  <Button @click="triggerGrooming(bond)" size="sm" variant="secondary">🧼 Groom</Button>
-                  <Button @click="triggerPlayTogether(bond)" size="sm" variant="secondary">🎮 Play</Button>
-                  <Button @click="triggerExplore(bond)" size="sm" variant="secondary">🗺️ Explore</Button>
-                </div>
-              </div>
-            </div>
-          </div>
+    <!-- Three Column Layout -->
+    <DebugPanelRow v-else :columns="3">
+      <!-- Active Bonds Overview -->
+      <DebugPanel
+        title="🤝 Social Bonding · pig-to-pig"
+        :anchor="pairAnchor"
+        accent="var(--color-cyan-500)"
+      >
+        <div v-if="allBonds.length === 0" class="bonding-debug__empty">
+          No bonds created yet
         </div>
-
-        <!-- Bonding History -->
-        <div class="panel panel--compact">
-          <div class="panel__header">
-            <h3>Recent Bonding Events</h3>
-          </div>
-          <div class="panel__content">
-            <div v-if="recentEvents.length === 0" class="text-center text--muted">
-              No bonding events yet
+        <div v-else class="bonding-debug__bonds-list">
+          <div v-for="bond in allBonds" :key="bond.id" class="bonding-debug__bond-card">
+            <div class="bonding-debug__bond-header">
+              <span class="bonding-debug__bond-names">{{ getGuineaPigName(bond.guineaPig1Id) }} ↔ {{ getGuineaPigName(bond.guineaPig2Id) }}</span>
+              <DebugBadge :variant="getTierVariant(bond.bondingTier)">{{ formatTier(bond.bondingTier) }}</DebugBadge>
             </div>
-            <div v-else class="bonding-debug__events">
-              <div v-for="event in recentEvents" :key="event.id" class="bonding-debug__event">
-                <div class="event-header">
-                  <span class="event-type">{{ formatEventType(event.type) }}</span>
-                  <span class="event-time">{{ formatTimestamp(event.timestamp) }}</span>
-                </div>
-                <div class="event-description text-label--small">{{ event.description }}</div>
-                <div class="event-change text-label--small" :class="event.bondingChange > 0 ? 'text--success' : ''">
-                  +{{ event.bondingChange.toFixed(1) }} bonding
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Compatibility Breakdown -->
-        <div class="panel panel--compact">
-          <div class="panel__header">
-            <h3>Compatibility Analysis</h3>
-          </div>
-          <div class="panel__content">
-            <div v-for="bond in allBonds" :key="bond.id" class="mb-4">
-              <h4 class="text-label mb-2">{{ getGuineaPigName(bond.guineaPig1Id) }} & {{ getGuineaPigName(bond.guineaPig2Id) }}</h4>
+            <DebugSlider
+              :model-value="Math.round(bond.bondingLevel)"
+              label="Bond Level"
+              accent="var(--color-cyan-500)"
+              :hint="`${getBondTierLabel(bond.bondingLevel)} — gates pig-to-pig snuggle / groom / play behaviors`"
+              disabled
+            />
+
+            <DebugSection title="Telemetry">
               <div class="stats-grid">
-                <div v-for="[factor, score] in getCompatibilityFactors(bond)" :key="factor" class="stat-item">
-                  <span class="stat-label">{{ formatFactorName(factor) }}:</span>
-                  <span class="stat-value">{{ score }}</span>
-                </div>
+                <DebugStatRow label="Bonding Level" :value="`${Math.round(bond.bondingLevel)}%`" />
+                <DebugStatRow label="Compatibility" :value="`${bond.compatibilityScore}/100`" />
+                <DebugStatRow label="Total Interactions" :value="bond.totalInteractions" />
+                <DebugStatRow label="Proximity Time" :value="`${bond.proximityTime.toFixed(1)}h`" />
               </div>
+            </DebugSection>
+
+            <DebugSection title="Tier Benefits">
+              <div class="stats-grid">
+                <DebugStatRow label="Social decay" :value="`${getBenefits(bond.bondingLevel).socialDecayModifier}x`" />
+                <DebugStatRow label="Proximity bonus" :value="`${getBenefits(bond.bondingLevel).proximityBonus}x`" />
+                <DebugStatRow label="Interaction frequency" :value="`${getBenefits(bond.bondingLevel).interactionFrequency}x`" />
+              </div>
+            </DebugSection>
+
+            <!-- Manual Triggers -->
+            <DebugSection title="Pair Interactions">
+              <div class="btn-row">
+                <Button @click="triggerGrooming(bond)" size="sm" variant="secondary">🧼 Groom</Button>
+                <Button @click="triggerPlayTogether(bond)" size="sm" variant="secondary">🎮 Play</Button>
+                <Button @click="triggerExplore(bond)" size="sm" variant="secondary">🗺️ Explore</Button>
+              </div>
+            </DebugSection>
+          </div>
+        </div>
+      </DebugPanel>
+
+      <!-- Bonding History -->
+      <DebugPanel title="📜 Recent Bonding Events" anchor="last 10">
+        <div v-if="recentEvents.length === 0" class="bonding-debug__empty">
+          No bonding events yet
+        </div>
+        <div v-else class="bonding-debug__events">
+          <div v-for="event in recentEvents" :key="event.id" class="bonding-debug__event">
+            <div class="bonding-debug__event-header">
+              <span class="bonding-debug__event-type">{{ formatEventType(event.type) }}</span>
+              <span class="bonding-debug__event-time">{{ formatTimestamp(event.timestamp) }}</span>
+            </div>
+            <div class="bonding-debug__event-description">{{ event.description }}</div>
+            <div class="bonding-debug__event-change" :class="{ 'bonding-debug__event-change--positive': event.bondingChange > 0 }">
+              +{{ event.bondingChange.toFixed(1) }} bonding
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </DebugPanel>
+
+      <!-- Compatibility Breakdown -->
+      <DebugPanel title="🧬 Compatibility Analysis" anchor="read-only">
+        <DebugSection
+          v-for="bond in allBonds"
+          :key="bond.id"
+          :title="`${getGuineaPigName(bond.guineaPig1Id)} ↔ ${getGuineaPigName(bond.guineaPig2Id)}`"
+        >
+          <div class="stats-grid">
+            <DebugStatRow
+              v-for="[factor, score] in getCompatibilityFactors(bond)"
+              :key="factor"
+              :label="formatFactorName(factor)"
+              :value="score"
+            />
+          </div>
+        </DebugSection>
+      </DebugPanel>
+    </DebugPanelRow>
   </div>
 </template>
 
@@ -130,12 +121,23 @@ import { useSocialBehaviors } from '../../../composables/game/useSocialBehaviors
 import { getBondingTierBenefits } from '../../../utils/bondingProgression'
 import { getCompatibilityBreakdown as getCompatibility } from '../../../utils/compatibility'
 import Button from '../../basic/Button.vue'
+import DebugPanel from '../ui/DebugPanel.vue'
+import DebugPanelRow from '../ui/DebugPanelRow.vue'
+import DebugSection from '../ui/DebugSection.vue'
+import DebugSlider from '../ui/DebugSlider.vue'
+import DebugStatRow from '../ui/DebugStatRow.vue'
+import DebugBadge from '../ui/DebugBadge.vue'
 
 const guineaPigStore = useGuineaPigStore()
 const socialBehaviors = useSocialBehaviors()
 
 const activeGuineaPigs = computed(() => guineaPigStore.activeGuineaPigs)
 const allBonds = computed(() => guineaPigStore.getAllBonds())
+
+const pairAnchor = computed(() => {
+  if (activeGuineaPigs.value.length < 2) return ''
+  return `${activeGuineaPigs.value[0].name} ↔ ${activeGuineaPigs.value[1].name}`
+})
 
 const recentEvents = computed(() => {
   const events = allBonds.value.flatMap(bond =>
@@ -153,6 +155,19 @@ function getGuineaPigName(id: string): string {
 
 function formatTier(tier: string): string {
   return tier.charAt(0).toUpperCase() + tier.slice(1)
+}
+
+function getTierVariant(tier: string): 'ok' | 'warn' | 'err' | 'info' {
+  if (tier === 'bonded') return 'ok'
+  if (tier === 'friends') return 'info'
+  return 'warn'
+}
+
+function getBondTierLabel(bondingLevel: number): string {
+  if (bondingLevel >= 80) return 'Cage-mates'
+  if (bondingLevel >= 50) return 'Buddies'
+  if (bondingLevel >= 20) return 'Tolerant'
+  return 'Hostile'
 }
 
 function formatEventType(type: string): string {
@@ -214,6 +229,12 @@ function formatFactorName(factor: string): string {
 </script>
 
 <style>
+.bonding-debug__empty {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
 .bonding-debug__bonds-list {
   display: flex;
   flex-direction: column;
@@ -224,50 +245,20 @@ function formatFactorName(factor: string): string {
   padding: var(--space-4);
   background: var(--color-bg-secondary);
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-light);
 }
 
-.bond-header {
+.bonding-debug__bond-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: var(--space-3);
   margin-block-end: var(--space-3);
 }
 
-.bond-names {
-  font-weight: var(--font-weight-medium);
-  font-size: var(--font-size-base);
-}
-
-.bond-tier {
-  padding: var(--space-1) var(--space-2);
-  border-radius: var(--radius-sm);
+.bonding-debug__bond-names {
+  font-weight: var(--font-weight-semibold);
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-}
-
-.bond-tier--neutral {
-  background: var(--color-neutral-200);
-  color: var(--color-neutral-700);
-}
-
-.bond-tier--friends {
-  background: var(--color-secondary-bg);
-  color: var(--color-secondary);
-}
-
-.bond-tier--bonded {
-  background: var(--color-pink-100);
-  color: var(--color-pink-700);
-}
-
-.bond-benefits {
-  margin-block-start: var(--space-3);
-}
-
-.bond-benefits ul {
-  margin-block-start: var(--space-1);
-  padding-inline-start: var(--space-4);
 }
 
 .bonding-debug__events {
@@ -280,27 +271,38 @@ function formatFactorName(factor: string): string {
   padding: var(--space-3);
   background: var(--color-bg-secondary);
   border-radius: var(--radius-sm);
-  border-inline-start: 3px solid var(--color-primary);
+  border-inline-start: 3px solid var(--color-cyan-500);
 }
 
-.event-header {
+.bonding-debug__event-header {
   display: flex;
   justify-content: space-between;
+  gap: var(--space-3);
   margin-block-end: var(--space-2);
 }
 
-.event-type {
-  font-weight: var(--font-weight-medium);
+.bonding-debug__event-type {
+  font-weight: var(--font-weight-semibold);
   font-size: var(--font-size-sm);
 }
 
-.event-time {
-  font-size: var(--font-size-sm);
+.bonding-debug__event-time {
+  font-size: var(--font-size-xs);
   color: var(--color-text-muted);
 }
 
-.event-change {
+.bonding-debug__event-description {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.bonding-debug__event-change {
   margin-block-start: var(--space-1);
+  font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
+}
+
+.bonding-debug__event-change--positive {
+  color: var(--color-success);
 }
 </style>

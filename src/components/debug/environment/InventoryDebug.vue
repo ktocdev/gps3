@@ -1,29 +1,23 @@
 <template>
   <div class="inventory-view">
-    <!-- Header Row: Inventory Title + Currency Controls -->
+    <!-- Header Row: Inventory Panel + Currency Controls -->
     <div class="inventory-view__top-row">
       <!-- Player Inventory Panel (66% width) -->
-      <div class="panel panel--compact inventory-view__inventory-panel">
-        <div class="inventory-view__header">
-          <div class="inventory-view__header-left">
-            <h2 class="panel__heading">My Inventory</h2>
-            <div class="inventory-view__stats">
-              <Badge variant="secondary" size="md">{{ inventoryStore.totalItemCount }} Items</Badge>
-              <Badge variant="info" size="md">{{ inventoryStore.allItems.length }} Unique</Badge>
-            </div>
-          </div>
-          <div class="inventory-view__header-right">
+      <DebugPanel title="🎒 My Inventory" class="inventory-view__inventory-panel">
+        <template #header-extra>
+          <div class="inventory-view__header-tools">
+            <Badge variant="secondary" size="md">{{ inventoryStore.totalItemCount }} Items</Badge>
+            <Badge variant="info" size="md">{{ inventoryStore.allItems.length }} Unique</Badge>
             <ItemViewToggle v-model="viewMode" />
           </div>
+        </template>
+
+        <div v-if="inventoryStore.allItems.length === 0" class="inventory-view__empty">
+          <p>No items in inventory yet. Visit the store to purchase items!</p>
         </div>
 
-        <div class="panel__section">
-          <div v-if="inventoryStore.allItems.length === 0" class="inventory-view__empty">
-            <p>No items in inventory yet. Visit the store to purchase items!</p>
-          </div>
-
-          <div v-else class="inventory-view__sections">
-            <h3 class="panel__subheading">Consumables</h3>
+        <template v-else>
+          <DebugSection title="🥕 Consumables">
             <div v-if="consumablesWithDetails.length === 0" class="inventory-view__empty-section">
               <p>No consumables yet</p>
             </div>
@@ -86,8 +80,9 @@
                 </Badge>
               </template>
             </ItemListView>
+          </DebugSection>
 
-            <h3 class="panel__subheading">Habitat Items</h3>
+          <DebugSection title="🏠 Habitat Items">
             <div v-if="habitatItemsWithDetails.length === 0" class="inventory-view__empty-section">
               <p>No habitat items yet</p>
             </div>
@@ -150,36 +145,32 @@
                 </Badge>
               </template>
             </ItemListView>
-          </div>
-        </div>
-      </div>
+          </DebugSection>
+        </template>
+      </DebugPanel>
 
       <!-- Currency Controls Panel (33% width) -->
-      <div class="panel panel--compact inventory-view__currency-panel">
-        <div class="panel__header">
-          <h3>Currency Controls</h3>
-        </div>
-        <div class="panel__content">
+      <DebugPanel
+        title="🪙 Currency Controls"
+        anchor="player wallet"
+        accent="#facc15"
+        class="inventory-view__currency-panel"
+      >
+        <DebugSection>
           <div class="stats-grid">
-            <div class="stat-item">
-              <span class="stat-label">Balance:</span>
-              <span class="stat-value">{{ playerProgression.formattedCurrency }}</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-label">Earned:</span>
-              <span class="stat-value">{{ playerProgression.formattedTotalEarned }}</span>
-            </div>
+            <DebugStatRow label="Balance" :value="playerProgression.formattedCurrency" />
+            <DebugStatRow label="Earned" :value="playerProgression.formattedTotalEarned" />
           </div>
+        </DebugSection>
 
-          <hr class="divider">
-
-          <div class="form-field-block mb-4">
-            <label class="form-label" for="currency-amount">Amount</label>
+        <DebugSection title="Adjust">
+          <div class="form-field inventory-view__amount-field">
+            <label class="form-field__label" for="currency-amount">Amount</label>
             <input
               id="currency-amount"
               type="number"
               v-model.number="currencyAmount"
-              class="input input--sm"
+              class="form-field__input"
               placeholder="Enter amount"
               min="1"
               max="10000"
@@ -187,7 +178,7 @@
             />
           </div>
 
-          <div class="controls-grid controls-grid--compact">
+          <div class="btn-row">
             <Button
               @click="addCurrency"
               variant="primary"
@@ -205,11 +196,10 @@
               Deduct
             </Button>
           </div>
+        </DebugSection>
 
-          <hr class="divider">
-
-          <div class="form-label mb-2">Quick</div>
-          <div class="controls-grid controls-grid--compact">
+        <DebugSection title="Quick">
+          <div class="btn-row">
             <Button
               @click="addQuickAmount(100)"
               variant="secondary"
@@ -233,14 +223,14 @@
             </Button>
             <Button
               @click="resetCurrency"
-              variant="tertiary"
+              variant="danger"
               size="sm"
             >
               Reset
             </Button>
           </div>
-        </div>
-      </div>
+        </DebugSection>
+      </DebugPanel>
     </div>
   </div>
 </template>
@@ -252,6 +242,9 @@ import { useInventoryStore } from '../../../stores/inventoryStore'
 import { useSuppliesStore } from '../../../stores/suppliesStore'
 import Button from '../../basic/Button.vue'
 import Badge from '../../basic/Badge.vue'
+import DebugPanel from '../ui/DebugPanel.vue'
+import DebugSection from '../ui/DebugSection.vue'
+import DebugStatRow from '../ui/DebugStatRow.vue'
 import ItemViewToggle from '../../game/shop/ItemViewToggle.vue'
 import ItemListView from '../../game/shop/ItemListView.vue'
 import ItemGridView from '../../game/shop/ItemGridView.vue'
@@ -328,12 +321,12 @@ const resetCurrency = () => {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+  align-items: stretch;
 }
 
 @media (min-width: 768px) {
   .inventory-view__top-row {
     flex-direction: row;
-    align-items: stretch;
   }
 
   .inventory-view__inventory-panel {
@@ -345,47 +338,17 @@ const resetCurrency = () => {
   }
 }
 
-.inventory-view__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: var(--space-4);
-  padding: 0 0 var(--space-6) 0;
-  flex-wrap: wrap;
-}
-
-.inventory-view__header-left {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  flex: 1;
-  min-inline-size: 0;
-}
-
-.inventory-view__header-right {
-  flex-shrink: 0;
-}
-
-.inventory-view__header .panel__heading {
-  margin-block-end: 0;
-}
-
-.inventory-view__stats {
+.inventory-view__header-tools {
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  flex-wrap: wrap;
 }
 
 .inventory-view__empty {
   text-align: center;
   padding: var(--space-6);
   color: var(--color-text-muted);
-}
-
-.inventory-view__sections {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
 }
 
 .inventory-view__empty-section {
@@ -395,20 +358,24 @@ const resetCurrency = () => {
   font-size: var(--font-size-sm);
 }
 
+.inventory-view__amount-field {
+  margin-block-end: var(--space-3);
+}
+
 /* Inventory Item Card Styles - Different from Supply Item Card */
 .inventory-item-card {
   padding: var(--space-3);
-  background: linear-gradient(135deg, var(--color-bg-secondary) 0%, var(--color-bg-primary) 100%);
-  border: 2px solid var(--color-border-light);
-  border-radius: var(--radius-lg);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
 }
 
 .inventory-item-card:hover {
-  border-color: var(--color-primary);
+  border-color: var(--color-pink-500);
   box-shadow: var(--shadow-sm);
 }
 
@@ -420,7 +387,7 @@ const resetCurrency = () => {
 }
 
 .inventory-item-card__emoji {
-  font-size: var(--font-size-3xl);
+  font-size: var(--font-size-2xl);
   line-height: 1;
   flex-shrink: 0;
 }
@@ -433,7 +400,7 @@ const resetCurrency = () => {
 }
 
 .inventory-item-card__name {
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
 }
@@ -447,10 +414,10 @@ const resetCurrency = () => {
 }
 
 .inventory-item-card__quantity {
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
-  font-family: var(--font-family-heading);
-  color: var(--color-secondary);
+  font-family: var(--font-family-stats);
+  color: var(--color-text-primary);
   flex-shrink: 0;
 }
 
@@ -459,25 +426,5 @@ const resetCurrency = () => {
   align-items: center;
   gap: var(--space-2);
   flex-wrap: wrap;
-}
-
-.inventory-item-card__actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  flex-wrap: wrap;
-  margin-block-start: var(--space-2);
-  padding-block-start: var(--space-2);
-  border-block-start: 1px solid var(--color-border-light);
-}
-
-.inventory-item-card__note {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
-  font-style: italic;
-}
-
-.controls-grid--compact {
-  margin-block-start: var(--space-3);
 }
 </style>

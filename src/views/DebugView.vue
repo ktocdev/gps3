@@ -1,5 +1,7 @@
 <template>
   <div class="debug-view">
+    <GameHeader class="debug-view__chrome" />
+
     <DebugHeader class="debug-view__header" />
 
     <DebugNav class="debug-view__nav" :categories="tabCategories" v-model="activeTab" />
@@ -13,12 +15,7 @@
         <FriendshipDebug v-if="activeTab === 'friendship'" />
         <BondingDebug v-if="activeTab === 'bonding'" />
         <InventoryDebugView v-if="activeTab === 'inventory'" />
-        <HabitatDebugView v-if="activeTab === 'habitat'" />
-        <Habitat3DDebug v-if="activeTab === 'habitat-3d'" />
-        <SuppliesStoreDebug v-if="activeTab === 'supplies-store'" />
-        <LoggingSystemView v-if="activeTab === 'logging'" />
-        <FreeMovement2DDebug v-if="activeTab === 'free-movement-2d'" />
-        <HtmlDemoDebug v-if="activeTab === 'html-demo'" />
+        <HabitatToolsDebug v-if="activeTab === 'habitat'" />
         <ModelViewerDebug v-if="activeTab === 'model-viewer'" />
       </section>
     </main>
@@ -27,6 +24,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import GameHeader from '../components/chrome/GameHeader.vue'
 import DebugHeader from '../components/debug/ui/DebugHeader.vue'
 import DebugNav from '../components/debug/ui/DebugNav.vue'
 import { useDebugTheme } from '../composables/useDebugTheme'
@@ -37,12 +35,7 @@ import InventoryDebugView from './InventoryDebugView.vue'
 import FriendshipDebug from '../components/debug/gameplay/FriendshipDebug.vue'
 import BondingDebug from '../components/debug/gameplay/BondingDebug.vue'
 import StardustSanctuaryDebug from '../components/debug/core/StardustSanctuaryDebug.vue'
-import HabitatDebugView from './HabitatDebugView.vue'
-import SuppliesStoreDebug from '../components/debug/environment/SuppliesStoreDebug.vue'
-import Habitat3DDebug from '../components/debug/environment/Habitat3DDebug.vue'
-import LoggingSystemView from './LoggingSystemView.vue'
-import FreeMovement2DDebug from '../components/debug/prototypes/FreeMovement2DDebug.vue'
-import HtmlDemoDebug from '../components/debug/prototypes/HtmlDemoDebug.vue'
+import HabitatToolsDebug from '../components/debug/environment/HabitatToolsDebug.vue'
 import ModelViewerDebug from '../components/debug/prototypes/ModelViewerDebug.vue'
 import { useGameController } from '../stores/gameController'
 
@@ -51,8 +44,8 @@ const gameController = useGameController()
 // Apply light/dark debug theme on <html> while this view is mounted
 useDebugTheme()
 
-// State - Default to 3D Habitat view
-const activeTab = ref('habitat-3d')
+// State - Default to Game Controller
+const activeTab = ref('controller')
 
 // Category interface
 interface TabCategory {
@@ -77,12 +70,6 @@ const tabCategories: TabCategory[] = [
         id: 'pet-store',
         label: 'Guinea Pigs',
         icon: '🏪',
-        panelClass: 'tab-container__panel--constrained'
-      },
-      {
-        id: 'logging',
-        label: 'Activity Feed',
-        icon: '📝',
         panelClass: 'tab-container__panel--constrained'
       }
     ]
@@ -117,20 +104,8 @@ const tabCategories: TabCategory[] = [
     tabs: [
       {
         id: 'habitat',
-        label: '2D Habitat',
+        label: 'Habitat',
         icon: '🏠',
-        panelClass: 'tab-container__panel--constrained'
-      },
-      {
-        id: 'habitat-3d',
-        label: '3D Habitat',
-        icon: '🎲',
-        panelClass: 'tab-container__panel--constrained'
-      },
-      {
-        id: 'supplies-store',
-        label: 'Supplies Store',
-        icon: '🛒',
         panelClass: 'tab-container__panel--constrained'
       },
       {
@@ -145,18 +120,6 @@ const tabCategories: TabCategory[] = [
     id: 'prototypes',
     label: 'Prototypes',
     tabs: [
-      {
-        id: 'free-movement-2d',
-        label: '2D Free Movement',
-        icon: '🎯',
-        panelClass: 'tab-container__panel--constrained'
-      },
-      {
-        id: 'html-demo',
-        label: 'HTML Demo (Original)',
-        icon: '🌐',
-        panelClass: 'tab-container__panel--constrained'
-      },
       {
         id: 'model-viewer',
         label: '3D Model Viewer',
@@ -199,20 +162,5 @@ onUnmounted(() => {
 .debug-view .dbg-panels {
   max-inline-size: 1440px;
   inline-size: 100%;
-  margin-inline: auto;
-}
-
-/* Fullscreen mode for 3D Habitat - hides header and nav */
-body.habitat-fullscreen .debug-view__header,
-body.habitat-fullscreen .debug-view__nav {
-  display: none;
-}
-
-body.habitat-fullscreen .dbg-main {
-  padding: 0;
-}
-
-body.habitat-fullscreen .dbg-panels {
-  max-inline-size: none;
 }
 </style>

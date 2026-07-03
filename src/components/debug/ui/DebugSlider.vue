@@ -11,6 +11,7 @@
       :max="max ?? 100"
       :step="step ?? 1"
       :value="modelValue"
+      :disabled="disabled"
       @input="emit('update:modelValue', Number(($event.target as HTMLInputElement).value))"
     />
     <div v-if="showMinMax !== false" class="dbg-slider__minmax">
@@ -34,6 +35,7 @@ const props = defineProps<{
   accent?: string
   hint?: string
   showMinMax?: boolean
+  disabled?: boolean
 }>()
 
 const emit = defineEmits<{

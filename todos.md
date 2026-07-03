@@ -1,17 +1,23 @@
 # To Dos
 
-Breeds
-- Hide guinea pig breeds info from user facing game, can remain as metadata. We need a better approach to creating breeds specific 2d and 3d graphics before investing time. All guinea pigs will appear to be American short hair until we have official graphics
+## GameView Chrome
 
+### Bugs
 
-Guinea Pig Sidebar Panel Tab
-- Guinea Pig info tab is inside Inventory3DPanel, should be in its own file
-- we should show number of Interactions between guinea pigs in the Guinea Pig sidebar panel tab
+### Redesign
+- rethink design of top guinea pig info panel
+- rethink guinea pig menu that opens on click
 
-Personality Debug Panel
-- add the Need Decay Rate Modifiers to the Guinea Pig debug panel below the 3d game view canvas, like in the Guinea Pigs debug page
+### Migration from Prototype
+- match help modal to whats in the prototype
+- implement tutorial flow from prototype
 
-Guinea Pig Popover
-- make the "Take Control" button an icon-only button with title
-- add "Pet" and "Hand Feed" icon only buttons that will evoke the U2P social action on that guinea pig
-- these buttons should all be smaller and inline beneath the needs
+## 3D Game
+- make sure the 3d guinea pig matches the look of the svg with color and spots
+- guinea pigs should start with about 20-40% friendship depending on personality complement
+- habitat item panels should have a "Move" button that allows user to move item in habitat, in addition to the "Move to Habitat"
+- guinea pigs don't seem to be seeking water
+
+## Supplies Store
+
+## Debug

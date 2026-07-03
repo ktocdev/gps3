@@ -1,60 +1,60 @@
 <template>
-  <div class="model-viewer-debug debug-view__constrained">
-    <h2>3D Model Viewer</h2>
-
-    <div class="panel panel--full-width">
-      <div class="panel__content">
-        <div class="model-viewer-debug__canvas-wrapper">
-          <!-- Model Selection Panel (overlay on right side) -->
-          <SidePanel3D
-            :is-open="showModelPanel"
-            side="right"
-            color="violet"
-            title="Models"
-            icon="🎨"
-            @toggle="showModelPanel = !showModelPanel"
+  <div class="model-viewer-debug">
+    <DebugPanel
+      title="🧊 3D Model Viewer"
+      anchor="prototypes/3d-models"
+      accent="var(--color-pink-500)"
+    >
+      <div class="model-viewer-debug__canvas-wrapper">
+        <!-- Model Selection Panel (overlay on right side) -->
+        <SidePanel3D
+          :is-open="showModelPanel"
+          side="right"
+          color="violet"
+          title="Models"
+          icon="🎨"
+          @toggle="showModelPanel = !showModelPanel"
+        >
+          <Details
+            v-for="category in modelRegistry"
+            :key="category.id"
+            :summary="`${category.icon} ${category.label}`"
+            :default-open="category.id === 'characters'"
           >
-            <Details
-              v-for="category in modelRegistry"
-              :key="category.id"
-              :summary="`${category.icon} ${category.label}`"
-              :default-open="category.id === 'characters'"
-            >
-              <div class="model-viewer-debug__model-list">
-                <button
-                  v-for="model in category.models"
-                  :key="model.id"
-                  :class="[
-                    'model-viewer-debug__model-item',
-                    { 'model-viewer-debug__model-item--selected': selectedModelId === model.id }
-                  ]"
-                  @click="selectModel(model.id)"
-                >
-                  {{ model.name }}
-                </button>
-              </div>
-            </Details>
-          </SidePanel3D>
+            <div class="model-viewer-debug__model-list">
+              <button
+                v-for="model in category.models"
+                :key="model.id"
+                :class="[
+                  'model-viewer-debug__model-item',
+                  { 'model-viewer-debug__model-item--selected': selectedModelId === model.id }
+                ]"
+                @click="selectModel(model.id)"
+              >
+                {{ model.name }}
+              </button>
+            </div>
+          </Details>
+        </SidePanel3D>
 
-          <!-- Model Info Overlay -->
-          <div class="model-viewer-debug__info-overlay">
-            <h3>{{ currentModelInfo?.name || 'Select a Model' }}</h3>
-            <p v-if="currentModelInfo?.description">{{ currentModelInfo.description }}</p>
-          </div>
+        <!-- Model Info Overlay -->
+        <div class="model-viewer-debug__info-overlay">
+          <h3>{{ currentModelInfo?.name || 'Select a Model' }}</h3>
+          <p v-if="currentModelInfo?.description">{{ currentModelInfo.description }}</p>
+        </div>
 
-          <!-- Canvas -->
-          <canvas ref="canvasRef" class="model-viewer-debug__canvas"></canvas>
+        <!-- Canvas -->
+        <canvas ref="canvasRef" class="model-viewer-debug__canvas"></canvas>
 
-          <!-- Controls Help -->
-          <div class="model-viewer-debug__controls-help">
-            <span>Drag to rotate</span>
-            <span>Shift+Drag to pan</span>
-            <span>Scroll to zoom</span>
-            <span>R to reset</span>
-          </div>
+        <!-- Controls Help -->
+        <div class="model-viewer-debug__controls-help">
+          <span>Drag to rotate</span>
+          <span>Shift+Drag to pan</span>
+          <span>Scroll to zoom</span>
+          <span>R to reset</span>
         </div>
       </div>
-    </div>
+    </DebugPanel>
   </div>
 </template>
 
@@ -62,6 +62,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import * as THREE from 'three'
 import Details from '../../basic/Details.vue'
+import DebugPanel from '../ui/DebugPanel.vue'
 import SidePanel3D from '../../game/SidePanel3D.vue'
 
 // Model factories
@@ -738,58 +739,17 @@ onUnmounted(() => {
 </script>
 
 <style>
-/* Model Viewer Debug Page Styles */
-.model-viewer-debug {
-  padding: 0;
-}
-
-.model-viewer-debug h2 {
-  margin-block-end: var(--space-4);
-  padding-inline: var(--space-4);
-  padding-block-start: var(--space-4);
-  color: var(--color-text-primary);
-}
-
-/* Mobile-first: Remove panel padding on mobile */
-.model-viewer-debug .panel--full-width {
-  padding: 0;
-}
-
-.model-viewer-debug .panel__content {
-  padding: 0;
-}
-
-@media (min-width: 768px) {
-  .model-viewer-debug {
-    padding: var(--space-4);
-  }
-
-  .model-viewer-debug h2 {
-    padding-inline: 0;
-    padding-block-start: 0;
-  }
-
-  .model-viewer-debug .panel--full-width {
-    padding: var(--space-4);
-  }
-
-  .model-viewer-debug .panel__content {
-    padding: var(--space-4);
-  }
-}
-
 /* Canvas Wrapper - contains canvas and overlay panels */
 .model-viewer-debug__canvas-wrapper {
   position: relative;
   block-size: 70vh;
   overflow: hidden;
-  border-radius: 0;
+  border-radius: var(--radius-md);
 }
 
 @media (min-width: 768px) {
   .model-viewer-debug__canvas-wrapper {
     block-size: 600px;
-    border-radius: var(--radius-md);
   }
 }
 

@@ -44,7 +44,7 @@
           type="button"
           :disabled="!canTogglePause"
           :aria-pressed="gameController.isPaused"
-          :title="gameController.isPaused ? 'Resume simulation' : 'Pause simulation'"
+          :title="isDebugRoute ? 'Game is auto-paused while in Debug' : (gameController.isPaused ? 'Resume simulation' : 'Pause simulation')"
           @click="togglePause"
         >
           {{ gameController.isPaused ? '▶ Resume' : '⏸ Pause' }}
@@ -82,7 +82,8 @@ const tabs = [
 ]
 
 const preAdoption = computed(() => !petStoreManager.activeGameSession)
-const canTogglePause = computed(() => petStoreManager.activeGameSession !== null)
+const isDebugRoute = computed(() => route.path.startsWith('/debug'))
+const canTogglePause = computed(() => petStoreManager.activeGameSession !== null && !isDebugRoute.value)
 
 const showHelp = ref(false)
 
