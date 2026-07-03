@@ -105,7 +105,7 @@ const departments: Department[] = [
     label: "Today's Picks",
     icon: '⭐',
     accent: 'var(--color-gold)',
-    soft: 'var(--color-gold-100)',
+    soft: 'var(--color-gold-soft)',
     tagline: 'Hand-picked goodies. Fresh batch every visit.'
   },
   {
@@ -121,7 +121,7 @@ const departments: Department[] = [
     label: 'Grocery',
     icon: '🥗',
     accent: 'var(--color-pink)',
-    soft: 'var(--color-pink-100)',
+    soft: 'var(--color-pink-soft)',
     tagline: 'Fresh greens, herbs & treats. The grocery aisle.'
   },
   {
@@ -129,7 +129,7 @@ const departments: Department[] = [
     label: 'Bedding',
     icon: '🛏️',
     accent: 'var(--color-violet-mid)',
-    soft: 'var(--color-violet-100)',
+    soft: 'var(--color-violet-soft)',
     tagline: 'Soft floors. Cozy naps. Maximum snuggle.'
   },
   {

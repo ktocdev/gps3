@@ -94,6 +94,24 @@
   --color-violet-mid: #a695c9;
   --color-violet-deep: #9683bd;
 
+  /* Storefront awning label tints — paired with the muted accents above so
+     toggling low-stim mutes the canopy stripe and its label pill together */
+  --color-gold-soft: #f3e8d2;
+  --color-pink-soft: #f0dde5;
+  --color-violet-soft: #e6e0f0;
+  --color-ivy-soft: #e6ead9;
+  --color-sky-soft: #dfe9ec;
+
+  /* Gold-pill chrome — header tabs, coin badges, help button, storefront
+     coin badge. Bottom stops reuse the muted gold accents above so the
+     pill gradient stays visually tied to the rest of the muted palette. */
+  --color-pill-top: #f8f2e3;
+  --color-pill-tab-bot: var(--color-gold);
+  --color-pill-coin-bot: var(--color-gold-deep);
+  --color-pill-text: #6b4a2e;
+  --color-storefront-coin-top: #f2e8d0;
+  --color-storefront-coin-bot: var(--color-gold-deep);
+
   /* Gentler depth */
   --panel-shadow:
     0 8px 14px -6px rgba(69, 26, 3, 0.25),

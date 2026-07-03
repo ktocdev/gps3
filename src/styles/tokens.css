@@ -163,6 +163,7 @@
   --color-text-tertiary:  var(--color-neutral-500);
   --color-text-secondary: var(--color-neutral-600);
   --color-text-primary:   var(--color-neutral-800);
+  --color-text-warm-muted: #78716c; /* bespoke — stone-500, warm gray for text on wood/amber surfaces (SuppliesStore crate blurb) */
 
   /* ── BORDERS ────────────────────────────────────────────────────────────── */
 
@@ -218,10 +219,23 @@
   --color-violet-deep: var(--color-violet-600);  /* #7c3aed — Inventory icon border */
 
   /* Storefront awning label tints — light stop behind each department label.
-     Gold/pink/violet depts reuse palette-100 steps; these two are bespoke
-     (lime-100 / sky-100) because ivy + sky have no palette family. */
+     Dedicated aliases (not raw palette-100 steps) so low-stim can retint
+     them alongside their paired accent above — see themes.css. */
+  --color-gold-soft:   var(--color-gold-100);    /* #fef3c7 — Today's Picks awning label */
+  --color-pink-soft:   var(--color-pink-100);    /* #fce7f3 — Grocery awning label */
+  --color-violet-soft: var(--color-violet-100);  /* #ede9fe — Bedding awning label */
   --color-ivy-soft:    #ecfccb;                  /* bespoke — Hay Loft awning label */
   --color-sky-soft:    #e0f2fe;                  /* bespoke — Habitat awning label */
+
+  /* Gold-pill chrome — header tabs, coin badges, help button, storefront
+     coin badge. Dedicated aliases (not raw palette steps) so low-stim can
+     mute them — see themes.css. */
+  --color-pill-top:            var(--color-gold-50);   /* #fffbeb — header tab · coins · help top stop */
+  --color-pill-tab-bot:        var(--color-gold-200);  /* #fde68a — header tab bottom stop */
+  --color-pill-coin-bot:       #fcd34d;                /* header coins · help bottom stop */
+  --color-pill-text:           var(--color-gold-800);  /* #7c2d12 — shared pill text color */
+  --color-storefront-coin-top: var(--color-gold-100);  /* #fef3c7 — storefront coin badge top stop */
+  --color-storefront-coin-bot: var(--color-gold-300);  /* #fbbf24 — storefront coin badge bottom stop */
 
   /* ── TYPOGRAPHY ─────────────────────────────────────────────────────────── */
 
@@ -241,6 +255,7 @@
   --font-size-2xl:  1.5rem;    /* 24px */
   --font-size-3xl:  1.875rem;  /* 30px */
   --font-size-4xl:  2.25rem;   /* 36px */
+  --font-size-5xl:  2.75rem;   /* 44px — SuppliesStore aisle title */
 
   --font-weight-normal:   400;
   --font-weight-medium:   500;

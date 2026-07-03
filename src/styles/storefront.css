@@ -244,7 +244,7 @@
 .storefront__aisle-title {
   margin: 0;
   font-family: var(--font-family-heading);
-  font-size: var(--font-size-4xl);
+  font-size: var(--font-size-5xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-wood-border);
   line-height: var(--line-height-tight);
@@ -261,15 +261,15 @@
 }
 
 .storefront__coins {
-  background: linear-gradient(180deg, var(--color-gold-100) 0%, var(--color-gold-300) 100%);
+  background: linear-gradient(180deg, var(--color-storefront-coin-top) 0%, var(--color-storefront-coin-bot) 100%);
   border: 3px solid var(--color-wood-dark);
   border-radius: var(--radius-full);
   padding-block: 6px;
   padding-inline: 16px;
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
-  color: var(--color-gold-800);
-  box-shadow: var(--shadow-lift-lg), inset 0 2px 0 rgba(255, 255, 255, 0.5);
+  color: var(--color-pill-text);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.5);
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -522,7 +522,7 @@
 
 .supply-crate__blurb {
   font-size: var(--font-size-xs);
-  color: var(--color-text-tertiary);
+  color: var(--color-text-warm-muted);
   font-style: italic;
   margin-block-start: 2px;
   line-height: 1.2;
