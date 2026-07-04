@@ -42,7 +42,7 @@ planning_docs = [
 # Provider for the doc-writing LLM (runs only at generation time, on push).
 # "anthropic" (cloud API) or "ollama" (large local model, no API cost).
 provider = "anthropic"
-model = "claude-opus-4-8"      # or "claude-sonnet-5" for cheaper high-frequency runs
+model = "claude-sonnet-5"      # cheaper high-frequency runs; "claude-opus-4-8" for best prose
 effort = "medium"              # low | medium | high
 max_tokens = 8192
 # base_url = "http://localhost:11434"   # only used by provider = "ollama"

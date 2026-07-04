@@ -6,15 +6,16 @@
 
 name: repodoc sync
 
-# PAUSED: auto-trigger disabled until the Anthropic API account has credit.
-# With no credit, `repodoc generate` fails on any source change. To re-enable
-# auto-sync once credit is added, uncomment the `push:` block below.
+# Regenerates only the source files that changed on each push to master, using
+# the Sonnet generator (see .repodoc/config.toml) for low per-run cost.
+# NOTE: requires Anthropic API credit — with an empty balance the "Generate"
+# step fails harmlessly (no charge). Add credit to make runs succeed.
 on:
-  # push:
-  #   branches: ["master"]
-  #   paths-ignore:
-  #     - "docs/generated/**"
-  #     - ".repodoc/manifest.json"
+  push:
+    branches: ["master"]
+    paths-ignore:
+      - "docs/generated/**"
+      - ".repodoc/manifest.json"
   workflow_dispatch:
 
 permissions:
