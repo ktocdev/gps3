@@ -40,6 +40,19 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+      # Build the repodoc documentation site and nest it under the game's
+      # deploy so it is served at <pages-url>/docs/ (Vite wipes dist on build,
+      # so this must run AFTER npm run build).
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build docs site
+        run: |
+          pip install "repodoc[site] @ git+https://github.com/ktocdev/repodoc.git"
+          repodoc build-site --repo .
+          mkdir -p dist/docs
+          cp -r .repodoc/site/. dist/docs/
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
