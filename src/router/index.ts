@@ -35,43 +35,9 @@ const router = createRouter({
   ]
 })
 
-// Helper function to identify game pages that require pause management
-const isGamePage = (path: string): boolean => {
-  return path === '/'
-}
-
-// Navigation guards for automatic game pause/resume
-router.beforeEach(async (_to, from) => {
-  // Auto-pause when leaving game pages
-  if (isGamePage(from.path)) {
-    try {
-      // Dynamic import to avoid circular dependency during router setup
-      const { useGameController } = await import('../stores/gameController')
-      const gameController = useGameController()
-
-      if (gameController.isGameActive) {
-        gameController.pauseGame('navigation')
-      }
-    } catch (error) {
-      console.warn('Failed to pause game on navigation:', error)
-    }
-  }
-})
-
-router.afterEach(async (to) => {
-  // Auto-pause when entering game pages
-  if (isGamePage(to.path)) {
-    try {
-      // Dynamic import to avoid circular dependency during router setup
-      const { useGameController } = await import('../stores/gameController')
-      const gameController = useGameController()
-
-      // Always pause when entering game pages - user must manually resume
-      gameController.pauseGame('navigation')
-    } catch (error) {
-      console.warn('Failed to pause game on page entry:', error)
-    }
-  }
-})
+// Play/pause is a property of the simulation, not the current route — the sim
+// keeps whatever state the player set as they move between Live Mode, the
+// Supplies Store, and Debug. (Window-hidden/orientation auto-pauses still apply
+// elsewhere; those aren't navigation-driven.)
 
 export default router

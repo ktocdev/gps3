@@ -13,7 +13,6 @@
 ## GameView Chrome
 - rethink design of top guinea pig info panel
 - rethink guinea pig menu that opens on click
-- verify all fab gp-plaque-tile options are valid actions
 
 ## 3D Game
 - make sure the 3d guinea pig matches the look of the svg with color and spots
