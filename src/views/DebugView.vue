@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref } from 'vue'
 import GameHeader from '../components/chrome/GameHeader.vue'
 import DebugHeader from '../components/debug/ui/DebugHeader.vue'
 import DebugNav from '../components/debug/ui/DebugNav.vue'
@@ -39,9 +39,6 @@ import StardustSanctuaryDebug from '../components/debug/core/StardustSanctuaryDe
 import HabitatToolsDebug from '../components/debug/environment/HabitatToolsDebug.vue'
 import HabitatStatusDebug from '../components/debug/environment/HabitatStatusDebug.vue'
 import ModelViewerDebug from '../components/debug/prototypes/ModelViewerDebug.vue'
-import { useGameController } from '../stores/gameController'
-
-const gameController = useGameController()
 
 // Apply light/dark debug theme on <html> while this view is mounted
 useDebugTheme()
@@ -138,19 +135,8 @@ const tabCategories: TabCategory[] = [
   }
 ]
 
-// Page lifecycle management for automatic pause
-onMounted(() => {
-  // Auto-pause game when entering debug panel
-  // User must manually resume if they want the game to run
-  gameController.pauseGame('navigation')
-})
-
-onUnmounted(() => {
-  // Auto-pause when leaving debug panel if game is active
-  if (gameController.isGameActive) {
-    gameController.pauseGame('navigation')
-  }
-})
+// No navigation-driven pause: the simulation keeps whatever play/pause state
+// the player set. They can pause or resume from the header on any tab.
 </script>
 
 <style>

@@ -46,7 +46,7 @@
           data-tutorial="pause"
           :disabled="!canTogglePause"
           :aria-pressed="gameController.isPaused"
-          :title="isDebugRoute ? 'Game is auto-paused while in Debug' : (gameController.isPaused ? 'Resume simulation' : 'Pause simulation')"
+          :title="gameController.isPaused ? 'Resume simulation' : 'Pause simulation'"
           @click="togglePause"
         >
           {{ gameController.isPaused ? '▶ Resume' : '⏸ Pause' }}
@@ -84,8 +84,9 @@ const tabs = [
 ]
 
 const preAdoption = computed(() => !petStoreManager.activeGameSession)
-const isDebugRoute = computed(() => route.path.startsWith('/debug'))
-const canTogglePause = computed(() => petStoreManager.activeGameSession !== null && !isDebugRoute.value)
+// Pause/resume is available on every tab — the simulation keeps whatever state
+// the player set regardless of which view they're on.
+const canTogglePause = computed(() => petStoreManager.activeGameSession !== null)
 
 const showHelp = ref(false)
 

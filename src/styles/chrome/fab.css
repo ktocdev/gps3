@@ -156,12 +156,6 @@
 }
 
 /* FAB submenu (parchment grid popover) */
-.fab-submenu__backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 40;
-}
-
 .fab-submenu {
   position: absolute;
   inset-inline-end: 0;
@@ -178,6 +172,7 @@
 }
 
 .fab-submenu__tile {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -200,6 +195,36 @@
 .fab-submenu__tile:hover {
   transform: translateY(-2px) rotate(-1deg);
   filter: brightness(1.05);
+}
+
+/* Actions not wired to a game effect yet — greyed out, inert, tagged. */
+.fab-submenu__tile--disabled {
+  cursor: not-allowed;
+  filter: grayscale(0.85);
+  opacity: 0.55;
+  background: linear-gradient(180deg, var(--color-gold-50) 0%, var(--color-gold-100) 100%);
+}
+
+.fab-submenu__tile--disabled:hover {
+  transform: none;
+  filter: grayscale(0.85);
+}
+
+.fab-submenu__tile-tag {
+  position: absolute;
+  inset-block-start: -6px;
+  inset-inline-end: -6px;
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-wood-shadow);
+  color: var(--color-gold-100);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  box-shadow: 0 1px 2px rgba(69, 26, 3, 0.4);
+  pointer-events: none;
 }
 
 .fab-submenu__tile-icon {

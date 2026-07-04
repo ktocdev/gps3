@@ -1,6 +1,5 @@
 <template>
   <template v-if="show">
-    <div class="fab-submenu__backdrop" @click="emit('close')"></div>
     <div class="fab-submenu" :style="themeVars">
       <ParchmentPanel :accent="colors.stripe" :animate="false" show-grain>
         <div v-if="actions.length === 0" class="chrome-inv__empty">
@@ -11,9 +10,13 @@
             v-for="(action, i) in actions"
             :key="action.id"
             class="fab-submenu__tile"
+            :class="{ 'fab-submenu__tile--disabled': action.disabled }"
             :style="{ transform: `rotate(${tiltFor(i)}deg)` }"
+            :disabled="action.disabled"
+            :title="action.disabled ? 'Coming soon' : undefined"
             @click="select(action.id)"
           >
+            <span v-if="action.disabled" class="fab-submenu__tile-tag">Soon</span>
             <span class="fab-submenu__tile-icon">{{ action.icon }}</span>
             <span class="fab-submenu__tile-label">{{ action.label }}</span>
           </button>

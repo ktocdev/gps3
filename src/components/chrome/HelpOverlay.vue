@@ -257,9 +257,9 @@ const HELP_TOPICS: HelpTopic[] = [
       { kind: 'lede', text: 'The plaques on the bottom rail are your main way to interact with pigs. Each one expands into a menu of options.' },
       { kind: 'list', items: [
         { emoji: '🍎', label: 'Give Food', text: 'offer produce from your inventory. Boosts Hunger.' },
-        { emoji: '🎾', label: 'Help Play', text: 'show a toy. Boosts Play.' },
-        { emoji: '🧼', label: 'Give Care', text: 'gentle wipe, trim nails, quick or deep clean, refill water, fill hay. Boosts Hygiene, Nails, and cage cleanliness.' },
-        { emoji: '🤗', label: 'Socialize', text: 'pet, hold, talk to. Boosts Social & Comfort, raises Friendship with you.' },
+        { emoji: '🎾', label: 'Help Play', text: 'show a toy, peek-a-boo, or wave. Boosts Play and a little Social.' },
+        { emoji: '🧼', label: 'Give Care', text: 'gentle wipe, clip nails, quick or deep clean, refill water, fill hay. Boosts Hygiene, Nails, and cage cleanliness.' },
+        { emoji: '🤗', label: 'Socialize', text: 'pet, hold, talk to, sing to, call name. Boosts Social & Comfort, raises Friendship with you.' },
         { emoji: '💞', label: 'Encourage', text: 'pig-to-pig only: greet, groom, play together, share food, approach. Builds the bond between the two pigs.' }
       ] },
       { kind: 'h', text: 'How targeting works' },
