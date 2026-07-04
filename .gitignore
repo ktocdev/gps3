@@ -151,3 +151,12 @@ Thumbs.db
 
 # Build artifacts
 *.local
+
+# repodoc build artifacts (vector store rebuildable via `repodoc reindex --full`);
+# config.toml + manifest.json stay committed
+.repodoc/*
+!.repodoc/config.toml
+!.repodoc/manifest.json
+
+# repodoc internal design/plan doc — kept local, not published
+REPODOC-PLAN.md

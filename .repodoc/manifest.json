@@ -1,0 +1,2374 @@
+{
+  "version": 1,
+  "generator": {
+    "provider": "anthropic",
+    "model": "claude-opus-4-8"
+  },
+  "embeddings": {
+    "provider": "sentence-transformers",
+    "model": "nomic-ai/nomic-embed-text-v2-moe",
+    "dim": 768
+  },
+  "files": {
+    ".claude/CLAUDE.md": {
+      "hash": "fc257d1d5e852cabc68830aaf5c868ab9a4ac6fa475ba828abbe160dc24d2add",
+      "doc_class": "planning",
+      "indexed_hash": "fc257d1d5e852cabc68830aaf5c868ab9a4ac6fa475ba828abbe160dc24d2add"
+    },
+    ".claude/commands/new-sprint.md": {
+      "hash": "bca3db9a90d6dca74f205c40f26fb7a9aba5808af7b01775966022039be326fb",
+      "doc_class": "planning",
+      "indexed_hash": "bca3db9a90d6dca74f205c40f26fb7a9aba5808af7b01775966022039be326fb"
+    },
+    ".claude/commands/update-sprint.md": {
+      "hash": "39331db99266d321f98beea186290846bc6fd35899e6eaf7b160fa6c36e53d92",
+      "doc_class": "planning",
+      "indexed_hash": "39331db99266d321f98beea186290846bc6fd35899e6eaf7b160fa6c36e53d92"
+    },
+    ".claude/skills/code-audit.md": {
+      "hash": "d5a4049e4ac8bc8ee598b93e2f0db653a5fa324507dad886319b3b055910046d",
+      "doc_class": "planning",
+      "indexed_hash": "d5a4049e4ac8bc8ee598b93e2f0db653a5fa324507dad886319b3b055910046d"
+    },
+    ".claude/skills/css-audit.md": {
+      "hash": "53fbc58caa42c3291d26bbe15471848707250b9d5716a430d6b97b7b90302240",
+      "doc_class": "planning",
+      "indexed_hash": "53fbc58caa42c3291d26bbe15471848707250b9d5716a430d6b97b7b90302240"
+    },
+    "README.md": {
+      "hash": "fc3a079ef85ffca1783da045bcc4f59a998f57a1b36548b9cce357b68a73cea9",
+      "doc_class": "planning",
+      "indexed_hash": "fc3a079ef85ffca1783da045bcc4f59a998f57a1b36548b9cce357b68a73cea9"
+    },
+    "docs-3d/DEVELOPMENT_PHASES.md": {
+      "hash": "a43ccf41e4140cc23092194e59253486279a88b666a359b13a34699f6c75bfa8",
+      "doc_class": "planning",
+      "indexed_hash": "a43ccf41e4140cc23092194e59253486279a88b666a359b13a34699f6c75bfa8"
+    },
+    "docs-3d/PROJECT_PLAN.md": {
+      "hash": "6eb7d23845e9c48f8f4aaa5647fd11367bb998d8aa549c16604c14dbc7790a5e",
+      "doc_class": "planning",
+      "indexed_hash": "6eb7d23845e9c48f8f4aaa5647fd11367bb998d8aa549c16604c14dbc7790a5e"
+    },
+    "docs-3d/README.md": {
+      "hash": "3dea5958b05b4d92fc97f35d2f7cb14062ebff4152849647cdb85a70fd9c1331",
+      "doc_class": "planning",
+      "indexed_hash": "3dea5958b05b4d92fc97f35d2f7cb14062ebff4152849647cdb85a70fd9c1331"
+    },
+    "docs-3d/phase1/1-camera-system.md": {
+      "hash": "6c5ce58b3aa69802d4b38de56092e3b4fa4f0240ec6875bd63b34f8e846a0e90",
+      "doc_class": "planning",
+      "indexed_hash": "6c5ce58b3aa69802d4b38de56092e3b4fa4f0240ec6875bd63b34f8e846a0e90"
+    },
+    "docs-3d/phase1/2-coordinate-mapping.md": {
+      "hash": "5817c3f33179e67ba73ac9ada0f508fef48663231dffe92cae1fea54d81eb38d",
+      "doc_class": "planning",
+      "indexed_hash": "5817c3f33179e67ba73ac9ada0f508fef48663231dffe92cae1fea54d81eb38d"
+    },
+    "docs-3d/phase1/3-guinea-pig-model.md": {
+      "hash": "1e339798f20a6bcbf49f200744f29691778bf6cf85eb867323bf5c9bfd92750f",
+      "doc_class": "planning",
+      "indexed_hash": "1e339798f20a6bcbf49f200744f29691778bf6cf85eb867323bf5c9bfd92750f"
+    },
+    "docs-3d/phase1/4-threejs-integration.md": {
+      "hash": "b0d4fc76da81c7e40931ce2e05333bbf3d8093cf816fca3144688ff2b187e175",
+      "doc_class": "planning",
+      "indexed_hash": "b0d4fc76da81c7e40931ce2e05333bbf3d8093cf816fca3144688ff2b187e175"
+    },
+    "docs-3d/phase1/README.md": {
+      "hash": "1f6fc2b3a0f302fdd6b51f22055a48c4665e262928891957f2a9ae1fa054436f",
+      "doc_class": "planning",
+      "indexed_hash": "1f6fc2b3a0f302fdd6b51f22055a48c4665e262928891957f2a9ae1fa054436f"
+    },
+    "docs-3d/phase2/1-item-models-implementation.md": {
+      "hash": "142e51fe3bcb74a937efad207c25a18cf778fb7322fb21436f952db21ff53c3e",
+      "doc_class": "planning",
+      "indexed_hash": "142e51fe3bcb74a937efad207c25a18cf778fb7322fb21436f952db21ff53c3e"
+    },
+    "docs-3d/phase2/README.md": {
+      "hash": "c5ec73b4596c1a2d9192683f9d2ab305a0d8333e6cba4955fdcad46876aad542",
+      "doc_class": "planning",
+      "indexed_hash": "c5ec73b4596c1a2d9192683f9d2ab305a0d8333e6cba4955fdcad46876aad542"
+    },
+    "docs-3d/phase3.5/1-3d-basic-setup.md": {
+      "hash": "c920062994115bb20c8eaf7b7153f2f08e924e8776fd6111313ca1131627a7cb",
+      "doc_class": "planning",
+      "indexed_hash": "c920062994115bb20c8eaf7b7153f2f08e924e8776fd6111313ca1131627a7cb"
+    },
+    "docs-3d/phase3.5/2-unified-3d-behavior-system.md": {
+      "hash": "50853af395d609ddd656e71305758fdd3740a6429ecb496bec02a23188e505a8",
+      "doc_class": "planning",
+      "indexed_hash": "50853af395d609ddd656e71305758fdd3740a6429ecb496bec02a23188e505a8"
+    },
+    "docs-3d/phase3.5/archived/SPRINT-2025-12-12.md": {
+      "hash": "0862dcd8f03510d84fc1d85c1a8a37ab5a7f5b8eb72152a16cb55b1e909eba86",
+      "doc_class": "planning",
+      "indexed_hash": "0862dcd8f03510d84fc1d85c1a8a37ab5a7f5b8eb72152a16cb55b1e909eba86"
+    },
+    "docs-3d/phase3.5/archived/SPRINT-2025-12-14.md": {
+      "hash": "cfac22d4d7c4f417ca8a2c0a4677134edfe98d9c7e95c2d0c339eabfacaf2192",
+      "doc_class": "planning",
+      "indexed_hash": "cfac22d4d7c4f417ca8a2c0a4677134edfe98d9c7e95c2d0c339eabfacaf2192"
+    },
+    "docs-3d/phase3.5/archived/SPRINT-2025-12-25.md": {
+      "hash": "e494c5467518a58aa03d615160cd4621bddf2d350246331f2dd90f61b95c81af",
+      "doc_class": "planning",
+      "indexed_hash": "e494c5467518a58aa03d615160cd4621bddf2d350246331f2dd90f61b95c81af"
+    },
+    "docs-3d/phase3.5/archived/SPRINT-2025-12-27.md": {
+      "hash": "c5c915e5bbeee06f461f42c3bae27de1200e33e6a1eaf80d8c36d4def08cbb14",
+      "doc_class": "planning",
+      "indexed_hash": "c5c915e5bbeee06f461f42c3bae27de1200e33e6a1eaf80d8c36d4def08cbb14"
+    },
+    "docs-3d/phase3.5/archived/SPRINT-2025-12-28.md": {
+      "hash": "1ede16e9595605fe7f65ce2526751667d190a09c6796856afa6042e3d1e26ea8",
+      "doc_class": "planning",
+      "indexed_hash": "1ede16e9595605fe7f65ce2526751667d190a09c6796856afa6042e3d1e26ea8"
+    },
+    "docs-3d/phase3/1-free-movement-prototype.md": {
+      "hash": "01e15998ff9561421beb7bf8d77c5150da77b530abbb857b6cb21b9d93a6d5c5",
+      "doc_class": "planning",
+      "indexed_hash": "01e15998ff9561421beb7bf8d77c5150da77b530abbb857b6cb21b9d93a6d5c5"
+    },
+    "docs-3d/phase3/2-manual-control-implementation-summary.md": {
+      "hash": "e3c6e34c8bb8b1be55ce5c658cd98b5f93c36e9ed5b1a5a5e5c689ee4732b9b7",
+      "doc_class": "planning",
+      "indexed_hash": "e3c6e34c8bb8b1be55ce5c658cd98b5f93c36e9ed5b1a5a5e5c689ee4732b9b7"
+    },
+    "docs-3d/phase3/2-manual-control-system.md": {
+      "hash": "65891be0463fc9cb677d305b37bf8c4eef745e5c3bca0f331d03aba3968052e4",
+      "doc_class": "planning",
+      "indexed_hash": "65891be0463fc9cb677d305b37bf8c4eef745e5c3bca0f331d03aba3968052e4"
+    },
+    "docs-3d/phase3/3-item-models-refactoring.md": {
+      "hash": "755767e8c8417678a5336d4345fc9795ef60fe03de767b6a5fe3e1de881eb661",
+      "doc_class": "planning",
+      "indexed_hash": "755767e8c8417678a5336d4345fc9795ef60fe03de767b6a5fe3e1de881eb661"
+    },
+    "docs-3d/phase3/4-ui-controls-plan.md": {
+      "hash": "8e54a0b8a7eeed02c459adea7f73422cd8e6d74834c7ff01c351462525b76e1d",
+      "doc_class": "planning",
+      "indexed_hash": "8e54a0b8a7eeed02c459adea7f73422cd8e6d74834c7ff01c351462525b76e1d"
+    },
+    "docs-3d/phase3/README.md": {
+      "hash": "174829fe104fc7a2a08e02ec391114debd96224250a8468a94f5e91a827544ac",
+      "doc_class": "planning",
+      "indexed_hash": "174829fe104fc7a2a08e02ec391114debd96224250a8468a94f5e91a827544ac"
+    },
+    "docs-3d/phase3/archived/hybrid-pathfinding-system-ARCHIVED.md": {
+      "hash": "25b53bd7906acb04ead206d8acdd7226cbbbcc6c7f08db098569198e4fe875dd",
+      "doc_class": "planning",
+      "indexed_hash": "25b53bd7906acb04ead206d8acdd7226cbbbcc6c7f08db098569198e4fe875dd"
+    },
+    "docs-3d/phase3/archived/pathfinding-and-collision-ARCHIVED.md": {
+      "hash": "7ccfe9a460e6b3fa759a7c3d946404d4cbf2d9a0050d5f0d1513bcd92b885f41",
+      "doc_class": "planning",
+      "indexed_hash": "7ccfe9a460e6b3fa759a7c3d946404d4cbf2d9a0050d5f0d1513bcd92b885f41"
+    },
+    "docs-3d/phase4/1-interaction-animations.md": {
+      "hash": "fad60f85939d9869ca3f272f1b97ea17b9d2f00a851701e63679c6beddc4975f",
+      "doc_class": "planning",
+      "indexed_hash": "fad60f85939d9869ca3f272f1b97ea17b9d2f00a851701e63679c6beddc4975f"
+    },
+    "docs-3d/phase4/2-movement-and-visual-polish.md": {
+      "hash": "350a5025d8335551ea29589262569454e1996078f929dde5bbff0ceb40761456",
+      "doc_class": "planning",
+      "indexed_hash": "350a5025d8335551ea29589262569454e1996078f929dde5bbff0ceb40761456"
+    },
+    "docs-3d/phase4/SPRINT-2026-01-01.md": {
+      "hash": "5d672758d8dc23e1b9982fa98c2bf35a5a73fe7944ac0c94469a11f1875dffce",
+      "doc_class": "planning",
+      "indexed_hash": "5d672758d8dc23e1b9982fa98c2bf35a5a73fe7944ac0c94469a11f1875dffce"
+    },
+    "docs-3d/phase4/archived/SPRINT-2025-12-31.md": {
+      "hash": "56b82ccb104f8b6cf09a73ae6716f26ee0db619238e5c43dce3ca5e587fa6d3c",
+      "doc_class": "planning",
+      "indexed_hash": "56b82ccb104f8b6cf09a73ae6716f26ee0db619238e5c43dce3ca5e587fa6d3c"
+    },
+    "docs/DEVELOPMENT_PHASES.md": {
+      "hash": "b457d81f99b3e360aeb558c2fa2ddf43e39abcb58816b4cfd3a5f5e677c6dd32",
+      "doc_class": "planning",
+      "indexed_hash": "b457d81f99b3e360aeb558c2fa2ddf43e39abcb58816b4cfd3a5f5e677c6dd32"
+    },
+    "docs/PROJECT_PLAN.md": {
+      "hash": "806deeecdcad5f5e955ed7066914a1c00fb751210ae2da0fbda3d836cead6ca4",
+      "doc_class": "planning",
+      "indexed_hash": "806deeecdcad5f5e955ed7066914a1c00fb751210ae2da0fbda3d836cead6ca4"
+    },
+    "docs/SPRINT-2025-11-11.md": {
+      "hash": "abc8a34a8bb0e8a1b976abae77ba7b76b240dd13c1fcf8b077d8a5ba56440589",
+      "doc_class": "planning",
+      "indexed_hash": "abc8a34a8bb0e8a1b976abae77ba7b76b240dd13c1fcf8b077d8a5ba56440589"
+    },
+    "docs/SPRINT-2025-11-17.md": {
+      "hash": "aaa2eabdc21ff1a290ca8fc9036f00ad4ba57ea2a262d9fcf02275932853f470",
+      "doc_class": "planning",
+      "indexed_hash": "aaa2eabdc21ff1a290ca8fc9036f00ad4ba57ea2a262d9fcf02275932853f470"
+    },
+    "docs/SYSTEM_INTEGRATION.md": {
+      "hash": "9fb71003b49cdbfeb71bac8928b04eac86616207345c4903e088ccf592551f61",
+      "doc_class": "planning",
+      "indexed_hash": "9fb71003b49cdbfeb71bac8928b04eac86616207345c4903e088ccf592551f61"
+    },
+    "docs/archive/BONDING-COMPLETE-SUMMARY.md": {
+      "hash": "079649bf1ed63f80f65bdd08d75e855a651d4d8ff9144572efa83d6a9216a4eb",
+      "doc_class": "planning",
+      "indexed_hash": "079649bf1ed63f80f65bdd08d75e855a651d4d8ff9144572efa83d6a9216a4eb"
+    },
+    "docs/archive/BONDING-SESSION-SUMMARY.md": {
+      "hash": "86a260f09c25dc4a5d970f1ffdd9f9ea8695ba808fb84311882a631ddad04f5c",
+      "doc_class": "planning",
+      "indexed_hash": "86a260f09c25dc4a5d970f1ffdd9f9ea8695ba808fb84311882a631ddad04f5c"
+    },
+    "docs/archive/BONDING-SYSTEM-PROGRESS.md": {
+      "hash": "c7af1247b82ea085992b925180a94543a2d68210ef12e91e4a424a6640280d82",
+      "doc_class": "planning",
+      "indexed_hash": "c7af1247b82ea085992b925180a94543a2d68210ef12e91e4a424a6640280d82"
+    },
+    "docs/archive/FAVORITES_TESTING_CHECKLIST.md": {
+      "hash": "83dd603a07c8fc4a725bef20075795b9f7c8d791565a6cadd8af49a68ac77a44",
+      "doc_class": "planning",
+      "indexed_hash": "83dd603a07c8fc4a725bef20075795b9f7c8d791565a6cadd8af49a68ac77a44"
+    },
+    "docs/archive/PROJECT_PLAN_FULL.md": {
+      "hash": "60e9479b75668acfed217edc47fbda8d7548755bee05d3bbad24f8e2bbd0475a",
+      "doc_class": "planning",
+      "indexed_hash": "60e9479b75668acfed217edc47fbda8d7548755bee05d3bbad24f8e2bbd0475a"
+    },
+    "docs/archive/SPRINT-2025-10-20.md": {
+      "hash": "ef8998eb40a56bdc5f94c7784b0654a66ce7fed3a6eb1f02d04b2210ddcfdb66",
+      "doc_class": "planning",
+      "indexed_hash": "ef8998eb40a56bdc5f94c7784b0654a66ce7fed3a6eb1f02d04b2210ddcfdb66"
+    },
+    "docs/archive/SPRINT-2025-10-27.md": {
+      "hash": "0a53e3b08146fedf8cd7dad214976ee6b78ac15299d77011335c99deb55a3e7a",
+      "doc_class": "planning",
+      "indexed_hash": "0a53e3b08146fedf8cd7dad214976ee6b78ac15299d77011335c99deb55a3e7a"
+    },
+    "docs/archive/SPRINT-2025-11-02.md": {
+      "hash": "51cadd38167ba1bf09250bb910fd0da1fe4cad84389100b1c0fa8bb3e39f194c",
+      "doc_class": "planning",
+      "indexed_hash": "51cadd38167ba1bf09250bb910fd0da1fe4cad84389100b1c0fa8bb3e39f194c"
+    },
+    "docs/archive/SPRINT-2025-11-03.md": {
+      "hash": "c1d3cd13bac57baedf29213e84ced7aad4dd6085e2064099f71238fd56d2bf8a",
+      "doc_class": "planning",
+      "indexed_hash": "c1d3cd13bac57baedf29213e84ced7aad4dd6085e2064099f71238fd56d2bf8a"
+    },
+    "docs/archive/SPRINT-2025-11-04.md": {
+      "hash": "e06e2d4d5df30e5bc42b47c0ed5cb487ed42ac51fb1859e51dd7dbcb6de95793",
+      "doc_class": "planning",
+      "indexed_hash": "e06e2d4d5df30e5bc42b47c0ed5cb487ed42ac51fb1859e51dd7dbcb6de95793"
+    },
+    "docs/archive/SPRINT-2025-11-10.md": {
+      "hash": "7eb59947a40ce2cc328b4fe3644b261a3423931458db68df3cee1b1ed7f25572",
+      "doc_class": "planning",
+      "indexed_hash": "7eb59947a40ce2cc328b4fe3644b261a3423931458db68df3cee1b1ed7f25572"
+    },
+    "docs/archive/TODO-2025-09-28.md": {
+      "hash": "4dc2d88b361496f650244817745d8a9280ea5bec768f710de6c7b5bcb1890e73",
+      "doc_class": "planning",
+      "indexed_hash": "4dc2d88b361496f650244817745d8a9280ea5bec768f710de6c7b5bcb1890e73"
+    },
+    "docs/archive/TODO-2025-10-04.md": {
+      "hash": "3a2592bbeb38db7dae64d5cbdb1d6a3e2b220b4f328df8877af9bda9fa53cd58",
+      "doc_class": "planning",
+      "indexed_hash": "3a2592bbeb38db7dae64d5cbdb1d6a3e2b220b4f328df8877af9bda9fa53cd58"
+    },
+    "docs/archive/TODO-2025-10-05.md": {
+      "hash": "1cfd8a8bfb5a0da099f5f8d9bae86219943a5bcdc1a478dc670b88cdb8f0b681",
+      "doc_class": "planning",
+      "indexed_hash": "1cfd8a8bfb5a0da099f5f8d9bae86219943a5bcdc1a478dc670b88cdb8f0b681"
+    },
+    "docs/archive/TODO-2025-10-13.md": {
+      "hash": "fa101068f0d370cdabd4c9b2697cb7b83e32a8be38a4668a7c22436af69da48e",
+      "doc_class": "planning",
+      "indexed_hash": "fa101068f0d370cdabd4c9b2697cb7b83e32a8be38a4668a7c22436af69da48e"
+    },
+    "docs/archive/game-design.happiness-mechanics.md": {
+      "hash": "6e7437a99de3ce4b605170776d25a47ced824f3ce62b47e82a5d97bb5617f1ab",
+      "doc_class": "planning",
+      "indexed_hash": "6e7437a99de3ce4b605170776d25a47ced824f3ce62b47e82a5d97bb5617f1ab"
+    },
+    "docs/archive/system-5-guinea-pig-creation.md": {
+      "hash": "c7367152fcef821c5673498cfee11a3d609d77a2d9217c347e6ffa6874e05031",
+      "doc_class": "planning",
+      "indexed_hash": "c7367152fcef821c5673498cfee11a3d609d77a2d9217c347e6ffa6874e05031"
+    },
+    "docs/audits/CODE-AUDIT-2025-11-03.md": {
+      "hash": "31cd0afdfb613df4c6cf5d28622068ad76354099e3d6a8d1d915962600350e5b",
+      "doc_class": "planning",
+      "indexed_hash": "31cd0afdfb613df4c6cf5d28622068ad76354099e3d6a8d1d915962600350e5b"
+    },
+    "docs/audits/CODE-AUDIT-2025-11-04.md": {
+      "hash": "5a52d4d5ca728afe8445de458cea2374db53fdec5f0f42dc20bdc3d9b1e8f07d",
+      "doc_class": "planning",
+      "indexed_hash": "5a52d4d5ca728afe8445de458cea2374db53fdec5f0f42dc20bdc3d9b1e8f07d"
+    },
+    "docs/audits/CSS-AUDIT-SPRINT-2025-11-02.md": {
+      "hash": "80295b255c3e3507d44d0f82ba7ab7acb5ff7ab94d9cb07746665245bc4c0daf",
+      "doc_class": "planning",
+      "indexed_hash": "80295b255c3e3507d44d0f82ba7ab7acb5ff7ab94d9cb07746665245bc4c0daf"
+    },
+    "docs/audits/CSS-AUDIT-SPRINT-2025-11-03.md": {
+      "hash": "b62dee58eb1d64741504bd142e4ca2afc3306a5b6c5c35436c88353387116df6",
+      "doc_class": "planning",
+      "indexed_hash": "b62dee58eb1d64741504bd142e4ca2afc3306a5b6c5c35436c88353387116df6"
+    },
+    "docs/audits/GPS2-46-CODE-AUDIT.md": {
+      "hash": "b25c2d39fb67fa1eba5b59af859af65dc0c97fdb14358b86bc700db0974a9e03",
+      "doc_class": "planning",
+      "indexed_hash": "b25c2d39fb67fa1eba5b59af859af65dc0c97fdb14358b86bc700db0974a9e03"
+    },
+    "docs/audits/GPS2-46-CSS-AUDIT.md": {
+      "hash": "6532327661cf2242f8eb03b40629c1f5c1c5fd67ef10c0b2753dc31f0e303ba5",
+      "doc_class": "planning",
+      "indexed_hash": "6532327661cf2242f8eb03b40629c1f5c1c5fd67ef10c0b2753dc31f0e303ba5"
+    },
+    "docs/audits/GPS2-54-3D-CODE-AUDIT.md": {
+      "hash": "ab2cfe4d62a7fb9af251108d2f8695996a3ffc09c39cd8139376d45450dc9b06",
+      "doc_class": "planning",
+      "indexed_hash": "ab2cfe4d62a7fb9af251108d2f8695996a3ffc09c39cd8139376d45450dc9b06"
+    },
+    "docs/audits/MOBILE-TOUCH-AUDIT-2025-10-26.md": {
+      "hash": "10186799d127c3e3b9b589f90302125b6453aac3c2cf8090b8f8e9c7fc24e626",
+      "doc_class": "planning",
+      "indexed_hash": "10186799d127c3e3b9b589f90302125b6453aac3c2cf8090b8f8e9c7fc24e626"
+    },
+    "docs/audits/PHASE4-CODE-AUDIT-2025-10-22.md": {
+      "hash": "47a1f2e5d941400e006804c909edba6e730971083929d8d9575d06f545a121d6",
+      "doc_class": "planning",
+      "indexed_hash": "47a1f2e5d941400e006804c909edba6e730971083929d8d9575d06f545a121d6"
+    },
+    "docs/game-design/activity-feed-design.md": {
+      "hash": "70b35a6541173b20aef6d95a53ad67f6a09cb2392d576b5073347312b4238d15",
+      "doc_class": "planning",
+      "indexed_hash": "70b35a6541173b20aef6d95a53ad67f6a09cb2392d576b5073347312b4238d15"
+    },
+    "docs/game-design/currency-reward-system.md": {
+      "hash": "6af6489556de5ce36bff140dd7d1897e30be7352dfe7098320660e5a53f78310",
+      "doc_class": "planning",
+      "indexed_hash": "6af6489556de5ce36bff140dd7d1897e30be7352dfe7098320660e5a53f78310"
+    },
+    "docs/game-design/habitat-conditions.md": {
+      "hash": "f1ef040e6cde821033821b26792abd7910e9a4dc3122012d1cee372cd0c30e4d",
+      "doc_class": "planning",
+      "indexed_hash": "f1ef040e6cde821033821b26792abd7910e9a4dc3122012d1cee372cd0c30e4d"
+    },
+    "docs/game-design/preferences-system.md": {
+      "hash": "b45b07c1ccf8702ff029e042caa9114e15c5269c0477caf1d4a8492b0f5069de",
+      "doc_class": "planning",
+      "indexed_hash": "b45b07c1ccf8702ff029e042caa9114e15c5269c0477caf1d4a8492b0f5069de"
+    },
+    "docs/game-design/wellness-system.md": {
+      "hash": "432046cbf76801fe3b3df42bd5b280ebf8be125eef2c49f1e836d0ed04185870",
+      "doc_class": "planning",
+      "indexed_hash": "432046cbf76801fe3b3df42bd5b280ebf8be125eef2c49f1e836d0ed04185870"
+    },
+    "docs/index.md": {
+      "hash": "dcf68e76f036218adba82ae5c64170d5cd8c6d4984f6ab14b5badbe4328b5dcd",
+      "doc_class": "planning",
+      "indexed_hash": "dcf68e76f036218adba82ae5c64170d5cd8c6d4984f6ab14b5badbe4328b5dcd"
+    },
+    "docs/systems/phase1/system-1-game-controller-store.md": {
+      "hash": "b4c080fabae22539463407674b03836abab13560da563f2a6d977722212aed4c",
+      "doc_class": "planning",
+      "indexed_hash": "b4c080fabae22539463407674b03836abab13560da563f2a6d977722212aed4c"
+    },
+    "docs/systems/phase1/system-2-layout-component-framework.md": {
+      "hash": "556e525dcf07f25931d17a6c000ab7837a2739b62908a92375eb84e80636a256",
+      "doc_class": "planning",
+      "indexed_hash": "556e525dcf07f25931d17a6c000ab7837a2739b62908a92375eb84e80636a256"
+    },
+    "docs/systems/phase1/system-3-logging-activity-feed.md": {
+      "hash": "4d603adc43057c4225b695c22c4db71186dbbee9c423ad2bc558071aabb4cc50",
+      "doc_class": "planning",
+      "indexed_hash": "4d603adc43057c4225b695c22c4db71186dbbee9c423ad2bc558071aabb4cc50"
+    },
+    "docs/systems/phase1/system-4-error-tracking.md": {
+      "hash": "97e8a8f4d3bd8f3a8d4bb42a0e220f0b0871ec0fe25136249f1ccb2e270ad875",
+      "doc_class": "planning",
+      "indexed_hash": "97e8a8f4d3bd8f3a8d4bb42a0e220f0b0871ec0fe25136249f1ccb2e270ad875"
+    },
+    "docs/systems/phase1/system-5-debug-menu-system.md": {
+      "hash": "eee5f2d03d2baa57face0c3cc9385ff62d2f1badc2602fbbc9596c9565cf9fdc",
+      "doc_class": "planning",
+      "indexed_hash": "eee5f2d03d2baa57face0c3cc9385ff62d2f1badc2602fbbc9596c9565cf9fdc"
+    },
+    "docs/systems/phase2.5/system-10.1-personality-trait-influences.md": {
+      "hash": "b458d06ac5dd763ef1609d4a26371529792ec1530c3e0e04d67fe7116fd1d863",
+      "doc_class": "planning",
+      "indexed_hash": "b458d06ac5dd763ef1609d4a26371529792ec1530c3e0e04d67fe7116fd1d863"
+    },
+    "docs/systems/phase2.5/system-10.2-preferences-likes-dislikes.md": {
+      "hash": "a903dbec1ce28fca18fc82655b4868435d86fa8c0ac00f0bb5464e24d278c03a",
+      "doc_class": "planning",
+      "indexed_hash": "a903dbec1ce28fca18fc82655b4868435d86fa8c0ac00f0bb5464e24d278c03a"
+    },
+    "docs/systems/phase2.5/system-10.2.5-fulfillment-limitation.md": {
+      "hash": "3e1d2e079627af1b050d2ab0a19968c4e640dea4040374b002a8123fda64496d",
+      "doc_class": "planning",
+      "indexed_hash": "3e1d2e079627af1b050d2ab0a19968c4e640dea4040374b002a8123fda64496d"
+    },
+    "docs/systems/phase2.5/system-10.3-wellness-interaction-reactions.md": {
+      "hash": "8c2020b70ef2350818bfd6fe0f5065ac71a110142684b4fc453743ceb5c8a5d3",
+      "doc_class": "planning",
+      "indexed_hash": "8c2020b70ef2350818bfd6fe0f5065ac71a110142684b4fc453743ceb5c8a5d3"
+    },
+    "docs/systems/phase2.5/system-10.4-guinea-pig-rescue.md": {
+      "hash": "ad3a5db31657908602294b8f45bdf5e5f01adff3086879006104fe32fdc4cc8e",
+      "doc_class": "planning",
+      "indexed_hash": "ad3a5db31657908602294b8f45bdf5e5f01adff3086879006104fe32fdc4cc8e"
+    },
+    "docs/systems/phase2.5/system-10.5-enhanced-activity-messages.md": {
+      "hash": "04731adf41570937869d5729093b85f5d462a4f7c9e5cefa618af310105863fb",
+      "doc_class": "planning",
+      "indexed_hash": "04731adf41570937869d5729093b85f5d462a4f7c9e5cefa618af310105863fb"
+    },
+    "docs/systems/phase2/system-6-guinea-pig-store.md": {
+      "hash": "4d4e404228ac6fc322cb11000151bdd1a232438de9c566f1c5fa4039cf368d7d",
+      "doc_class": "planning",
+      "indexed_hash": "4d4e404228ac6fc322cb11000151bdd1a232438de9c566f1c5fa4039cf368d7d"
+    },
+    "docs/systems/phase2/system-6.1-persistence-fix.md": {
+      "hash": "ce8a25ba4583cc41fa9919a4ed22777d1b5362e70c7bc021a3079a4844dbfb3f",
+      "doc_class": "planning",
+      "indexed_hash": "ce8a25ba4583cc41fa9919a4ed22777d1b5362e70c7bc021a3079a4844dbfb3f"
+    },
+    "docs/systems/phase2/system-6.5-pet-store-manager.md": {
+      "hash": "e34344afe658845c930a86224cbe59d5c7f3e5e24ceba7af9fae85dc9d057db5",
+      "doc_class": "planning",
+      "indexed_hash": "e34344afe658845c930a86224cbe59d5c7f3e5e24ceba7af9fae85dc9d057db5"
+    },
+    "docs/systems/phase2/system-6.5.1-debug-panel.md": {
+      "hash": "75f0d98de64894cd5e1ed083aa30c7f5b4a11d00d71e57dabd09b6d4b9ce1d21",
+      "doc_class": "planning",
+      "indexed_hash": "75f0d98de64894cd5e1ed083aa30c7f5b4a11d00d71e57dabd09b6d4b9ce1d21"
+    },
+    "docs/systems/phase2/system-6.8-preference-picker.md": {
+      "hash": "f56af1ca4921168c674e247d49ca04dc73763ea508a5ea2adcc6ea9738b18e02",
+      "doc_class": "planning",
+      "indexed_hash": "f56af1ca4921168c674e247d49ca04dc73763ea508a5ea2adcc6ea9738b18e02"
+    },
+    "docs/systems/phase2/system-6.9-guinea-pig-favorites.md": {
+      "hash": "509e4d93639eecbc7a749908146f89484844b875ae08cb561e6cae884c11f6f6",
+      "doc_class": "planning",
+      "indexed_hash": "509e4d93639eecbc7a749908146f89484844b875ae08cb561e6cae884c11f6f6"
+    },
+    "docs/systems/phase2/system-6.95-REDESIGN-permanent-adoption.md": {
+      "hash": "c6aa7695c78f4d495c70178afc30aef80c88c311025bc0be51332aea3b74aa67",
+      "doc_class": "planning",
+      "indexed_hash": "c6aa7695c78f4d495c70178afc30aef80c88c311025bc0be51332aea3b74aa67"
+    },
+    "docs/systems/phase2/system-6.95.1-implementation-plan.md": {
+      "hash": "e69f91d560b5aab7183a88f2528f19ed6862e72b077ab9e05d3e2e6ae36fe65a",
+      "doc_class": "planning",
+      "indexed_hash": "e69f91d560b5aab7183a88f2528f19ed6862e72b077ab9e05d3e2e6ae36fe65a"
+    },
+    "docs/systems/phase2/system-7-needs-system.md": {
+      "hash": "46c59b10e84d276e1ade6411b0635a931e54bfcffc2e6f4d37d780a3fb022d72",
+      "doc_class": "planning",
+      "indexed_hash": "46c59b10e84d276e1ade6411b0635a931e54bfcffc2e6f4d37d780a3fb022d72"
+    },
+    "docs/systems/phase2/system-7.1-implementation-plan.md": {
+      "hash": "0470c655152eed3821858dfb0c9578630d857d5d89811e34d7986e2f0ced6ca0",
+      "doc_class": "planning",
+      "indexed_hash": "0470c655152eed3821858dfb0c9578630d857d5d89811e34d7986e2f0ced6ca0"
+    },
+    "docs/systems/phase2/system-8-needs-controller-store.md": {
+      "hash": "9dbdfe01d31919899c9d368517ef821684ef8dc6006b4d0f0ec804900520f660",
+      "doc_class": "planning",
+      "indexed_hash": "9dbdfe01d31919899c9d368517ef821684ef8dc6006b4d0f0ec804900520f660"
+    },
+    "docs/systems/phase2/system-8.5-needs-integration-plan.md": {
+      "hash": "00bc8de70449dd5e5dd124b277fc5522bc460475d326d68d7259e0776d08aa6e",
+      "doc_class": "planning",
+      "indexed_hash": "00bc8de70449dd5e5dd124b277fc5522bc460475d326d68d7259e0776d08aa6e"
+    },
+    "docs/systems/phase2/system-9-10-game-timing.md": {
+      "hash": "72d55a9ecf43fce69acbb6e9eed381bc21adf90aa9de5f990ef0286b1dd001f1",
+      "doc_class": "planning",
+      "indexed_hash": "72d55a9ecf43fce69acbb6e9eed381bc21adf90aa9de5f990ef0286b1dd001f1"
+    },
+    "docs/systems/phase3/system-11-supplies-store.md": {
+      "hash": "37007f11de367cc1f712cee6be08cc820a052a41c8235b9b868ec72cc5024dec",
+      "doc_class": "planning",
+      "indexed_hash": "37007f11de367cc1f712cee6be08cc820a052a41c8235b9b868ec72cc5024dec"
+    },
+    "docs/systems/phase3/system-12-inventory-management.md": {
+      "hash": "71b4d7d42fcae88cb6bcf21a46239c12290223d13a7a64a6e73e9c8717774442",
+      "doc_class": "planning",
+      "indexed_hash": "71b4d7d42fcae88cb6bcf21a46239c12290223d13a7a64a6e73e9c8717774442"
+    },
+    "docs/systems/phase3/system-13-habitat-conditions.md": {
+      "hash": "cbf52eb8ba0cebbe99678359eccbfaf9ab4559e320c581233a869b0af70b39dc",
+      "doc_class": "planning",
+      "indexed_hash": "cbf52eb8ba0cebbe99678359eccbfaf9ab4559e320c581233a869b0af70b39dc"
+    },
+    "docs/systems/phase3/system-14-habitat-items.md": {
+      "hash": "e2f93da384ac9ca24b411b5feae438617b512909866816618a966efbe6196563",
+      "doc_class": "planning",
+      "indexed_hash": "e2f93da384ac9ca24b411b5feae438617b512909866816618a966efbe6196563"
+    },
+    "docs/systems/phase3/system-14.1-habitat-ui-implementation-plan.md": {
+      "hash": "0fd7a1c1dad8ed8c0c9ad40a8b1da134c1003c5d0fecf219246554588c0fdfd9",
+      "doc_class": "planning",
+      "indexed_hash": "0fd7a1c1dad8ed8c0c9ad40a8b1da134c1003c5d0fecf219246554588c0fdfd9"
+    },
+    "docs/systems/phase3/system-14.2-hay-rack-and-serving-system.md": {
+      "hash": "777fab5e45526f2d1d5c387b97e89733754e195be694f9957625232a3dc897d4",
+      "doc_class": "planning",
+      "indexed_hash": "777fab5e45526f2d1d5c387b97e89733754e195be694f9957625232a3dc897d4"
+    },
+    "docs/systems/phase3/system-15-habitat-maintenance-hygiene.md": {
+      "hash": "fa4bcda45230be141da871be70394a704b20babe6e92ae41f0ca99d6561f3d09",
+      "doc_class": "planning",
+      "indexed_hash": "fa4bcda45230be141da871be70394a704b20babe6e92ae41f0ca99d6561f3d09"
+    },
+    "docs/systems/phase3/system-15.1-habitat-debug-development-plan.md": {
+      "hash": "e0dbbc3d2b53d45656d8fce97d805b13d11585e758ae1052a14761d0110b8075",
+      "doc_class": "planning",
+      "indexed_hash": "e0dbbc3d2b53d45656d8fce97d805b13d11585e758ae1052a14761d0110b8075"
+    },
+    "docs/systems/phase3/system-16-autonomy-preparation.md": {
+      "hash": "e919affa8f9f69bedd6dd321fdf62d61cf02fe58cb64367dc8218f5d513489d3",
+      "doc_class": "planning",
+      "indexed_hash": "e919affa8f9f69bedd6dd321fdf62d61cf02fe58cb64367dc8218f5d513489d3"
+    },
+    "docs/systems/phase4/SOCIAL-INTERACTIONS-ENHANCEMENT.md": {
+      "hash": "d3d48849d7a109088227e3fcf679d6c3f0e66483ec497ca0ab4f6eaa1e296079",
+      "doc_class": "planning",
+      "indexed_hash": "d3d48849d7a109088227e3fcf679d6c3f0e66483ec497ca0ab4f6eaa1e296079"
+    },
+    "docs/systems/phase4/design-docs/direct-interaction-system.md": {
+      "hash": "3ee21b94df85beb775476da60876bbcda510381c620f8a957599b19156aa22d0",
+      "doc_class": "planning",
+      "indexed_hash": "3ee21b94df85beb775476da60876bbcda510381c620f8a957599b19156aa22d0"
+    },
+    "docs/systems/phase4/design-docs/guinea-pig-autonomy-system.md": {
+      "hash": "52e602985bab33d5ea63844fbe164c0b6a896e205c4dbc41c65f1136a8eea9f4",
+      "doc_class": "planning",
+      "indexed_hash": "52e602985bab33d5ea63844fbe164c0b6a896e205c4dbc41c65f1136a8eea9f4"
+    },
+    "docs/systems/phase4/design-docs/guinea-pig-bonding-system.md": {
+      "hash": "d8d98194a2e196de0be3f69e52a325aa367fd4fe2366476550f3bda73f400a16",
+      "doc_class": "planning",
+      "indexed_hash": "d8d98194a2e196de0be3f69e52a325aa367fd4fe2366476550f3bda73f400a16"
+    },
+    "docs/systems/phase4/phase-4-guinea-pig-integration-plan-full.md": {
+      "hash": "f2bd1aeabd9bddb9fb90a6c42b54d68917fbc8bf59c70c30031ac716c0f04a41",
+      "doc_class": "planning",
+      "indexed_hash": "f2bd1aeabd9bddb9fb90a6c42b54d68917fbc8bf59c70c30031ac716c0f04a41"
+    },
+    "docs/systems/phase4/system-17-visual-presence-positioning.md": {
+      "hash": "ca8efbf540dd52b6bfed35118a7ec88d7c82d87e0805224a866655b815ddadeb",
+      "doc_class": "planning",
+      "indexed_hash": "ca8efbf540dd52b6bfed35118a7ec88d7c82d87e0805224a866655b815ddadeb"
+    },
+    "docs/systems/phase4/system-18-pathfinding-movement.md": {
+      "hash": "96fdcf5f6dc15e165210d2ea25ce5258201b40b59026fb39edda11b52c637dd1",
+      "doc_class": "planning",
+      "indexed_hash": "96fdcf5f6dc15e165210d2ea25ce5258201b40b59026fb39edda11b52c637dd1"
+    },
+    "docs/systems/phase4/system-19-autonomous-ai-behaviors.md": {
+      "hash": "cab8234fc589b3a0d7ef2e1c9487c703c23e4e052d0cc36b1e271426b51a4cde",
+      "doc_class": "planning",
+      "indexed_hash": "cab8234fc589b3a0d7ef2e1c9487c703c23e4e052d0cc36b1e271426b51a4cde"
+    },
+    "docs/systems/phase4/system-20-direct-interaction-system.md": {
+      "hash": "39b16621536cb1e225c47371635f396b32fb99b4c5ec7b40d9200100c01bc62f",
+      "doc_class": "planning",
+      "indexed_hash": "39b16621536cb1e225c47371635f396b32fb99b4c5ec7b40d9200100c01bc62f"
+    },
+    "docs/systems/phase4/system-21-social-bonding-system.md": {
+      "hash": "2a1c1527a186a3c3a4bc2bee203dc77ced7a02f4ca4322a5953e59f1004af0fb",
+      "doc_class": "planning",
+      "indexed_hash": "2a1c1527a186a3c3a4bc2bee203dc77ced7a02f4ca4322a5953e59f1004af0fb"
+    },
+    "docs/systems/phase5/system-22-interaction-enhancement.md": {
+      "hash": "2e4949b03e1e26e8b557ad5af07540c1e576f4b71d96ffcf96388ef662e79549",
+      "doc_class": "planning",
+      "indexed_hash": "2e4949b03e1e26e8b557ad5af07540c1e576f4b71d96ffcf96388ef662e79549"
+    },
+    "docs/systems/phase5/system-23.5-fulfillment-limitation.md": {
+      "hash": "21cc53a12599edd1853b44462a9a3944272b7ee55e59ac0adda6b6143ac37856",
+      "doc_class": "planning",
+      "indexed_hash": "21cc53a12599edd1853b44462a9a3944272b7ee55e59ac0adda6b6143ac37856"
+    },
+    "docs/systems/phase5/system-24-progression-economy.md": {
+      "hash": "b658be47a54a95ad61f5c502af2f4d5e5cc5c004b309c903565ac7d2b739f524",
+      "doc_class": "planning",
+      "indexed_hash": "b658be47a54a95ad61f5c502af2f4d5e5cc5c004b309c903565ac7d2b739f524"
+    },
+    "docs/systems/phase5/system-27-sound-system.md": {
+      "hash": "fbea53391f1664c16c349ec74bbceb6e3322a1ff8bdafc517ab254aa5dbfea45",
+      "doc_class": "planning",
+      "indexed_hash": "fbea53391f1664c16c349ec74bbceb6e3322a1ff8bdafc517ab254aa5dbfea45"
+    },
+    "docs/systems/phase5/system-28-settings-preferences.md": {
+      "hash": "7ed47b40f375e1f4545297442e390e897bc604fbe636f6e7eaf8b3a8c3da7610",
+      "doc_class": "planning",
+      "indexed_hash": "7ed47b40f375e1f4545297442e390e897bc604fbe636f6e7eaf8b3a8c3da7610"
+    },
+    "docs/systems/phase5/system-29-animation-system.md": {
+      "hash": "dda1dfb686d2454061b7402700e0c5f30ac4dd3e37f85480cc2ca4a123b6d56f",
+      "doc_class": "planning",
+      "indexed_hash": "dda1dfb686d2454061b7402700e0c5f30ac4dd3e37f85480cc2ca4a123b6d56f"
+    },
+    "docs/technical/architecture-guidelines.md": {
+      "hash": "40e82901192a4eb92c02b6fa6426cbaf28f5f83d95d487babdb4ba0e8c4e6e3b",
+      "doc_class": "planning",
+      "indexed_hash": "40e82901192a4eb92c02b6fa6426cbaf28f5f83d95d487babdb4ba0e8c4e6e3b"
+    },
+    "docs/technical/audio-media-implementation.md": {
+      "hash": "31e9db84fa942462b1a053c264750835677250daf703e91e82dc765b65b98394",
+      "doc_class": "planning",
+      "indexed_hash": "31e9db84fa942462b1a053c264750835677250daf703e91e82dc765b65b98394"
+    },
+    "docs/technical/data-persistence.md": {
+      "hash": "d17861fa63ac18051b802dcd9ce74f94409adb84171c5c65696ca482961b74a6",
+      "doc_class": "planning",
+      "indexed_hash": "d17861fa63ac18051b802dcd9ce74f94409adb84171c5c65696ca482961b74a6"
+    },
+    "docs/technical/mobile-cross-platform.md": {
+      "hash": "b95d62d1878392adf904289e329a77281df62ec24583f88fc749f2e4851ee88d",
+      "doc_class": "planning",
+      "indexed_hash": "b95d62d1878392adf904289e329a77281df62ec24583f88fc749f2e4851ee88d"
+    },
+    "docs/technical/performance-optimization.md": {
+      "hash": "1217d4ad13176d5976610bfcc60639e6d09d84c258c7de462a116c16101652e2",
+      "doc_class": "planning",
+      "indexed_hash": "1217d4ad13176d5976610bfcc60639e6d09d84c258c7de462a116c16101652e2"
+    },
+    "docs/testing/NEEDS_SYSTEM_TESTING_GUIDE.md": {
+      "hash": "86837bb1a1a880643a42f5bc83a63207d3ebcb95c49c6b2e61aa2c2409c3db28",
+      "doc_class": "planning",
+      "indexed_hash": "86837bb1a1a880643a42f5bc83a63207d3ebcb95c49c6b2e61aa2c2409c3db28"
+    },
+    "index.html": {
+      "hash": "34696513b7394d84cc545a4f2a86198632624a4dc69b8dbb86c43272817dbc7f",
+      "doc_class": "source",
+      "doc": "docs/generated/index.html.md",
+      "generated_hash": "34696513b7394d84cc545a4f2a86198632624a4dc69b8dbb86c43272817dbc7f",
+      "indexed_hash": "34696513b7394d84cc545a4f2a86198632624a4dc69b8dbb86c43272817dbc7f",
+      "indexed_doc_hash": "34696513b7394d84cc545a4f2a86198632624a4dc69b8dbb86c43272817dbc7f"
+    },
+    "package.json": {
+      "hash": "ffea75a2fe5db63bdbed18fe0ecced1b3715660be269a04f13a0c2ec9a1f01e3",
+      "doc_class": "source",
+      "doc": "docs/generated/package.json.md",
+      "generated_hash": "ffea75a2fe5db63bdbed18fe0ecced1b3715660be269a04f13a0c2ec9a1f01e3",
+      "indexed_hash": "ffea75a2fe5db63bdbed18fe0ecced1b3715660be269a04f13a0c2ec9a1f01e3",
+      "indexed_doc_hash": "ffea75a2fe5db63bdbed18fe0ecced1b3715660be269a04f13a0c2ec9a1f01e3"
+    },
+    "src/App.vue": {
+      "hash": "a9a5ecc26ef4dc7ec254c0b98b4fecf887bcef8ea8c975baf265358d76f93ee6",
+      "doc_class": "source",
+      "doc": "docs/generated/src/App.vue.md",
+      "generated_hash": "a9a5ecc26ef4dc7ec254c0b98b4fecf887bcef8ea8c975baf265358d76f93ee6",
+      "indexed_hash": "a9a5ecc26ef4dc7ec254c0b98b4fecf887bcef8ea8c975baf265358d76f93ee6",
+      "indexed_doc_hash": "a9a5ecc26ef4dc7ec254c0b98b4fecf887bcef8ea8c975baf265358d76f93ee6"
+    },
+    "src/components/basic/Badge.vue": {
+      "hash": "14ad00ae2169d21182bd75474e6568873d2c51cc7ed00ba04acbca10cb832730",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/basic/Badge.vue.md",
+      "generated_hash": "14ad00ae2169d21182bd75474e6568873d2c51cc7ed00ba04acbca10cb832730",
+      "indexed_hash": "14ad00ae2169d21182bd75474e6568873d2c51cc7ed00ba04acbca10cb832730",
+      "indexed_doc_hash": "14ad00ae2169d21182bd75474e6568873d2c51cc7ed00ba04acbca10cb832730"
+    },
+    "src/components/basic/BlockMessage.vue": {
+      "hash": "ebcaec59ce93b51b1664b2bbdb6288dd12b47de115a9c00b160df7b0ce1f4e1a",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/basic/BlockMessage.vue.md",
+      "generated_hash": "ebcaec59ce93b51b1664b2bbdb6288dd12b47de115a9c00b160df7b0ce1f4e1a",
+      "indexed_hash": "ebcaec59ce93b51b1664b2bbdb6288dd12b47de115a9c00b160df7b0ce1f4e1a",
+      "indexed_doc_hash": "ebcaec59ce93b51b1664b2bbdb6288dd12b47de115a9c00b160df7b0ce1f4e1a"
+    },
+    "src/components/basic/Button.vue": {
+      "hash": "a6813dd7cf0cae3b5d0bf9d0bd5db1ec4e0e3049489905c0547cb5857a1d359d",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/basic/Button.vue.md",
+      "generated_hash": "a6813dd7cf0cae3b5d0bf9d0bd5db1ec4e0e3049489905c0547cb5857a1d359d",
+      "indexed_hash": "a6813dd7cf0cae3b5d0bf9d0bd5db1ec4e0e3049489905c0547cb5857a1d359d",
+      "indexed_doc_hash": "a6813dd7cf0cae3b5d0bf9d0bd5db1ec4e0e3049489905c0547cb5857a1d359d"
+    },
+    "src/components/basic/CheckboxField.vue": {
+      "hash": "36c2ec6377415c86b9b57a807fd10273cfc1769ee2d05c129a7908d046449f78",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/basic/CheckboxField.vue.md",
+      "generated_hash": "36c2ec6377415c86b9b57a807fd10273cfc1769ee2d05c129a7908d046449f78",
+      "indexed_hash": "36c2ec6377415c86b9b57a807fd10273cfc1769ee2d05c129a7908d046449f78",
+      "indexed_doc_hash": "36c2ec6377415c86b9b57a807fd10273cfc1769ee2d05c129a7908d046449f78"
+    },
+    "src/components/basic/ContainerContentsMenu.vue": {
+      "hash": "ae57a39f2b183b00150b463933c7cb2bdcc5b807578f9093fc82af16b450fc63",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/basic/ContainerContentsMenu.vue.md",
+      "generated_hash": "ae57a39f2b183b00150b463933c7cb2bdcc5b807578f9093fc82af16b450fc63",
+      "indexed_hash": "ae57a39f2b183b00150b463933c7cb2bdcc5b807578f9093fc82af16b450fc63",
+      "indexed_doc_hash": "ae57a39f2b183b00150b463933c7cb2bdcc5b807578f9093fc82af16b450fc63"
+    },
+    "src/components/basic/Details.vue": {
+      "hash": "45d217d2fbf0bbf81f94fefb7160f1447eb55e4fa5723a51e30bf05199a5f421",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/basic/Details.vue.md",
+      "generated_hash": "45d217d2fbf0bbf81f94fefb7160f1447eb55e4fa5723a51e30bf05199a5f421",
+      "indexed_hash": "45d217d2fbf0bbf81f94fefb7160f1447eb55e4fa5723a51e30bf05199a5f421",
+      "indexed_doc_hash": "45d217d2fbf0bbf81f94fefb7160f1447eb55e4fa5723a51e30bf05199a5f421"
+    },
+    "src/components/basic/FloatingActionButton.vue": {
+      "hash": "d0684f840f00ea93f842df37441a5098fe773efb421465e783cccf96c0c9c4c6",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/basic/FloatingActionButton.vue.md",
+      "generated_hash": "d0684f840f00ea93f842df37441a5098fe773efb421465e783cccf96c0c9c4c6",
+      "indexed_hash": "d0684f840f00ea93f842df37441a5098fe773efb421465e783cccf96c0c9c4c6",
+      "indexed_doc_hash": "d0684f840f00ea93f842df37441a5098fe773efb421465e783cccf96c0c9c4c6"
+    },
+    "src/components/basic/Icon.vue": {
+      "hash": "e43ccc022d1b99e16dc2b1e4ddb98ec9301b006a27faac2320f311c5f208ab90",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/basic/Icon.vue.md",
+      "generated_hash": "e43ccc022d1b99e16dc2b1e4ddb98ec9301b006a27faac2320f311c5f208ab90",
+      "indexed_hash": "e43ccc022d1b99e16dc2b1e4ddb98ec9301b006a27faac2320f311c5f208ab90",
+      "indexed_doc_hash": "e43ccc022d1b99e16dc2b1e4ddb98ec9301b006a27faac2320f311c5f208ab90"
+    },
+    "src/components/basic/InfoButton.vue": {
+      "hash": "6303472e3c5381a56e1a90c53bd23b8bad48502771696f691c1e331b875ae242",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/basic/InfoButton.vue.md",
+      "generated_hash": "6303472e3c5381a56e1a90c53bd23b8bad48502771696f691c1e331b875ae242",
+      "indexed_hash": "6303472e3c5381a56e1a90c53bd23b8bad48502771696f691c1e331b875ae242",
+      "indexed_doc_hash": "6303472e3c5381a56e1a90c53bd23b8bad48502771696f691c1e331b875ae242"
+    },
+    "src/components/basic/InventoryItemMenu.vue": {
+      "hash": "558b0bb62d89713f836f50cb635c93e7a599077437c747934891af8ee8a971fb",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/basic/InventoryItemMenu.vue.md",
+      "generated_hash": "558b0bb62d89713f836f50cb635c93e7a599077437c747934891af8ee8a971fb",
+      "indexed_hash": "558b0bb62d89713f836f50cb635c93e7a599077437c747934891af8ee8a971fb",
+      "indexed_doc_hash": "558b0bb62d89713f836f50cb635c93e7a599077437c747934891af8ee8a971fb"
+    },
+    "src/components/basic/NeedRow.vue": {
+      "hash": "7b1d4636e1056f9b1a34977c0f12139cfb6175a9bd26b0013522074e228ca64c",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/basic/NeedRow.vue.md",
+      "generated_hash": "7b1d4636e1056f9b1a34977c0f12139cfb6175a9bd26b0013522074e228ca64c",
+      "indexed_hash": "7b1d4636e1056f9b1a34977c0f12139cfb6175a9bd26b0013522074e228ca64c",
+      "indexed_doc_hash": "7b1d4636e1056f9b1a34977c0f12139cfb6175a9bd26b0013522074e228ca64c"
+    },
+    "src/components/basic/ProgressBar.vue": {
+      "hash": "e1a73714b73bd498d9cd637af8ada9b77ce05f88f66a0b223541ad7bfaa49c5e",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/basic/ProgressBar.vue.md",
+      "generated_hash": "e1a73714b73bd498d9cd637af8ada9b77ce05f88f66a0b223541ad7bfaa49c5e",
+      "indexed_hash": "e1a73714b73bd498d9cd637af8ada9b77ce05f88f66a0b223541ad7bfaa49c5e",
+      "indexed_doc_hash": "e1a73714b73bd498d9cd637af8ada9b77ce05f88f66a0b223541ad7bfaa49c5e"
+    },
+    "src/components/basic/Select.vue": {
+      "hash": "b365a535e762b0cbcdfcd8a0b5fe89f21b45d98fa4f5a09a22b64241e0616b4b",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/basic/Select.vue.md",
+      "generated_hash": "b365a535e762b0cbcdfcd8a0b5fe89f21b45d98fa4f5a09a22b64241e0616b4b",
+      "indexed_hash": "b365a535e762b0cbcdfcd8a0b5fe89f21b45d98fa4f5a09a22b64241e0616b4b",
+      "indexed_doc_hash": "b365a535e762b0cbcdfcd8a0b5fe89f21b45d98fa4f5a09a22b64241e0616b4b"
+    },
+    "src/components/basic/SliderField.vue": {
+      "hash": "1f398b7bcd2cf8458d72e726db3aecae2920da634866ed4529388bd84b57595f",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/basic/SliderField.vue.md",
+      "generated_hash": "1f398b7bcd2cf8458d72e726db3aecae2920da634866ed4529388bd84b57595f",
+      "indexed_hash": "1f398b7bcd2cf8458d72e726db3aecae2920da634866ed4529388bd84b57595f",
+      "indexed_doc_hash": "1f398b7bcd2cf8458d72e726db3aecae2920da634866ed4529388bd84b57595f"
+    },
+    "src/components/basic/ToggleGroup.vue": {
+      "hash": "f3cb80113bb2f6af0320cbd3c0a36de53667b320fedb99895b323524566fbe34",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/basic/ToggleGroup.vue.md",
+      "generated_hash": "f3cb80113bb2f6af0320cbd3c0a36de53667b320fedb99895b323524566fbe34",
+      "indexed_hash": "f3cb80113bb2f6af0320cbd3c0a36de53667b320fedb99895b323524566fbe34",
+      "indexed_doc_hash": "f3cb80113bb2f6af0320cbd3c0a36de53667b320fedb99895b323524566fbe34"
+    },
+    "src/components/basic/dialogs/BaseDialog.vue": {
+      "hash": "813e484e89c503bf4c67ce9ec00b7298abdfeed4c05bf5236b17aac2b50b746c",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/basic/dialogs/BaseDialog.vue.md",
+      "generated_hash": "813e484e89c503bf4c67ce9ec00b7298abdfeed4c05bf5236b17aac2b50b746c",
+      "indexed_hash": "813e484e89c503bf4c67ce9ec00b7298abdfeed4c05bf5236b17aac2b50b746c",
+      "indexed_doc_hash": "813e484e89c503bf4c67ce9ec00b7298abdfeed4c05bf5236b17aac2b50b746c"
+    },
+    "src/components/basic/dialogs/ConfirmDialog.vue": {
+      "hash": "31313b9225dc0b09e0a190b2e4465d5610e17dbb744c7996f3664c3fb449535d",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/basic/dialogs/ConfirmDialog.vue.md",
+      "generated_hash": "31313b9225dc0b09e0a190b2e4465d5610e17dbb744c7996f3664c3fb449535d",
+      "indexed_hash": "31313b9225dc0b09e0a190b2e4465d5610e17dbb744c7996f3664c3fb449535d",
+      "indexed_doc_hash": "31313b9225dc0b09e0a190b2e4465d5610e17dbb744c7996f3664c3fb449535d"
+    },
+    "src/components/chrome/ActivityFeedPanel.vue": {
+      "hash": "2e162ac9ba39a31680433687c25fb199ef414874a2e730e7d59dfd5b50435310",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/ActivityFeedPanel.vue.md",
+      "generated_hash": "2e162ac9ba39a31680433687c25fb199ef414874a2e730e7d59dfd5b50435310",
+      "indexed_hash": "2e162ac9ba39a31680433687c25fb199ef414874a2e730e7d59dfd5b50435310",
+      "indexed_doc_hash": "2e162ac9ba39a31680433687c25fb199ef414874a2e730e7d59dfd5b50435310"
+    },
+    "src/components/chrome/AdoptionCertificate.vue": {
+      "hash": "fefc467866314d06a238235eb7c9ae8f2d6e894a4663c3d3f018424a9c809199",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/AdoptionCertificate.vue.md",
+      "generated_hash": "fefc467866314d06a238235eb7c9ae8f2d6e894a4663c3d3f018424a9c809199",
+      "indexed_hash": "fefc467866314d06a238235eb7c9ae8f2d6e894a4663c3d3f018424a9c809199",
+      "indexed_doc_hash": "fefc467866314d06a238235eb7c9ae8f2d6e894a4663c3d3f018424a9c809199"
+    },
+    "src/components/chrome/FabCluster.vue": {
+      "hash": "4992235c8c8c70cad2aa7ef0349dc1e64b912e3e1fab84b73a37bc3815db61bd",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/FabCluster.vue.md",
+      "generated_hash": "4992235c8c8c70cad2aa7ef0349dc1e64b912e3e1fab84b73a37bc3815db61bd",
+      "indexed_hash": "4992235c8c8c70cad2aa7ef0349dc1e64b912e3e1fab84b73a37bc3815db61bd",
+      "indexed_doc_hash": "4992235c8c8c70cad2aa7ef0349dc1e64b912e3e1fab84b73a37bc3815db61bd"
+    },
+    "src/components/chrome/FabPlaque.vue": {
+      "hash": "71c50138deb7fc391fe412c3f417ef975e873572ede3b0b55fba0c45f393a1a0",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/FabPlaque.vue.md",
+      "generated_hash": "71c50138deb7fc391fe412c3f417ef975e873572ede3b0b55fba0c45f393a1a0",
+      "indexed_hash": "71c50138deb7fc391fe412c3f417ef975e873572ede3b0b55fba0c45f393a1a0",
+      "indexed_doc_hash": "71c50138deb7fc391fe412c3f417ef975e873572ede3b0b55fba0c45f393a1a0"
+    },
+    "src/components/chrome/FabSubmenu.vue": {
+      "hash": "20332da475bcdafe9393f7d395726493e69ec6312771a1dc630df7ed10df227b",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/FabSubmenu.vue.md",
+      "generated_hash": "20332da475bcdafe9393f7d395726493e69ec6312771a1dc630df7ed10df227b",
+      "indexed_hash": "20332da475bcdafe9393f7d395726493e69ec6312771a1dc630df7ed10df227b",
+      "indexed_doc_hash": "20332da475bcdafe9393f7d395726493e69ec6312771a1dc630df7ed10df227b"
+    },
+    "src/components/chrome/GameHeader.vue": {
+      "hash": "4c3e59848fe67ced87b82c4ba17ca7d7d093ec4dbe2787a52bc3cace1a8d0d2c",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/GameHeader.vue.md",
+      "generated_hash": "4c3e59848fe67ced87b82c4ba17ca7d7d093ec4dbe2787a52bc3cace1a8d0d2c",
+      "indexed_hash": "4c3e59848fe67ced87b82c4ba17ca7d7d093ec4dbe2787a52bc3cace1a8d0d2c",
+      "indexed_doc_hash": "4c3e59848fe67ced87b82c4ba17ca7d7d093ec4dbe2787a52bc3cace1a8d0d2c"
+    },
+    "src/components/chrome/HabitatStatusPanel.vue": {
+      "hash": "1d969650c8c0ad5fcbdd4b15c0a06ceb59ee3232eeb1d28fc3d3075476a9363f",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/HabitatStatusPanel.vue.md",
+      "generated_hash": "1d969650c8c0ad5fcbdd4b15c0a06ceb59ee3232eeb1d28fc3d3075476a9363f",
+      "indexed_hash": "1d969650c8c0ad5fcbdd4b15c0a06ceb59ee3232eeb1d28fc3d3075476a9363f",
+      "indexed_doc_hash": "1d969650c8c0ad5fcbdd4b15c0a06ceb59ee3232eeb1d28fc3d3075476a9363f"
+    },
+    "src/components/chrome/HelpOverlay.vue": {
+      "hash": "8a9ff40c3fee4eaa273c537aa67da6d91128911834782facb2d786254a8ed2b0",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/HelpOverlay.vue.md",
+      "generated_hash": "8a9ff40c3fee4eaa273c537aa67da6d91128911834782facb2d786254a8ed2b0",
+      "indexed_hash": "8a9ff40c3fee4eaa273c537aa67da6d91128911834782facb2d786254a8ed2b0",
+      "indexed_doc_hash": "8a9ff40c3fee4eaa273c537aa67da6d91128911834782facb2d786254a8ed2b0"
+    },
+    "src/components/chrome/IntroLoadingScreen.vue": {
+      "hash": "1bbe198e639b815f4f7185bb92f0741704d7089b79bab65ea45b96535bb9de1f",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/IntroLoadingScreen.vue.md",
+      "generated_hash": "1bbe198e639b815f4f7185bb92f0741704d7089b79bab65ea45b96535bb9de1f",
+      "indexed_hash": "1bbe198e639b815f4f7185bb92f0741704d7089b79bab65ea45b96535bb9de1f",
+      "indexed_doc_hash": "1bbe198e639b815f4f7185bb92f0741704d7089b79bab65ea45b96535bb9de1f"
+    },
+    "src/components/chrome/InventoryPanel.vue": {
+      "hash": "ce1a5c9f54ae04e431b4d1df8c52af4d05d550470fc6d114ecbf04717b7bf7b7",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/InventoryPanel.vue.md",
+      "generated_hash": "ce1a5c9f54ae04e431b4d1df8c52af4d05d550470fc6d114ecbf04717b7bf7b7",
+      "indexed_hash": "ce1a5c9f54ae04e431b4d1df8c52af4d05d550470fc6d114ecbf04717b7bf7b7",
+      "indexed_doc_hash": "ce1a5c9f54ae04e431b4d1df8c52af4d05d550470fc6d114ecbf04717b7bf7b7"
+    },
+    "src/components/chrome/ParchmentBanner.vue": {
+      "hash": "85e23accbc16099bfb1778d12b34e0a6a18b34498eaeab1e2f9cecb0aa20d03c",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/ParchmentBanner.vue.md",
+      "generated_hash": "85e23accbc16099bfb1778d12b34e0a6a18b34498eaeab1e2f9cecb0aa20d03c",
+      "indexed_hash": "85e23accbc16099bfb1778d12b34e0a6a18b34498eaeab1e2f9cecb0aa20d03c",
+      "indexed_doc_hash": "85e23accbc16099bfb1778d12b34e0a6a18b34498eaeab1e2f9cecb0aa20d03c"
+    },
+    "src/components/chrome/ParchmentPanel.vue": {
+      "hash": "8af1fedd636e3df7980429e379617af5d7dd116956e461b3995c9deb2aeda982",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/ParchmentPanel.vue.md",
+      "generated_hash": "8af1fedd636e3df7980429e379617af5d7dd116956e461b3995c9deb2aeda982",
+      "indexed_hash": "8af1fedd636e3df7980429e379617af5d7dd116956e461b3995c9deb2aeda982",
+      "indexed_doc_hash": "8af1fedd636e3df7980429e379617af5d7dd116956e461b3995c9deb2aeda982"
+    },
+    "src/components/chrome/PetStoreBackdrop.vue": {
+      "hash": "9796f4111826aca6e9eb3722d9ee939b969ce453c04846c05dd954b90688ffc6",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/PetStoreBackdrop.vue.md",
+      "generated_hash": "9796f4111826aca6e9eb3722d9ee939b969ce453c04846c05dd954b90688ffc6",
+      "indexed_hash": "9796f4111826aca6e9eb3722d9ee939b969ce453c04846c05dd954b90688ffc6",
+      "indexed_doc_hash": "9796f4111826aca6e9eb3722d9ee939b969ce453c04846c05dd954b90688ffc6"
+    },
+    "src/components/chrome/PetStorePicker.vue": {
+      "hash": "430cb870c2e90faab59a2e1756f01502e94c0d08a728c1415294b76fed46988b",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/PetStorePicker.vue.md",
+      "generated_hash": "430cb870c2e90faab59a2e1756f01502e94c0d08a728c1415294b76fed46988b",
+      "indexed_hash": "430cb870c2e90faab59a2e1756f01502e94c0d08a728c1415294b76fed46988b",
+      "indexed_doc_hash": "430cb870c2e90faab59a2e1756f01502e94c0d08a728c1415294b76fed46988b"
+    },
+    "src/components/chrome/PigDrawer.vue": {
+      "hash": "cdf063a1433713a93248043e9ebbbc847707410b27194910dd05059fd832a868",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/PigDrawer.vue.md",
+      "generated_hash": "cdf063a1433713a93248043e9ebbbc847707410b27194910dd05059fd832a868",
+      "indexed_hash": "cdf063a1433713a93248043e9ebbbc847707410b27194910dd05059fd832a868",
+      "indexed_doc_hash": "cdf063a1433713a93248043e9ebbbc847707410b27194910dd05059fd832a868"
+    },
+    "src/components/chrome/PigInfoPanel.vue": {
+      "hash": "566b9a7ec9898c7b34d8d28d0aa49710f74c0fafacb033305a7a684a61cb1777",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/PigInfoPanel.vue.md",
+      "generated_hash": "566b9a7ec9898c7b34d8d28d0aa49710f74c0fafacb033305a7a684a61cb1777",
+      "indexed_hash": "566b9a7ec9898c7b34d8d28d0aa49710f74c0fafacb033305a7a684a61cb1777",
+      "indexed_doc_hash": "566b9a7ec9898c7b34d8d28d0aa49710f74c0fafacb033305a7a684a61cb1777"
+    },
+    "src/components/chrome/PigNeedsPanel.vue": {
+      "hash": "f2844715f9e25084cab5ce9259185be6586d50609aa311ea68c6001cb9d69088",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/PigNeedsPanel.vue.md",
+      "generated_hash": "f2844715f9e25084cab5ce9259185be6586d50609aa311ea68c6001cb9d69088",
+      "indexed_hash": "f2844715f9e25084cab5ce9259185be6586d50609aa311ea68c6001cb9d69088",
+      "indexed_doc_hash": "f2844715f9e25084cab5ce9259185be6586d50609aa311ea68c6001cb9d69088"
+    },
+    "src/components/chrome/PigSvg.vue": {
+      "hash": "5a6f279e197ede80e67420d749ec6656e38f31ebcf99310b9bdc70b4de7cfaaf",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/PigSvg.vue.md",
+      "generated_hash": "5a6f279e197ede80e67420d749ec6656e38f31ebcf99310b9bdc70b4de7cfaaf",
+      "indexed_hash": "5a6f279e197ede80e67420d749ec6656e38f31ebcf99310b9bdc70b4de7cfaaf",
+      "indexed_doc_hash": "5a6f279e197ede80e67420d749ec6656e38f31ebcf99310b9bdc70b4de7cfaaf"
+    },
+    "src/components/chrome/PillDropdown.vue": {
+      "hash": "8cf56714e3765881aacba3cc24f3a845cce039f6663360acbdb6b7751864bf13",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/PillDropdown.vue.md",
+      "generated_hash": "8cf56714e3765881aacba3cc24f3a845cce039f6663360acbdb6b7751864bf13",
+      "indexed_hash": "8cf56714e3765881aacba3cc24f3a845cce039f6663360acbdb6b7751864bf13",
+      "indexed_doc_hash": "8cf56714e3765881aacba3cc24f3a845cce039f6663360acbdb6b7751864bf13"
+    },
+    "src/components/chrome/SignPill.vue": {
+      "hash": "2f91a0405ffbd0be759b5dd74099662337ebfe72f085e777df537044bb40d7f7",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/SignPill.vue.md",
+      "generated_hash": "2f91a0405ffbd0be759b5dd74099662337ebfe72f085e777df537044bb40d7f7",
+      "indexed_hash": "2f91a0405ffbd0be759b5dd74099662337ebfe72f085e777df537044bb40d7f7",
+      "indexed_doc_hash": "2f91a0405ffbd0be759b5dd74099662337ebfe72f085e777df537044bb40d7f7"
+    },
+    "src/components/chrome/SimTopBar.vue": {
+      "hash": "446beb12b3c070d7a9c41624ca1ac84e18b0fbbf2abc3ebab510ffdc369561de",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/SimTopBar.vue.md",
+      "generated_hash": "446beb12b3c070d7a9c41624ca1ac84e18b0fbbf2abc3ebab510ffdc369561de",
+      "indexed_hash": "446beb12b3c070d7a9c41624ca1ac84e18b0fbbf2abc3ebab510ffdc369561de",
+      "indexed_doc_hash": "446beb12b3c070d7a9c41624ca1ac84e18b0fbbf2abc3ebab510ffdc369561de"
+    },
+    "src/components/chrome/TutorialTour.vue": {
+      "hash": "2b09d0cb4519674bc44b7d463bde0d076736883b799325073fe49b75ac72432d",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/TutorialTour.vue.md",
+      "generated_hash": "2b09d0cb4519674bc44b7d463bde0d076736883b799325073fe49b75ac72432d",
+      "indexed_hash": "2b09d0cb4519674bc44b7d463bde0d076736883b799325073fe49b75ac72432d",
+      "indexed_doc_hash": "2b09d0cb4519674bc44b7d463bde0d076736883b799325073fe49b75ac72432d"
+    },
+    "src/components/chrome/fabThemes.ts": {
+      "hash": "0d61a307f28a50d1f22e797c90b4ae8fa75aeece23d6bb65ff06daf361659368",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/fabThemes.ts.md",
+      "generated_hash": "0d61a307f28a50d1f22e797c90b4ae8fa75aeece23d6bb65ff06daf361659368",
+      "indexed_hash": "0d61a307f28a50d1f22e797c90b4ae8fa75aeece23d6bb65ff06daf361659368",
+      "indexed_doc_hash": "0d61a307f28a50d1f22e797c90b4ae8fa75aeece23d6bb65ff06daf361659368"
+    },
+    "src/components/chrome/needMeta.ts": {
+      "hash": "004bf5edb21ae078bdc9e45b0ac49186c613b8f19219a29c90699ac8b41373ff",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/needMeta.ts.md",
+      "generated_hash": "004bf5edb21ae078bdc9e45b0ac49186c613b8f19219a29c90699ac8b41373ff",
+      "indexed_hash": "004bf5edb21ae078bdc9e45b0ac49186c613b8f19219a29c90699ac8b41373ff",
+      "indexed_doc_hash": "004bf5edb21ae078bdc9e45b0ac49186c613b8f19219a29c90699ac8b41373ff"
+    },
+    "src/components/chrome/pigColor.ts": {
+      "hash": "fecdbfcd8955902c9c84ca66c293b279a54d5a6dd530adeb7a59ab013c8685d8",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/chrome/pigColor.ts.md",
+      "generated_hash": "fecdbfcd8955902c9c84ca66c293b279a54d5a6dd530adeb7a59ab013c8685d8",
+      "indexed_hash": "fecdbfcd8955902c9c84ca66c293b279a54d5a6dd530adeb7a59ab013c8685d8",
+      "indexed_doc_hash": "fecdbfcd8955902c9c84ca66c293b279a54d5a6dd530adeb7a59ab013c8685d8"
+    },
+    "src/components/debug/core/GameController.vue": {
+      "hash": "21aec71df7a8d6979aeb9e3f3f559b957ecd5684898ae9c9957da0769fa68e9e",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/core/GameController.vue.md",
+      "generated_hash": "21aec71df7a8d6979aeb9e3f3f559b957ecd5684898ae9c9957da0769fa68e9e",
+      "indexed_hash": "21aec71df7a8d6979aeb9e3f3f559b957ecd5684898ae9c9957da0769fa68e9e",
+      "indexed_doc_hash": "21aec71df7a8d6979aeb9e3f3f559b957ecd5684898ae9c9957da0769fa68e9e"
+    },
+    "src/components/debug/core/GuineaPigEditor.vue": {
+      "hash": "884d8ced418fb3cad88298d1b8b068935d085505f945ef60b8232801d0e2bfa0",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/core/GuineaPigEditor.vue.md",
+      "generated_hash": "884d8ced418fb3cad88298d1b8b068935d085505f945ef60b8232801d0e2bfa0",
+      "indexed_hash": "884d8ced418fb3cad88298d1b8b068935d085505f945ef60b8232801d0e2bfa0",
+      "indexed_doc_hash": "884d8ced418fb3cad88298d1b8b068935d085505f945ef60b8232801d0e2bfa0"
+    },
+    "src/components/debug/core/PetStoreDebug.vue": {
+      "hash": "30759a3f8c459a0de6e471eefca5ef38c7594a6f193ec747eede62ad67457629",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/core/PetStoreDebug.vue.md",
+      "generated_hash": "30759a3f8c459a0de6e471eefca5ef38c7594a6f193ec747eede62ad67457629",
+      "indexed_hash": "30759a3f8c459a0de6e471eefca5ef38c7594a6f193ec747eede62ad67457629",
+      "indexed_doc_hash": "30759a3f8c459a0de6e471eefca5ef38c7594a6f193ec747eede62ad67457629"
+    },
+    "src/components/debug/core/StardustSanctuaryDebug.vue": {
+      "hash": "2f0606461916d5613bc85d83bdeb41928af37f4ef34c9a173712278cd1469c2a",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/core/StardustSanctuaryDebug.vue.md",
+      "generated_hash": "2f0606461916d5613bc85d83bdeb41928af37f4ef34c9a173712278cd1469c2a",
+      "indexed_hash": "2f0606461916d5613bc85d83bdeb41928af37f4ef34c9a173712278cd1469c2a",
+      "indexed_doc_hash": "2f0606461916d5613bc85d83bdeb41928af37f4ef34c9a173712278cd1469c2a"
+    },
+    "src/components/debug/environment/AutonomyDebug.vue": {
+      "hash": "b820d23e7bbd0746529e487b11558402545de1b9ffb551e48513b74aa6619648",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/environment/AutonomyDebug.vue.md",
+      "generated_hash": "b820d23e7bbd0746529e487b11558402545de1b9ffb551e48513b74aa6619648",
+      "indexed_hash": "b820d23e7bbd0746529e487b11558402545de1b9ffb551e48513b74aa6619648",
+      "indexed_doc_hash": "b820d23e7bbd0746529e487b11558402545de1b9ffb551e48513b74aa6619648"
+    },
+    "src/components/debug/environment/HabitatStatusDebug.vue": {
+      "hash": "a9565b1b72684dc180f9387183aecb9385f33ea7d665e12f20c050cf1f910fd4",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/environment/HabitatStatusDebug.vue.md",
+      "generated_hash": "a9565b1b72684dc180f9387183aecb9385f33ea7d665e12f20c050cf1f910fd4",
+      "indexed_hash": "a9565b1b72684dc180f9387183aecb9385f33ea7d665e12f20c050cf1f910fd4",
+      "indexed_doc_hash": "a9565b1b72684dc180f9387183aecb9385f33ea7d665e12f20c050cf1f910fd4"
+    },
+    "src/components/debug/environment/HabitatToolsDebug.vue": {
+      "hash": "70240710908df59baf07478d54bdf722b37f329eec16d0284dd205cdd836b229",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/environment/HabitatToolsDebug.vue.md",
+      "generated_hash": "70240710908df59baf07478d54bdf722b37f329eec16d0284dd205cdd836b229",
+      "indexed_hash": "70240710908df59baf07478d54bdf722b37f329eec16d0284dd205cdd836b229",
+      "indexed_doc_hash": "70240710908df59baf07478d54bdf722b37f329eec16d0284dd205cdd836b229"
+    },
+    "src/components/debug/environment/InventoryDebug.vue": {
+      "hash": "8d518fd548e827a6c3d35eac94f320d3bbf6bb6c70639a684a0dca55d38d56c9",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/environment/InventoryDebug.vue.md",
+      "generated_hash": "8d518fd548e827a6c3d35eac94f320d3bbf6bb6c70639a684a0dca55d38d56c9",
+      "indexed_hash": "8d518fd548e827a6c3d35eac94f320d3bbf6bb6c70639a684a0dca55d38d56c9",
+      "indexed_doc_hash": "8d518fd548e827a6c3d35eac94f320d3bbf6bb6c70639a684a0dca55d38d56c9"
+    },
+    "src/components/debug/environment/NeedsPanel.vue": {
+      "hash": "62d513bb55d1ff04fcf533002c4af7d06303ce5ce78ea5fb52a8bcd71969c159",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/environment/NeedsPanel.vue.md",
+      "generated_hash": "62d513bb55d1ff04fcf533002c4af7d06303ce5ce78ea5fb52a8bcd71969c159",
+      "indexed_hash": "62d513bb55d1ff04fcf533002c4af7d06303ce5ce78ea5fb52a8bcd71969c159",
+      "indexed_doc_hash": "62d513bb55d1ff04fcf533002c4af7d06303ce5ce78ea5fb52a8bcd71969c159"
+    },
+    "src/components/debug/environment/PersonalityPanel.vue": {
+      "hash": "b9e6777a3270da65b6c23521a7a76319bf654267dabe7f08c12887a170625de8",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/environment/PersonalityPanel.vue.md",
+      "generated_hash": "b9e6777a3270da65b6c23521a7a76319bf654267dabe7f08c12887a170625de8",
+      "indexed_hash": "b9e6777a3270da65b6c23521a7a76319bf654267dabe7f08c12887a170625de8",
+      "indexed_doc_hash": "b9e6777a3270da65b6c23521a7a76319bf654267dabe7f08c12887a170625de8"
+    },
+    "src/components/debug/environment/PoopDebug.vue": {
+      "hash": "3bdd8486fc23e58e85b578e5b3751870dc7ca599fcf51d191020bac1fb2b2315",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/environment/PoopDebug.vue.md",
+      "generated_hash": "3bdd8486fc23e58e85b578e5b3751870dc7ca599fcf51d191020bac1fb2b2315",
+      "indexed_hash": "3bdd8486fc23e58e85b578e5b3751870dc7ca599fcf51d191020bac1fb2b2315",
+      "indexed_doc_hash": "3bdd8486fc23e58e85b578e5b3751870dc7ca599fcf51d191020bac1fb2b2315"
+    },
+    "src/components/debug/gameplay/BondingDebug.vue": {
+      "hash": "569b6a60f765a44f1a86766cfe3e670c8b95b6734ba2fa6bc0494b1074654f81",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/gameplay/BondingDebug.vue.md",
+      "generated_hash": "569b6a60f765a44f1a86766cfe3e670c8b95b6734ba2fa6bc0494b1074654f81",
+      "indexed_hash": "569b6a60f765a44f1a86766cfe3e670c8b95b6734ba2fa6bc0494b1074654f81",
+      "indexed_doc_hash": "569b6a60f765a44f1a86766cfe3e670c8b95b6734ba2fa6bc0494b1074654f81"
+    },
+    "src/components/debug/gameplay/FriendshipDebug.vue": {
+      "hash": "8609d35dfb62a092409d6ec7b5aee15865e29b1cd73e148d5453695d9f66adbb",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/gameplay/FriendshipDebug.vue.md",
+      "generated_hash": "8609d35dfb62a092409d6ec7b5aee15865e29b1cd73e148d5453695d9f66adbb",
+      "indexed_hash": "8609d35dfb62a092409d6ec7b5aee15865e29b1cd73e148d5453695d9f66adbb",
+      "indexed_doc_hash": "8609d35dfb62a092409d6ec7b5aee15865e29b1cd73e148d5453695d9f66adbb"
+    },
+    "src/components/debug/prototypes/ModelViewerDebug.vue": {
+      "hash": "b94d5eae8bf94ff7138a8bd8bce2054868a51e4056f28779b7e0dab7bae292ac",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/prototypes/ModelViewerDebug.vue.md",
+      "generated_hash": "b94d5eae8bf94ff7138a8bd8bce2054868a51e4056f28779b7e0dab7bae292ac",
+      "indexed_hash": "b94d5eae8bf94ff7138a8bd8bce2054868a51e4056f28779b7e0dab7bae292ac",
+      "indexed_doc_hash": "b94d5eae8bf94ff7138a8bd8bce2054868a51e4056f28779b7e0dab7bae292ac"
+    },
+    "src/components/debug/ui/DebugBadge.vue": {
+      "hash": "dce3d6074726e125b65c29916a4b667ff2c708b09cba1cd6c14f60da73b08b09",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/ui/DebugBadge.vue.md",
+      "generated_hash": "dce3d6074726e125b65c29916a4b667ff2c708b09cba1cd6c14f60da73b08b09",
+      "indexed_hash": "dce3d6074726e125b65c29916a4b667ff2c708b09cba1cd6c14f60da73b08b09",
+      "indexed_doc_hash": "dce3d6074726e125b65c29916a4b667ff2c708b09cba1cd6c14f60da73b08b09"
+    },
+    "src/components/debug/ui/DebugHeader.vue": {
+      "hash": "510b8dc50aa9d78b2a0e63e70febefa7591b983cc1b3970ca07f26e7b3382f58",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/ui/DebugHeader.vue.md",
+      "generated_hash": "510b8dc50aa9d78b2a0e63e70febefa7591b983cc1b3970ca07f26e7b3382f58",
+      "indexed_hash": "510b8dc50aa9d78b2a0e63e70febefa7591b983cc1b3970ca07f26e7b3382f58",
+      "indexed_doc_hash": "510b8dc50aa9d78b2a0e63e70febefa7591b983cc1b3970ca07f26e7b3382f58"
+    },
+    "src/components/debug/ui/DebugNav.vue": {
+      "hash": "8ea95584bfcbe5fda337dce23ee5df942db644c33a931cd90af397621fd6e1fa",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/ui/DebugNav.vue.md",
+      "generated_hash": "8ea95584bfcbe5fda337dce23ee5df942db644c33a931cd90af397621fd6e1fa",
+      "indexed_hash": "8ea95584bfcbe5fda337dce23ee5df942db644c33a931cd90af397621fd6e1fa",
+      "indexed_doc_hash": "8ea95584bfcbe5fda337dce23ee5df942db644c33a931cd90af397621fd6e1fa"
+    },
+    "src/components/debug/ui/DebugPanel.vue": {
+      "hash": "b7400477b9a65601ac5c616e1487509ee50e43918a35a85664938f895f601252",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/ui/DebugPanel.vue.md",
+      "generated_hash": "b7400477b9a65601ac5c616e1487509ee50e43918a35a85664938f895f601252",
+      "indexed_hash": "b7400477b9a65601ac5c616e1487509ee50e43918a35a85664938f895f601252",
+      "indexed_doc_hash": "b7400477b9a65601ac5c616e1487509ee50e43918a35a85664938f895f601252"
+    },
+    "src/components/debug/ui/DebugPanelRow.vue": {
+      "hash": "9ee1b630f7a34d745090263ac0fc632c26d6512eb85a756e321c70a86ef9cf79",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/ui/DebugPanelRow.vue.md",
+      "generated_hash": "9ee1b630f7a34d745090263ac0fc632c26d6512eb85a756e321c70a86ef9cf79",
+      "indexed_hash": "9ee1b630f7a34d745090263ac0fc632c26d6512eb85a756e321c70a86ef9cf79",
+      "indexed_doc_hash": "9ee1b630f7a34d745090263ac0fc632c26d6512eb85a756e321c70a86ef9cf79"
+    },
+    "src/components/debug/ui/DebugSection.vue": {
+      "hash": "94744fe5a2a80c39d4b33ef53a6a7eed3da42928b57784e10991a55ba9aa83d0",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/ui/DebugSection.vue.md",
+      "generated_hash": "94744fe5a2a80c39d4b33ef53a6a7eed3da42928b57784e10991a55ba9aa83d0",
+      "indexed_hash": "94744fe5a2a80c39d4b33ef53a6a7eed3da42928b57784e10991a55ba9aa83d0",
+      "indexed_doc_hash": "94744fe5a2a80c39d4b33ef53a6a7eed3da42928b57784e10991a55ba9aa83d0"
+    },
+    "src/components/debug/ui/DebugSlider.vue": {
+      "hash": "31a979c0a45e9c4cf75eacc92fe6ac3eded3dd7950a60affc7bd77f156e14f53",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/ui/DebugSlider.vue.md",
+      "generated_hash": "31a979c0a45e9c4cf75eacc92fe6ac3eded3dd7950a60affc7bd77f156e14f53",
+      "indexed_hash": "31a979c0a45e9c4cf75eacc92fe6ac3eded3dd7950a60affc7bd77f156e14f53",
+      "indexed_doc_hash": "31a979c0a45e9c4cf75eacc92fe6ac3eded3dd7950a60affc7bd77f156e14f53"
+    },
+    "src/components/debug/ui/DebugStatRow.vue": {
+      "hash": "688ad9effd3566e934b552ae76e841be5061e4d662d93591bf6245675d1e39ca",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/debug/ui/DebugStatRow.vue.md",
+      "generated_hash": "688ad9effd3566e934b552ae76e841be5061e4d662d93591bf6245675d1e39ca",
+      "indexed_hash": "688ad9effd3566e934b552ae76e841be5061e4d662d93591bf6245675d1e39ca",
+      "indexed_doc_hash": "688ad9effd3566e934b552ae76e841be5061e4d662d93591bf6245675d1e39ca"
+    },
+    "src/components/game/ChatBubble3D.vue": {
+      "hash": "f0f34b416e659354716b1fe91b75b4681e9b51f3f80f77ac3e6b1e34aa19446c",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/ChatBubble3D.vue.md",
+      "generated_hash": "f0f34b416e659354716b1fe91b75b4681e9b51f3f80f77ac3e6b1e34aa19446c",
+      "indexed_hash": "f0f34b416e659354716b1fe91b75b4681e9b51f3f80f77ac3e6b1e34aa19446c",
+      "indexed_doc_hash": "f0f34b416e659354716b1fe91b75b4681e9b51f3f80f77ac3e6b1e34aa19446c"
+    },
+    "src/components/game/ChewPopover3D.vue": {
+      "hash": "f2b5109cdd67878257b24d4be37fa115969095e5afdbdcd9f6725b6c2829441b",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/ChewPopover3D.vue.md",
+      "generated_hash": "f2b5109cdd67878257b24d4be37fa115969095e5afdbdcd9f6725b6c2829441b",
+      "indexed_hash": "f2b5109cdd67878257b24d4be37fa115969095e5afdbdcd9f6725b6c2829441b",
+      "indexed_doc_hash": "f2b5109cdd67878257b24d4be37fa115969095e5afdbdcd9f6725b6c2829441b"
+    },
+    "src/components/game/GameView.vue": {
+      "hash": "507f1094e9d00e05a2f422a1d436caf5dc8805db66de9a7cd39af46b3fb1d274",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/GameView.vue.md",
+      "generated_hash": "507f1094e9d00e05a2f422a1d436caf5dc8805db66de9a7cd39af46b3fb1d274",
+      "indexed_hash": "507f1094e9d00e05a2f422a1d436caf5dc8805db66de9a7cd39af46b3fb1d274",
+      "indexed_doc_hash": "507f1094e9d00e05a2f422a1d436caf5dc8805db66de9a7cd39af46b3fb1d274"
+    },
+    "src/components/game/GuineaPigInfoMenu.vue": {
+      "hash": "9b86783de67ffad12b5ad42ffee28ec89a1c56e56a4d9d9a0de91983f91adc02",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/GuineaPigInfoMenu.vue.md",
+      "generated_hash": "9b86783de67ffad12b5ad42ffee28ec89a1c56e56a4d9d9a0de91983f91adc02",
+      "indexed_hash": "9b86783de67ffad12b5ad42ffee28ec89a1c56e56a4d9d9a0de91983f91adc02",
+      "indexed_doc_hash": "9b86783de67ffad12b5ad42ffee28ec89a1c56e56a4d9d9a0de91983f91adc02"
+    },
+    "src/components/game/ItemPopover3D.vue": {
+      "hash": "04d5958f7a4be05b699810a9a49e42a145a9c9d92883632ad1549de529e1f448",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/ItemPopover3D.vue.md",
+      "generated_hash": "04d5958f7a4be05b699810a9a49e42a145a9c9d92883632ad1549de529e1f448",
+      "indexed_hash": "04d5958f7a4be05b699810a9a49e42a145a9c9d92883632ad1549de529e1f448",
+      "indexed_doc_hash": "04d5958f7a4be05b699810a9a49e42a145a9c9d92883632ad1549de529e1f448"
+    },
+    "src/components/game/SidePanel3D.vue": {
+      "hash": "bf69f5a3e57b01ccf199bc321f99ea1790b0be791ea777840b212399d175479b",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/SidePanel3D.vue.md",
+      "generated_hash": "bf69f5a3e57b01ccf199bc321f99ea1790b0be791ea777840b212399d175479b",
+      "indexed_hash": "bf69f5a3e57b01ccf199bc321f99ea1790b0be791ea777840b212399d175479b",
+      "indexed_doc_hash": "bf69f5a3e57b01ccf199bc321f99ea1790b0be791ea777840b212399d175479b"
+    },
+    "src/components/game/WaterBottleMenu.vue": {
+      "hash": "a616e220a337796c163834f1678ad056d5d290a8347a9b048a6105d8e3b50d3c",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/WaterBottleMenu.vue.md",
+      "generated_hash": "a616e220a337796c163834f1678ad056d5d290a8347a9b048a6105d8e3b50d3c",
+      "indexed_hash": "a616e220a337796c163834f1678ad056d5d290a8347a9b048a6105d8e3b50d3c",
+      "indexed_doc_hash": "a616e220a337796c163834f1678ad056d5d290a8347a9b048a6105d8e3b50d3c"
+    },
+    "src/components/game/dialogs/ActionResultDialog.vue": {
+      "hash": "3c120f6e348d8396d3af3941c01763cfbf1bd1b9ea72feba65f3c59ff19e8f2e",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/dialogs/ActionResultDialog.vue.md",
+      "generated_hash": "3c120f6e348d8396d3af3941c01763cfbf1bd1b9ea72feba65f3c59ff19e8f2e",
+      "indexed_hash": "3c120f6e348d8396d3af3941c01763cfbf1bd1b9ea72feba65f3c59ff19e8f2e",
+      "indexed_doc_hash": "3c120f6e348d8396d3af3941c01763cfbf1bd1b9ea72feba65f3c59ff19e8f2e"
+    },
+    "src/components/game/dialogs/CleanCageDialog.vue": {
+      "hash": "038c420f6a0334fbf58fdd2ad63873cb7fcc7b8b5c5af77ed9d566c12ee948ed",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/dialogs/CleanCageDialog.vue.md",
+      "generated_hash": "038c420f6a0334fbf58fdd2ad63873cb7fcc7b8b5c5af77ed9d566c12ee948ed",
+      "indexed_hash": "038c420f6a0334fbf58fdd2ad63873cb7fcc7b8b5c5af77ed9d566c12ee948ed",
+      "indexed_doc_hash": "038c420f6a0334fbf58fdd2ad63873cb7fcc7b8b5c5af77ed9d566c12ee948ed"
+    },
+    "src/components/game/dialogs/FoodSelectionDialog.vue": {
+      "hash": "f77b5e12b24737498bca3ebaf5b2d7fcc76083492af6eaf354d0b470c52d0585",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/dialogs/FoodSelectionDialog.vue.md",
+      "generated_hash": "f77b5e12b24737498bca3ebaf5b2d7fcc76083492af6eaf354d0b470c52d0585",
+      "indexed_hash": "f77b5e12b24737498bca3ebaf5b2d7fcc76083492af6eaf354d0b470c52d0585",
+      "indexed_doc_hash": "f77b5e12b24737498bca3ebaf5b2d7fcc76083492af6eaf354d0b470c52d0585"
+    },
+    "src/components/game/dialogs/HayManagementDialog.vue": {
+      "hash": "c0bf4bd0fbabd3c37a1e024931b5dffece7915fe9deff5b120f856460d423a4d",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/dialogs/HayManagementDialog.vue.md",
+      "generated_hash": "c0bf4bd0fbabd3c37a1e024931b5dffece7915fe9deff5b120f856460d423a4d",
+      "indexed_hash": "c0bf4bd0fbabd3c37a1e024931b5dffece7915fe9deff5b120f856460d423a4d",
+      "indexed_doc_hash": "c0bf4bd0fbabd3c37a1e024931b5dffece7915fe9deff5b120f856460d423a4d"
+    },
+    "src/components/game/dialogs/PauseOverlay.vue": {
+      "hash": "e0e0cf12bdd9f60a2fbbeb8ed7f26e6279d4a4341d796833ef934c372cc642b0",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/dialogs/PauseOverlay.vue.md",
+      "generated_hash": "e0e0cf12bdd9f60a2fbbeb8ed7f26e6279d4a4341d796833ef934c372cc642b0",
+      "indexed_hash": "e0e0cf12bdd9f60a2fbbeb8ed7f26e6279d4a4341d796833ef934c372cc642b0",
+      "indexed_doc_hash": "e0e0cf12bdd9f60a2fbbeb8ed7f26e6279d4a4341d796833ef934c372cc642b0"
+    },
+    "src/components/game/shop/AwningTab.vue": {
+      "hash": "d1a5f9756b6eef0194a2314fe334b5e9b426cef01ded3fd9c7155643920b9531",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/shop/AwningTab.vue.md",
+      "generated_hash": "d1a5f9756b6eef0194a2314fe334b5e9b426cef01ded3fd9c7155643920b9531",
+      "indexed_hash": "d1a5f9756b6eef0194a2314fe334b5e9b426cef01ded3fd9c7155643920b9531",
+      "indexed_doc_hash": "d1a5f9756b6eef0194a2314fe334b5e9b426cef01ded3fd9c7155643920b9531"
+    },
+    "src/components/game/shop/InventoryTileServing.vue": {
+      "hash": "9dec5a000247bb9bdf1ed3ecacfc0d5173a2dfdac57903576ca538526d58d414",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/shop/InventoryTileServing.vue.md",
+      "generated_hash": "9dec5a000247bb9bdf1ed3ecacfc0d5173a2dfdac57903576ca538526d58d414",
+      "indexed_hash": "9dec5a000247bb9bdf1ed3ecacfc0d5173a2dfdac57903576ca538526d58d414",
+      "indexed_doc_hash": "9dec5a000247bb9bdf1ed3ecacfc0d5173a2dfdac57903576ca538526d58d414"
+    },
+    "src/components/game/shop/ItemGridView.vue": {
+      "hash": "ee3371de3eec58ce3d7fd3a1921859839bcf413e9c2be1d38a8fc850d5539bda",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/shop/ItemGridView.vue.md",
+      "generated_hash": "ee3371de3eec58ce3d7fd3a1921859839bcf413e9c2be1d38a8fc850d5539bda",
+      "indexed_hash": "ee3371de3eec58ce3d7fd3a1921859839bcf413e9c2be1d38a8fc850d5539bda",
+      "indexed_doc_hash": "ee3371de3eec58ce3d7fd3a1921859839bcf413e9c2be1d38a8fc850d5539bda"
+    },
+    "src/components/game/shop/ItemListView.vue": {
+      "hash": "b21e6329d702ef167605b388811112c59be97e2f8f6cc5f81199a772d7c7a48a",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/shop/ItemListView.vue.md",
+      "generated_hash": "b21e6329d702ef167605b388811112c59be97e2f8f6cc5f81199a772d7c7a48a",
+      "indexed_hash": "b21e6329d702ef167605b388811112c59be97e2f8f6cc5f81199a772d7c7a48a",
+      "indexed_doc_hash": "b21e6329d702ef167605b388811112c59be97e2f8f6cc5f81199a772d7c7a48a"
+    },
+    "src/components/game/shop/ItemViewToggle.vue": {
+      "hash": "058b20e0f09d52814918d04e63f09f43fb4562eb9c3ec684735981dd6bd49118",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/shop/ItemViewToggle.vue.md",
+      "generated_hash": "058b20e0f09d52814918d04e63f09f43fb4562eb9c3ec684735981dd6bd49118",
+      "indexed_hash": "058b20e0f09d52814918d04e63f09f43fb4562eb9c3ec684735981dd6bd49118",
+      "indexed_doc_hash": "058b20e0f09d52814918d04e63f09f43fb4562eb9c3ec684735981dd6bd49118"
+    },
+    "src/components/game/shop/StorefrontWindow.vue": {
+      "hash": "cd1d1da31c7dbea907764e367fff6b7ea5b1d90dda8b36c9882e0417ceee8d28",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/shop/StorefrontWindow.vue.md",
+      "generated_hash": "cd1d1da31c7dbea907764e367fff6b7ea5b1d90dda8b36c9882e0417ceee8d28",
+      "indexed_hash": "cd1d1da31c7dbea907764e367fff6b7ea5b1d90dda8b36c9882e0417ceee8d28",
+      "indexed_doc_hash": "cd1d1da31c7dbea907764e367fff6b7ea5b1d90dda8b36c9882e0417ceee8d28"
+    },
+    "src/components/game/shop/SupplyCrateCard.vue": {
+      "hash": "063d9546e5fe805a907d73f39bfcbdff5642561ebf0a878e825b6df2b762899d",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/shop/SupplyCrateCard.vue.md",
+      "generated_hash": "063d9546e5fe805a907d73f39bfcbdff5642561ebf0a878e825b6df2b762899d",
+      "indexed_hash": "063d9546e5fe805a907d73f39bfcbdff5642561ebf0a878e825b6df2b762899d",
+      "indexed_doc_hash": "063d9546e5fe805a907d73f39bfcbdff5642561ebf0a878e825b6df2b762899d"
+    },
+    "src/components/game/shop/SupplyItemCard.vue": {
+      "hash": "ad315c4be89a6af4fd148e256f1e430e6ef758d20d492a440bdcc4ddb9636dae",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/shop/SupplyItemCard.vue.md",
+      "generated_hash": "ad315c4be89a6af4fd148e256f1e430e6ef758d20d492a440bdcc4ddb9636dae",
+      "indexed_hash": "ad315c4be89a6af4fd148e256f1e430e6ef758d20d492a440bdcc4ddb9636dae",
+      "indexed_doc_hash": "ad315c4be89a6af4fd148e256f1e430e6ef758d20d492a440bdcc4ddb9636dae"
+    },
+    "src/components/game/shop/WoodShelf.vue": {
+      "hash": "3e5c467f6a95bc6d1e9ac3897b29a8c7a7f4f96ad085a01d40093984dc1008e9",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/shop/WoodShelf.vue.md",
+      "generated_hash": "3e5c467f6a95bc6d1e9ac3897b29a8c7a7f4f96ad085a01d40093984dc1008e9",
+      "indexed_hash": "3e5c467f6a95bc6d1e9ac3897b29a8c7a7f4f96ad085a01d40093984dc1008e9",
+      "indexed_doc_hash": "3e5c467f6a95bc6d1e9ac3897b29a8c7a7f4f96ad085a01d40093984dc1008e9"
+    },
+    "src/components/game/ui/ActivityFeed.vue": {
+      "hash": "6c3378b6718b1d0719cf094fb682c55c99a5747a6f1c2321c8c27e7fca1dbea9",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/ui/ActivityFeed.vue.md",
+      "generated_hash": "6c3378b6718b1d0719cf094fb682c55c99a5747a6f1c2321c8c27e7fca1dbea9",
+      "indexed_hash": "6c3378b6718b1d0719cf094fb682c55c99a5747a6f1c2321c8c27e7fca1dbea9",
+      "indexed_doc_hash": "6c3378b6718b1d0719cf094fb682c55c99a5747a6f1c2321c8c27e7fca1dbea9"
+    },
+    "src/components/game/ui/FriendshipProgress.vue": {
+      "hash": "895c5cc382d170b379b93365f6b3aeb6759490e232602b5047b2fd9e11faa820",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/ui/FriendshipProgress.vue.md",
+      "generated_hash": "895c5cc382d170b379b93365f6b3aeb6759490e232602b5047b2fd9e11faa820",
+      "indexed_hash": "895c5cc382d170b379b93365f6b3aeb6759490e232602b5047b2fd9e11faa820",
+      "indexed_doc_hash": "895c5cc382d170b379b93365f6b3aeb6759490e232602b5047b2fd9e11faa820"
+    },
+    "src/components/game/ui/NeedBar.vue": {
+      "hash": "2bfb3989f164c461ed0e3912f54e96fa2da8073e60b5a70c4a0e1036ad3c187c",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/game/ui/NeedBar.vue.md",
+      "generated_hash": "2bfb3989f164c461ed0e3912f54e96fa2da8073e60b5a70c4a0e1036ad3c187c",
+      "indexed_hash": "2bfb3989f164c461ed0e3912f54e96fa2da8073e60b5a70c4a0e1036ad3c187c",
+      "indexed_doc_hash": "2bfb3989f164c461ed0e3912f54e96fa2da8073e60b5a70c4a0e1036ad3c187c"
+    },
+    "src/components/layout/CategoryDropdown.vue": {
+      "hash": "97096850b56898f496ac033b960957fef3b699caa196f1b81b668d8045dddaca",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/layout/CategoryDropdown.vue.md",
+      "generated_hash": "97096850b56898f496ac033b960957fef3b699caa196f1b81b668d8045dddaca",
+      "indexed_hash": "97096850b56898f496ac033b960957fef3b699caa196f1b81b668d8045dddaca",
+      "indexed_doc_hash": "97096850b56898f496ac033b960957fef3b699caa196f1b81b668d8045dddaca"
+    },
+    "src/components/layout/NavigationDropdown.vue": {
+      "hash": "01b80e5dd71dd3fc91a7c34f308a21238d7a8cc8dc7b6baf2d09a3659481e3a8",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/layout/NavigationDropdown.vue.md",
+      "generated_hash": "01b80e5dd71dd3fc91a7c34f308a21238d7a8cc8dc7b6baf2d09a3659481e3a8",
+      "indexed_hash": "01b80e5dd71dd3fc91a7c34f308a21238d7a8cc8dc7b6baf2d09a3659481e3a8",
+      "indexed_doc_hash": "01b80e5dd71dd3fc91a7c34f308a21238d7a8cc8dc7b6baf2d09a3659481e3a8"
+    },
+    "src/components/layout/SubTabContainer.vue": {
+      "hash": "767dbb7ef8109fc6f0c218083872159faffc4c57bcfee5759f8c9951ee97182e",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/layout/SubTabContainer.vue.md",
+      "generated_hash": "767dbb7ef8109fc6f0c218083872159faffc4c57bcfee5759f8c9951ee97182e",
+      "indexed_hash": "767dbb7ef8109fc6f0c218083872159faffc4c57bcfee5759f8c9951ee97182e",
+      "indexed_doc_hash": "767dbb7ef8109fc6f0c218083872159faffc4c57bcfee5759f8c9951ee97182e"
+    },
+    "src/components/layout/TabContainer.vue": {
+      "hash": "83b0739475090dc6dcb22961f701c59bf9eacc8007860bb4b01fbfa9c1e5f83b",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/layout/TabContainer.vue.md",
+      "generated_hash": "83b0739475090dc6dcb22961f701c59bf9eacc8007860bb4b01fbfa9c1e5f83b",
+      "indexed_hash": "83b0739475090dc6dcb22961f701c59bf9eacc8007860bb4b01fbfa9c1e5f83b",
+      "indexed_doc_hash": "83b0739475090dc6dcb22961f701c59bf9eacc8007860bb4b01fbfa9c1e5f83b"
+    },
+    "src/components/layout/UtilityNav.vue": {
+      "hash": "3ed8e73b4a0899bddbce57ee312da00271cb22ec7a46845bfb0870f8e87030ab",
+      "doc_class": "source",
+      "doc": "docs/generated/src/components/layout/UtilityNav.vue.md",
+      "generated_hash": "3ed8e73b4a0899bddbce57ee312da00271cb22ec7a46845bfb0870f8e87030ab",
+      "indexed_hash": "3ed8e73b4a0899bddbce57ee312da00271cb22ec7a46845bfb0870f8e87030ab",
+      "indexed_doc_hash": "3ed8e73b4a0899bddbce57ee312da00271cb22ec7a46845bfb0870f8e87030ab"
+    },
+    "src/composables/3d-models/bedding/beds.ts": {
+      "hash": "9cd567bbc6f6e546f21e6e5f86ca5301f6c4ae83457069dc1d8f52e4b055bc72",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d-models/bedding/beds.ts.md",
+      "generated_hash": "9cd567bbc6f6e546f21e6e5f86ca5301f6c4ae83457069dc1d8f52e4b055bc72",
+      "indexed_hash": "9cd567bbc6f6e546f21e6e5f86ca5301f6c4ae83457069dc1d8f52e4b055bc72",
+      "indexed_doc_hash": "9cd567bbc6f6e546f21e6e5f86ca5301f6c4ae83457069dc1d8f52e4b055bc72"
+    },
+    "src/composables/3d-models/containers/bowls.ts": {
+      "hash": "a95158e3386470cd79775872e240fc0b0c12b6e0fa8e4158d2979c18655123db",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d-models/containers/bowls.ts.md",
+      "generated_hash": "a95158e3386470cd79775872e240fc0b0c12b6e0fa8e4158d2979c18655123db",
+      "indexed_hash": "a95158e3386470cd79775872e240fc0b0c12b6e0fa8e4158d2979c18655123db",
+      "indexed_doc_hash": "a95158e3386470cd79775872e240fc0b0c12b6e0fa8e4158d2979c18655123db"
+    },
+    "src/composables/3d-models/containers/hay-racks.ts": {
+      "hash": "94cde3f12dca9caa5b3225aadaebb0f437265b4504e62a58bc240e4224443618",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d-models/containers/hay-racks.ts.md",
+      "generated_hash": "94cde3f12dca9caa5b3225aadaebb0f437265b4504e62a58bc240e4224443618",
+      "indexed_hash": "94cde3f12dca9caa5b3225aadaebb0f437265b4504e62a58bc240e4224443618",
+      "indexed_doc_hash": "94cde3f12dca9caa5b3225aadaebb0f437265b4504e62a58bc240e4224443618"
+    },
+    "src/composables/3d-models/containers/water-bottles.ts": {
+      "hash": "c166df4c300d15eb619fa2157c681c1030073a09fc474218a6063fdb917a794e",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d-models/containers/water-bottles.ts.md",
+      "generated_hash": "c166df4c300d15eb619fa2157c681c1030073a09fc474218a6063fdb917a794e",
+      "indexed_hash": "c166df4c300d15eb619fa2157c681c1030073a09fc474218a6063fdb917a794e",
+      "indexed_doc_hash": "c166df4c300d15eb619fa2157c681c1030073a09fc474218a6063fdb917a794e"
+    },
+    "src/composables/3d-models/food/greens.ts": {
+      "hash": "52c86a15f6d006d45dbe808147fd3d33097429fb2e24f49e4abf2a2a837850c4",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d-models/food/greens.ts.md",
+      "generated_hash": "52c86a15f6d006d45dbe808147fd3d33097429fb2e24f49e4abf2a2a837850c4",
+      "indexed_hash": "52c86a15f6d006d45dbe808147fd3d33097429fb2e24f49e4abf2a2a837850c4",
+      "indexed_doc_hash": "52c86a15f6d006d45dbe808147fd3d33097429fb2e24f49e4abf2a2a837850c4"
+    },
+    "src/composables/3d-models/food/hay.ts": {
+      "hash": "79039e9b1f77e4737724b999e1471cf61455709f2506bcdddb0bc307ac3e5217",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d-models/food/hay.ts.md",
+      "generated_hash": "79039e9b1f77e4737724b999e1471cf61455709f2506bcdddb0bc307ac3e5217",
+      "indexed_hash": "79039e9b1f77e4737724b999e1471cf61455709f2506bcdddb0bc307ac3e5217",
+      "indexed_doc_hash": "79039e9b1f77e4737724b999e1471cf61455709f2506bcdddb0bc307ac3e5217"
+    },
+    "src/composables/3d-models/food/held-food.ts": {
+      "hash": "effeb744329e757b21c2691a08a9bab0f42a01c96e1eca71f7b66eeef02ee5df",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d-models/food/held-food.ts.md",
+      "generated_hash": "effeb744329e757b21c2691a08a9bab0f42a01c96e1eca71f7b66eeef02ee5df",
+      "indexed_hash": "effeb744329e757b21c2691a08a9bab0f42a01c96e1eca71f7b66eeef02ee5df",
+      "indexed_doc_hash": "effeb744329e757b21c2691a08a9bab0f42a01c96e1eca71f7b66eeef02ee5df"
+    },
+    "src/composables/3d-models/food/pellets.ts": {
+      "hash": "c091f553e2a583810938c6a3c2a0277565d399f21bfb2183db97e599cf9e712b",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d-models/food/pellets.ts.md",
+      "generated_hash": "c091f553e2a583810938c6a3c2a0277565d399f21bfb2183db97e599cf9e712b",
+      "indexed_hash": "c091f553e2a583810938c6a3c2a0277565d399f21bfb2183db97e599cf9e712b",
+      "indexed_doc_hash": "c091f553e2a583810938c6a3c2a0277565d399f21bfb2183db97e599cf9e712b"
+    },
+    "src/composables/3d-models/food/vegetables.ts": {
+      "hash": "507fe5476bca1114c5b8c57dc4661714a81b7c72c4215a6ab4bc60b4cb7159aa",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d-models/food/vegetables.ts.md",
+      "generated_hash": "507fe5476bca1114c5b8c57dc4661714a81b7c72c4215a6ab4bc60b4cb7159aa",
+      "indexed_hash": "507fe5476bca1114c5b8c57dc4661714a81b7c72c4215a6ab4bc60b4cb7159aa",
+      "indexed_doc_hash": "507fe5476bca1114c5b8c57dc4661714a81b7c72c4215a6ab4bc60b4cb7159aa"
+    },
+    "src/composables/3d-models/index.ts": {
+      "hash": "bf349aa59787e82bdacf9cfdde14a3003d8dc7609e6225972d7f6ecb7a9b68e5",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d-models/index.ts.md",
+      "generated_hash": "bf349aa59787e82bdacf9cfdde14a3003d8dc7609e6225972d7f6ecb7a9b68e5",
+      "indexed_hash": "bf349aa59787e82bdacf9cfdde14a3003d8dc7609e6225972d7f6ecb7a9b68e5",
+      "indexed_doc_hash": "bf349aa59787e82bdacf9cfdde14a3003d8dc7609e6225972d7f6ecb7a9b68e5"
+    },
+    "src/composables/3d-models/shared/geometry.ts": {
+      "hash": "c5c3693e39311b353f3bc578df397b324ee44152c21d500d750db6dacf16c063",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d-models/shared/geometry.ts.md",
+      "generated_hash": "c5c3693e39311b353f3bc578df397b324ee44152c21d500d750db6dacf16c063",
+      "indexed_hash": "c5c3693e39311b353f3bc578df397b324ee44152c21d500d750db6dacf16c063",
+      "indexed_doc_hash": "c5c3693e39311b353f3bc578df397b324ee44152c21d500d750db6dacf16c063"
+    },
+    "src/composables/3d-models/shared/textures.ts": {
+      "hash": "45658f278bcb34c2962f66a99493a41caa22d172970a72b16fbadbe2aae88cfb",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d-models/shared/textures.ts.md",
+      "generated_hash": "45658f278bcb34c2962f66a99493a41caa22d172970a72b16fbadbe2aae88cfb",
+      "indexed_hash": "45658f278bcb34c2962f66a99493a41caa22d172970a72b16fbadbe2aae88cfb",
+      "indexed_doc_hash": "45658f278bcb34c2962f66a99493a41caa22d172970a72b16fbadbe2aae88cfb"
+    },
+    "src/composables/3d-models/shared/utils.ts": {
+      "hash": "cf78120da4d3dfd14ebbde2beaea9238f21d7090ed5e51c2736dabc6cf40b4ab",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d-models/shared/utils.ts.md",
+      "generated_hash": "cf78120da4d3dfd14ebbde2beaea9238f21d7090ed5e51c2736dabc6cf40b4ab",
+      "indexed_hash": "cf78120da4d3dfd14ebbde2beaea9238f21d7090ed5e51c2736dabc6cf40b4ab",
+      "indexed_doc_hash": "cf78120da4d3dfd14ebbde2beaea9238f21d7090ed5e51c2736dabc6cf40b4ab"
+    },
+    "src/composables/3d-models/shelters/igloos.ts": {
+      "hash": "5ff8719ef243159fd930034be2a19eb4130d87af8adeba86d8d65a3f09804db1",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d-models/shelters/igloos.ts.md",
+      "generated_hash": "5ff8719ef243159fd930034be2a19eb4130d87af8adeba86d8d65a3f09804db1",
+      "indexed_hash": "5ff8719ef243159fd930034be2a19eb4130d87af8adeba86d8d65a3f09804db1",
+      "indexed_doc_hash": "5ff8719ef243159fd930034be2a19eb4130d87af8adeba86d8d65a3f09804db1"
+    },
+    "src/composables/3d-models/shelters/tunnels.ts": {
+      "hash": "0563a1c02beeea12d55187cf650d454415c5180731eaf431c88b10ff17fd2552",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d-models/shelters/tunnels.ts.md",
+      "generated_hash": "0563a1c02beeea12d55187cf650d454415c5180731eaf431c88b10ff17fd2552",
+      "indexed_hash": "0563a1c02beeea12d55187cf650d454415c5180731eaf431c88b10ff17fd2552",
+      "indexed_doc_hash": "0563a1c02beeea12d55187cf650d454415c5180731eaf431c88b10ff17fd2552"
+    },
+    "src/composables/3d-models/toys/chew-toys.ts": {
+      "hash": "ce775699f2d3defe09c4d2447d3bd49cd9c6cce31d262ab6c745cd367187e8ca",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d-models/toys/chew-toys.ts.md",
+      "generated_hash": "ce775699f2d3defe09c4d2447d3bd49cd9c6cce31d262ab6c745cd367187e8ca",
+      "indexed_hash": "ce775699f2d3defe09c4d2447d3bd49cd9c6cce31d262ab6c745cd367187e8ca",
+      "indexed_doc_hash": "ce775699f2d3defe09c4d2447d3bd49cd9c6cce31d262ab6c745cd367187e8ca"
+    },
+    "src/composables/3d-models/use3DHand.ts": {
+      "hash": "27ba7fd37791ad57ab11693bf13175bdec14857bad7dc8858645c037b80dca9a",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d-models/use3DHand.ts.md",
+      "generated_hash": "27ba7fd37791ad57ab11693bf13175bdec14857bad7dc8858645c037b80dca9a",
+      "indexed_hash": "27ba7fd37791ad57ab11693bf13175bdec14857bad7dc8858645c037b80dca9a",
+      "indexed_doc_hash": "27ba7fd37791ad57ab11693bf13175bdec14857bad7dc8858645c037b80dca9a"
+    },
+    "src/composables/3d/use3DBehavior.ts": {
+      "hash": "ba5a60dc17912c66689d02e5f1c8f5a33b024ef1c7b00ffe27a166d09910910b",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d/use3DBehavior.ts.md",
+      "generated_hash": "ba5a60dc17912c66689d02e5f1c8f5a33b024ef1c7b00ffe27a166d09910910b",
+      "indexed_hash": "ba5a60dc17912c66689d02e5f1c8f5a33b024ef1c7b00ffe27a166d09910910b",
+      "indexed_doc_hash": "ba5a60dc17912c66689d02e5f1c8f5a33b024ef1c7b00ffe27a166d09910910b"
+    },
+    "src/composables/3d/use3DChatBubbles.ts": {
+      "hash": "8ee63b4079ff1c2cffa492b111f81d7e9545cde756b0350576805640740e655e",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d/use3DChatBubbles.ts.md",
+      "generated_hash": "8ee63b4079ff1c2cffa492b111f81d7e9545cde756b0350576805640740e655e",
+      "indexed_hash": "8ee63b4079ff1c2cffa492b111f81d7e9545cde756b0350576805640740e655e",
+      "indexed_doc_hash": "8ee63b4079ff1c2cffa492b111f81d7e9545cde756b0350576805640740e655e"
+    },
+    "src/composables/3d/use3DChewPopover.ts": {
+      "hash": "20a466f2b82db1edea55d321634a02291e189d4086e36f3b35867ea599c0bd1d",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d/use3DChewPopover.ts.md",
+      "generated_hash": "20a466f2b82db1edea55d321634a02291e189d4086e36f3b35867ea599c0bd1d",
+      "indexed_hash": "20a466f2b82db1edea55d321634a02291e189d4086e36f3b35867ea599c0bd1d",
+      "indexed_doc_hash": "20a466f2b82db1edea55d321634a02291e189d4086e36f3b35867ea599c0bd1d"
+    },
+    "src/composables/3d/use3DContainerMenu.ts": {
+      "hash": "69674375757dc6ce40a7e3d4728a699ac34db172ed6391d681c1b5f0bb08cf47",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d/use3DContainerMenu.ts.md",
+      "generated_hash": "69674375757dc6ce40a7e3d4728a699ac34db172ed6391d681c1b5f0bb08cf47",
+      "indexed_hash": "69674375757dc6ce40a7e3d4728a699ac34db172ed6391d681c1b5f0bb08cf47",
+      "indexed_doc_hash": "69674375757dc6ce40a7e3d4728a699ac34db172ed6391d681c1b5f0bb08cf47"
+    },
+    "src/composables/3d/use3DHabitatCare.ts": {
+      "hash": "210ec46b8f9b1a61f48935c93f40ebdeab67534c079683b54457870b4c728a0f",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d/use3DHabitatCare.ts.md",
+      "generated_hash": "210ec46b8f9b1a61f48935c93f40ebdeab67534c079683b54457870b4c728a0f",
+      "indexed_hash": "210ec46b8f9b1a61f48935c93f40ebdeab67534c079683b54457870b4c728a0f",
+      "indexed_doc_hash": "210ec46b8f9b1a61f48935c93f40ebdeab67534c079683b54457870b4c728a0f"
+    },
+    "src/composables/3d/use3DInteractions.ts": {
+      "hash": "d88acb51e2e05009c7a02c8b4b9e12ac89af11dfe29f843bde72979426f6d78b",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d/use3DInteractions.ts.md",
+      "generated_hash": "d88acb51e2e05009c7a02c8b4b9e12ac89af11dfe29f843bde72979426f6d78b",
+      "indexed_hash": "d88acb51e2e05009c7a02c8b4b9e12ac89af11dfe29f843bde72979426f6d78b",
+      "indexed_doc_hash": "d88acb51e2e05009c7a02c8b4b9e12ac89af11dfe29f843bde72979426f6d78b"
+    },
+    "src/composables/3d/use3DItemPopover.ts": {
+      "hash": "9df503c8b4af21953e4d969dfe143c372e715ea37d10ed6ffe2740ff9dce52f9",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d/use3DItemPopover.ts.md",
+      "generated_hash": "9df503c8b4af21953e4d969dfe143c372e715ea37d10ed6ffe2740ff9dce52f9",
+      "indexed_hash": "9df503c8b4af21953e4d969dfe143c372e715ea37d10ed6ffe2740ff9dce52f9",
+      "indexed_doc_hash": "9df503c8b4af21953e4d969dfe143c372e715ea37d10ed6ffe2740ff9dce52f9"
+    },
+    "src/composables/3d/use3DMovement.ts": {
+      "hash": "a0123580fb506e4526e33551b19596ca5d1d2fbb1ca4ea2b16d7bcf8902109f4",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d/use3DMovement.ts.md",
+      "generated_hash": "a0123580fb506e4526e33551b19596ca5d1d2fbb1ca4ea2b16d7bcf8902109f4",
+      "indexed_hash": "a0123580fb506e4526e33551b19596ca5d1d2fbb1ca4ea2b16d7bcf8902109f4",
+      "indexed_doc_hash": "a0123580fb506e4526e33551b19596ca5d1d2fbb1ca4ea2b16d7bcf8902109f4"
+    },
+    "src/composables/3d/use3DPathfinding.ts": {
+      "hash": "197a40a78ec5f154eccb4e1ade82b5b85c6bc3972d803dc96d12183694bcd8dd",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d/use3DPathfinding.ts.md",
+      "generated_hash": "197a40a78ec5f154eccb4e1ade82b5b85c6bc3972d803dc96d12183694bcd8dd",
+      "indexed_hash": "197a40a78ec5f154eccb4e1ade82b5b85c6bc3972d803dc96d12183694bcd8dd",
+      "indexed_doc_hash": "197a40a78ec5f154eccb4e1ade82b5b85c6bc3972d803dc96d12183694bcd8dd"
+    },
+    "src/composables/3d/use3DPhysics.ts": {
+      "hash": "fe71ce41fb1a24f6c96f621579f51df738228df3bc2639aa81a5dcde909ca2e1",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d/use3DPhysics.ts.md",
+      "generated_hash": "fe71ce41fb1a24f6c96f621579f51df738228df3bc2639aa81a5dcde909ca2e1",
+      "indexed_hash": "fe71ce41fb1a24f6c96f621579f51df738228df3bc2639aa81a5dcde909ca2e1",
+      "indexed_doc_hash": "fe71ce41fb1a24f6c96f621579f51df738228df3bc2639aa81a5dcde909ca2e1"
+    },
+    "src/composables/3d/use3DPlacement.ts": {
+      "hash": "d3d0dcec35f3e399b5062f2e98622e3b470923e97ada1f3b496054b881184cad",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d/use3DPlacement.ts.md",
+      "generated_hash": "d3d0dcec35f3e399b5062f2e98622e3b470923e97ada1f3b496054b881184cad",
+      "indexed_hash": "d3d0dcec35f3e399b5062f2e98622e3b470923e97ada1f3b496054b881184cad",
+      "indexed_doc_hash": "d3d0dcec35f3e399b5062f2e98622e3b470923e97ada1f3b496054b881184cad"
+    },
+    "src/composables/3d/use3DSocialActions.ts": {
+      "hash": "33339ea3bc7f225bb4cc95770adc2733c81c87ab188be8dc72bba33b3357e431",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d/use3DSocialActions.ts.md",
+      "generated_hash": "33339ea3bc7f225bb4cc95770adc2733c81c87ab188be8dc72bba33b3357e431",
+      "indexed_hash": "33339ea3bc7f225bb4cc95770adc2733c81c87ab188be8dc72bba33b3357e431",
+      "indexed_doc_hash": "33339ea3bc7f225bb4cc95770adc2733c81c87ab188be8dc72bba33b3357e431"
+    },
+    "src/composables/3d/use3DWaterBottle.ts": {
+      "hash": "9c18116ddf3c39fb6473e89d3175234337404ac0cc64fe6ae2fd93ac2b89a726",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/3d/use3DWaterBottle.ts.md",
+      "generated_hash": "9c18116ddf3c39fb6473e89d3175234337404ac0cc64fe6ae2fd93ac2b89a726",
+      "indexed_hash": "9c18116ddf3c39fb6473e89d3175234337404ac0cc64fe6ae2fd93ac2b89a726",
+      "indexed_doc_hash": "9c18116ddf3c39fb6473e89d3175234337404ac0cc64fe6ae2fd93ac2b89a726"
+    },
+    "src/composables/game/useGuineaPigBehavior.ts": {
+      "hash": "9b0fb5167d3be4ab94a8ba67b583b0105df47f9415824cf52475647431350c33",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/game/useGuineaPigBehavior.ts.md",
+      "generated_hash": "9b0fb5167d3be4ab94a8ba67b583b0105df47f9415824cf52475647431350c33",
+      "indexed_hash": "9b0fb5167d3be4ab94a8ba67b583b0105df47f9415824cf52475647431350c33",
+      "indexed_doc_hash": "9b0fb5167d3be4ab94a8ba67b583b0105df47f9415824cf52475647431350c33"
+    },
+    "src/composables/game/useManualControl.ts": {
+      "hash": "d6d746e458976ce12ee4a8d81e7d2766770145478c74080db78ef57de72ed5e7",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/game/useManualControl.ts.md",
+      "generated_hash": "d6d746e458976ce12ee4a8d81e7d2766770145478c74080db78ef57de72ed5e7",
+      "indexed_hash": "d6d746e458976ce12ee4a8d81e7d2766770145478c74080db78ef57de72ed5e7",
+      "indexed_doc_hash": "d6d746e458976ce12ee4a8d81e7d2766770145478c74080db78ef57de72ed5e7"
+    },
+    "src/composables/game/useMovement.ts": {
+      "hash": "61a18a7eac65e018ce54d92fffc5e6c640b054edffdf6e249e49f11d7be23984",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/game/useMovement.ts.md",
+      "generated_hash": "61a18a7eac65e018ce54d92fffc5e6c640b054edffdf6e249e49f11d7be23984",
+      "indexed_hash": "61a18a7eac65e018ce54d92fffc5e6c640b054edffdf6e249e49f11d7be23984",
+      "indexed_doc_hash": "61a18a7eac65e018ce54d92fffc5e6c640b054edffdf6e249e49f11d7be23984"
+    },
+    "src/composables/game/usePathfinding.ts": {
+      "hash": "25344e7c7b70e94d3c62fdf9a508eab8236fbd941eceaa7ef4594f09881fecee",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/game/usePathfinding.ts.md",
+      "generated_hash": "25344e7c7b70e94d3c62fdf9a508eab8236fbd941eceaa7ef4594f09881fecee",
+      "indexed_hash": "25344e7c7b70e94d3c62fdf9a508eab8236fbd941eceaa7ef4594f09881fecee",
+      "indexed_doc_hash": "25344e7c7b70e94d3c62fdf9a508eab8236fbd941eceaa7ef4594f09881fecee"
+    },
+    "src/composables/game/useSocialBehaviors.ts": {
+      "hash": "72ad71aef4c78f7fa281e194b9ff80eb1c699f6fe3f05923fd9f8e3810296043",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/game/useSocialBehaviors.ts.md",
+      "generated_hash": "72ad71aef4c78f7fa281e194b9ff80eb1c699f6fe3f05923fd9f8e3810296043",
+      "indexed_hash": "72ad71aef4c78f7fa281e194b9ff80eb1c699f6fe3f05923fd9f8e3810296043",
+      "indexed_doc_hash": "72ad71aef4c78f7fa281e194b9ff80eb1c699f6fe3f05923fd9f8e3810296043"
+    },
+    "src/composables/ui/usePopover.ts": {
+      "hash": "72140ccb7a5ca4cdb3353ba71e96c3c03ab27c9ad8ab363d544087af13ed7d53",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/ui/usePopover.ts.md",
+      "generated_hash": "72140ccb7a5ca4cdb3353ba71e96c3c03ab27c9ad8ab363d544087af13ed7d53",
+      "indexed_hash": "72140ccb7a5ca4cdb3353ba71e96c3c03ab27c9ad8ab363d544087af13ed7d53",
+      "indexed_doc_hash": "72140ccb7a5ca4cdb3353ba71e96c3c03ab27c9ad8ab363d544087af13ed7d53"
+    },
+    "src/composables/use3DCamera.ts": {
+      "hash": "1cb9d70a5666f5fa07451144cff3a5b1dc5547f2bd396637eb6139a862f7a3fd",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/use3DCamera.ts.md",
+      "generated_hash": "1cb9d70a5666f5fa07451144cff3a5b1dc5547f2bd396637eb6139a862f7a3fd",
+      "indexed_hash": "1cb9d70a5666f5fa07451144cff3a5b1dc5547f2bd396637eb6139a862f7a3fd",
+      "indexed_doc_hash": "1cb9d70a5666f5fa07451144cff3a5b1dc5547f2bd396637eb6139a862f7a3fd"
+    },
+    "src/composables/use3DGuineaPig.ts": {
+      "hash": "d750409c5f5830ace16b25d61ab8aa0dbd3c8579656c6e599c8a7bdd2398f3b9",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/use3DGuineaPig.ts.md",
+      "generated_hash": "d750409c5f5830ace16b25d61ab8aa0dbd3c8579656c6e599c8a7bdd2398f3b9",
+      "indexed_hash": "d750409c5f5830ace16b25d61ab8aa0dbd3c8579656c6e599c8a7bdd2398f3b9",
+      "indexed_doc_hash": "d750409c5f5830ace16b25d61ab8aa0dbd3c8579656c6e599c8a7bdd2398f3b9"
+    },
+    "src/composables/use3DItems.ts": {
+      "hash": "3ca2e96a53df7afb794823e6c0f7b78288b06c716355eaee671d1e61ce626157",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/use3DItems.ts.md",
+      "generated_hash": "3ca2e96a53df7afb794823e6c0f7b78288b06c716355eaee671d1e61ce626157",
+      "indexed_hash": "3ca2e96a53df7afb794823e6c0f7b78288b06c716355eaee671d1e61ce626157",
+      "indexed_doc_hash": "3ca2e96a53df7afb794823e6c0f7b78288b06c716355eaee671d1e61ce626157"
+    },
+    "src/composables/use3DPoop.ts": {
+      "hash": "af8dbc63e085dd082e18f29ee52b79a11a1de6ad983b5a214edcc8bd40bf1f5b",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/use3DPoop.ts.md",
+      "generated_hash": "af8dbc63e085dd082e18f29ee52b79a11a1de6ad983b5a214edcc8bd40bf1f5b",
+      "indexed_hash": "af8dbc63e085dd082e18f29ee52b79a11a1de6ad983b5a214edcc8bd40bf1f5b",
+      "indexed_doc_hash": "af8dbc63e085dd082e18f29ee52b79a11a1de6ad983b5a214edcc8bd40bf1f5b"
+    },
+    "src/composables/use3DScene.ts": {
+      "hash": "2a9fd1b94fedb1b3f59f167776513a3c890182efd55827df296f651c51c560bf",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/use3DScene.ts.md",
+      "generated_hash": "2a9fd1b94fedb1b3f59f167776513a3c890182efd55827df296f651c51c560bf",
+      "indexed_hash": "2a9fd1b94fedb1b3f59f167776513a3c890182efd55827df296f651c51c560bf",
+      "indexed_doc_hash": "2a9fd1b94fedb1b3f59f167776513a3c890182efd55827df296f651c51c560bf"
+    },
+    "src/composables/use3DSync.ts": {
+      "hash": "b06cdce64633ea55a494800faf65a092ba80b9829b0d8ce1b0e0795b7577bce5",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/use3DSync.ts.md",
+      "generated_hash": "b06cdce64633ea55a494800faf65a092ba80b9829b0d8ce1b0e0795b7577bce5",
+      "indexed_hash": "b06cdce64633ea55a494800faf65a092ba80b9829b0d8ce1b0e0795b7577bce5",
+      "indexed_doc_hash": "b06cdce64633ea55a494800faf65a092ba80b9829b0d8ce1b0e0795b7577bce5"
+    },
+    "src/composables/use3DTextures.ts": {
+      "hash": "a7eabefdfb5315c2fd37bd2959348d54619a4ba67a5d34da0d3a1045f4f21985",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/use3DTextures.ts.md",
+      "generated_hash": "a7eabefdfb5315c2fd37bd2959348d54619a4ba67a5d34da0d3a1045f4f21985",
+      "indexed_hash": "a7eabefdfb5315c2fd37bd2959348d54619a4ba67a5d34da0d3a1045f4f21985",
+      "indexed_doc_hash": "a7eabefdfb5315c2fd37bd2959348d54619a4ba67a5d34da0d3a1045f4f21985"
+    },
+    "src/composables/useDebugTheme.ts": {
+      "hash": "3fb0f83e14293f43a76ca831c557f682ce1bda790bf7adda23971d57cc4b7b15",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/useDebugTheme.ts.md",
+      "generated_hash": "3fb0f83e14293f43a76ca831c557f682ce1bda790bf7adda23971d57cc4b7b15",
+      "indexed_hash": "3fb0f83e14293f43a76ca831c557f682ce1bda790bf7adda23971d57cc4b7b15",
+      "indexed_doc_hash": "3fb0f83e14293f43a76ca831c557f682ce1bda790bf7adda23971d57cc4b7b15"
+    },
+    "src/composables/useHabitatContainers.ts": {
+      "hash": "57d1f00e92a0199014e0125b03da8f24787ea4d52245058f702c57eb0dc9c071",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/useHabitatContainers.ts.md",
+      "generated_hash": "57d1f00e92a0199014e0125b03da8f24787ea4d52245058f702c57eb0dc9c071",
+      "indexed_hash": "57d1f00e92a0199014e0125b03da8f24787ea4d52245058f702c57eb0dc9c071",
+      "indexed_doc_hash": "57d1f00e92a0199014e0125b03da8f24787ea4d52245058f702c57eb0dc9c071"
+    },
+    "src/composables/useIntroFlow.ts": {
+      "hash": "b6dd8fe30c9845d415a2f8481bd12dae8bea59e9519888db3bc2a172359d9039",
+      "doc_class": "source",
+      "doc": "docs/generated/src/composables/useIntroFlow.ts.md",
+      "generated_hash": "b6dd8fe30c9845d415a2f8481bd12dae8bea59e9519888db3bc2a172359d9039",
+      "indexed_hash": "b6dd8fe30c9845d415a2f8481bd12dae8bea59e9519888db3bc2a172359d9039",
+      "indexed_doc_hash": "b6dd8fe30c9845d415a2f8481bd12dae8bea59e9519888db3bc2a172359d9039"
+    },
+    "src/constants/3d.ts": {
+      "hash": "4adb3655d937fa3d62aa8bb59b997d0ba45e59cb35afe37b44a02b5278978b80",
+      "doc_class": "source",
+      "doc": "docs/generated/src/constants/3d.ts.md",
+      "generated_hash": "4adb3655d937fa3d62aa8bb59b997d0ba45e59cb35afe37b44a02b5278978b80",
+      "indexed_hash": "4adb3655d937fa3d62aa8bb59b997d0ba45e59cb35afe37b44a02b5278978b80",
+      "indexed_doc_hash": "4adb3655d937fa3d62aa8bb59b997d0ba45e59cb35afe37b44a02b5278978b80"
+    },
+    "src/constants/guineaPigColors.ts": {
+      "hash": "967b11f98dc1fbf9ef49f28cc91c416a2a2aa7afcc38c1cd9111593d1c2bfc7e",
+      "doc_class": "source",
+      "doc": "docs/generated/src/constants/guineaPigColors.ts.md",
+      "generated_hash": "967b11f98dc1fbf9ef49f28cc91c416a2a2aa7afcc38c1cd9111593d1c2bfc7e",
+      "indexed_hash": "967b11f98dc1fbf9ef49f28cc91c416a2a2aa7afcc38c1cd9111593d1c2bfc7e",
+      "indexed_doc_hash": "967b11f98dc1fbf9ef49f28cc91c416a2a2aa7afcc38c1cd9111593d1c2bfc7e"
+    },
+    "src/constants/supplies.ts": {
+      "hash": "cab06f60a10ba7dbf0b0f4641e4f68c555c45f5ec61f96625e28a306b37e7fd8",
+      "doc_class": "source",
+      "doc": "docs/generated/src/constants/supplies.ts.md",
+      "generated_hash": "cab06f60a10ba7dbf0b0f4641e4f68c555c45f5ec61f96625e28a306b37e7fd8",
+      "indexed_hash": "cab06f60a10ba7dbf0b0f4641e4f68c555c45f5ec61f96625e28a306b37e7fd8",
+      "indexed_doc_hash": "cab06f60a10ba7dbf0b0f4641e4f68c555c45f5ec61f96625e28a306b37e7fd8"
+    },
+    "src/data/guineaPigMessages.ts": {
+      "hash": "31fd619c0f55c75d677a1a8f0742e9cb6880c7e8917191c0cb040b7a052fa174",
+      "doc_class": "source",
+      "doc": "docs/generated/src/data/guineaPigMessages.ts.md",
+      "generated_hash": "31fd619c0f55c75d677a1a8f0742e9cb6880c7e8917191c0cb040b7a052fa174",
+      "indexed_hash": "31fd619c0f55c75d677a1a8f0742e9cb6880c7e8917191c0cb040b7a052fa174",
+      "indexed_doc_hash": "31fd619c0f55c75d677a1a8f0742e9cb6880c7e8917191c0cb040b7a052fa174"
+    },
+    "src/main.ts": {
+      "hash": "64e7be4bebfbf250ee23122e31629044cd82fbfceee0f94501601c730e8c303e",
+      "doc_class": "source",
+      "doc": "docs/generated/src/main.ts.md",
+      "generated_hash": "64e7be4bebfbf250ee23122e31629044cd82fbfceee0f94501601c730e8c303e",
+      "indexed_hash": "64e7be4bebfbf250ee23122e31629044cd82fbfceee0f94501601c730e8c303e",
+      "indexed_doc_hash": "64e7be4bebfbf250ee23122e31629044cd82fbfceee0f94501601c730e8c303e"
+    },
+    "src/router/index.ts": {
+      "hash": "6495c20468ec22ac2e7132d14197895d3511d552ed132b8c6756a1d79a5a473f",
+      "doc_class": "source",
+      "doc": "docs/generated/src/router/index.ts.md",
+      "generated_hash": "6495c20468ec22ac2e7132d14197895d3511d552ed132b8c6756a1d79a5a473f",
+      "indexed_hash": "6495c20468ec22ac2e7132d14197895d3511d552ed132b8c6756a1d79a5a473f",
+      "indexed_doc_hash": "6495c20468ec22ac2e7132d14197895d3511d552ed132b8c6756a1d79a5a473f"
+    },
+    "src/stores/autonomySettingsStore.ts": {
+      "hash": "0d75169a477b4563941ff50217eef64ed74bc99b6c4db16e316503bab3ef319e",
+      "doc_class": "source",
+      "doc": "docs/generated/src/stores/autonomySettingsStore.ts.md",
+      "generated_hash": "0d75169a477b4563941ff50217eef64ed74bc99b6c4db16e316503bab3ef319e",
+      "indexed_hash": "0d75169a477b4563941ff50217eef64ed74bc99b6c4db16e316503bab3ef319e",
+      "indexed_doc_hash": "0d75169a477b4563941ff50217eef64ed74bc99b6c4db16e316503bab3ef319e"
+    },
+    "src/stores/behaviorStateStore.ts": {
+      "hash": "ef4d7cae2c00b7d0c89b7a5bd12b29861c012999d84e7cf7d63f7d6703b42b36",
+      "doc_class": "source",
+      "doc": "docs/generated/src/stores/behaviorStateStore.ts.md",
+      "generated_hash": "ef4d7cae2c00b7d0c89b7a5bd12b29861c012999d84e7cf7d63f7d6703b42b36",
+      "indexed_hash": "ef4d7cae2c00b7d0c89b7a5bd12b29861c012999d84e7cf7d63f7d6703b42b36",
+      "indexed_doc_hash": "ef4d7cae2c00b7d0c89b7a5bd12b29861c012999d84e7cf7d63f7d6703b42b36"
+    },
+    "src/stores/gameController.ts": {
+      "hash": "ca567706eec96b6471a0986a386043f1fb54e5b38ab8cb5df1baf9abdde81398",
+      "doc_class": "source",
+      "doc": "docs/generated/src/stores/gameController.ts.md",
+      "generated_hash": "ca567706eec96b6471a0986a386043f1fb54e5b38ab8cb5df1baf9abdde81398",
+      "indexed_hash": "ca567706eec96b6471a0986a386043f1fb54e5b38ab8cb5df1baf9abdde81398",
+      "indexed_doc_hash": "ca567706eec96b6471a0986a386043f1fb54e5b38ab8cb5df1baf9abdde81398"
+    },
+    "src/stores/gameTimingStore.ts": {
+      "hash": "283b2a993910e4b9d12beb758a5296c1e6b13d36d66f8f64b48e7b4c4b60224a",
+      "doc_class": "source",
+      "doc": "docs/generated/src/stores/gameTimingStore.ts.md",
+      "generated_hash": "283b2a993910e4b9d12beb758a5296c1e6b13d36d66f8f64b48e7b4c4b60224a",
+      "indexed_hash": "283b2a993910e4b9d12beb758a5296c1e6b13d36d66f8f64b48e7b4c4b60224a",
+      "indexed_doc_hash": "283b2a993910e4b9d12beb758a5296c1e6b13d36d66f8f64b48e7b4c4b60224a"
+    },
+    "src/stores/gameViewStore.ts": {
+      "hash": "3f6a8e21656276de981fb3dab29f6e201a911c5044c252183ec8beac2ca1ec6c",
+      "doc_class": "source",
+      "doc": "docs/generated/src/stores/gameViewStore.ts.md",
+      "generated_hash": "3f6a8e21656276de981fb3dab29f6e201a911c5044c252183ec8beac2ca1ec6c",
+      "indexed_hash": "3f6a8e21656276de981fb3dab29f6e201a911c5044c252183ec8beac2ca1ec6c",
+      "indexed_doc_hash": "3f6a8e21656276de981fb3dab29f6e201a911c5044c252183ec8beac2ca1ec6c"
+    },
+    "src/stores/guineaPigStore.ts": {
+      "hash": "6e2ead06d7564e0994450e0aa3281ce4a86da852094ca4081bea55b9b9ff475e",
+      "doc_class": "source",
+      "doc": "docs/generated/src/stores/guineaPigStore.ts.md",
+      "generated_hash": "6e2ead06d7564e0994450e0aa3281ce4a86da852094ca4081bea55b9b9ff475e",
+      "indexed_hash": "6e2ead06d7564e0994450e0aa3281ce4a86da852094ca4081bea55b9b9ff475e",
+      "indexed_doc_hash": "6e2ead06d7564e0994450e0aa3281ce4a86da852094ca4081bea55b9b9ff475e"
+    },
+    "src/stores/habitatConditions.ts": {
+      "hash": "71243ea10dd05de8e1f0183a39f5bd89e74909228296796ad6e8775c1194db1a",
+      "doc_class": "source",
+      "doc": "docs/generated/src/stores/habitatConditions.ts.md",
+      "generated_hash": "71243ea10dd05de8e1f0183a39f5bd89e74909228296796ad6e8775c1194db1a",
+      "indexed_hash": "71243ea10dd05de8e1f0183a39f5bd89e74909228296796ad6e8775c1194db1a",
+      "indexed_doc_hash": "71243ea10dd05de8e1f0183a39f5bd89e74909228296796ad6e8775c1194db1a"
+    },
+    "src/stores/inventoryStore.ts": {
+      "hash": "29cb9b2b3a39b8c4a31ff0de4ef7385731ce373bf53c739ea6ffcf8bda516fea",
+      "doc_class": "source",
+      "doc": "docs/generated/src/stores/inventoryStore.ts.md",
+      "generated_hash": "29cb9b2b3a39b8c4a31ff0de4ef7385731ce373bf53c739ea6ffcf8bda516fea",
+      "indexed_hash": "29cb9b2b3a39b8c4a31ff0de4ef7385731ce373bf53c739ea6ffcf8bda516fea",
+      "indexed_doc_hash": "29cb9b2b3a39b8c4a31ff0de4ef7385731ce373bf53c739ea6ffcf8bda516fea"
+    },
+    "src/stores/loggingStore.ts": {
+      "hash": "f4ac88abb7de77540f775b6107c77a093a41b8c161f6a32017eb28beaaac98b2",
+      "doc_class": "source",
+      "doc": "docs/generated/src/stores/loggingStore.ts.md",
+      "generated_hash": "f4ac88abb7de77540f775b6107c77a093a41b8c161f6a32017eb28beaaac98b2",
+      "indexed_hash": "f4ac88abb7de77540f775b6107c77a093a41b8c161f6a32017eb28beaaac98b2",
+      "indexed_doc_hash": "f4ac88abb7de77540f775b6107c77a093a41b8c161f6a32017eb28beaaac98b2"
+    },
+    "src/stores/movement3DStore.ts": {
+      "hash": "bd2ae6e08dffce42873475e6ee6e3c6df4c734d1c5f99c71b01676e21efd3600",
+      "doc_class": "source",
+      "doc": "docs/generated/src/stores/movement3DStore.ts.md",
+      "generated_hash": "bd2ae6e08dffce42873475e6ee6e3c6df4c734d1c5f99c71b01676e21efd3600",
+      "indexed_hash": "bd2ae6e08dffce42873475e6ee6e3c6df4c734d1c5f99c71b01676e21efd3600",
+      "indexed_doc_hash": "bd2ae6e08dffce42873475e6ee6e3c6df4c734d1c5f99c71b01676e21efd3600"
+    },
+    "src/stores/movementModeStore.ts": {
+      "hash": "6bebcf784ea5f44055edd5f84172e44ae672ae009c1fc092240b24985bd64cab",
+      "doc_class": "source",
+      "doc": "docs/generated/src/stores/movementModeStore.ts.md",
+      "generated_hash": "6bebcf784ea5f44055edd5f84172e44ae672ae009c1fc092240b24985bd64cab",
+      "indexed_hash": "6bebcf784ea5f44055edd5f84172e44ae672ae009c1fc092240b24985bd64cab",
+      "indexed_doc_hash": "6bebcf784ea5f44055edd5f84172e44ae672ae009c1fc092240b24985bd64cab"
+    },
+    "src/stores/needsController.ts": {
+      "hash": "138dac8c10243404b71e9eb08a7c27401699e22a533a82b2c6a8d56e69c18922",
+      "doc_class": "source",
+      "doc": "docs/generated/src/stores/needsController.ts.md",
+      "generated_hash": "138dac8c10243404b71e9eb08a7c27401699e22a533a82b2c6a8d56e69c18922",
+      "indexed_hash": "138dac8c10243404b71e9eb08a7c27401699e22a533a82b2c6a8d56e69c18922",
+      "indexed_doc_hash": "138dac8c10243404b71e9eb08a7c27401699e22a533a82b2c6a8d56e69c18922"
+    },
+    "src/stores/petStoreManager.ts": {
+      "hash": "2380fb9066c9ce0d51ac4e17f1a1742589b33622045e0c73fe3d0dc13fd2302c",
+      "doc_class": "source",
+      "doc": "docs/generated/src/stores/petStoreManager.ts.md",
+      "generated_hash": "2380fb9066c9ce0d51ac4e17f1a1742589b33622045e0c73fe3d0dc13fd2302c",
+      "indexed_hash": "2380fb9066c9ce0d51ac4e17f1a1742589b33622045e0c73fe3d0dc13fd2302c",
+      "indexed_doc_hash": "2380fb9066c9ce0d51ac4e17f1a1742589b33622045e0c73fe3d0dc13fd2302c"
+    },
+    "src/stores/physics3DStore.ts": {
+      "hash": "701e0e626fbc8ec963670382b0df5beb2da206c99ebefd8370429d46448910e0",
+      "doc_class": "source",
+      "doc": "docs/generated/src/stores/physics3DStore.ts.md",
+      "generated_hash": "701e0e626fbc8ec963670382b0df5beb2da206c99ebefd8370429d46448910e0",
+      "indexed_hash": "701e0e626fbc8ec963670382b0df5beb2da206c99ebefd8370429d46448910e0",
+      "indexed_doc_hash": "701e0e626fbc8ec963670382b0df5beb2da206c99ebefd8370429d46448910e0"
+    },
+    "src/stores/playerProgression.ts": {
+      "hash": "24fc6e4f64ee9a4bf2ed257000d9f2ffa1f2cbd22a05cde5940c261d2ca661dc",
+      "doc_class": "source",
+      "doc": "docs/generated/src/stores/playerProgression.ts.md",
+      "generated_hash": "24fc6e4f64ee9a4bf2ed257000d9f2ffa1f2cbd22a05cde5940c261d2ca661dc",
+      "indexed_hash": "24fc6e4f64ee9a4bf2ed257000d9f2ffa1f2cbd22a05cde5940c261d2ca661dc",
+      "indexed_doc_hash": "24fc6e4f64ee9a4bf2ed257000d9f2ffa1f2cbd22a05cde5940c261d2ca661dc"
+    },
+    "src/stores/suppliesStore.ts": {
+      "hash": "d50f76fae21200dcf32c88b7387d3e77494ae5f865f7298f02f364e88bcee52f",
+      "doc_class": "source",
+      "doc": "docs/generated/src/stores/suppliesStore.ts.md",
+      "generated_hash": "d50f76fae21200dcf32c88b7387d3e77494ae5f865f7298f02f364e88bcee52f",
+      "indexed_hash": "d50f76fae21200dcf32c88b7387d3e77494ae5f865f7298f02f364e88bcee52f",
+      "indexed_doc_hash": "d50f76fae21200dcf32c88b7387d3e77494ae5f865f7298f02f364e88bcee52f"
+    },
+    "src/stores/themeStore.ts": {
+      "hash": "1c8c306ba3a9c3c48ca7742f3226934e83e582b457db0da4d8dd1e0d7b5877b2",
+      "doc_class": "source",
+      "doc": "docs/generated/src/stores/themeStore.ts.md",
+      "generated_hash": "1c8c306ba3a9c3c48ca7742f3226934e83e582b457db0da4d8dd1e0d7b5877b2",
+      "indexed_hash": "1c8c306ba3a9c3c48ca7742f3226934e83e582b457db0da4d8dd1e0d7b5877b2",
+      "indexed_doc_hash": "1c8c306ba3a9c3c48ca7742f3226934e83e582b457db0da4d8dd1e0d7b5877b2"
+    },
+    "src/stores/tutorialStore.ts": {
+      "hash": "57761acba2b3b0f0a4932ee69740dd3f6e1f9202ffd7fecad036d570332c5c6d",
+      "doc_class": "source",
+      "doc": "docs/generated/src/stores/tutorialStore.ts.md",
+      "generated_hash": "57761acba2b3b0f0a4932ee69740dd3f6e1f9202ffd7fecad036d570332c5c6d",
+      "indexed_hash": "57761acba2b3b0f0a4932ee69740dd3f6e1f9202ffd7fecad036d570332c5c6d",
+      "indexed_doc_hash": "57761acba2b3b0f0a4932ee69740dd3f6e1f9202ffd7fecad036d570332c5c6d"
+    },
+    "src/stores/uiPreferencesStore.ts": {
+      "hash": "c49995d358edcb35b3cefed5ae6cbb69996899a62ac79d901993f06d4322ee15",
+      "doc_class": "source",
+      "doc": "docs/generated/src/stores/uiPreferencesStore.ts.md",
+      "generated_hash": "c49995d358edcb35b3cefed5ae6cbb69996899a62ac79d901993f06d4322ee15",
+      "indexed_hash": "c49995d358edcb35b3cefed5ae6cbb69996899a62ac79d901993f06d4322ee15",
+      "indexed_doc_hash": "c49995d358edcb35b3cefed5ae6cbb69996899a62ac79d901993f06d4322ee15"
+    },
+    "src/styles/activity-feed.css": {
+      "hash": "6eb46cbc125a26dc3424322c685b45fc09ae1c054892a274e5adcd842aed96f4",
+      "doc_class": "source",
+      "doc": "docs/generated/src/styles/activity-feed.css.md",
+      "generated_hash": "6eb46cbc125a26dc3424322c685b45fc09ae1c054892a274e5adcd842aed96f4",
+      "indexed_hash": "6eb46cbc125a26dc3424322c685b45fc09ae1c054892a274e5adcd842aed96f4",
+      "indexed_doc_hash": "6eb46cbc125a26dc3424322c685b45fc09ae1c054892a274e5adcd842aed96f4"
+    },
+    "src/styles/alerts.css": {
+      "hash": "4026e2e00302e73da148e6eff666a4029fc570cda5f84c759ee27f96fcbf2a00",
+      "doc_class": "source",
+      "doc": "docs/generated/src/styles/alerts.css.md",
+      "generated_hash": "4026e2e00302e73da148e6eff666a4029fc570cda5f84c759ee27f96fcbf2a00",
+      "indexed_hash": "4026e2e00302e73da148e6eff666a4029fc570cda5f84c759ee27f96fcbf2a00",
+      "indexed_doc_hash": "4026e2e00302e73da148e6eff666a4029fc570cda5f84c759ee27f96fcbf2a00"
+    },
+    "src/styles/base.css": {
+      "hash": "d53b2770997f56ebd7c8631658bb5804e019c1da3902ff08095be070a64187a1",
+      "doc_class": "source",
+      "doc": "docs/generated/src/styles/base.css.md",
+      "generated_hash": "d53b2770997f56ebd7c8631658bb5804e019c1da3902ff08095be070a64187a1",
+      "indexed_hash": "d53b2770997f56ebd7c8631658bb5804e019c1da3902ff08095be070a64187a1",
+      "indexed_doc_hash": "d53b2770997f56ebd7c8631658bb5804e019c1da3902ff08095be070a64187a1"
+    },
+    "src/styles/chrome/bars.css": {
+      "hash": "caa8c4a3c1e0c5c97f4dcd16a3927e24a6daed3f0d078e48106ed46211128cf1",
+      "doc_class": "source",
+      "doc": "docs/generated/src/styles/chrome/bars.css.md",
+      "generated_hash": "caa8c4a3c1e0c5c97f4dcd16a3927e24a6daed3f0d078e48106ed46211128cf1",
+      "indexed_hash": "caa8c4a3c1e0c5c97f4dcd16a3927e24a6daed3f0d078e48106ed46211128cf1",
+      "indexed_doc_hash": "caa8c4a3c1e0c5c97f4dcd16a3927e24a6daed3f0d078e48106ed46211128cf1"
+    },
+    "src/styles/chrome/fab.css": {
+      "hash": "6aab466032d9c81fe8223c5109b0287e8e7b0d2b6e546ac66b00ddcdb20508b9",
+      "doc_class": "source",
+      "doc": "docs/generated/src/styles/chrome/fab.css.md",
+      "generated_hash": "6aab466032d9c81fe8223c5109b0287e8e7b0d2b6e546ac66b00ddcdb20508b9",
+      "indexed_hash": "6aab466032d9c81fe8223c5109b0287e8e7b0d2b6e546ac66b00ddcdb20508b9",
+      "indexed_doc_hash": "6aab466032d9c81fe8223c5109b0287e8e7b0d2b6e546ac66b00ddcdb20508b9"
+    },
+    "src/styles/chrome/help.css": {
+      "hash": "8a3e719ab1a23c01993756638a38adbcc67c4d013611e0db3995b966dabad217",
+      "doc_class": "source",
+      "doc": "docs/generated/src/styles/chrome/help.css.md",
+      "generated_hash": "8a3e719ab1a23c01993756638a38adbcc67c4d013611e0db3995b966dabad217",
+      "indexed_hash": "8a3e719ab1a23c01993756638a38adbcc67c4d013611e0db3995b966dabad217",
+      "indexed_doc_hash": "8a3e719ab1a23c01993756638a38adbcc67c4d013611e0db3995b966dabad217"
+    },
+    "src/styles/chrome/panels.css": {
+      "hash": "1e77b501170e7422ee6d5f281014292b6b05ce503e6d7dd137035d07a0e161fb",
+      "doc_class": "source",
+      "doc": "docs/generated/src/styles/chrome/panels.css.md",
+      "generated_hash": "1e77b501170e7422ee6d5f281014292b6b05ce503e6d7dd137035d07a0e161fb",
+      "indexed_hash": "1e77b501170e7422ee6d5f281014292b6b05ce503e6d7dd137035d07a0e161fb",
+      "indexed_doc_hash": "1e77b501170e7422ee6d5f281014292b6b05ce503e6d7dd137035d07a0e161fb"
+    },
+    "src/styles/chrome/primitives.css": {
+      "hash": "1cef4a88ce4dc5916e3a27f53025040e3dc73e195e8b987df5cde696184249f1",
+      "doc_class": "source",
+      "doc": "docs/generated/src/styles/chrome/primitives.css.md",
+      "generated_hash": "1cef4a88ce4dc5916e3a27f53025040e3dc73e195e8b987df5cde696184249f1",
+      "indexed_hash": "1cef4a88ce4dc5916e3a27f53025040e3dc73e195e8b987df5cde696184249f1",
+      "indexed_doc_hash": "1cef4a88ce4dc5916e3a27f53025040e3dc73e195e8b987df5cde696184249f1"
+    },
+    "src/styles/chrome/tutorial.css": {
+      "hash": "236b718fd3b151051e09c5e401c51e7996085eefe1618f0c5ad93bb1d6e92404",
+      "doc_class": "source",
+      "doc": "docs/generated/src/styles/chrome/tutorial.css.md",
+      "generated_hash": "236b718fd3b151051e09c5e401c51e7996085eefe1618f0c5ad93bb1d6e92404",
+      "indexed_hash": "236b718fd3b151051e09c5e401c51e7996085eefe1618f0c5ad93bb1d6e92404",
+      "indexed_doc_hash": "236b718fd3b151051e09c5e401c51e7996085eefe1618f0c5ad93bb1d6e92404"
+    },
+    "src/styles/debug.css": {
+      "hash": "1ed736725752a7a5a16a0c9ebd19452a77ad90203f4308e648fee1a4e9f0a731",
+      "doc_class": "source",
+      "doc": "docs/generated/src/styles/debug.css.md",
+      "generated_hash": "1ed736725752a7a5a16a0c9ebd19452a77ad90203f4308e648fee1a4e9f0a731",
+      "indexed_hash": "1ed736725752a7a5a16a0c9ebd19452a77ad90203f4308e648fee1a4e9f0a731",
+      "indexed_doc_hash": "1ed736725752a7a5a16a0c9ebd19452a77ad90203f4308e648fee1a4e9f0a731"
+    },
+    "src/styles/dialogs.css": {
+      "hash": "e1a9b3dfac85c074a40e57caa127d090952fb67900bbf8b1ec0807de7dfb0a29",
+      "doc_class": "source",
+      "doc": "docs/generated/src/styles/dialogs.css.md",
+      "generated_hash": "e1a9b3dfac85c074a40e57caa127d090952fb67900bbf8b1ec0807de7dfb0a29",
+      "indexed_hash": "e1a9b3dfac85c074a40e57caa127d090952fb67900bbf8b1ec0807de7dfb0a29",
+      "indexed_doc_hash": "e1a9b3dfac85c074a40e57caa127d090952fb67900bbf8b1ec0807de7dfb0a29"
+    },
+    "src/styles/forms.css": {
+      "hash": "373d1428e2f5e7699343b0ebf55160b96c0de3a74b1ece07074f68e6fdd1863c",
+      "doc_class": "source",
+      "doc": "docs/generated/src/styles/forms.css.md",
+      "generated_hash": "373d1428e2f5e7699343b0ebf55160b96c0de3a74b1ece07074f68e6fdd1863c",
+      "indexed_hash": "373d1428e2f5e7699343b0ebf55160b96c0de3a74b1ece07074f68e6fdd1863c",
+      "indexed_doc_hash": "373d1428e2f5e7699343b0ebf55160b96c0de3a74b1ece07074f68e6fdd1863c"
+    },
+    "src/styles/game-view.css": {
+      "hash": "beb70bd96443474dd9b86ff9269dcf55e73d926425c57fb392f6df5ab35d3ca1",
+      "doc_class": "source",
+      "doc": "docs/generated/src/styles/game-view.css.md",
+      "generated_hash": "beb70bd96443474dd9b86ff9269dcf55e73d926425c57fb392f6df5ab35d3ca1",
+      "indexed_hash": "beb70bd96443474dd9b86ff9269dcf55e73d926425c57fb392f6df5ab35d3ca1",
+      "indexed_doc_hash": "beb70bd96443474dd9b86ff9269dcf55e73d926425c57fb392f6df5ab35d3ca1"
+    },
+    "src/styles/panel.css": {
+      "hash": "5cd64bcb9562d6d7d0747f960dddcf94cac3679e71199f6d1bf9159eded03d64",
+      "doc_class": "source",
+      "doc": "docs/generated/src/styles/panel.css.md",
+      "generated_hash": "5cd64bcb9562d6d7d0747f960dddcf94cac3679e71199f6d1bf9159eded03d64",
+      "indexed_hash": "5cd64bcb9562d6d7d0747f960dddcf94cac3679e71199f6d1bf9159eded03d64",
+      "indexed_doc_hash": "5cd64bcb9562d6d7d0747f960dddcf94cac3679e71199f6d1bf9159eded03d64"
+    },
+    "src/styles/stats.css": {
+      "hash": "59816c28ab34eefc83b0abbc56b0e99c2522929358f7437410482964ce0bac9b",
+      "doc_class": "source",
+      "doc": "docs/generated/src/styles/stats.css.md",
+      "generated_hash": "59816c28ab34eefc83b0abbc56b0e99c2522929358f7437410482964ce0bac9b",
+      "indexed_hash": "59816c28ab34eefc83b0abbc56b0e99c2522929358f7437410482964ce0bac9b",
+      "indexed_doc_hash": "59816c28ab34eefc83b0abbc56b0e99c2522929358f7437410482964ce0bac9b"
+    },
+    "src/styles/storefront.css": {
+      "hash": "a353e8fb6f635046108c98c88747a3177bdcb8e0418027ecd7de8528691290b7",
+      "doc_class": "source",
+      "doc": "docs/generated/src/styles/storefront.css.md",
+      "generated_hash": "a353e8fb6f635046108c98c88747a3177bdcb8e0418027ecd7de8528691290b7",
+      "indexed_hash": "a353e8fb6f635046108c98c88747a3177bdcb8e0418027ecd7de8528691290b7",
+      "indexed_doc_hash": "a353e8fb6f635046108c98c88747a3177bdcb8e0418027ecd7de8528691290b7"
+    },
+    "src/styles/themes.css": {
+      "hash": "3fa7bbdb36361cf6129058c9f8102717ed35318e3eff4167665d2bef39510743",
+      "doc_class": "source",
+      "doc": "docs/generated/src/styles/themes.css.md",
+      "generated_hash": "3fa7bbdb36361cf6129058c9f8102717ed35318e3eff4167665d2bef39510743",
+      "indexed_hash": "3fa7bbdb36361cf6129058c9f8102717ed35318e3eff4167665d2bef39510743",
+      "indexed_doc_hash": "3fa7bbdb36361cf6129058c9f8102717ed35318e3eff4167665d2bef39510743"
+    },
+    "src/styles/tokens.css": {
+      "hash": "aa6bf61f315d49bef396f66349908bc11419e74c1d550893e50c3938aba1e79e",
+      "doc_class": "source",
+      "doc": "docs/generated/src/styles/tokens.css.md",
+      "generated_hash": "aa6bf61f315d49bef396f66349908bc11419e74c1d550893e50c3938aba1e79e",
+      "indexed_hash": "aa6bf61f315d49bef396f66349908bc11419e74c1d550893e50c3938aba1e79e",
+      "indexed_doc_hash": "aa6bf61f315d49bef396f66349908bc11419e74c1d550893e50c3938aba1e79e"
+    },
+    "src/styles/utilities.css": {
+      "hash": "7d67d95e2e325faf3630b0274b89b8279a60c7bf75d9f47b3d1bc09c9abe5805",
+      "doc_class": "source",
+      "doc": "docs/generated/src/styles/utilities.css.md",
+      "generated_hash": "7d67d95e2e325faf3630b0274b89b8279a60c7bf75d9f47b3d1bc09c9abe5805",
+      "indexed_hash": "7d67d95e2e325faf3630b0274b89b8279a60c7bf75d9f47b3d1bc09c9abe5805",
+      "indexed_doc_hash": "7d67d95e2e325faf3630b0274b89b8279a60c7bf75d9f47b3d1bc09c9abe5805"
+    },
+    "src/types/movement3d.ts": {
+      "hash": "7401a7381d428ee042ff27eabc0731033fa5f07f66fdc498ea21a4d9c6319626",
+      "doc_class": "source",
+      "doc": "docs/generated/src/types/movement3d.ts.md",
+      "generated_hash": "7401a7381d428ee042ff27eabc0731033fa5f07f66fdc498ea21a4d9c6319626",
+      "indexed_hash": "7401a7381d428ee042ff27eabc0731033fa5f07f66fdc498ea21a4d9c6319626",
+      "indexed_doc_hash": "7401a7381d428ee042ff27eabc0731033fa5f07f66fdc498ea21a4d9c6319626"
+    },
+    "src/types/physics3d.ts": {
+      "hash": "4d3d89aba8809f91c260c1d55f35b2d03acd27c924d711b7098bccfde0a365ed",
+      "doc_class": "source",
+      "doc": "docs/generated/src/types/physics3d.ts.md",
+      "generated_hash": "4d3d89aba8809f91c260c1d55f35b2d03acd27c924d711b7098bccfde0a365ed",
+      "indexed_hash": "4d3d89aba8809f91c260c1d55f35b2d03acd27c924d711b7098bccfde0a365ed",
+      "indexed_doc_hash": "4d3d89aba8809f91c260c1d55f35b2d03acd27c924d711b7098bccfde0a365ed"
+    },
+    "src/types/supplies.ts": {
+      "hash": "652e7d38a4fc47016cbafae88f489905a75c6480e8f4c0fd7e1204887425fb74",
+      "doc_class": "source",
+      "doc": "docs/generated/src/types/supplies.ts.md",
+      "generated_hash": "652e7d38a4fc47016cbafae88f489905a75c6480e8f4c0fd7e1204887425fb74",
+      "indexed_hash": "652e7d38a4fc47016cbafae88f489905a75c6480e8f4c0fd7e1204887425fb74",
+      "indexed_doc_hash": "652e7d38a4fc47016cbafae88f489905a75c6480e8f4c0fd7e1204887425fb74"
+    },
+    "src/utils/bondingProgression.ts": {
+      "hash": "c79e451533db14d2b67fc4b1b528fec03af07111e1bfa60b79f5b6242688817f",
+      "doc_class": "source",
+      "doc": "docs/generated/src/utils/bondingProgression.ts.md",
+      "generated_hash": "c79e451533db14d2b67fc4b1b528fec03af07111e1bfa60b79f5b6242688817f",
+      "indexed_hash": "c79e451533db14d2b67fc4b1b528fec03af07111e1bfa60b79f5b6242688817f",
+      "indexed_doc_hash": "c79e451533db14d2b67fc4b1b528fec03af07111e1bfa60b79f5b6242688817f"
+    },
+    "src/utils/catalogLoader.ts": {
+      "hash": "68d7883b136116d2af6f3b6958f1dbca5e1680b8f089c0022a54de9ba052155d",
+      "doc_class": "source",
+      "doc": "docs/generated/src/utils/catalogLoader.ts.md",
+      "generated_hash": "68d7883b136116d2af6f3b6958f1dbca5e1680b8f089c0022a54de9ba052155d",
+      "indexed_hash": "68d7883b136116d2af6f3b6958f1dbca5e1680b8f089c0022a54de9ba052155d",
+      "indexed_doc_hash": "68d7883b136116d2af6f3b6958f1dbca5e1680b8f089c0022a54de9ba052155d"
+    },
+    "src/utils/compatibility.ts": {
+      "hash": "597abc0b6e13932f74803a6982e5dad20770da6c639e21b942eb67ff46ae8928",
+      "doc_class": "source",
+      "doc": "docs/generated/src/utils/compatibility.ts.md",
+      "generated_hash": "597abc0b6e13932f74803a6982e5dad20770da6c639e21b942eb67ff46ae8928",
+      "indexed_hash": "597abc0b6e13932f74803a6982e5dad20770da6c639e21b942eb67ff46ae8928",
+      "indexed_doc_hash": "597abc0b6e13932f74803a6982e5dad20770da6c639e21b942eb67ff46ae8928"
+    },
+    "src/utils/deviceDetection.ts": {
+      "hash": "a4e2d737dfeebc9cda8f411ba49249080081d12931533698c0cbf327fca86058",
+      "doc_class": "source",
+      "doc": "docs/generated/src/utils/deviceDetection.ts.md",
+      "generated_hash": "a4e2d737dfeebc9cda8f411ba49249080081d12931533698c0cbf327fca86058",
+      "indexed_hash": "a4e2d737dfeebc9cda8f411ba49249080081d12931533698c0cbf327fca86058",
+      "indexed_doc_hash": "a4e2d737dfeebc9cda8f411ba49249080081d12931533698c0cbf327fca86058"
+    },
+    "src/utils/friendshipMessages.ts": {
+      "hash": "ce67f3a689dcfd48d6191a2dab1d34ccdb498353b4324f776ba07544c2391a7c",
+      "doc_class": "source",
+      "doc": "docs/generated/src/utils/friendshipMessages.ts.md",
+      "generated_hash": "ce67f3a689dcfd48d6191a2dab1d34ccdb498353b4324f776ba07544c2391a7c",
+      "indexed_hash": "ce67f3a689dcfd48d6191a2dab1d34ccdb498353b4324f776ba07544c2391a7c",
+      "indexed_doc_hash": "ce67f3a689dcfd48d6191a2dab1d34ccdb498353b4324f776ba07544c2391a7c"
+    },
+    "src/utils/interactionEffects.ts": {
+      "hash": "ae97a2aa702a00e9dc32d9d14971b3071967e801a553f24c1437c842d0a29c5a",
+      "doc_class": "source",
+      "doc": "docs/generated/src/utils/interactionEffects.ts.md",
+      "generated_hash": "ae97a2aa702a00e9dc32d9d14971b3071967e801a553f24c1437c842d0a29c5a",
+      "indexed_hash": "ae97a2aa702a00e9dc32d9d14971b3071967e801a553f24c1437c842d0a29c5a",
+      "indexed_doc_hash": "ae97a2aa702a00e9dc32d9d14971b3071967e801a553f24c1437c842d0a29c5a"
+    },
+    "src/utils/interactionValidation.ts": {
+      "hash": "2267243c6a37f72e385550b96b1a79c62c9cd5df515d8d491ac1c4d2a168380a",
+      "doc_class": "source",
+      "doc": "docs/generated/src/utils/interactionValidation.ts.md",
+      "generated_hash": "2267243c6a37f72e385550b96b1a79c62c9cd5df515d8d491ac1c4d2a168380a",
+      "indexed_hash": "2267243c6a37f72e385550b96b1a79c62c9cd5df515d8d491ac1c4d2a168380a",
+      "indexed_doc_hash": "2267243c6a37f72e385550b96b1a79c62c9cd5df515d8d491ac1c4d2a168380a"
+    },
+    "src/utils/locationDetection.ts": {
+      "hash": "ceaf3346cf5e4e349210e3384c46a258fdbd7db37f64286b4606191cdfa864c9",
+      "doc_class": "source",
+      "doc": "docs/generated/src/utils/locationDetection.ts.md",
+      "generated_hash": "ceaf3346cf5e4e349210e3384c46a258fdbd7db37f64286b4606191cdfa864c9",
+      "indexed_hash": "ceaf3346cf5e4e349210e3384c46a258fdbd7db37f64286b4606191cdfa864c9",
+      "indexed_doc_hash": "ceaf3346cf5e4e349210e3384c46a258fdbd7db37f64286b4606191cdfa864c9"
+    },
+    "src/utils/mapSerialization.ts": {
+      "hash": "0134cbfb46a85cfa24b9691d5a81d7e6525fff15a4d65f13691064cdcda61697",
+      "doc_class": "source",
+      "doc": "docs/generated/src/utils/mapSerialization.ts.md",
+      "generated_hash": "0134cbfb46a85cfa24b9691d5a81d7e6525fff15a4d65f13691064cdcda61697",
+      "indexed_hash": "0134cbfb46a85cfa24b9691d5a81d7e6525fff15a4d65f13691064cdcda61697",
+      "indexed_doc_hash": "0134cbfb46a85cfa24b9691d5a81d7e6525fff15a4d65f13691064cdcda61697"
+    },
+    "src/utils/messageGenerator.ts": {
+      "hash": "a2fac06a4deb15ec14ce8060cec23843b8ec79de3992ac6c160e2f5fc11b467b",
+      "doc_class": "source",
+      "doc": "docs/generated/src/utils/messageGenerator.ts.md",
+      "generated_hash": "a2fac06a4deb15ec14ce8060cec23843b8ec79de3992ac6c160e2f5fc11b467b",
+      "indexed_hash": "a2fac06a4deb15ec14ce8060cec23843b8ec79de3992ac6c160e2f5fc11b467b",
+      "indexed_doc_hash": "a2fac06a4deb15ec14ce8060cec23843b8ec79de3992ac6c160e2f5fc11b467b"
+    },
+    "src/utils/pausableTimer.ts": {
+      "hash": "0f67d028d280c81a0117f43aa48439f4395713f60385099eefbcb75d0352bf37",
+      "doc_class": "source",
+      "doc": "docs/generated/src/utils/pausableTimer.ts.md",
+      "generated_hash": "0f67d028d280c81a0117f43aa48439f4395713f60385099eefbcb75d0352bf37",
+      "indexed_hash": "0f67d028d280c81a0117f43aa48439f4395713f60385099eefbcb75d0352bf37",
+      "indexed_doc_hash": "0f67d028d280c81a0117f43aa48439f4395713f60385099eefbcb75d0352bf37"
+    },
+    "src/utils/personalityDecay.ts": {
+      "hash": "3f704ccc8a52b2023d2208e4795eb05d40dffc06ab64389e6e95f4c532440bed",
+      "doc_class": "source",
+      "doc": "docs/generated/src/utils/personalityDecay.ts.md",
+      "generated_hash": "3f704ccc8a52b2023d2208e4795eb05d40dffc06ab64389e6e95f4c532440bed",
+      "indexed_hash": "3f704ccc8a52b2023d2208e4795eb05d40dffc06ab64389e6e95f4c532440bed",
+      "indexed_doc_hash": "3f704ccc8a52b2023d2208e4795eb05d40dffc06ab64389e6e95f4c532440bed"
+    },
+    "src/utils/placementId.ts": {
+      "hash": "b6f7fa98e32922ebe4ca2d4423fc4366a5fe4b0569c9ed724d0331d5b692ebb2",
+      "doc_class": "source",
+      "doc": "docs/generated/src/utils/placementId.ts.md",
+      "generated_hash": "b6f7fa98e32922ebe4ca2d4423fc4366a5fe4b0569c9ed724d0331d5b692ebb2",
+      "indexed_hash": "b6f7fa98e32922ebe4ca2d4423fc4366a5fe4b0569c9ed724d0331d5b692ebb2",
+      "indexed_doc_hash": "b6f7fa98e32922ebe4ca2d4423fc4366a5fe4b0569c9ed724d0331d5b692ebb2"
+    },
+    "src/utils/servingSystem.ts": {
+      "hash": "e6af66610cf77f228e6c3f18859c059927d1acf63f548730535adc35dabe84f0",
+      "doc_class": "source",
+      "doc": "docs/generated/src/utils/servingSystem.ts.md",
+      "generated_hash": "e6af66610cf77f228e6c3f18859c059927d1acf63f548730535adc35dabe84f0",
+      "indexed_hash": "e6af66610cf77f228e6c3f18859c059927d1acf63f548730535adc35dabe84f0",
+      "indexed_doc_hash": "e6af66610cf77f228e6c3f18859c059927d1acf63f548730535adc35dabe84f0"
+    },
+    "src/utils/three-cleanup.ts": {
+      "hash": "e845570441a905e7ae98d932e73f6c159cb36e3519ce50278f02ed9fa359ae2c",
+      "doc_class": "source",
+      "doc": "docs/generated/src/utils/three-cleanup.ts.md",
+      "generated_hash": "e845570441a905e7ae98d932e73f6c159cb36e3519ce50278f02ed9fa359ae2c",
+      "indexed_hash": "e845570441a905e7ae98d932e73f6c159cb36e3519ce50278f02ed9fa359ae2c",
+      "indexed_doc_hash": "e845570441a905e7ae98d932e73f6c159cb36e3519ce50278f02ed9fa359ae2c"
+    },
+    "src/views/DebugView.vue": {
+      "hash": "8d7b7aa4dcac57262a38f49adc95b27d6a4a464b1359793bef51233d80979696",
+      "doc_class": "source",
+      "doc": "docs/generated/src/views/DebugView.vue.md",
+      "generated_hash": "8d7b7aa4dcac57262a38f49adc95b27d6a4a464b1359793bef51233d80979696",
+      "indexed_hash": "8d7b7aa4dcac57262a38f49adc95b27d6a4a464b1359793bef51233d80979696",
+      "indexed_doc_hash": "8d7b7aa4dcac57262a38f49adc95b27d6a4a464b1359793bef51233d80979696"
+    },
+    "src/views/GameControllerView.vue": {
+      "hash": "5aec6f6850ed051b06d16a1a97222de469f6505604150bbd4ffbf759c2354b44",
+      "doc_class": "source",
+      "doc": "docs/generated/src/views/GameControllerView.vue.md",
+      "generated_hash": "5aec6f6850ed051b06d16a1a97222de469f6505604150bbd4ffbf759c2354b44",
+      "indexed_hash": "5aec6f6850ed051b06d16a1a97222de469f6505604150bbd4ffbf759c2354b44",
+      "indexed_doc_hash": "5aec6f6850ed051b06d16a1a97222de469f6505604150bbd4ffbf759c2354b44"
+    },
+    "src/views/GameShellView.vue": {
+      "hash": "dcf464467fd73f3256e8131c75e537ab488849ce95561a47585202418299a82d",
+      "doc_class": "source",
+      "doc": "docs/generated/src/views/GameShellView.vue.md",
+      "generated_hash": "dcf464467fd73f3256e8131c75e537ab488849ce95561a47585202418299a82d",
+      "indexed_hash": "dcf464467fd73f3256e8131c75e537ab488849ce95561a47585202418299a82d",
+      "indexed_doc_hash": "dcf464467fd73f3256e8131c75e537ab488849ce95561a47585202418299a82d"
+    },
+    "src/views/HomeView.vue": {
+      "hash": "32b25b23afa520ed55cc68f4044c1632e00f774975a1639ae98e460167b10868",
+      "doc_class": "source",
+      "doc": "docs/generated/src/views/HomeView.vue.md",
+      "generated_hash": "32b25b23afa520ed55cc68f4044c1632e00f774975a1639ae98e460167b10868",
+      "indexed_hash": "32b25b23afa520ed55cc68f4044c1632e00f774975a1639ae98e460167b10868",
+      "indexed_doc_hash": "32b25b23afa520ed55cc68f4044c1632e00f774975a1639ae98e460167b10868"
+    },
+    "src/views/InventoryDebugView.vue": {
+      "hash": "6a7dfa6d4723f1f99e6927d8fbf421b9710955de6f90488e3f5bd93c9d02fb21",
+      "doc_class": "source",
+      "doc": "docs/generated/src/views/InventoryDebugView.vue.md",
+      "generated_hash": "6a7dfa6d4723f1f99e6927d8fbf421b9710955de6f90488e3f5bd93c9d02fb21",
+      "indexed_hash": "6a7dfa6d4723f1f99e6927d8fbf421b9710955de6f90488e3f5bd93c9d02fb21",
+      "indexed_doc_hash": "6a7dfa6d4723f1f99e6927d8fbf421b9710955de6f90488e3f5bd93c9d02fb21"
+    },
+    "src/views/PetStoreDebugView.vue": {
+      "hash": "2fd123c695b3be3f96fe02e0dac44c029a07aab26634b7a9e45ae0efe7abb2ca",
+      "doc_class": "source",
+      "doc": "docs/generated/src/views/PetStoreDebugView.vue.md",
+      "generated_hash": "2fd123c695b3be3f96fe02e0dac44c029a07aab26634b7a9e45ae0efe7abb2ca",
+      "indexed_hash": "2fd123c695b3be3f96fe02e0dac44c029a07aab26634b7a9e45ae0efe7abb2ca",
+      "indexed_doc_hash": "2fd123c695b3be3f96fe02e0dac44c029a07aab26634b7a9e45ae0efe7abb2ca"
+    },
+    "src/views/PlayView.vue": {
+      "hash": "e5ba04c443ef57fb80cbf6678b9024897c2c47411466662bdc7e024982feabf8",
+      "doc_class": "source",
+      "doc": "docs/generated/src/views/PlayView.vue.md",
+      "generated_hash": "e5ba04c443ef57fb80cbf6678b9024897c2c47411466662bdc7e024982feabf8",
+      "indexed_hash": "e5ba04c443ef57fb80cbf6678b9024897c2c47411466662bdc7e024982feabf8",
+      "indexed_doc_hash": "e5ba04c443ef57fb80cbf6678b9024897c2c47411466662bdc7e024982feabf8"
+    },
+    "src/views/StoreView.vue": {
+      "hash": "ba23b053e8ea8b199a8aa637203fb28e71f0d2a0738c5b666563798a1af9239e",
+      "doc_class": "source",
+      "doc": "docs/generated/src/views/StoreView.vue.md",
+      "generated_hash": "ba23b053e8ea8b199a8aa637203fb28e71f0d2a0738c5b666563798a1af9239e",
+      "indexed_hash": "ba23b053e8ea8b199a8aa637203fb28e71f0d2a0738c5b666563798a1af9239e",
+      "indexed_doc_hash": "ba23b053e8ea8b199a8aa637203fb28e71f0d2a0738c5b666563798a1af9239e"
+    },
+    "src/vite-env.d.ts": {
+      "hash": "b440b802c2cfeac6a24eda510bd63c1f23c6ab5c52bcfe3a32a918dbad6b46c8",
+      "doc_class": "source",
+      "doc": "docs/generated/src/vite-env.d.ts.md",
+      "generated_hash": "b440b802c2cfeac6a24eda510bd63c1f23c6ab5c52bcfe3a32a918dbad6b46c8",
+      "indexed_hash": "b440b802c2cfeac6a24eda510bd63c1f23c6ab5c52bcfe3a32a918dbad6b46c8",
+      "indexed_doc_hash": "b440b802c2cfeac6a24eda510bd63c1f23c6ab5c52bcfe3a32a918dbad6b46c8"
+    },
+    "starfield.html": {
+      "hash": "e4efe763843330afcbc8672af7f8b849b8830393a6fe6e97c7b64e5708ffe8bf",
+      "doc_class": "source",
+      "doc": "docs/generated/starfield.html.md",
+      "generated_hash": "e4efe763843330afcbc8672af7f8b849b8830393a6fe6e97c7b64e5708ffe8bf",
+      "indexed_hash": "e4efe763843330afcbc8672af7f8b849b8830393a6fe6e97c7b64e5708ffe8bf",
+      "indexed_doc_hash": "e4efe763843330afcbc8672af7f8b849b8830393a6fe6e97c7b64e5708ffe8bf"
+    },
+    "todos.md": {
+      "hash": "b4bbf823df6b3cceb37a69f5be5ea1ad91053a6ca4f1ca3cea5d7e9bf86b44c0",
+      "doc_class": "planning",
+      "indexed_hash": "b4bbf823df6b3cceb37a69f5be5ea1ad91053a6ca4f1ca3cea5d7e9bf86b44c0"
+    },
+    "vite.config.ts": {
+      "hash": "fc05f5581b4d780ba79282bcf17cad5609b4047c25b81352eb0d82fb7eeab240",
+      "doc_class": "source",
+      "doc": "docs/generated/vite.config.ts.md",
+      "generated_hash": "fc05f5581b4d780ba79282bcf17cad5609b4047c25b81352eb0d82fb7eeab240",
+      "indexed_hash": "fc05f5581b4d780ba79282bcf17cad5609b4047c25b81352eb0d82fb7eeab240",
+      "indexed_doc_hash": "fc05f5581b4d780ba79282bcf17cad5609b4047c25b81352eb0d82fb7eeab240"
+    }
+  }
+}

@@ -1,0 +1,55 @@
+# repodoc — regenerate "what-exists" documentation on every push to master.
+#
+# Keeps docs/generated/ current with the source. The vector index (LanceDB) is
+# a local, rebuildable cache and is intentionally NOT built here — run
+# `repodoc index` locally after pulling to refresh the MCP search index.
+
+name: repodoc sync
+
+on:
+  push:
+    branches: ["master"]
+    # avoid self-triggering on the bot's own docs commit (belt-and-suspenders
+    # with [skip ci]); ignore pushes that only touch generated output
+    paths-ignore:
+      - "docs/generated/**"
+      - ".repodoc/manifest.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write   # commits regenerated docs back to the repo
+
+concurrency:
+  group: "repodoc"
+  cancel-in-progress: false
+
+env:
+  REPODOC_GIT: "git+https://github.com/ktocdev/repodoc.git"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install repodoc
+        run: pip install "repodoc @ ${REPODOC_GIT}"
+
+      - name: Generate changed docs
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: repodoc generate --repo .
+
+      - name: Commit regenerated docs
+        run: |
+          git config user.name "repodoc-bot"
+          git config user.email "repodoc-bot@users.noreply.github.com"
+          git add docs/generated .repodoc/manifest.json
+          git diff --cached --quiet || git commit -m "docs: repodoc sync for ${GITHUB_SHA::7} [skip ci]"
+          git push

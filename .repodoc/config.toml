@@ -1,0 +1,62 @@
+# repodoc configuration for gps3
+
+[repo]
+# Branch whose pushes trigger doc maintenance (auto-detected at init)
+branch = "master"
+# Where generated "what-exists" reference pages are written (committed)
+docs_output = "docs/generated"
+
+[scan]
+# Source files to document (glob patterns, relative to repo root)
+include = [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.js",
+    "src/**/*.vue",
+    "src/**/*.css",
+    "*.ts",
+    "*.js",
+    "*.html",
+    "package.json",
+]
+# Never scanned or documented
+ignore = [
+    "node_modules/**",
+    "dist/**",
+    "build/**",
+    ".git/**",
+    ".repodoc/**",
+    "package-lock.json",
+    "**/*.min.js",
+    "REPODOC-PLAN.md",
+]
+# Existing human-authored docs: indexed for retrieval as doc_class="planning",
+# never overwritten by the generator
+planning_docs = [
+    "docs/**/*.md",
+    "docs-3d/**/*.md",
+    "*.md",
+]
+
+[generator]
+# Provider for the doc-writing LLM (runs only at generation time, on push).
+# "anthropic" (cloud API) or "ollama" (large local model, no API cost).
+provider = "anthropic"
+model = "claude-opus-4-8"      # or "claude-sonnet-5" for cheaper high-frequency runs
+effort = "medium"              # low | medium | high
+max_tokens = 8192
+# base_url = "http://localhost:11434"   # only used by provider = "ollama"
+
+[embeddings]
+# Local embedding model (runs at index + query time; free, code never leaves machine).
+# Changing `model` changes vector dims -> triggers automatic full re-index.
+provider = "sentence-transformers"
+model = "nomic-ai/nomic-embed-text-v2-moe"
+dim = 768
+document_prefix = "search_document: "   # nomic models require task prefixes
+query_prefix = "search_query: "
+trust_remote_code = true
+
+[mcp]
+# Name for the MCP server registration
+name = "gps3-docs"
