@@ -1,6 +1,6 @@
 ---
 source: src/components/chrome/GameHeader.vue
-source_hash: 4c3e59848fe67ced87b82c4ba17ca7d7d093ec4dbe2787a52bc3cace1a8d0d2c
+source_hash: 3c72d38ff7dc8ff1f6c6962d45ee0f1be5a689aaeea0bc1fd1404f5e51dfefd6
 doc_class: generated-reference
 generated_by: anthropic/claude-opus-4-8
 ---
@@ -9,29 +9,29 @@ generated_by: anthropic/claude-opus-4-8
 
 `src/components/chrome/GameHeader.vue`
 
-> The persistent top navigation header (wood-bar chrome) for the Guinea Pig Simulator. It shows branding, primary route navigation tabs, the player's currency, and utility controls (low-stimulation theme toggle, help overlay, and pause/resume). It adapts its display depending on whether a game session is active (pre-adoption vs. active play).
+> The top navigation/chrome bar for the Guinea Pig Simulator. It renders the app branding, tab navigation, player currency, and utility controls (low-stimulation theme toggle, help, pause/resume), adapting its content based on whether an active game session exists.
 
-## Structure
-Renders a `<header>` with brand block (emoji + title), a `<nav>` of `RouterLink` tabs, a utility cluster, and a `HelpOverlay` bound via `v-model`.
+## Layout
+Renders a `<header>` styled as a wood bar with a grain overlay, brand icon/title, a navigation `<nav>`, a utility cluster, and an embedded `HelpOverlay`.
 
-## State & stores
-Pulls in four Pinia stores: `useGameController`, `usePetStoreManager`, `usePlayerProgression`, and `useThemeStore`, plus `useRoute` from vue-router. Local `showHelp` ref controls the help overlay.
+## Session-dependent rendering
+`preAdoption` is a computed derived from `petStoreManager.activeGameSession` being falsy. When pre-adoption (no active session), the nav and utility controls are hidden (replaced by an empty `<span>`). Otherwise tabs and utility buttons render.
+
+## Navigation
+`tabs` is a static array of three routes: `/` (Live Mode), `/store` (Supplies Store), `/debug` (Debug). Each renders a `RouterLink`. `isActive(path)` marks the active tab — exact match for `/`, prefix match (`startsWith`) for others. The `/store` tab receives a `data-tutorial="supplies-tab"` attribute.
+
+## Utility controls
+- Currency display bound to `playerProgression.formattedCurrency`.
+- Low-stim toggle button: `toggleLowStim()` flips `themeStore.chromeTheme` between `'low-stim'` and `'default'` via `setChromeTheme`; `aria-pressed`/title reflect current state.
+- Help button toggles the local `showHelp` ref, which is v-model bound to `HelpOverlay`.
+- Pause/resume button: `togglePause()` calls `gameController.resumeGame()` or `gameController.pauseGame('manual')` based on `gameController.isPaused`. Disabled when `canTogglePause` is false (no active session). Label/aria reflect paused state.
 
 ## Data flow
-- `tabs` is a static list of three routes (Live Mode, Supplies Store, Debug).
-- `preAdoption` is a computed that is true when there is no `activeGameSession`; when pre-adoption, the nav and utility controls are hidden (an empty `<span>` placeholder is rendered for nav).
-- `canTogglePause` is true when a game session exists; it disables the pause button otherwise.
-- `isActive(path)` marks the active tab: exact match for `/`, prefix match otherwise.
-- `togglePause()` calls `gameController.resumeGame()` or `gameController.pauseGame('manual')` based on current paused state.
-- `toggleLowStim()` switches `themeStore.chromeTheme` between `'low-stim'` and `'default'`.
-- Currency is displayed via `playerProgression.formattedCurrency`.
-
-## Utility buttons
-Low-stim toggle (🌿) reflects state via `aria-pressed`; help button (?) toggles `showHelp`; pause button reflects `gameController.isPaused` with label/title changes and a `--paused` class. The store tab and pause button carry `data-tutorial` attributes for tutorial targeting.
+Reads from four Pinia stores and the current route; writes only via theme toggle and pause/resume actions.
 
 ## Exports
 
-- **GameHeader** (component) — `<GameHeader />`: Vue SFC (script setup). No props or emits. Renders the app header chrome; internally manages a local showHelp ref and reads from gameController, petStoreManager, playerProgression, and themeStore. Hides navigation and utility controls when no active game session exists.
+- **GameHeader** (component) — `<GameHeader />`: Vue SFC (script setup). No props or emits. Renders the app header chrome; internally consumes gameController, petStoreManager, playerProgression, and themeStore stores plus the current route. Manages local `showHelp` ref for the HelpOverlay.
 
 ## Internal dependencies
 
@@ -44,6 +44,6 @@ Low-stim toggle (🌿) reflects state via `aria-pressed`; help button (?) toggle
 
 ## Notes
 
-- Nav and all utility controls are hidden when preAdoption is true (no activeGameSession); an empty span is rendered in place of nav to preserve layout.
-- Pause button is disabled unless a game session exists, but pause/resume is intentionally available on every tab/route.
-- data-tutorial attributes ('supplies-tab', 'pause') couple this component to the tutorial system.
+- Nav and all utility controls are entirely hidden during pre-adoption (when there is no active game session).
+- `isActive` uses `startsWith` for non-root paths, so any sub-route of a tab path is highlighted as active.
+- Pause action always passes the reason string `'manual'` to `pauseGame`.

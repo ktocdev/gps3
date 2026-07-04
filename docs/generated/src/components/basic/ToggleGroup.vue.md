@@ -1,29 +1,36 @@
 ---
 source: src/components/basic/ToggleGroup.vue
-source_hash: f3cb80113bb2f6af0320cbd3c0a36de53667b320fedb99895b323524566fbe34
+source_hash: 8ab6d213851ecc3267db36c80968bc8a18f315d19d8611d2ccf2df8f6efb3e16
 doc_class: generated-reference
 generated_by: anthropic/claude-opus-4-8
 ---
 
-# ToggleGroup.vue
+# ToggleGroup
 
 `src/components/basic/ToggleGroup.vue`
 
-> A segmented toggle button group component that renders a set of mutually exclusive options and emits selection changes via v-model. Used for choosing a single value from a small list of options.
+> A reusable Vue 3 segmented toggle/button-group component that renders a horizontal set of selectable options and supports v-model binding for the currently selected value.
 
 ## Structure
-The component renders a `div.toggle-group` containing one `button.toggle-group__option` per entry in the `options` array. Each button displays the option's `label` and is marked selected (`toggle-group__option--selected`) when its `value` matches the `modelValue` prop.
+The template renders a `div.toggle-group` containing a `<button>` for each entry in the `options` array. Each button displays `option.label`, is keyed by `option.value`, and receives a `--selected` modifier class when `modelValue` matches its value.
 
-## State & Data Flow
-There is no internal state. Clicking a button calls `selectOption(value)`, which emits `update:modelValue` with the option's value, supporting `v-model` binding. Selection highlighting is driven purely by comparing `modelValue` to each option's value.
+## Logic
+The `<script setup>` defines typed `Props` (`modelValue`, `options`, optional `size`) and an `Emits` type for `update:modelValue`, enabling v-model support. `size` defaults to `'sm'` via `withDefaults`.
+
+A computed `toggleGroupClasses` produces a size modifier class (`toggle-group--sm` or `toggle-group--md`) applied to the root element. Clicking a button calls `selectOption`, which emits `update:modelValue` with that option's value; the parent controls selection state.
 
 ## Styling
-The `toggleGroupClasses` computed property adds a size modifier class (`toggle-group--sm` or `toggle-group--md`) based on the `size` prop (defaults to `sm`). Styles use CSS custom properties for theming, include focus-visible outlines, and disable transitions under `prefers-reduced-motion`.
+Scoped-less global `<style>` block styles the group as an inline-flex bar with rounded corners, dividers between options, a highlighted selected state using primary color, size variants (sm/md controlling padding and min height), focus-visible outlines, and reduced-motion support. Colors and spacing come from CSS custom properties (design tokens).
 
 ## Exports
 
-- **ToggleGroup** (component) — `<ToggleGroup v-model="string" :options="ToggleOption[]" :size="'sm'|'md'" />`: Segmented toggle button group. Props: `modelValue: string` (currently selected value), `options: ToggleOption[]` (array of `{ value: string; label: string }`), `size?: 'sm' | 'md'` (defaults to 'sm'). Emits: `update:modelValue` with the selected value string.
+- **ToggleGroup** (component) — `<ToggleGroup v-model="string" :options="ToggleOption[]" :size="'sm'|'md'" />`: Segmented button group. Props: `modelValue: string` (selected value), `options: {value:string,label:string}[]`, `size?: 'sm'|'md'` (default 'sm'). Emits `update:modelValue` with the clicked option's value.
 
 ## Internal dependencies
 
 - `vue`
+
+## Notes
+
+- The `<style>` block is not scoped, so its class rules are global.
+- Selection is fully controlled by the parent via v-model; the component holds no internal selection state.

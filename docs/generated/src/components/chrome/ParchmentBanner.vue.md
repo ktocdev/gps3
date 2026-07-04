@@ -1,6 +1,6 @@
 ---
 source: src/components/chrome/ParchmentBanner.vue
-source_hash: 85e23accbc16099bfb1778d12b34e0a6a18b34498eaeab1e2f9cecb0aa20d03c
+source_hash: 079f0800c1864cf7a8cfe11a496bf60511d32c920177fa5c7ff028a31099902f
 doc_class: generated-reference
 generated_by: anthropic/claude-opus-4-8
 ---
@@ -9,13 +9,24 @@ generated_by: anthropic/claude-opus-4-8
 
 `src/components/chrome/ParchmentBanner.vue`
 
-> A small presentational Vue component that renders a themed banner using a ParchmentPanel wrapper, showing an optional icon, slotted content, and a cancel button that emits a cancel event.
+> A presentational Vue SFC that renders a themed banner using ParchmentPanel, showing an optional icon, slotted content, and a cancel button. It exists to provide a reusable dismissible banner UI element within the app's parchment-styled chrome.
 
-This SFC wraps its content in a `ParchmentPanel`, forwarding the `accent` prop to control the panel styling. Inside, a row layout displays an optional `icon` (rendered as text when provided), a default `<slot />` for arbitrary banner content, and a fixed cancel button (✕). Clicking the cancel button emits the `cancel` event to the parent. The component is purely presentational with no internal state.
+### Structure
+The component wraps a `ParchmentPanel` (passing through the `accent` prop) containing a row layout. The row optionally shows an emoji/text `icon`, then the default `<slot />` content, followed by a cancel button (`✕`).
+
+### Props
+- `accent` (optional string): forwarded to `ParchmentPanel` to control its accent styling.
+- `icon` (optional string): rendered as text before the slot content; the icon span is only shown when `icon` is truthy.
+
+### Events
+- `cancel`: emitted when the cancel button is clicked.
+
+### Data flow
+Purely presentational — no internal state. Content is provided via the default slot; the parent handles the `cancel` emit for dismissal logic.
 
 ## Exports
 
-- **ParchmentBanner** (component) — `<ParchmentBanner :accent? :icon? @cancel />`: Props: `accent?: string` (styling accent passed to ParchmentPanel), `icon?: string` (optional leading icon/text). Emits: `cancel` (fired when the ✕ button is clicked). Default slot renders the banner's main content.
+- **ParchmentBanner** (component) — `<ParchmentBanner :accent? :icon? @cancel>`: Vue SFC banner. Props: `accent?: string` (passed to ParchmentPanel), `icon?: string` (optional leading icon text). Emits: `cancel` (on cancel button click). Provides a default slot for banner content.
 
 ## Internal dependencies
 

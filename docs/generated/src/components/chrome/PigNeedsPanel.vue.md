@@ -1,31 +1,31 @@
 ---
 source: src/components/chrome/PigNeedsPanel.vue
-source_hash: f2844715f9e25084cab5ce9259185be6586d50609aa311ea68c6001cb9d69088
+source_hash: 434c65b556b122b3867cddd7eb88085226948a822d6379fb73311379fb6bd98b
 doc_class: generated-reference
 generated_by: anthropic/claude-opus-4-8
 ---
 
-# PigNeedsPanel.vue
+# PigNeedsPanel
 
 `src/components/chrome/PigNeedsPanel.vue`
 
-> A presentational Vue component that renders a guinea pig's needs as a grid of labeled progress bars, color-coded by urgency level. It exists to visualize the current state of each need in the game's chrome/UI layer.
+> A presentational Vue component that renders a guinea pig's needs as a grid of labeled progress bars, color-coded by urgency level. It displays each need's emoji, label, percentage value, and a fill bar reflecting the current value.
 
 ## Rendering
-Iterates over `NEED_KEYS` and renders one `.need-row` per need. Each row shows the need's emoji and label (from `NEED_META[key]`), a rounded percentage value (`Math.round(needs[key])`), and a progress track whose fill width is `needs[key]%` with a color from `NEED_META[key].color`.
+Iterates over `NEED_KEYS` to render one `.need-row` per need. Each row shows the need's emoji and label (from `NEED_META[key]`), the rounded percentage (`Math.round(needs[key])`), and a track/fill bar whose width equals `needs[key]%` and background comes from `NEED_META[key].color`.
 
 ## Urgency styling
-Each row's inline style is set via `urgencyVars(needs[key])`, which calls `urgencyOf(value)` to classify the value into `critical`, `warning`, `moderate`, or `satisfied`, then returns a matching set of CSS custom properties (`--need-bg`, `--need-border`, `--need-text`) drawn from the local `URGENCY_VARS` map. These reference theme color tokens.
-
-## Props
-Accepts a single `needs` prop typed as `GuineaPigNeeds`. The component is stateless and purely driven by this prop.
+Each row receives inline CSS custom properties (`--need-bg`, `--need-border`, `--need-text`) computed by `urgencyVars(value)`, which maps the numeric need value through `urgencyOf()` to one of four urgency tiers (`critical`, `warning`, `moderate`, `satisfied`) defined in the local `URGENCY_VARS` constant.
 
 ## Layout
-A two-column CSS grid that collapses to a single column at viewport widths ≤ 480px.
+A two-column CSS grid that collapses to a single column below 480px width.
+
+## Data flow
+Pure props-driven; the sole input is the `needs` prop. No local reactive state or emits.
 
 ## Exports
 
-- **PigNeedsPanel** (component) — `defineProps<{ needs: GuineaPigNeeds }>()`: Vue SFC displaying guinea pig needs as urgency-colored progress bars. Prop: `needs` (GuineaPigNeeds). No emits. Uses NEED_KEYS/NEED_META for iteration and metadata, and urgencyOf for color classification.
+- **PigNeedsPanel** (component) — `<PigNeedsPanel :needs="GuineaPigNeeds" />`: Vue SFC (script setup). Props: `needs: GuineaPigNeeds` (required). No emits. Renders needs as urgency-colored progress bars.
 
 ## Internal dependencies
 
@@ -34,6 +34,5 @@ A two-column CSS grid that collapses to a single column at viewport widths ≤ 4
 
 ## Notes
 
-- The `<style>` block is not scoped, so `.pig-needs-panel` and `.need-row` classes are global.
-- URGENCY_VARS keys must stay in sync with the return values of `urgencyOf`; an unmatched value would yield undefined styles.
-- Assumes need values are 0–100 since they are used directly as percentage widths.
+- Style block is not scoped, so `.pig-needs-panel` and related class rules are global.
+- Fill width binds directly to `needs[key]` assuming values are in the 0–100 range.

@@ -1,6 +1,6 @@
 ---
 source: src/components/basic/Details.vue
-source_hash: 45d217d2fbf0bbf81f94fefb7160f1447eb55e4fa5723a51e30bf05199a5f421
+source_hash: 3f197b7b250ca2e86ed11261b0e4b265b369d87d8f4367e32997071df9ea92fe
 doc_class: generated-reference
 generated_by: anthropic/claude-opus-4-8
 ---
@@ -9,24 +9,24 @@ generated_by: anthropic/claude-opus-4-8
 
 `src/components/basic/Details.vue`
 
-> A reusable collapsible disclosure component built on the native HTML `<details>`/`<summary>` elements. It provides styled variants and a custom toggle icon that reflects open/closed state, allowing content to be shown or hidden by the user.
+> A reusable collapsible disclosure component wrapping the native HTML `<details>`/`<summary>` elements. It provides styled variants and a custom expand/collapse icon that reflects the open state, exposing slots for summary and content.
 
 ## Structure
-Renders a native `<details>` element (referenced via `detailsRef`) with a `<summary>` containing a custom icon (`▼`/`▶`) and either a `summary` slot or the `summary` prop text. The default slot holds the collapsible content wrapped in `.details__content`.
+Renders a native `<details>` element with `:open` bound to the `defaultOpen` prop and a `@toggle` handler. Inside, a `<summary>` shows a custom icon (`▼` when open, `▶` when closed) plus a named `summary` slot (falling back to the `summary` prop text). The default slot fills the `.details__content` area.
 
 ## State & Logic
-- `isOpen` is a ref initialized from the `defaultOpen` prop, driving which icon character is shown.
-- The `<details>` `open` attribute is bound to `defaultOpen`.
-- `handleToggle` runs on the native `toggle` event, syncing `isOpen` to the actual `detailsRef.value.open` state.
-- `detailsClasses` computes `details` plus a variant class (`details--{variant}`).
-- `summaryClasses` always returns `details__summary`.
+- `isOpen` (ref) initialized from `props.defaultOpen`, drives the icon glyph.
+- `detailsRef` template ref to the `<details>` DOM element.
+- `handleToggle` reads `detailsRef.value.open` on the native toggle event and syncs `isOpen`.
+- `detailsClasses` computed joins base `details` with a variant class (`details--{variant}`).
+- `summaryClasses` computed returns the static `details__summary`.
 
 ## Styling
-Scoped-less (global) styles using BEM naming and CSS custom properties. Three variants (`default`, `compact`, `bordered`) alter background/border. The native disclosure marker is hidden. Includes hover states and mobile-first responsive padding adjustments at the 768px breakpoint.
+Scoped-less (`<style>` without scoped) BEM CSS defining three variants (`default`, `compact`, `bordered`), hover states, hidden native marker, and mobile-first responsive padding via a 768px media query. Relies on CSS custom properties (design tokens) for spacing, colors, radii, and typography.
 
 ## Exports
 
-- **Details** (component) — `<Details :summary? :defaultOpen? :variant? />`: Collapsible disclosure component. Props: `summary` (string, default ''), `defaultOpen` (boolean, default false), `variant` ('default' | 'compact' | 'bordered', default 'default'). Slots: `summary` (header content, falls back to `summary` prop) and default (collapsible body). Emits no custom events.
+- **Details** (component) — `<Details :summary? :default-open? :variant? />`: Collapsible disclosure component. Props: `summary` (string, default ''), `defaultOpen` (boolean, default false), `variant` ('default' | 'compact' | 'bordered', default 'default'). Slots: `summary` (header content) and default (body content). No emits declared.
 
 ## Internal dependencies
 
@@ -34,5 +34,7 @@ Scoped-less (global) styles using BEM naming and CSS custom properties. Three va
 
 ## Notes
 
-- The `.details[open] .details__icon` rule applies `transform: rotate(0deg)` which is a no-op; the visual open/closed indication comes from swapping the ▼/▶ characters via `isOpen`, not from icon rotation.
-- Relies on global CSS custom properties (e.g. `--space-3`, `--color-bg-secondary`) being defined elsewhere; the `<style>` block is not scoped.
+- The `<style>` block is global (not scoped), so BEM class definitions leak into the whole app.
+- Requires CSS custom properties (--space-*, --color-*, --radius-*, --font-*) to be defined elsewhere; otherwise styling breaks.
+- `isOpen` is only synced via the native `toggle` event, not by watching the `defaultOpen` prop, so changing `defaultOpen` after mount won't update `isOpen`.
+- The `.details[open] .details__icon` rule sets `rotate(0deg)` which is effectively a no-op; the icon change is driven by the `isOpen` glyph swap, not CSS rotation.

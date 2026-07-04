@@ -1,6 +1,6 @@
 ---
 source: src/components/basic/NeedRow.vue
-source_hash: 7b1d4636e1056f9b1a34977c0f12139cfb6175a9bd26b0013522074e228ca64c
+source_hash: 7cb0fd3993f072e5df07741e42ae615c26166113d8cfaacf87f4025fdf07195c
 doc_class: generated-reference
 generated_by: anthropic/claude-opus-4-8
 ---
@@ -9,20 +9,23 @@ generated_by: anthropic/claude-opus-4-8
 
 `src/components/basic/NeedRow.vue`
 
-> A presentational Vue component that displays a single guinea pig need as a labeled row with a percentage value and a slider control. It computes an urgency level from the need's satisfaction value to drive styling.
+> A presentational Vue component that displays a single guinea pig need as a labeled row containing a percentage value and a slider control. It derives an urgency level from the need's satisfaction value and exposes it for styling/theming.
 
 ## Structure
-The component renders a `.need-row` container with a `data-need-urgency` attribute bound to the computed `urgency`. Inside, an info section shows a `<label>` (bound to `id`) and a `<span>` showing `value.toFixed(0)%`. Below that, it renders a `SliderField` configured with min 0, max 100, step 1, and a `%` suffix.
+The component renders a `.need-row` container with a `data-need-urgency` attribute bound to the computed `urgency`. Inside, an info section shows a `label` (associated with the slider via `id`) and the current `value` formatted as a whole-number percentage (`value.toFixed(0)%`).
 
-## Data flow
-The component receives `value` as a prop and passes it to `SliderField` via `:modelValue`. When `SliderField` emits `update:modelValue`, this component re-emits `update:modelValue` upward, making it a pass-through/controlled input wrapper.
+## Slider
+It wraps `SliderField`, passing a fixed range (`min=0`, `max=100`, `step=1`), empty prefix, `%` suffix, and forwarding `showMinMax` and `needType`. The slider's `update:modelValue` event is re-emitted directly by this component.
 
-## Urgency computation
-The `urgency` computed maps the satisfaction value to a level: `satisfied` (>=60), `good` (>=40), `medium` (>=30), otherwise `critical`. This drives the `data-need-urgency` attribute for styling (green/grey/yellow/red).
+## Urgency logic
+The `urgency` computed maps the satisfaction `value` to one of four levels: `satisfied` (>=60), `good` (>=40), `medium` (>=30), and `critical` (below 30). This value only drives the `data-need-urgency` attribute for CSS styling.
+
+## Props/emits
+Props are typed via an interface with `showMinMax` defaulting to `false`. The single emit is `update:modelValue` carrying a number.
 
 ## Exports
 
-- **NeedRow** (component) — `<NeedRow :id :label :value :needType? :showMinMax? @update:modelValue />`: Props: `id` (string), `label` (string), `value` (number, satisfaction percentage), `needType?` (NeedType, passed to SliderField), `showMinMax?` (boolean, default false). Emits: `update:modelValue` with a number when the slider value changes.
+- **NeedRow** (component) — `<NeedRow :id :label :value :needType? :showMinMax? @update:modelValue />`: Displays a need label, percentage value, and a 0–100 slider. Props: `id` (string), `label` (string), `value` (number), `needType?` (NeedType), `showMinMax?` (boolean, default false). Emits `update:modelValue` (number) when the slider changes.
 
 ## Internal dependencies
 
@@ -31,4 +34,5 @@ The `urgency` computed maps the satisfaction value to a level: `satisfied` (>=60
 
 ## Notes
 
-- The `urgency` thresholds (60/40/30) are hardcoded and determine styling via the `data-need-urgency` attribute; the referenced color styles are not defined in this file.
+- The `data-need-urgency` attribute is the only consumer of the `urgency` computed; actual coloring depends on external CSS.
+- No styles are defined in this SFC despite BEM-style class names; styling relies entirely on global/external CSS.

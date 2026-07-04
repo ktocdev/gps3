@@ -1,6 +1,6 @@
 ---
 source: src/components/chrome/AdoptionCertificate.vue
-source_hash: fefc467866314d06a238235eb7c9ae8f2d6e894a4663c3d3f018424a9c809199
+source_hash: 146d32a96c218b95078d4697658201f286078d1c06a4a46a5dcfd7ad781e5ef3
 doc_class: generated-reference
 generated_by: anthropic/claude-opus-4-8
 ---
@@ -9,29 +9,23 @@ generated_by: anthropic/claude-opus-4-8
 
 `src/components/chrome/AdoptionCertificate.vue`
 
-> A full-screen modal overlay that renders a decorative 'Certificate of Adoption' for a set of selected guinea pigs. It presents pig portraits and fun derived stats, then plays a two-stage 'ADOPTED' rubber-stamp animation when the user confirms, ultimately signaling the parent to commit the adoption and start play.
+> A full-screen modal overlay that presents a decorative "Certificate of Adoption" for the selected guinea pigs. It confirms the adoption via a two-stage animated flow (an "ADOPTED" stamp slam followed by an overlay fade-out) before signaling the parent to commit the adoption and begin gameplay.
 
-### Structure
-The component teleports its dialog to `<body>` and renders a styled certificate 'paper' containing corner flourishes, a crest, title block, preamble, per-pig stat cards, endorsement signatures, footer meta, a wax seal, and a CTA row (Choose different pigs / Adopt).
+### Rendering
+The component teleports its markup to `document.body` and renders a styled certificate "paper" containing corner flourishes, a crest, title block, a preamble sentence, one stat card per pig, endorsement signatures, footer meta, and a wax seal. Each pig card renders a `PigSvg` portrait (always hardcoded `breed="American"`, with colors/spots derived from `pigColor` helpers) plus derived stats.
 
-### Props & Emits
-Accepts a single prop `pigs: GuineaPig[]`. Emits `start` (adoption confirmed) and `cancel` (dismissed).
-
-### Two-stage exit
-Clicking Adopt calls `handleAdopt`, setting `stamped = true` (shows the animated ADOPTED stamp and disables all buttons). A timer at ~900ms sets `exiting = true` (fades the overlay), and a second at ~1400ms emits `start`. Timers are tracked in `exitTimers` and cleared on unmount. `cancel` emits `cancel` unless already stamped.
+### Two-stage exit flow
+Clicking **Adopt** (or pressing Enter) calls `handleAdopt`, which sets `stamped=true` (triggering the CSS stamp animation), then schedules two timers: at ~900ms it sets `exiting=true` (fade-out class), and at ~1400ms it emits `start`. Once `stamped` is true, all buttons and keyboard shortcuts are disabled. `cancel` (Escape, close button, or "Choose different pigs") emits `cancel` only if not yet stamped.
 
 ### Derived data
-Uses an FNV-1a `hash` helper with `pickFrom` to deterministically derive stable fun facts per pig: `starSign` (from a 12-entry zodiac list). `disposition` maps the dominant personality trait (of five) to a word. `genderLabel` returns Boar/Sow. `coatNames` joins `pigColors`. Computed `date` formats today's date, `certNo` builds a serial like `GP-YEAR-NNNNN` seeded by pig names + date, and `namesPretty` joins names grammatically. Static arrays `signatures` and `corners` drive rendered rows.
-
-### Pig rendering
-Each card renders `PigSvg` hardcoded with `breed="American"` (breed art deferred) using `pigColors`, `pigSpots`, `pigSwatches`, and the pig's eye color.
+A local FNV-1a `hash` function drives stable pseudo-random values: `starSign` picks from a zodiac list, `certNo` builds a serial from pig names + date, and disposition uses the pig's dominant personality trait. `namesPretty`, `date`, `coatNames`, `genderLabel` (Boar/Sow) format display text. `signatures` and `corners` are static config arrays.
 
 ### Lifecycle
-On mount it locks body scroll (`overflow: hidden`, restoring previous value on unmount), autofocuses the Adopt button after 50ms, and attaches a `keydown` listener. `onKey` handles Escape → cancel and Enter → adopt (both no-ops once stamped). All timers and listeners are cleaned up in `onBeforeUnmount`. Respects `prefers-reduced-motion`.
+`onMounted` locks `document.body` scroll, autofocuses the Adopt button after 50ms, and registers a global keydown listener. `onBeforeUnmount` restores scroll, clears all timers, and removes the listener.
 
 ## Exports
 
-- **AdoptionCertificate** (component) — `<AdoptionCertificate :pigs="GuineaPig[]" @start @cancel />`: Modal certificate overlay. Prop: `pigs: GuineaPig[]`. Emits: `start` (adoption confirmed after stamp animation) and `cancel` (dismissed via close/choose-different/Escape).
+- **AdoptionCertificate** (component) — `<AdoptionCertificate :pigs="GuineaPig[]" @start @cancel />`: Vue SFC modal. Props: `pigs: GuineaPig[]` (pigs to display on the certificate). Emits: `start` (fired ~1400ms after the user confirms adoption) and `cancel` (fired when the user closes/dismisses before confirming).
 
 ## Internal dependencies
 
@@ -41,8 +35,9 @@ On mount it locks body scroll (`overflow: hidden`, restoring previous value on u
 
 ## Notes
 
-- Timing is coupled: the stamp/exit animation durations (900ms/1400ms) must stay in sync with the CSS `ac-stamp`/`ac-fade-out` animations for a coherent exit.
-- Once `stamped` is true, all interaction (buttons, Escape, Enter) is disabled — the only remaining path is the timed `start` emit.
-- Mutates `document.body.style.overflow` to lock scroll; restores the prior value on unmount, so nested modals relying on the same technique could conflict.
-- PigSvg breed is hardcoded to 'American' regardless of the pig's actual breed (breed art deferred), though the breed text stat still shows `pig.breed`.
-- Uses the `Caveat` cursive font and CSS custom properties (`--z-index-modal`, `--font-family-heading`) expected from global styles.
+- Portrait art is intentionally always the "American" breed regardless of the pig's actual breed (breed-specific art is deferred).
+- `stamped=true` locks the whole UI — all buttons become disabled and keyboard handlers early-return, so once Adopt is pressed there is no way to cancel.
+- Body scroll is locked globally via `document.body.style.overflow` and restored on unmount; the previous value is captured to avoid clobbering.
+- Timing constants (900ms fade, 1400ms emit) are coupled to the CSS animation durations; changing one may desync the visual exit.
+- Relies on external CSS variables (`--z-index-modal`, `--font-family-heading`) and the `'Caveat'` font being available.
+- Star sign and certificate number are cosmetic and derived from a hash of names/breed/date — not persisted game data.

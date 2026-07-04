@@ -1,32 +1,36 @@
 ---
 source: src/components/basic/ProgressBar.vue
-source_hash: e1a73714b73bd498d9cd637af8ada9b77ce05f88f66a0b223541ad7bfaa49c5e
+source_hash: dda345bcc5c2a371ecf7819f4801b567878b88495b5796e81560aa20e2d83289
 doc_class: generated-reference
 generated_by: anthropic/claude-opus-4-8
 ---
 
-# ProgressBar
+# ProgressBar.vue
 
 `src/components/basic/ProgressBar.vue`
 
-> A reusable Vue SFC that renders an accessible horizontal progress bar with optional label, value display, size variants, and color variants (mapped to urgency levels like NeedRow). It clamps and normalizes a numeric value into a percentage fill.
+> A reusable presentational Vue component that renders an accessible horizontal progress bar with optional label, value readout, color variants, and sizes. It exists to provide a consistent progress visualization across the app, with color variants matching NeedRow urgency levels.
 
-### Template
-Renders a `.progress-bar` container whose classes are driven by `variant` and `size`. It optionally shows a `.progress-bar__label`, a `.progress-bar__track` (with `role="progressbar"` and ARIA attributes `aria-valuenow`/`aria-valuemin`/`aria-valuemax`/`aria-label`) containing a `.progress-bar__fill` whose width is set inline from the computed `percentage`, and optionally a `.progress-bar__value` showing the rounded value plus `suffix`.
+## Structure
+The SFC renders a `.progress-bar` flex container holding an optional `.progress-bar__label`, a `.progress-bar__track` with an inner `.progress-bar__fill`, and an optional `.progress-bar__value`.
 
-### Logic
-- `percentage` computed: normalizes `value` within `[min, max]` to a 0–100 range and clamps it via `Math.min(100, Math.max(0, ...))`.
-- `progressBarClasses` computed: returns `progress-bar--{variant}` and `progress-bar--{size}` class names.
+## Logic
+Two computed properties drive rendering:
+- `percentage` normalizes `value` into a 0–100 range based on `min`/`max` (`(value - min) / (max - min) * 100`), clamped between 0 and 100. This sets the fill's inline `width`.
+- `progressBarClasses` produces `progress-bar--{variant}` and `progress-bar--{size}` modifier classes.
 
-### Props & defaults
-`value` (required), `min` (0), `max` (100), `label`, `suffix` (''), `showValue` (false), `variant` ('default'), `size` ('md'), `ariaLabel`. The `aria-label` falls back to `ariaLabel || label || 'Progress'`.
+## Accessibility
+The track has `role="progressbar"` with `aria-valuenow` (`value`), `aria-valuemin` (`min`), `aria-valuemax` (`max`), and `aria-label` falling back through `ariaLabel` → `label` → `'Progress'`.
 
-### Styling
-Global (non-scoped) `<style>` defines base layout (flex row), track/fill appearance using CSS custom properties, three size variants (sm/md/lg controlling track height and font sizes), and six color variants (satisfied/good/medium/warning/critical/default) that set the fill background color.
+## Display
+The value readout shows `Math.round(value)` plus an optional `suffix`, only when `showValue` is true. The label is only shown when `label` is provided.
+
+## Styling
+Styles are global (non-scoped `<style>`) and rely on CSS custom properties (design tokens). Size variants adjust track height and font sizes; color variants set the fill background color.
 
 ## Exports
 
-- **ProgressBar** (component) — `<ProgressBar :value="number" :min? :max? :label? :suffix? :show-value? :variant? :size? :aria-label? />`: Vue SFC progress bar. Props: value:number (required), min:number=0, max:number=100, label?:string, suffix?:string='', showValue?:boolean=false, variant?:'critical'|'warning'|'medium'|'good'|'satisfied'|'default'='default', size?:'sm'|'md'|'lg'='md', ariaLabel?:string. Emits none.
+- **ProgressBar** (component) — `<ProgressBar :value="number" :min? :max? :label? :suffix? :show-value? :variant? :size? :aria-label? />`: Props: `value` (number, required); `min` (default 0); `max` (default 100); `label` (string); `suffix` (string, default ''); `showValue` (boolean, default false); `variant` ('critical'|'warning'|'medium'|'good'|'satisfied'|'default', default 'default'); `size` ('sm'|'md'|'lg', default 'md'); `ariaLabel` (string). No emits or slots.
 
 ## Internal dependencies
 
@@ -34,5 +38,6 @@ Global (non-scoped) `<style>` defines base layout (flex row), track/fill appeara
 
 ## Notes
 
-- The `<style>` block is not scoped, so class names are global and could collide across the app.
-- If `max === min`, `percentage` computes a division by zero (NaN/Infinity), which is then clamped—NaN would not clamp to a valid width.
+- `percentage` will produce NaN/Infinity if `max === min` (division by zero); no guard exists.
+- The `<style>` block is global (not scoped), so class names leak into the global stylesheet.
+- Rendering depends on external CSS custom properties (e.g. --color-red-500, --space-2, --radius-full) being defined elsewhere.

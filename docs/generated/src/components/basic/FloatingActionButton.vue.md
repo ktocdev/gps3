@@ -1,6 +1,6 @@
 ---
 source: src/components/basic/FloatingActionButton.vue
-source_hash: d0684f840f00ea93f842df37441a5098fe773efb421465e783cccf96c0c9c4c6
+source_hash: 19ecf15d06a0e25a2dd7e419eccdf9ce3c93783a202dec93dce75dba241ce538
 doc_class: generated-reference
 generated_by: anthropic/claude-opus-4-8
 ---
@@ -9,22 +9,24 @@ generated_by: anthropic/claude-opus-4-8
 
 `src/components/basic/FloatingActionButton.vue`
 
-> A reusable floating action button (FAB) component that renders a fixed-position circular button with an optional icon and label. It supports multiple visual variants, screen positions, sizes, an optional pulse animation, and configurable label visibility, emitting a click event when pressed and enabled.
+> A reusable Vue 3 SFC that renders a fixed-position floating action button (FAB) with an optional icon and label. It supports multiple color variants, screen corner positions, sizes, an optional pulse animation, and a hover/always/never label display mode, emitting a click event when activated (unless disabled).
 
 ## Template
-Renders a `<button type="button">` with dynamically computed classes, an `:aria-label`, and a `:disabled` binding. Inside, an optional icon `<span>` is shown when `icon` is provided, and a label `<span>` is shown when `label` exists and `showLabel !== 'never'`. Click events go through `handleClick`.
+Renders a `<button>` (type="button") with dynamically computed classes, a `disabled` attribute, and an `aria-label`. An icon `<span>` shows when `icon` is provided; a label `<span>` shows when `label` is set and `showLabel` is not `'never'`.
 
 ## Script
-Uses `<script setup lang="ts">`. Props are declared via `defineProps<Props>()` with `withDefaults` supplying defaults: `showLabel: 'hover'`, `variant: 'primary'`, `position: 'bottom-right'`, `size: 'md'`, `pulse: false`, `disabled: false`. `ariaLabel` is required.
+Uses `<script setup lang="ts">` with typed `Props` and `Emits`. `withDefaults` sets defaults: `showLabel='hover'`, `variant='primary'`, `position='bottom-right'`, `size='md'`, `pulse=false`, `disabled=false`. `ariaLabel` is required.
 
-Two computed properties build BEM-style class strings:
-- `buttonClasses` combines base, variant, position, size, and conditional `--pulse`/`--disabled` modifiers.
-- `labelClasses` combines base label class plus a `--visible` modifier when `showLabel === 'always'`.
-
-`handleClick` emits `'click'` with the MouseEvent only when `disabled` is false.
+- `buttonClasses` — computed array of BEM classes composed from base plus variant/position/size modifiers, with optional `--pulse` and `--disabled` modifiers, filtered and joined.
+- `labelClasses` — computed BEM classes for the label, adding `--visible` only when `showLabel === 'always'`.
+- `handleClick(event)` — emits `click` with the MouseEvent only if not disabled.
 
 ## Styles
-Unscoped global CSS using BEM methodology and CSS custom properties (design tokens). Key behaviors: `position: fixed !important` with high `z-index: 9999`; position variants use logical `inset-*` properties with `env()` safe-area insets; mobile-first sizing that scales up at `min-width: 769px`; a keyframe pulse animation via `::before`; label shown on hover/focus (or always via modifier), with a CSS arrow via `::after`. Respects `prefers-reduced-motion` and forces label visibility on touch/coarse-pointer devices.
+Global (non-scoped) BEM CSS driven by CSS custom properties (design tokens). Button is `position: fixed` with `z-index: 9999`. Includes mobile-first position variants using logical `inset-*` properties with `env(safe-area-inset-*)` support, size variants, color variants, disabled state, and a keyframe pulse animation (`::before`). Labels are hidden by default and revealed on hover/focus or when `--visible`. Media queries enlarge sizes/spacing on screens ≥769px, respect `prefers-reduced-motion`, and force label visibility on touch/coarse-pointer devices.
+
+## Exports
+
+- **FloatingActionButton** (component) — `<FloatingActionButton :ariaLabel="string" ... @click />`: Vue SFC FAB. Props: `icon?: string`, `label?: string`, `showLabel?: 'always'|'hover'|'never'` (default 'hover'), `variant?: 'primary'|'secondary'|'warning'|'danger'|'info'` (default 'primary'), `position?: 'bottom-right'|'bottom-left'|'top-right'|'top-left'` (default 'bottom-right'), `size?: 'sm'|'md'|'lg'` (default 'md'), `pulse?: boolean` (default false), `ariaLabel: string` (required), `disabled?: boolean` (default false). Emits: `click` with the MouseEvent (suppressed when disabled).
 
 ## Internal dependencies
 
@@ -32,7 +34,7 @@ Unscoped global CSS using BEM methodology and CSS custom properties (design toke
 
 ## Notes
 
-- Styles are global (unscoped `<style>`), so the BEM class names leak into the global namespace and can collide.
-- Positioning relies on CSS custom properties (e.g. `--color-primary`, `--space-4`, `--radius-full`, `--shadow-lg`) that must be defined elsewhere in the app.
-- The touch-device rule targets `.floating-action-button__label:not(.floating-action-button__label--never)`, but the component never emits a `--never` modifier class, so the label is always forced visible on coarse-pointer devices when rendered.
-- `pointer-events: auto` on base plus `pointer-events: none` on the `--disabled` modifier both suppress interaction; `handleClick` also guards against emitting when disabled.
+- The `<style>` block is not scoped; class names are global and rely on externally defined CSS custom properties (design tokens like --color-primary, --space-4, --radius-full).
+- Positioning is forced with `position: fixed !important` and a high z-index (9999), so the button always overlays page content regardless of parent layout.
+- The touch-device media query targets `.floating-action-button__label--never`, but no such class is ever applied by the component (the label is not rendered at all when showLabel==='never'), so that selector guard is effectively dead.
+- Sizes `sm` and `md` are identical at mobile widths (48px); they diverge only via desktop media query behavior for `md`.

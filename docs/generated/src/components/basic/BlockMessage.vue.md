@@ -1,6 +1,6 @@
 ---
 source: src/components/basic/BlockMessage.vue
-source_hash: ebcaec59ce93b51b1664b2bbdb6288dd12b47de115a9c00b160df7b0ce1f4e1a
+source_hash: 5a9861fd90a303c0b1bf3e43f2f3de961de05ecdeb15a9e4208a99b36dac23a3
 doc_class: generated-reference
 generated_by: anthropic/claude-opus-4-8
 ---
@@ -9,20 +9,20 @@ generated_by: anthropic/claude-opus-4-8
 
 `src/components/basic/BlockMessage.vue`
 
-> A presentational Vue component that renders a styled message block for surfacing status or informational content. It wraps arbitrary slot content in a container styled according to a semantic or themed variant.
+> A presentational Vue SFC that renders a styled message block with a variant-based color scheme. It wraps slotted content in a div whose CSS classes are derived from a `variant` prop, providing consistent semantic and themed message styling across the app.
 
-### Structure
-The component renders a single `div` whose class list is computed from the `variant` prop, containing a default `<slot>` for the message content.
+## Structure
+The template renders a single `<div>` bound to a computed class list, with a default `<slot>` for arbitrary content.
 
-### Logic
-`messageClasses` is a computed property that joins the base class `block-message` with a variant modifier class `block-message--{variant}`. It recalculates whenever the `variant` prop changes.
+## Logic
+The component accepts one optional prop `variant` (defaulting to `'info'`). A `messageClasses` computed property joins the base class `block-message` with a modifier class `block-message--{variant}`. There is no reactive state beyond the prop and no emitted events.
 
-### Styling
-Unscoped `<style>` defines the base `.block-message` styles (padding, border-radius, font, margin, transparent border) and per-variant modifier classes. Variants fall into semantic (`error`, `warning`, `success`, `info`) and themed (`pink`, `green`, `dark`, `light`) groups, each setting background, text color, and border color via CSS custom properties.
+## Styling
+Global (non-scoped) CSS defines the `.block-message` base (padding, radius, font size/weight, bottom margin, transparent border) and eight variant modifier classes. Semantic variants (`error`, `warning`, `success`, `info`) and themed variants (`pink`, `green`, `dark`, `light`) each set background, text color, and border color via CSS custom properties (design tokens).
 
 ## Exports
 
-- **BlockMessage** (component) — `<BlockMessage :variant="'error'|'warning'|'success'|'info'|'pink'|'green'|'dark'|'light'">slot</BlockMessage>`: Renders slotted content inside a styled message block. Props: `variant` (optional, defaults to `'info'`) controls the visual style. Exposes a default slot for message content. No emits.
+- **BlockMessage** (component) — `<BlockMessage :variant="'error'|'warning'|'success'|'info'|'pink'|'green'|'dark'|'light'">slot</BlockMessage>`: Default component export. Props: `variant` (optional, one of 'error' | 'warning' | 'success' | 'info' | 'pink' | 'green' | 'dark' | 'light', defaults to 'info'). Renders slotted content inside a styled div. No emits.
 
 ## Internal dependencies
 
@@ -30,5 +30,6 @@ Unscoped `<style>` defines the base `.block-message` styles (padding, border-rad
 
 ## Notes
 
-- The `<style>` block is unscoped, so the `.block-message` classes are global and may collide with other stylesheets.
-- All colors rely on CSS custom properties (e.g. `--color-error-bg`, `--space-3`) that must be defined elsewhere in the app for correct rendering.
+- The `<style>` block is not scoped, so the `.block-message` classes are global and could collide with other stylesheets.
+- Relies on externally defined CSS custom properties (e.g. --color-error-bg, --space-3, --radius-md); styling will break if these tokens are not provided by a parent/global stylesheet.
+- The `green` variant reuses success tokens and is visually identical to `success`.

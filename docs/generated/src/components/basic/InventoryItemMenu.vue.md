@@ -1,6 +1,6 @@
 ---
 source: src/components/basic/InventoryItemMenu.vue
-source_hash: 558b0bb62d89713f836f50cb635c93e7a599077437c747934891af8ee8a971fb
+source_hash: 85330c3b4e619f99b81e48bd3e21a54b215aca78cb51cd31e87f3d1e3f5dca35
 doc_class: generated-reference
 generated_by: anthropic/claude-opus-4-8
 ---
@@ -9,31 +9,17 @@ generated_by: anthropic/claude-opus-4-8
 
 `src/components/basic/InventoryItemMenu.vue`
 
-> A Vue SFC that renders a floating popover menu listing selectable inventory items. It teleports to the document body and uses smart positioning to display a titled list of items (with emoji, name, and quantity) at a given screen coordinate, emitting events when an item is selected or the menu is closed.
+> A floating popover menu component that displays a list of inventory items at a given screen position, allowing the user to select an item or close the menu. It uses Floating UI (via a composable) for smart positioning and teleports itself to the document body.
 
-## Rendering
-The component uses `<Teleport to="body">` to render outside its parent DOM. The menu is conditionally shown via `v-if="show"`. It has a header (title + close button) and a list body that iterates over `items`, rendering each as a button showing emoji, name, and quantity. When `items` is empty, it displays `emptyMessage`.
+### Structure
+The component renders inside a `<Teleport to="body">` and is conditionally shown via the `show` prop. When visible, it displays a header with a `title` and a close button, followed by a scrollable list of items. Each item renders its emoji, name, and quantity, and emits `select` with the item's `itemId` on click. When `items` is empty, an `emptyMessage` is shown instead.
 
-## Positioning
-Positioning is delegated to the `usePopover` composable (configured with `offset: 10`), which provides `floatingEl` (bound as a template ref), `floatingStyles` (applied via `:style`), and `updatePosition`. A `watch` on `props.position` (with `immediate: true`) calls `updatePosition(pos.x, pos.y)` whenever the position changes.
+### Positioning
+Positioning is delegated to the `usePopover` composable (configured with `offset: 10`), which provides `floatingEl` (bound as a template ref), `floatingStyles` (bound to the root div's style), and `updatePosition`. A `watch` on `props.position` (with `immediate: true`) calls `updatePosition(x, y)` whenever the position changes, so the menu re-anchors reactively. `void floatingEl` suppresses an unused-variable lint warning since the ref is only referenced in the template.
 
-## Events
-Clicking the close button emits `close`. Clicking an item button emits `select` with the item's `itemId`.
-
-## Styling
-Scoped-less (global) CSS defines the awning-striped, wood/gold themed panel styling using CSS custom properties (design tokens).
-
-## Exports
-
-- **InventoryItemMenu** (component) — `<InventoryItemMenu :show :position :title :items :emptyMessage? @close @select />`: Props: `show: boolean`, `position: { x: number; y: number }`, `title: string`, `items: InventoryMenuItem[]`, `emptyMessage?: string`. Emits: `close: []`, `select: [itemId: string]`.
-- **InventoryMenuItem** (type) — `interface InventoryMenuItem { itemId: string; name: string; emoji: string; quantity: number }`: Shape of an item entry displayed in the menu list.
+### Styling
+Extensive scoped-less (global) CSS styles the menu as a themed panel with a striped awning pseudo-element, using CSS custom properties for colors, spacing, and shadows. The menu has `z-index: 1000`.
 
 ## Internal dependencies
 
 - `../../composables/ui/usePopover`
-
-## Notes
-
-- The `void floatingEl` statement exists solely to suppress an unused-variable warning; the ref is actually consumed by the template via `ref="floatingEl"`.
-- Positioning relies entirely on `usePopover`; the CSS intentionally omits position/transform properties as Floating UI applies them via `floatingStyles`.
-- Styles are global (non-scoped) and depend on many CSS custom properties (--panel-*, --color-*, etc.) being defined elsewhere.

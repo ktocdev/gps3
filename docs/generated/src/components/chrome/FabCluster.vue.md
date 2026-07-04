@@ -1,6 +1,6 @@
 ---
 source: src/components/chrome/FabCluster.vue
-source_hash: 4992235c8c8c70cad2aa7ef0349dc1e64b912e3e1fab84b73a37bc3815db61bd
+source_hash: 6346fc6ef8ceb50ab337a537a50c2462e184a81c3d208d1fc163f9ca9b9ac9ec
 doc_class: generated-reference
 generated_by: anthropic/claude-opus-4-8
 ---
@@ -9,30 +9,24 @@ generated_by: anthropic/claude-opus-4-8
 
 `src/components/chrome/FabCluster.vue`
 
-> A Vue SFC that renders a horizontal cluster of floating action button (FAB) plaques, managing which single plaque is open and forwarding action events to its parent.
+> A Vue SFC that renders a cluster of floating action button plaques (FabPlaque) along a rail, managing which plaque is currently open and closing the open one on outside clicks.
 
 ## Structure
-Renders a `.fab-cluster` root div (tagged `data-tutorial="fabs"`) containing a decorative rail and a row of `FabPlaque` components, one per entry in the `fabs` prop, keyed by `fab.theme`.
+Renders a `.fab-cluster` container with a decorative `.fab-cluster__rail` and a `.fab-cluster__row` that iterates over the `fabs` prop, rendering a `FabPlaque` per config keyed by `fab.theme`.
 
-## State & Logic
-- `openFab` (ref) tracks which theme's plaque is currently open; only one can be open at a time.
-- `toggle(theme)` opens the given plaque or closes it if already open.
-- Each `FabPlaque` receives `open` (true when its theme matches `openFab`), and emits `toggle`, `close` (sets `openFab` to null), and `action` (re-emitted upward as `action` with the fab's theme and action id).
-- `onDocumentMouseDown` implements click-outside dismissal: when a plaque is open and a mousedown occurs outside `rootRef`, it closes the plaque.
+## State
+- `rootRef`: template ref to the root element, used for outside-click detection.
+- `openFab`: the currently open FAB's theme, or `null`.
+
+## Logic
+- `toggle(theme)`: opens the given FAB, or closes it if already open (toggle behavior). Only one FAB open at a time.
+- Each `FabPlaque` receives `open` (true when its theme matches `openFab`), emits `toggle` (routed to `toggle`), `close` (sets `openFab` to null), and `action` (re-emitted upward as `action` with the fab's theme and action id).
+- `onDocumentMouseDown`: a document-level mousedown listener that closes the open FAB when a click occurs outside `rootRef`. No-op if nothing is open or the click is inside the root.
 
 ## Lifecycle
-The document `mousedown` listener is added on mount and removed on unmount.
-
-## Exports
-
-- **FabCluster** (component) — `<FabCluster :fabs="FabConfig[]" @action="(theme, actionId) => void" />`: Primary export. Props: `fabs: FabConfig[]` (list of FAB configurations to render). Emits: `action: [theme: FabTheme, actionId: string]` when a child plaque triggers an action.
+Adds the `mousedown` listener on mount and removes it on unmount.
 
 ## Internal dependencies
 
 - `./FabPlaque.vue`
 - `./fabThemes`
-
-## Notes
-
-- Adds a global document-level mousedown listener for click-outside behavior; cleaned up on unmount.
-- Only one FAB plaque can be open at a time via the shared `openFab` ref.

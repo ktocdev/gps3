@@ -1,42 +1,39 @@
 ---
 source: src/components/chrome/FabPlaque.vue
-source_hash: 71c50138deb7fc391fe412c3f417ef975e873572ede3b0b55fba0c45f393a1a0
+source_hash: aee4c4acb9737b833131bbcc56a4c01b9539d6c3f25bb8ef9e37bca83b8309dc
 doc_class: generated-reference
 generated_by: anthropic/claude-opus-4-8
 ---
 
-# FabPlaque.vue
+# FabPlaque
 
 `src/components/chrome/FabPlaque.vue`
 
-> A presentational Vue component rendering a decorative floating action button (FAB) styled as a 'plaque' with a peg, awning, studs, and grain, plus a toggleable submenu. It surfaces a configured FAB's icon and label and delegates open/close/action interactions to its parent.
+> A Vue single-file component that renders a decorative, themed floating action button (FAB) styled like a hanging shop plaque, together with its expandable submenu. It presents a FAB config's icon and label and wires user interaction to toggle/action/close events consumed by a parent.
 
 ## Structure
-The template renders a `.fab-plaque` container whose inline style is driven by `themeVars`. Inside it: a decorative peg, a `<button>` with theme-based tilt, various aria-hidden decorative spans (awning, four studs, grain), and an inner block showing `fab.icon` (in `.fab-plaque__disc`) and `fab.label`. Below the button is a `FabSubmenu` child.
+The template renders a `.fab-plaque` container whose inline style is bound to `themeVars` (CSS custom properties). Inside are a decorative peg, a `<button>` (with awning, corner studs, grain, and an inner disc/label made from `fab.icon` and `fab.label`), and a `<FabSubmenu>` child.
 
-## Props & emits
-Props: `fab` (a `FabConfig`) and `open` (boolean). Emits: `toggle` (button click), `close`, and `action` with an `actionId` string.
+## Props & data flow
+Accepts two props: `fab` (a `FabConfig`) and `open` (boolean). The button's `@click` emits `toggle`. The `FabSubmenu` receives `show` (from `open`), plus `theme`, `actions`, and `emptyMessage` from the `fab` config; its `@select` re-emits as `action` with the action id, and its `@close` re-emits as `close`.
 
-## Data flow
-- Clicking the button emits `toggle`.
-- `FabSubmenu` receives `show` bound to `open`, plus `fab.theme`, `fab.actions`, and `fab.emptyMessage`; its `select` event is forwarded as `action`, and its `close` event as `close`.
-- `tilt` is a computed lookup in `TILT_BY_THEME` keyed by `fab.theme`, defaulting to 0, applied via the `--tilt` CSS custom property.
-- `themeVars` computes CSS custom properties (`--fab-stripe`, `--fab-deep`, `--fab-soft`) from `FAB_THEMES[fab.theme]`.
+## Computed state
+- `tilt`: looks up a per-theme rotation (in degrees) from the local `TILT_BY_THEME` map, defaulting to `0`; applied via the `--tilt` CSS variable on the button.
+- `themeVars`: reads color values from `FAB_THEMES[fab.theme]` and exposes `--fab-stripe`, `--fab-deep`, and `--fab-soft` CSS variables on the root element.
 
-The component contains no `<style>` block, so the numerous BEM class names rely on styles defined elsewhere (globally or by convention).
+All visual styling is driven by CSS classes and these theme-derived custom properties (the `<style>` block is not included in this file excerpt).
 
 ## Exports
 
-- **FabPlaque** (component) — `<FabPlaque :fab="FabConfig" :open="boolean" @toggle @close @action="(actionId: string)" />`: Vue SFC (script setup). Props: `fab: FabConfig`, `open: boolean`. Emits: `toggle: []`, `close: []`, `action: [actionId: string]`. Renders a themed FAB button plus a FabSubmenu.
+- **FabPlaque** (component) — `<FabPlaque :fab="FabConfig" :open="boolean" @toggle @close @action="(actionId: string)" />`: Themed FAB button plus submenu. Props: `fab` (FabConfig), `open` (boolean). Emits: `toggle` (no payload), `close` (no payload), `action` (actionId string). Delegates submenu rendering to FabSubmenu.
 
 ## Internal dependencies
 
 - `./FabSubmenu.vue`
-- `./fabThemes (FAB_THEMES, FabConfig)`
-- `vue`
+- `./fabThemes`
 
 ## Notes
 
-- No `<style>` block exists in this file; the BEM class names (`.fab-plaque__*`) depend on styles defined elsewhere.
-- `TILT_BY_THEME` only defines tilt values for themes pink/green/violet/orange/cyan; any other theme falls back to 0.
-- `themeVars` assumes `FAB_THEMES[fab.theme]` is defined and exposes `stripe`, `deep`, and `soft`.
+- `TILT_BY_THEME` only defines tilts for the theme keys pink/green/violet/orange/cyan; unknown themes fall back to 0.
+- `themeVars` assumes `FAB_THEMES[fab.theme]` exists and has `stripe`, `deep`, and `soft` fields; an invalid theme would break the computed.
+- The `<style>` block referenced by the many BEM classes is not present in this excerpt.

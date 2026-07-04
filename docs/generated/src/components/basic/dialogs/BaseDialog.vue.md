@@ -1,6 +1,6 @@
 ---
 source: src/components/basic/dialogs/BaseDialog.vue
-source_hash: 813e484e89c503bf4c67ce9ec00b7298abdfeed4c05bf5236b17aac2b50b746c
+source_hash: 1ca823c5f04fac5e2aeb26b7b3148cf0b131fd0b93e4aee08c3467f61a4e700b
 doc_class: generated-reference
 generated_by: anthropic/claude-opus-4-8
 ---
@@ -9,29 +9,26 @@ generated_by: anthropic/claude-opus-4-8
 
 `src/components/basic/dialogs/BaseDialog.vue`
 
-> A reusable modal dialog wrapper built on the native HTML `<dialog>` element. It provides v-model-driven open/close control, backdrop and escape-key close behavior, body scroll locking with scrollbar-width compensation (supporting nested dialogs), and a parchment-themed styled content container.
+> A reusable modal dialog component built on the native HTML `<dialog>` element. It provides v-model-controlled open/close behavior, backdrop and escape-key dismissal, body scroll locking (with scrollbar-width compensation and nested-dialog support), and a themed parchment-styled content wrapper with size variants.
 
-## Behavior
-The component renders a native `<dialog>` with a `.base-dialog__content` wrapper containing a default slot for arbitrary dialog content.
+### Rendering
+Renders a native `<dialog>` element with a `base-dialog__content` wrapper containing a default slot. The dialog receives a size modifier class computed once from the `size` prop.
 
-### Open/close control
-A `watch` on `props.modelValue` opens the dialog via `showModal()` (also calling `lockScroll()`) when set true and the dialog isn't already open, or calls `close()` + `unlockScroll()` when set false. On mount, if `modelValue` is already true, it opens immediately.
+### Open/close flow
+A `watch` on `modelValue` calls `dialogRef.showModal()` when opening and `dialogRef.close()` when closing, guarding against redundant calls via the native `open` property. On mount, if `modelValue` is already true, the dialog opens immediately.
 
-### Emits
-The native `close` event triggers `handleClose`, which emits `update:modelValue` (false) and `close`. Backdrop clicks are detected in `handleDialogClick` by comparing `event.target === dialogRef.value`; if `closeOnBackdrop` is enabled it calls `handleClose`. A `cancel` event listener (`handleEscape`) calls `event.preventDefault()` when `closeOnEscape` is false, suppressing the native escape-close.
+### Closing
+The native `close` event triggers `handleClose`, which emits `update:modelValue(false)` and `close`. Backdrop clicks are detected in `handleDialogClick` by checking `event.target === dialogRef.value` (only when `closeOnBackdrop`). A `cancel` event listener (`handleEscape`) calls `event.preventDefault()` when `closeOnEscape` is false to block escape-key dismissal.
 
 ### Scroll locking
-Module-level `openDialogCount` tracks the number of open dialogs so nested dialogs share one scroll lock. On the first lock it computes scrollbar width, stores original body `overflow`/`paddingRight` in data attributes, sets `overflow: hidden`, and compensates padding. On the last unlock it restores and cleans up.
-
-### Cleanup
-`onUnmounted` removes the `cancel` listener and unlocks scroll if the dialog was still open.
+Module-level `openDialogCount` tracks nested dialogs across all instances. `lockScroll` (only on first open) computes scrollbar width, stashes original `body` overflow/padding in data attributes, sets `overflow:hidden` and compensating `paddingRight`. `unlockScroll` restores them when the count returns to zero. On unmount, scroll is unlocked if still open.
 
 ### Styling
-Styles are global (non-scoped) using CSS custom properties for a parchment theme, with size modifier classes, `::backdrop` styling, fadeIn/slideUp animations, and reduced-motion / high-contrast media queries.
+Scoped-free `<style>` centers the dialog via fixed positioning + transform, styles the `::backdrop`, applies a parchment gradient content panel with size variants (sm/md/lg max-widths), fade-in/slide-up animations, and respects reduced-motion and high-contrast media queries.
 
 ## Exports
 
-- **BaseDialog** (component) — `<BaseDialog v-model size close-on-backdrop close-on-escape>`: Modal dialog component. Props: `modelValue: boolean` (required, v-model), `size?: 'sm'|'md'|'lg'` (default 'md'), `closeOnBackdrop?: boolean` (default true), `closeOnEscape?: boolean` (default true). Emits: `update:modelValue(value: boolean)` and `close()`. Exposes a default slot for content.
+- **BaseDialog** (component) — `<BaseDialog v-model size? closeOnBackdrop? closeOnEscape?>`: Modal dialog component. Props: `modelValue: boolean` (required, controls open state), `size?: 'sm'|'md'|'lg'` (default 'md'), `closeOnBackdrop?: boolean` (default true), `closeOnEscape?: boolean` (default true). Emits: `update:modelValue(value: boolean)` and `close`. Exposes a default slot for content.
 
 ## Internal dependencies
 
@@ -39,8 +36,8 @@ Styles are global (non-scoped) using CSS custom properties for a parchment theme
 
 ## Notes
 
-- `openDialogCount` is module-level and shared across all BaseDialog instances to coordinate scroll locking for nested dialogs.
-- `dialogSizeClass` is computed once at setup from `props.size` and is not reactive to size changes.
-- Styles are global (non-scoped `<style>`) and rely on CSS variables like `--panel-bg-top`, `--space-8`, `--transition-fast` being defined elsewhere.
-- Depends on native `<dialog>` element support (showModal/close, ::backdrop, cancel event).
-- Body scroll lock mutates `document.body` styles directly and stores originals in dataset attributes; an unmount while open triggers unlock to avoid a leaked lock.
+- `openDialogCount` is a module-level variable shared across all BaseDialog instances to coordinate scroll locking for nested/multiple dialogs; if lock/unlock calls become unbalanced the count can drift and leave the body scroll-locked.
+- `dialogSizeClass` is computed once at setup from the initial `size` prop and is not reactive to later prop changes.
+- The native `<dialog>` already handles escape-key closing; `handleEscape` only prevents it when `closeOnEscape` is false, and the resulting `close` event still emits via `handleClose`.
+- Requires CSS custom properties (e.g. `--panel-bg-top`, `--space-8`, `--transition-fast`) to be defined globally for correct styling.
+- Backdrop-click detection relies on the click target being the dialog element itself, which depends on the content wrapper filling the dialog padding area.

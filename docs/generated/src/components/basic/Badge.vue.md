@@ -1,6 +1,6 @@
 ---
 source: src/components/basic/Badge.vue
-source_hash: 14ad00ae2169d21182bd75474e6568873d2c51cc7ed00ba04acbca10cb832730
+source_hash: 9fd13a54a171e95bed34955c281864870d62c086dfec01a9f77e5af944b3fddb
 doc_class: generated-reference
 generated_by: anthropic/claude-opus-4-8
 ---
@@ -9,15 +9,19 @@ generated_by: anthropic/claude-opus-4-8
 
 `src/components/basic/Badge.vue`
 
-> A small presentational Vue component that renders a styled inline badge/label. It provides consistent variant and size styling for short status or category text passed via the default slot.
+> A small presentational Vue component that renders an inline badge/label with configurable color variant and size. It exists to provide a consistent, reusable styled tag element across the application.
 
-This is a Vue 3 `<script setup>` SFC. It renders a single `<span>` containing the default slot content, with dynamically computed CSS classes.
+This is a Vue 3 `<script setup>` SFC. It renders a single `<span>` wrapping default slot content, with dynamically computed CSS classes.
 
 ### Props & logic
-Two optional props are defined with defaults: `variant` (defaults to `'secondary'`) and `size` (defaults to `'md'`). A `badgeClasses` computed property builds a class list combining the base `badge` class with `badge--{variant}` and `badge--{size}` modifiers, joined into a space-separated string.
+The component accepts two props via `defineProps` with `withDefaults`: `variant` (defaults to `'secondary'`) and `size` (defaults to `'md'`). A `badgeClasses` computed property builds a space-separated class string from a base `badge` class plus `badge--{variant}` and `badge--{size}` modifiers.
 
 ### Styling
-The component ships scoped-less global `<style>` defining the base `.badge` appearance (inline-block, uppercase, letter-spacing, rounded corners) plus size modifiers (`--sm`, `--md`, `--lg`) and variant modifiers (`--primary`, `--secondary`, `--success`, `--info`, `--warning`, `--danger`, `--seasonal`). Colors are pulled from CSS custom properties (e.g. `--color-primary`, `--color-text-inverse`).
+Scoped-free (global) `<style>` block defines the `.badge` base styles (inline-block, uppercase, small font, rounded corners) and modifier classes for each size (`sm`, `md`, `lg`) and each variant (`primary`, `secondary`, `success`, `info`, `warning`, `danger`, `seasonal`). Colors are driven by CSS custom properties (e.g. `--color-primary`, `--color-text-inverse`).
+
+## Exports
+
+- **Badge** (component) — `<Badge variant? size?>slot</Badge>`: Default export SFC rendering a styled span. Props: `variant` ('primary'|'secondary'|'success'|'info'|'warning'|'danger'|'seasonal', default 'secondary') and `size` ('sm'|'md'|'lg', default 'md'). Content is provided via the default slot. No emits.
 
 ## Internal dependencies
 
@@ -25,6 +29,6 @@ The component ships scoped-less global `<style>` defining the base `.badge` appe
 
 ## Notes
 
-- The `<style>` block is not scoped, so `.badge` and its modifier classes are global and could collide with other components.
-- Color styling relies entirely on external CSS custom properties (design tokens) such as `--color-primary`, `--color-text-inverse`, `--color-need-play`; the component will render without color if those variables are undefined.
-- The `.filter(Boolean)` in badgeClasses is effectively a no-op since all three class strings are always truthy.
+- The `<style>` block is global (not scoped), so `.badge` and modifier classes leak into the global stylesheet.
+- Relies on externally-defined CSS custom properties (e.g. --color-primary, --color-text-inverse, --color-need-play); missing variables will break coloring.
+- The `.filter(Boolean)` in badgeClasses is redundant since all three class strings are always truthy.

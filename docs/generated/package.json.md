@@ -1,6 +1,6 @@
 ---
 source: package.json
-source_hash: ffea75a2fe5db63bdbed18fe0ecced1b3715660be269a04f13a0c2ec9a1f01e3
+source_hash: 2b148c50b2a0c7474091375ee060dd2254312b9eee0f88ebc927a3373f71e6a1
 doc_class: generated-reference
 generated_by: anthropic/claude-opus-4-8
 ---
@@ -9,25 +9,23 @@ generated_by: anthropic/claude-opus-4-8
 
 `package.json`
 
-> The npm package manifest for the gps3 project (Guinea Pig Simulation Game), a virtual pet care simulator. It defines project metadata, dependencies, and build scripts for a Vue 3 + Vite + TypeScript application.
+> The npm manifest for the gps3 project, a Vue 3 based Guinea Pig Simulation Game. It declares project metadata, build/dev scripts, and the runtime and development dependencies required to build and run the application.
 
-## Project Metadata
-Declares the package as `gps3` version `0.0.1`, authored by `ktocdev`, licensed as `UNLICENSED`, and using ES modules (`"type": "module"`).
+## Metadata
+Defines the package `gps3` (version 0.0.1), described as a "Guinea Pig Simulation Game - Virtual pet care simulator with personality discovery", authored by `ktocdev` under an `UNLICENSED` license. Uses ES modules (`"type": "module"`).
 
 ## Scripts
-- `dev`: runs the Vite dev server.
-- `build`: type-checks with `vue-tsc -b` then bundles via `vite build`.
-- `preview`: serves the production build locally with `vite preview`.
+- `dev`: runs `vite` for local development.
+- `build`: runs `vue-tsc -b` for type-checking/build then `vite build`.
+- `preview`: runs `vite preview` to serve the production build.
 
 ## Dependencies
-Runtime libraries include Vue 3 (`vue`), routing (`vue-router`), state management (`pinia`) with persistence (`pinia-plugin-persistedstate`), 3D rendering (`three`), floating UI positioning (`@floating-ui/vue`), and Iconify icon tooling (`@iconify/vue`, `@iconify-json/flowbite`).
+Runtime deps center on Vue 3 (`vue`, `vue-router`), state management via `pinia` with `pinia-plugin-persistedstate` for persistence, `three` for 3D rendering, `@floating-ui/vue` for positioning, and Iconify packages (`@iconify/vue`, `@iconify-json/flowbite`) for icons.
 
 ## Dev Dependencies
-Tooling for the Vue/Vite/TypeScript stack: `vite`, `@vitejs/plugin-vue`, `typescript`, `vue-tsc`, `@vue/tsconfig`, and `@types/three` for Three.js type definitions.
+Tooling includes `vite` and `@vitejs/plugin-vue` for bundling, `typescript`, `vue-tsc`, and `@vue/tsconfig` for TypeScript support, plus `@types/three` type definitions.
 
 ## Notes
 
-- License is UNLICENSED — the project is proprietary/not open-source.
-- The build script enforces TypeScript type-checking (vue-tsc) before bundling, so type errors will fail the build.
-- Uses Pinia with pinia-plugin-persistedstate, implying persisted store state (e.g., localStorage) elsewhere in the app.
-- Includes Three.js, indicating 3D rendering is part of the application.
+- Build script depends on `vue-tsc` type checking passing before Vite builds; type errors will fail the build.
+- License is `UNLICENSED`, indicating this is a private/proprietary project.

@@ -1,6 +1,6 @@
 ---
 source: src/components/basic/ContainerContentsMenu.vue
-source_hash: ae57a39f2b183b00150b463933c7cb2bdcc5b807578f9093fc82af16b450fc63
+source_hash: 65f1460c7f585cdb2c6c718010a9eaaf5c17ce4a8dfc6fdb98e63693d141da57
 doc_class: generated-reference
 generated_by: anthropic/claude-opus-4-8
 ---
@@ -9,34 +9,30 @@ generated_by: anthropic/claude-opus-4-8
 
 `src/components/basic/ContainerContentsMenu.vue`
 
-> A floating popover component that displays and manages the contents of a food bowl or hay rack container placed in the game world. It shows item counts, freshness, individual food items (with per-item removal), and provides action buttons to fill, clear, or move the container to inventory.
+> A teleported floating popover that displays the contents of a food-related container (food bowl or hay rack) in the game, showing item counts, freshness, and per-item details, and emitting actions for filling, clearing, removing food, or moving the container to inventory.
 
 ### Rendering
-The component `Teleport`s to `body` and conditionally renders (`v-if="show"`) a positioned popover. Positioning is handled by the `usePopover` composable, which supplies `floatingEl` (bound as template ref), `floatingStyles`, and `updatePosition`. A `watch` on `props.position` (immediate) calls `updatePosition(x, y)` whenever coordinates change.
+The component teleports its content to `<body>` and conditionally renders when `show` is true. It uses `usePopover` (Floating UI wrapper) for smart positioning; `floatingEl` is bound as a template ref and `floatingStyles` applied inline. A `watch` on `props.position` (immediate) calls `updatePosition(x, y)` whenever the target position changes.
 
 ### Two container modes
-Behavior branches on `props.containerType`:
-- **`bowl`**: renders a scrollable list of `foods`, each showing emoji, name, per-item freshness (color-coded), and a remove button that emits `remove-food` with the index. Stale foods (<40% freshness) get a highlighted remove button.
-- **`hay_rack`**: renders a simple line showing the number of hay `servings` (pluralized).
+Behavior branches on `containerType`:
+- **`bowl`**: renders a scrollable list of `foods`, each with emoji, name, freshness percentage (color-classed), and a remove button that emits `remove-food` with the item index. Stale foods (freshness < 40) get a highlighted remove button.
+- **`hay_rack`**: renders a simpler single-line summary of `hayServings` (with pluralization).
 
 ### Computed state
-- `title` — `containerName` or fallback `'Container'`.
-- `itemCount`/`capacity` — resolve to bowl or hay values based on type.
-- `isEmpty`, `canFill` — derived from count vs capacity.
-- `freshness` — for hay uses `props.freshness`; for bowl computes the average of food freshness values.
-- `isStale` — true when freshness < `STALE_THRESHOLD` (40).
-- `showFreshness`, `emptyMessage`, `clearButtonLabel`, `freshnessClass` — display helpers.
-- `getFreshnessClass(value)` — returns good/warning/critical CSS modifier by threshold (≥80/≥40/else).
+- `itemCount` / `capacity` pick bowl vs hay values.
+- `isEmpty`, `canFill` derive from count vs capacity.
+- `freshness`: for hay uses `props.freshness`; for bowl computes the average freshness across foods (100 if empty).
+- `isStale`: freshness below `STALE_THRESHOLD` (40).
+- `showFreshness`, `emptyMessage`, `clearButtonLabel`, `title`, `freshnessClass` adapt display text/classes to container type and staleness.
+- `getFreshnessClass(value)` maps a number to good (≥80), warning (≥40), or critical CSS class.
 
 ### Actions
-Buttons emit `fill` (shown when `canFill`), `clear` (shown when not empty, styled as warning when stale), `remove` (always, 'Move to Inventory'), and `close` (header ×).
-
-### Styling
-Extensive scoped-less (global) CSS using CSS custom properties, including a decorative striped awning via `::before`.
+The footer conditionally shows a fill button (when `canFill`), a clear/empty button (when not empty, warning-styled if stale), and always a 'Move to Inventory' button, each emitting the corresponding event. The header close button emits `close`.
 
 ## Exports
 
-- **ContainerContentsMenu** (component) — `<ContainerContentsMenu :show :position :containerType :containerName? :foods? :bowlCapacity? :hayServings? :hayCapacity? :freshness? @close @fill @clear @remove @remove-food />`: Floating popover for managing bowl/hay_rack contents. Props: `show: boolean`, `position: {x,y}`, `containerType: 'bowl'|'hay_rack'`, `containerName?: string|null`, `foods?: FoodItem[]` (default []), `bowlCapacity?: number` (3), `hayServings?: number` (0), `hayCapacity?: number` (4), `freshness?: number` (100). Emits: `close`, `fill`, `clear`, `remove`, and `remove-food: [index: number]`.
+- **ContainerContentsMenu** (component) — `<ContainerContentsMenu :show :position :container-type :container-name :foods :bowl-capacity :hay-servings :hay-capacity :freshness @close @fill @clear @remove @remove-food />`: Vue SFC popover. Props: `show: boolean`, `position: {x,y}`, `containerType: 'bowl'|'hay_rack'`, `containerName?: string|null`, `foods?: FoodItem[]` (default []), `bowlCapacity?: number` (default 3), `hayServings?: number` (default 0), `hayCapacity?: number` (default 4), `freshness?: number` (default 100). Emits: `close`, `fill`, `clear`, `remove`, `remove-food` (payload: index number).
 
 ## Internal dependencies
 
@@ -44,7 +40,8 @@ Extensive scoped-less (global) CSS using CSS custom properties, including a deco
 
 ## Notes
 
-- The `FoodItem` interface includes `itemId` but only `emoji`, `name`, and `freshness` are used in the template.
-- `void floatingEl` is present solely to suppress an unused-variable lint warning; the ref is actually consumed via the template `ref="floatingEl"`.
-- Freshness thresholds are duplicated: `STALE_THRESHOLD` (40) governs stale styling/labels, while `getFreshnessClass` independently hardcodes the 80/40 boundaries.
-- Styles are global (non-scoped `<style>`), so BEM class names must remain unique to avoid collisions across the app.
+- Content is teleported to `<body>`, so it escapes parent DOM/stacking contexts; relies on z-index 1000.
+- `FoodItem` interface declares `itemId` but the template only uses `emoji`, `name`, and `freshness`; list keys use array index, not `itemId`.
+- STALE_THRESHOLD is hardcoded to 40 and duplicated in the inline `food.freshness < 40` template check for the stale remove button.
+- `void floatingEl` is present solely to suppress an unused-variable warning; the ref is actually consumed via `ref="floatingEl"` in the template.
+- Styles are global (non-scoped `<style>`) and depend heavily on CSS custom properties (design tokens) defined elsewhere.

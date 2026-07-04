@@ -1,6 +1,6 @@
 ---
 source: src/components/chrome/HabitatStatusPanel.vue
-source_hash: 1d969650c8c0ad5fcbdd4b15c0a06ceb59ee3232eeb1d28fc3d3075476a9363f
+source_hash: 0453789257818826c8b18289e54b2200e7cbc473dcb5f911f853a79b0384ad82
 doc_class: generated-reference
 generated_by: anthropic/claude-opus-4-8
 ---
@@ -9,29 +9,30 @@ generated_by: anthropic/claude-opus-4-8
 
 `src/components/chrome/HabitatStatusPanel.vue`
 
-> A Vue chrome component that displays a set of habitat condition meters (water, hay, cleanliness, bedding, and overall) sourced from the habitat conditions store, each rendered as a labeled progress bar with color-coded styling based on its value.
+> A Vue chrome component that renders a set of progress meters showing the current state of the habitat (water, hay freshness, cleanliness, bedding, and overall condition), pulling live values from the habitat conditions store and color-coding each meter based on its level.
 
-## Data source
-Uses the `useHabitatConditions` Pinia store to read reactive values: `waterLevel`, `hayFreshness`, `cleanliness`, `beddingFreshness`, and `overallCondition`.
+## Structure
+The component reads reactive habitat values via `useHabitatConditions()` and exposes a computed `meters` array. Each meter entry defines a `key`, `label`, `emoji`, a `value` bound to a store property, and a fixed CSS-variable `color` for its fill bar.
 
 ## Rendering
-A `meters` computed builds an array of five meter descriptors, each with a `key`, `label`, `emoji`, `value` (from the store), and a fixed CSS-variable `color` for the fill. The template `v-for`s over `meters`, rendering each as a `.chrome-meter` block containing a head (emoji + label + rounded percentage value) and a track with a `.chrome-meter__fill` whose width is set to `${value}%`.
+The template iterates over `meters` with `v-for`, rendering a `.chrome-meter` block for each. Each block shows an emoji + label, the rounded percentage value, and a track whose fill width is set to `${meter.value}%`. Meter values map to store fields: `waterLevel`, `hayFreshness`, `cleanliness`, `beddingFreshness`, and `overallCondition`.
 
-## Color palette
-The `palette(value)` function returns `bg`, `border`, and `text` colors based on thresholds: ≤20 (red), ≤40 (gold/amber), ≤70 (neutral), otherwise green. These are applied per-meter via inline CSS custom properties (`--meter-bg`, `--meter-border`, `--meter-text`).
+## Color palette logic
+The `palette(value)` function returns `bg`, `border`, and `text` colors based on value thresholds (≤20 red, ≤40 gold/amber, ≤70 neutral, otherwise green). These are applied via inline CSS custom properties (`--meter-bg`, `--meter-border`, `--meter-text`) on each meter element, while the fill bar uses the meter's own fixed `color`.
 
-## Styling
-The scoped-style block only defines `.habitat-status-panel` as a grid with gap. The `.chrome-meter*` classes and CSS variables are expected to be defined elsewhere (global chrome styles).
+## State/data flow
+All values are derived reactively from the habitat conditions store; the component holds no local mutable state and emits no events.
 
 ## Exports
 
-- **HabitatStatusPanel** (component) — `<HabitatStatusPanel />`: Vue SFC (script setup) with no props or emits. Renders five habitat condition meters read from the habitat conditions store.
+- **HabitatStatusPanel** (component) — `Vue SFC <script setup>`: Renders habitat condition meters. No props, no emits. Consumes the habitat conditions store internally.
 
 ## Internal dependencies
 
+- `vue`
 - `../../stores/habitatConditions`
 
 ## Notes
 
-- Relies on global CSS classes (`.chrome-meter`, `.chrome-meter__*`) and many CSS custom properties (e.g. `--chrome-entry-bg`, `--color-*`, `--space-2`) that are not defined in this file.
-- Meter `value`s are assumed to be 0-100 percentages; values outside that range would produce fill widths beyond 100%.
+- The CSS-variable palette (--meter-bg/border/text) is applied to the meter container, but the fill bar uses the meter's own hardcoded `color` var, not the threshold-based palette.
+- Meter values are assumed to be 0–100 since width and rounding treat them as percentages.

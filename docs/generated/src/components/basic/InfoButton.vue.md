@@ -1,40 +1,40 @@
 ---
 source: src/components/basic/InfoButton.vue
-source_hash: 6303472e3c5381a56e1a90c53bd23b8bad48502771696f691c1e331b875ae242
+source_hash: 8fb52b732846b4f323b846ccb638b49a2fe0435e9bb34eee9e3fe81aee0253ab
 doc_class: generated-reference
 generated_by: anthropic/claude-opus-4-8
 ---
 
-# InfoButton
+# InfoButton.vue
 
 `src/components/basic/InfoButton.vue`
 
-> A small circular info button that toggles a positioned popover displaying an informational message. It provides accessible attributes and handles click-outside and Escape-key dismissal.
+> A small circular info button that toggles a positioned popover displaying a message. Used to provide contextual help/information triggered by clicking an info icon.
 
 ## Structure
-The component renders a wrapper `div` containing a `button` (with an info-circle `Icon`) and, conditionally, a popover `div` shown when `isOpen` is true.
+The component renders a wrapper `div` containing a `button` (with an `info-circle-solid` Icon) and a conditionally-rendered popover `div` shown when `isOpen` is true.
 
 ## State
-- `isOpen` (ref) — controls popover visibility.
-- `buttonRef` / `popoverRef` — template refs to the button and popover elements, used for click-outside detection and focus management.
-- `popoverClasses` (computed) — builds class list combining base `info-button__popover` with a position modifier derived from `props.position`.
+- `isOpen` (ref boolean): controls popover visibility, toggled by clicking the button.
+- `buttonRef` / `popoverRef`: template refs to the button and popover elements, used for click-outside detection and focus management.
 
 ## Behavior
 - `togglePopover` flips `isOpen` on button click.
 - `closePopover` sets `isOpen` to false.
-- `handleClickOutside` closes the popover when a click occurs outside both the button and popover.
-- `handleKeyDown` closes the popover on `Escape` and returns focus to the button.
-- Document-level `click` and `keydown` listeners are added on mount and removed before unmount.
+- `handleClickOutside` (document click listener) closes the popover when a click occurs outside both the button and popover.
+- `handleKeyDown` (document keydown listener) closes the popover on `Escape` and returns focus to the button.
+- Listeners are added in `onMounted` and removed in `onBeforeUnmount`.
+- `popoverClasses` computes the base class plus a position modifier (`info-button__popover--{position}`).
 
 ## Accessibility
-The button exposes `aria-label`, `aria-expanded`, and `aria-haspopup`. The popover uses `role="status"` and `aria-live="polite"`.
+The button exposes `aria-label`, `aria-expanded`, and `aria-haspopup`; the popover uses `role="status"` with `aria-live="polite"`.
 
 ## Styling
-Scoped-less (global) CSS defines the circular button and four popover positions (top/bottom/left/right), each with a directional arrow via `::after`, using CSS custom properties for colors and spacing.
+Scoped-less `<style>` block defines the circular button appearance and popover positioning variants (top/bottom/left/right) each with an arrow pseudo-element, using CSS custom properties.
 
 ## Exports
 
-- **InfoButton** (component) — `<InfoButton :message="string" :position?="'top'|'bottom'|'left'|'right'" :aria-label?="string" />`: Vue SFC (script setup). Props: `message` (required string, popover text), `position` (optional, default 'top'), `ariaLabel` (optional, default 'More information'). No emitted events.
+- **InfoButton** (component) — `<InfoButton :message="string" :position?="'top'|'bottom'|'left'|'right'" :aria-label?="string" />`: Vue SFC (script setup). Props: `message` (required string, popover text), `position` (optional, default 'top'), `ariaLabel` (optional, default 'More information'). Emits: none. Renders an info icon button toggling a positioned popover.
 
 ## Internal dependencies
 
@@ -43,7 +43,6 @@ Scoped-less (global) CSS defines the circular button and four popover positions 
 
 ## Notes
 
-- Registers global document `click` and `keydown` listeners for the lifetime of the component; relies on onBeforeUnmount cleanup.
-- The `<style>` block is not scoped, so class definitions are global.
-- Depends on CSS custom properties (e.g. --color-primary, --space-*) being defined elsewhere.
-- Popover width is fixed at 300px (max 400px), which may overflow on narrow layouts regardless of position.
+- Registers global document-level click and keydown listeners; relies on onBeforeUnmount cleanup to avoid leaks.
+- Popover has a fixed inline-size of 300px (max 400px), not driven by props.
+- Styling depends on external CSS custom properties (--color-primary, --space-*, --radius-md, etc.) being defined globally.

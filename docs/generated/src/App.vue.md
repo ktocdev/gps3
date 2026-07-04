@@ -1,46 +1,43 @@
 ---
 source: src/App.vue
-source_hash: a9a5ecc26ef4dc7ec254c0b98b4fecf887bcef8ea8c975baf265358d76f93ee6
+source_hash: 5802de9cf75ea57cfe06bebc1edf83caab7450841be43aa020f85d267eb0c970
 doc_class: generated-reference
 generated_by: anthropic/claude-opus-4-8
 ---
 
-# App.vue
+# App Root Component
 
 `src/App.vue`
 
-> Root application component for the gps3 app. It renders the router outlet and a global pause overlay, initializes all core Pinia stores in a defined order on mount, syncs the chrome theme to the document element, and wires up automatic game pausing via the Page Visibility API.
+> The root Vue component for the gps3 application. It bootstraps all core Pinia stores in a defined order on mount, wires up the router outlet, syncs the chrome theme to the document element, and manages automatic and manual game pause behavior via a pause overlay.
 
 ## Template
-Renders `<RouterView />` and a `<PauseOverlay>` bound with `v-model="showPauseOverlay"`, a `:pause-reason` prop, and a `@resume` handler.
+Renders a `<RouterView />` for routed pages plus a `<PauseOverlay>` bound with `v-model` to `showPauseOverlay`, passing `pauseReason` and listening for `@resume`.
 
-## Theme syncing
-Watches `themeStore.chromeTheme` (immediate). When the theme is `'default'` it deletes `document.documentElement.dataset.chromeTheme`; otherwise it sets `data-chrome-theme` on `<html>`.
+## Theme sync
+Watches `themeStore.chromeTheme` (immediate). When the theme is `'default'` it removes the `data-chrome-theme` attribute from `document.documentElement`; otherwise it sets it to the theme value.
+
+## Store initialization (onMounted)
+Initializes stores in a specific order: `usePlayerProgression().initializeStore()`, `useGuineaPigStore().initializeStore()`, `usePetStoreManager().initializeStore()`, then `gameController.initializeStore()`. Afterwards it sets up visibility listeners and the pause watcher.
+
+## Pause handling
+- **Visibility API:** `setupVisibilityListeners` registers a `visibilitychange` handler stored in module-level `visibilityChangeHandler`. When `document.hidden` and the game is active, it calls `gameController.pauseGame('visibility')`, sets `pauseReason` to `'visibility'`, and shows the overlay. It intentionally does not auto-resume on becoming visible.
+- **Manual pause watcher:** `setupPauseWatcher` watches `gameController.gameState.pauseReason`. If the game is paused and the reason is `'manual'`, `'visibility'`, or `'orientation'`, it updates `pauseReason` and shows the overlay (unless already visible). Navigation pauses are excluded (handled by router).
+- **Resume:** `handleResume` calls `gameController.resumeGame()` and hides the overlay.
+
+## Cleanup
+`onUnmounted` calls `cleanupVisibilityListeners`, which removes the `visibilitychange` listener and clears the handler reference.
 
 ## Local state
-- `showPauseOverlay` (ref boolean) controls overlay visibility.
-- `pauseReason` (ref) is one of `'manual' | 'visibility' | 'orientation' | 'navigation'`.
-
-## Mount sequence (`onMounted`)
-Initializes stores in order: `usePlayerProgression().initializeStore()`, `useGuineaPigStore().initializeStore()`, `usePetStoreManager().initializeStore()`, then `gameController.initializeStore()`. It then calls `setupVisibilityListeners()` and `setupPauseWatcher()`.
-
-## Visibility handling
-`setupVisibilityListeners` registers a `visibilitychange` handler stored in `visibilityChangeHandler`. When `document.hidden` and the game is active, it pauses the game with reason `'visibility'` and shows the overlay. It never auto-resumes; the user must click resume. `cleanupVisibilityListeners` (called in `onUnmounted`) removes the listener.
-
-## Pause watcher
-`setupPauseWatcher` watches `gameController.gameState.pauseReason`. When paused with a reason of `'manual'`, `'visibility'`, or `'orientation'`, it sets `pauseReason` and shows the overlay (unless already showing). Navigation pauses are intentionally excluded (handled by the router).
-
-## Resume
-`handleResume` calls `gameController.resumeGame()` and hides the overlay.
+`showPauseOverlay` (ref boolean) and `pauseReason` (ref union of `'manual' | 'visibility' | 'orientation' | 'navigation'`).
 
 ## Exports
 
-- **default** (component) — `App.vue (root SFC, script setup)`: Root component. No props or emits. Renders RouterView and PauseOverlay; manages global store initialization, theme sync, and pause overlay state.
+- **App** (component) — `<App />`: Root SFC. No props or emits. Hosts RouterView and PauseOverlay, initializes all core stores, syncs chrome theme to the document element, and manages pause overlay state driven by the Page Visibility API and game controller pause state.
 
 ## Internal dependencies
 
 - `vue-router`
-- `vue`
 - `./stores/guineaPigStore`
 - `./stores/gameController`
 - `./stores/petStoreManager`
@@ -50,8 +47,7 @@ Initializes stores in order: `usePlayerProgression().initializeStore()`, `useGui
 
 ## Notes
 
-- Store initialization order is intentional and sequential (playerProgression → guineaPig → petStoreManager → gameController).
-- Visibility-based pausing never auto-resumes; the overlay resume button is the only path to resume.
-- Navigation pause reasons are deliberately excluded from the overlay and expected to be handled by the router.
-- The theme watcher mutates the global `document.documentElement.dataset` as a side effect.
-- Only gameController is captured at setup scope; the other stores are instantiated locally inside onMounted.
+- Store initialization order is significant: playerProgression, guineaPigStore, petStoreManager, then gameController.
+- Tab visibility loss pauses the game but never auto-resumes; the user must click resume.
+- Navigation pause reason is deliberately excluded from the overlay watcher (handled by the router).
+- `visibilityChangeHandler` is a module-scoped mutable variable, not component-scoped; only one App instance is assumed.
