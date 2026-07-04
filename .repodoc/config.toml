@@ -60,3 +60,9 @@ trust_remote_code = true
 [mcp]
 # Name for the MCP server registration
 name = "gps3-docs"
+
+[site]
+# Build the site ONLY from generated reference pages (docs/generated).
+# The old docs/ planning files are for the 2D version and are excluded.
+# Expand nav sections so src/ is open by default.
+expand_nav = true
