@@ -6,14 +6,15 @@
 
 name: repodoc sync
 
+# PAUSED: auto-trigger disabled until the Anthropic API account has credit.
+# With no credit, `repodoc generate` fails on any source change. To re-enable
+# auto-sync once credit is added, uncomment the `push:` block below.
 on:
-  push:
-    branches: ["master"]
-    # avoid self-triggering on the bot's own docs commit (belt-and-suspenders
-    # with [skip ci]); ignore pushes that only touch generated output
-    paths-ignore:
-      - "docs/generated/**"
-      - ".repodoc/manifest.json"
+  # push:
+  #   branches: ["master"]
+  #   paths-ignore:
+  #     - "docs/generated/**"
+  #     - ".repodoc/manifest.json"
   workflow_dispatch:
 
 permissions:

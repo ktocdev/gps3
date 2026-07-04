@@ -1,0 +1,5 @@
+# repodoc-managed files: force LF so content hashes are identical across
+# Windows and Linux (prevents CI regenerating everything on line-ending diffs)
+docs/generated/** text eol=lf
+.repodoc/manifest.json text eol=lf
+.repodoc/config.toml text eol=lf
